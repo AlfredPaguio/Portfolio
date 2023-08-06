@@ -7,6 +7,7 @@ use Livewire\Component;
 class Counter extends Component
 {
     public $count = 1;
+    public $showModal = false;
 
     public function increment()
     {
@@ -16,6 +17,10 @@ class Counter extends Component
     public function decrement()
     {
         $this->count--;
+    }
+
+    public function openModal(){
+        $this->showModal = !$this->showModal;
     }
 
     public function render()
