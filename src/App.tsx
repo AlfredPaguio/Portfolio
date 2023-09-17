@@ -1,11 +1,20 @@
-import { ModeToggle } from "@/components/mode-toggle"
+import { NavBar } from "@/components/navBar";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Home } from "./Home";
+import { Projects } from "./Projects";
+import { Contact } from "./Contact";
+
+
 function App() {
   return (
-    <>
-    <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    <ModeToggle />
-    
-    </>
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path='/' Component={Home} />
+        <Route path='/projects' Component={Projects} />
+        <Route path='/contact' Component={Contact} />
+      </Routes>
+    </Router>
   );
 }
 
