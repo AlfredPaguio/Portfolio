@@ -14,7 +14,7 @@ export function NavBar() {
     <>
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem>
+          <NavigationMenuItem className="text-slate-900 dark:text-white">
             <Link to="/">
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Home
@@ -22,7 +22,7 @@ export function NavBar() {
             </Link>
           </NavigationMenuItem>
 
-          <NavigationMenuItem>
+          <NavigationMenuItem className="text-slate-900 dark:text-white">
             <Link to="/projects">
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Projects
@@ -30,7 +30,7 @@ export function NavBar() {
             </Link>
           </NavigationMenuItem>
 
-          <NavigationMenuItem>
+          <NavigationMenuItem className="text-slate-900 dark:text-white">
             <Link to="/contact">
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Contact
