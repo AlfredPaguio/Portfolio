@@ -1,4 +1,4 @@
-export function Projects() {
+export default function Projects() {
   return (
     <>
       <h1 className="text-3xl font-bold underline">Projects!</h1>
