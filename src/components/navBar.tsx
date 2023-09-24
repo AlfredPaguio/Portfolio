@@ -8,38 +8,32 @@ import {
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 import { ModeToggle } from "@/components/mode-toggle";
+import pagesData from "../pages/pagesData";
+import { routerType } from "../types/router.types";
+
+
+
 
 export function NavBar() {
+  
   return (
     <>
-      <NavigationMenu>
+      <NavigationMenu className="dark:bg-white bg-black w-screen">
         <NavigationMenuList>
-          <NavigationMenuItem className="text-slate-900 dark:text-white">
-            <Link to="/">
+
+
+        {pagesData.map((route: routerType) => {
+          return <NavigationMenuItem className="dark:text-black text-white">
+            <Link to={`/${route.path}`}>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Home
+              {route.title}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
-
-          <NavigationMenuItem className="text-slate-900 dark:text-white">
-            <Link to="/projects">
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Projects
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem className="text-slate-900 dark:text-white">
-            <Link to="/contact">
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Contact
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-
-          {/* ModeToggle */}
+        })}
+          
           <ModeToggle />
+
         </NavigationMenuList>
       </NavigationMenu>
     </>

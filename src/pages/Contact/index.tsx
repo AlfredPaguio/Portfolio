@@ -1,3 +1,4 @@
+import { InputForm } from "@/components/InputForm";
 import { MailOpen } from "lucide-react";
 
 export default function Contact() {
@@ -15,6 +16,8 @@ export default function Contact() {
           <p className="text-slate-500">You have a new message!</p>
         </div>
       </div>
+
+      <InputForm />
     </>
   );
 }
