@@ -11,7 +11,7 @@ const projectsData: projectType[] = [
   },
   {
     title: "Information Site",
-    stack: ["PHP", "Laravel", "Laravel Livewire", "JQuery", "Javascript", "MySQL"],
+    stack: ["PHP", "Laravel", "Laravel Livewire", "JQuery", "Javascript"],
     description: "The Information Site Enhancement project at B&D IT Consultancy aimed to elevate the company's online presence and improve the user experience (UX) for visitors to the website. This project was part of the company's strategic efforts to effectively communicate its services, values, and culture to potential clients and partners.",
     links:{
       GitHub: "https://github.com/AlfredPaguio/BND-Info-Site",
