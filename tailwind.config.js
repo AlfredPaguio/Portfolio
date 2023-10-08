@@ -25,14 +25,14 @@ module.exports = {
     extend: {
       colors: {
         'text': {
-          light: '#08020d',
-          DEFAULT: '#08020d',
-          dark: '#f8f2fd', 
+          light: '#0a060e',
+          DEFAULT: '#0a060e',
+          dark: '#f5f1f9', 
         },
         'background': {
-          light: '#ece9ed',
-          DEFAULT: '#ece9ed',
-          dark: '#151216',
+          light: '#e9dff1',
+          DEFAULT: '#e9dff1',
+          dark: '#180e20',
         },
         'primary': {
           light:'#4e1778',
@@ -40,9 +40,9 @@ module.exports = {
           dark: '#be87e8',
         },
         'secondary': {
-          light:'#dfc3f4',
-          DEFAULT: '#dfc3f4',
-          dark: '#270b3c',
+          light:'#d2a9f4',
+          DEFAULT: '#d2a9f4',
+          dark: '#340b56',
         },
         'accent': {
           light:'#8026c5',
@@ -50,20 +50,7 @@ module.exports = {
           dark: '#943ad9',
         },
        },
-      keyframes: {
-        "accordion-down": {
-          from: { height: 0 },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
+      
     },
   },
   plugins: [require("tailwindcss-animate")],
