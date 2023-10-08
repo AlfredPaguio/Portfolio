@@ -8,7 +8,7 @@ module.exports = {
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
     "prettier",
-    "prettier-plugin-tailwindcss",
+    "plugin:prettier-plugin-tailwindcss",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",

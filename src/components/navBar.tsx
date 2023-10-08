@@ -12,13 +12,13 @@ import { twMerge } from "tailwind-merge";
 export function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <nav className="relative container mx-auto p-4">
+    <nav className="relative mx-auto p-4 ">
       {/* Container */}
       <div className="flex items-center justify-between">
         {/* Logo */}
         <div className="p-2">
           <Link to="/">
-            <h1 className="text-3xl font-bold bg-clip-text bg-gradient-to-r from-primary to-accent text-transparent">
+            <h1 className="bg-gradient-to-r from-primary to-accent bg-clip-text  text-3xl font-bold text-transparent dark:from-primary-dark  dark:to-accent-dark">
               Portfolio
             </h1>
           </Link>
@@ -28,24 +28,24 @@ export function NavBar() {
           {pagesData
             .filter((route: routerType) => route.path != "*")
             .map((route: routerType, key) => {
-              console.log('Menu' + key);
-              return <Link
-                    key={key}
-                    to={`/${route.path}`}
-                    className="text-text dark:text-text-dark hover:text-accent dark:hover:text-accent-dark pt-1"
-                  >
-                    {route.title}
-                  </Link>
-              
+              return (
+                <Link
+                  key={key}
+                  to={`/${route.path}`}
+                  className="pt-1 text-text transition-all duration-200 hover:text-accent dark:text-text-dark dark:hover:text-accent-dark"
+                >
+                  {route.title}
+                </Link>
+              );
             })}
           <ModeToggle />
         </div>
 
-        <div className="block md:hidden focus:outline-none space-x-6">
+        <div className="block space-x-6 focus:outline-none md:hidden">
           {/* Icons */}
           <ModeToggle />
           <button id="menu-btn" onClick={() => setShowMenu(!showMenu)}>
-            <Menu className="text-text dark:text-text-dark hover:text-accent dark:hover:text-accent-dark" />
+            <Menu className="text-text transition-all duration-200 hover:text-accent dark:text-text-dark dark:hover:text-accent-dark" />
           </button>
         </div>
       </div>
@@ -55,28 +55,27 @@ export function NavBar() {
         <div
           className={twMerge(
             showMenu ? "flex" : "hidden",
-            "absolute flex-col items-center self-end py-8 mt-10 space-y-6 font-bold bg-background dark:bg-background-dark sm:w-auto sm:self-center left-6 right-6 drop-shadow-md"
+            "absolute left-6 right-6 mt-10 flex-col items-center space-y-6 self-end bg-background py-8 font-bold drop-shadow-md dark:bg-background-dark sm:w-auto sm:self-center",
           )}
         >
           {pagesData
             .filter((route: routerType) => route.path != "*")
             .map((route: routerType, key) => {
-              console.log('MenuMobileView' + key);
               return (
                 <>
                   <Link
-                    key={'MenuMobileView'+key}
+                    key={"MenuMobileView" + key}
                     to={`/${route.path}`}
-                    className="text-text dark:text-text-dark hover:text-accent dark:hover:text-accent-dark pb-1"
+                    className="pb-1 text-text transition-all duration-200 hover:text-accent dark:text-text-dark dark:hover:text-accent-dark"
                   >
                     {route.title}
                   </Link>
-                  
                 </>
               );
             })}
         </div>
       </div>
+      <hr className="dark:accent-dark my-3 h-px border-0 bg-accent" />
     </nav>
   );
 }
