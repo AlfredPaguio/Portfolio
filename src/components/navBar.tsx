@@ -12,14 +12,14 @@ import { twMerge } from "tailwind-merge";
 export function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <nav className="relative mx-auto p-4 ">
+    <nav className="relative mx-auto p-4 shadow-md shadow-accent/40 dark:shadow-accent-dark/40">
       {/* Container */}
       <div className="flex items-center justify-between">
         {/* Logo */}
         <div className="p-2">
           <Link to="/">
             <h1 className="bg-gradient-to-r from-primary to-accent bg-clip-text  text-3xl font-bold text-transparent dark:from-primary-dark  dark:to-accent-dark">
-              Portfolio
+            ∀
             </h1>
           </Link>
         </div>
@@ -75,7 +75,7 @@ export function NavBar() {
             })}
         </div>
       </div>
-      <hr className="dark:accent-dark my-3 h-px border-0 bg-accent" />
+    
     </nav>
   );
 }

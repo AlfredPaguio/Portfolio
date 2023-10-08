@@ -30,9 +30,9 @@ module.exports = {
           dark: '#f5f1f9', 
         },
         'background': {
-          light: '#e9dff1',
-          DEFAULT: '#e9dff1',
-          dark: '#180e20',
+          light: '#ffffff',
+          DEFAULT: '#ffffff',
+          dark: '#000000',
         },
         'primary': {
           light:'#4e1778',
