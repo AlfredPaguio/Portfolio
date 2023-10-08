@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster"
 
 function App() {
   return (
-      <div className="bg-white dark:bg-black text-slate-900 dark:text-white w-screen h-screen">
+      <div className=" bg-background dark:bg-background-dark h-screen">
         <NavBar />
         <Router />
         <Toaster />
