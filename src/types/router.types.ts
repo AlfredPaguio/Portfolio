@@ -3,4 +3,5 @@ export interface routerType {
   path: string;
   description?: string;
   element: JSX.Element;
+  icon?: JSX.Element;
 }

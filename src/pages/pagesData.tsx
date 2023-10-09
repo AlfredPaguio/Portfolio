@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 
 import Loading from "@/components/Loading";
 import NoPage from "./NoPage";
+import { BriefcaseIcon, HomeIcon, MailIcon } from "lucide-react";
 
 const Home = lazy(() => import("./Home"));
 const Projects = lazy(() => import("./Projects"));
@@ -18,6 +19,12 @@ const pagesData: routerType[] = [
     ),
     title: "Home",
     description: "The starting point of creativity.",
+    icon: (
+      <HomeIcon
+        className="mx-auto 
+    text-2xl text-accent dark:text-accent-dark md:text-3xl"
+      />
+    ),
   },
   {
     path: "projects",
@@ -28,6 +35,12 @@ const pagesData: routerType[] = [
     ),
     title: "Projects",
     description: "Where innovation takes shape",
+    icon: (
+      <BriefcaseIcon
+        className="mx-auto 
+    text-2xl text-accent dark:text-accent-dark md:text-3xl"
+      />
+    ),
   },
   {
     path: "contact",
@@ -38,6 +51,12 @@ const pagesData: routerType[] = [
     ),
     title: "Contact",
     description: "Get in touch, let's make magic.",
+    icon: (
+      <MailIcon
+        className="mx-auto 
+    text-2xl text-accent dark:text-accent-dark md:text-3xl"
+      />
+    ),
   },
   {
     path: "*",

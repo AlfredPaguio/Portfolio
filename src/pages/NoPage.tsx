@@ -44,12 +44,9 @@ export default function NoPage() {
                     px-4 py-8 transition-all duration-200
                     hover:cursor-pointer dark:border-primary-dark"
                         >
-                          {/* <div className="rounded-xl bg-blue-100 px-3 py-2 md:py-4">
-                            <i
-                              className="mx-auto 
-                            text-2xl text-indigo-900 md:text-3xl"
-                            ></i>
-                          </div> */}
+                          <div className="rounded-xl bg-secondary dark:bg-secondary-dark px-3 py-2 md:py-4">
+                            {route.icon}
+                          </div>
 
                           {/* Text */}
                           <div className="flex grow flex-col pl-5 pt-2">
