@@ -1,18 +1,19 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
     screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
+      sm: "480px",
+      md: "768px",
+      lg: "976px",
+      xl: "1440px",
     },
     container: {
       center: true,
@@ -21,37 +22,45 @@ module.exports = {
         "2xl": "1400px",
       },
     },
-    
+
     extend: {
       colors: {
-        'text': {
-          light: '#0a060e',
-          DEFAULT: '#0a060e',
-          dark: '#f5f1f9', 
+        text: {
+          light: "#171102",
+          DEFAULT: "#171102",
+          dark: "#fdf7e8",
         },
-        'background': {
-          light: '#ffffff',
-          DEFAULT: '#ffffff',
-          dark: '#000000',
+        background: {
+          light: "#fefbfc",
+          DEFAULT: "#fefbfc",
+          dark: "#040102",
         },
-        'primary': {
-          light:'#4e1778',
-          DEFAULT: '#4e1778',
-          dark: '#be87e8',
+        primary: {
+          light: "#db146b",
+          DEFAULT: "#db146b",
+          dark: "#eb247a",
         },
-        'secondary': {
-          light:'#d2a9f4',
-          DEFAULT: '#d2a9f4',
-          dark: '#340b56',
+        secondary: {
+          light: "#ddbcf5",
+          DEFAULT: "#ddbcf5",
+          dark: "#2b0a43",
         },
-        'accent': {
-          light:'#8026c5',
-          DEFAULT: '#8026c5',
-          dark: '#943ad9',
+        accent: {
+          light: "#894abf",
+          DEFAULT: "#894abf",
+          dark: "#7e40b5",
         },
-       },
-      
+      },
+      textShadow: {
+        sm: "0 1px 2px var(--tw-shadow-color)",
+        DEFAULT: "0 2px 4px var(--tw-shadow-color)",
+        lg: "0 8px 16px var(--tw-shadow-color)",
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [
+    require("tailwindcss-animate"),
+
+    require("./plugins/textShadow"),
+  ],
+};
