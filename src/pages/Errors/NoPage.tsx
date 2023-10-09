@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import pagesData from "../pages/pagesData";
-import { routerType } from "../types/router.types";
+import pagesData from "../../routes/pagesData";
+import { routerType } from "../../routes/types/router.types";
 
 export default function NoPage() {
   return (

@@ -1,5 +1,3 @@
-import pagesData from "@/pages/pagesData";
-import { routerType } from "@/types/router.types";
 import { Facebook, Github, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 

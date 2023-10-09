@@ -1,5 +1,5 @@
 import { NavBar } from "@/components/navBar";
-import Router from "./pages/router";
+import Router from "./routes/router";
 import { Toaster } from "@/components/ui/toaster";
 import { Footer } from "@/components/footer";
 

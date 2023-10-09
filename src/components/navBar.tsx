@@ -4,8 +4,8 @@ import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { Menu } from "lucide-react";
 
 import { ModeToggle } from "@/components/mode-toggle";
-import pagesData from "../pages/pagesData";
-import { routerType } from "../types/router.types";
+import pagesData from "../routes/pagesData";
+import { routerType } from "../routes/types/router.types";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 

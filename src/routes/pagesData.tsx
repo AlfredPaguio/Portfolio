@@ -1,13 +1,13 @@
-import { routerType } from "../types/router.types";
+import { routerType } from "./types/router.types";
 import { lazy, Suspense } from "react";
 
 import Loading from "@/components/Loading";
-import NoPage from "./NoPage";
+import NoPage from "../pages/Errors/NoPage";
 import { BriefcaseIcon, HomeIcon, MailIcon } from "lucide-react";
 
-const Home = lazy(() => import("./Home"));
-const Projects = lazy(() => import("./Projects"));
-const Contact = lazy(() => import("./Contact"));
+const Home = lazy(() => import("../pages/Home"));
+const Projects = lazy(() => import("../pages/Projects"));
+const Contact = lazy(() => import("../pages/Contact"));
 
 const pagesData: routerType[] = [
   {
