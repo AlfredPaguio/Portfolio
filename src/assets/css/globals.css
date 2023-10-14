@@ -1,18 +1,10 @@
+//https://fonts.google.com/specimen/Nanum+Gothic+Coding
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=PT+Sans&family=Roboto&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-@media (prefers-color-scheme: light) {
-    :root {
-      color: #213547;
-      background-color: #ffffff;
-    }
-    a:hover {
-      color: #747bff;
-    }
-    button {
-      background-color: #f9f9f9;
-    }
-  }
-  
+* {
+  box-sizing: border-box;
+}
