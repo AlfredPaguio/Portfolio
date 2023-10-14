@@ -1,7 +1,8 @@
 import { InputForm } from "@/components/InputForm";
 import { MailOpen } from "lucide-react";
+import withPageTransition from '../../routes/components/withPageTransition';
 
-export default function Contact() {
+function Contact() {
   return (
     <div className="my-auto min-h-screen mx-auto">
       <h1 className="text-3xl font-bold underline">Contact</h1>
@@ -21,3 +22,5 @@ export default function Contact() {
     </div>
   );
 }
+
+export default withPageTransition(Contact);

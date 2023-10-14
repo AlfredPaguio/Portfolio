@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import pagesData from "../../routes/pagesData";
-import { routerType } from "../../routes/types/router.types";
+import pagesData from "@/routes/pagesData";
+import { routerType } from "@/routes/types/router.types";
+import withPageTransition from "@/routes/components/withPageTransition";
 
-export default function NoPage() {
+function NoPage() {
   return (
     <>
       <div className="flex min-h-screen items-center justify-center py-48">
@@ -74,3 +75,6 @@ export default function NoPage() {
     </>
   );
 }
+
+
+export default withPageTransition(NoPage);

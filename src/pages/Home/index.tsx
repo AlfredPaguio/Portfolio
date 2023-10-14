@@ -1,7 +1,8 @@
+import withPageTransition from "@/routes/components/withPageTransition";
 import { MailOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export default function Home() {
+function Home() {
   return (
     <section id="home">
       <div className="min-h-screen">
@@ -53,3 +54,6 @@ export default function Home() {
     </section>
   );
 }
+
+
+export default withPageTransition(Home);

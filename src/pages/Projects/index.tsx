@@ -1,8 +1,9 @@
 import projectsData from "./data/projectsData";
 import { ProjectCard } from "./components/projectCard";
+import withPageTransition from "@/routes/components/withPageTransition";
 
 
-export default function Projects() {
+function Projects() {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 my-5">
       {projectsData.map((project, index) => (
@@ -11,3 +12,5 @@ export default function Projects() {
     </div>
   );
 }
+
+export default withPageTransition(Projects);

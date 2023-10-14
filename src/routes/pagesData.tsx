@@ -1,22 +1,16 @@
 import { routerType } from "./types/router.types";
-import { lazy, Suspense } from "react";
-
-import Loading from "@/components/Loading";
-import NoPage from "../pages/Errors/NoPage";
+import { lazy } from "react";
 import { BriefcaseIcon, HomeIcon, MailIcon } from "lucide-react";
 
-const Home = lazy(() => import("../pages/Home"));
-const Projects = lazy(() => import("../pages/Projects"));
-const Contact = lazy(() => import("../pages/Contact"));
+const Home = lazy(() => import("@/pages/Home"));
+const Projects = lazy(() => import("@/pages/Projects"));
+const Contact = lazy(() => import("@/pages/Contact"));
+const NoPage = lazy(() => import("@/pages/Errors/NoPage"));
 
 const pagesData: routerType[] = [
   {
     path: "",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <Home />
-      </Suspense>
-    ),
+    element: <Home />,
     title: "Home",
     description: "The starting point of creativity.",
     icon: (
@@ -28,11 +22,7 @@ const pagesData: routerType[] = [
   },
   {
     path: "projects",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <Projects />
-      </Suspense>
-    ),
+    element: <Projects />,
     title: "Projects",
     description: "Where innovation takes shape",
     icon: (
@@ -44,11 +34,7 @@ const pagesData: routerType[] = [
   },
   {
     path: "contact",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <Contact />
-      </Suspense>
-    ),
+    element: <Contact />,
     title: "Contact",
     description: "Get in touch, let's make magic.",
     icon: (
@@ -61,7 +47,7 @@ const pagesData: routerType[] = [
   {
     path: "*",
     element: <NoPage />,
-    title: "404",
+    title: "404 Page Not Found",
     description: "You've landed on a wrong planet!",
   },
 ];
