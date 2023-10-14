@@ -19,10 +19,10 @@ export function NavBar() {
         <div className="p-2">
           <Link to="/">
             <div className="flex items-center">
-              <h1 className="animate-ping bg-gradient-to-r from-primary to-accent bg-clip-text  text-3xl font-bold text-transparent dark:from-primary-dark  dark:to-accent-dark">
+              <h1 className="animate-ping ease-in-out bg-gradient-to-r from-primary to-accent bg-clip-text  text-3xl font-bold text-transparent dark:from-primary-dark  dark:to-accent-dark">
                 ∀
               </h1>
-              <h1 className="animate-pulse text-shadow-sm  text-3xl font-bold text-text shadow-primary dark:text-text-dark dark:shadow-primary-dark">
+              <h1 className="animate-pulse ease-in-out text-3xl  font-bold text-text shadow-primary text-shadow-sm dark:text-text-dark dark:shadow-primary-dark">
                 lfred
               </h1>
             </div>
@@ -37,7 +37,7 @@ export function NavBar() {
                 <Link
                   key={key}
                   to={`/${route.path}`}
-                  className="relative pb-0.5 pt-1 text-text transition-all duration-200 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-accent after:transition-all after:duration-200 hover:text-accent hover:after:w-full dark:text-text-dark dark:hover:text-accent-dark"
+                  className="relative pb-0.5 pt-1 text-text transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-accent after:transition-all after:duration-200 hover:text-accent hover:after:w-full dark:text-text-dark dark:hover:text-accent-dark"
                 >
                   {route.title}
                 </Link>
@@ -71,7 +71,7 @@ export function NavBar() {
                   <Link
                     key={"MenuMobileView" + key}
                     to={`/${route.path}`}
-                    className="pb-1 text-text transition-all duration-200 hover:text-accent dark:text-text-dark dark:hover:text-accent-dark"
+                    className="pb-1 text-text transition-all duration-300 ease-in-out hover:text-accent dark:text-text-dark dark:hover:text-accent-dark"
                   >
                     {route.title}
                   </Link>
