@@ -2,8 +2,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { routerType } from "./types/router.types";
 import pagesData from "./pagesData";
 import { AnimatePresence } from "framer-motion";
-import Loading from "@/components/Loading";
-import { Suspense } from "react";
 
 const Router = () => {
   const location = useLocation();
@@ -13,15 +11,11 @@ const Router = () => {
   });
 
   return (
-    <>
-      <AnimatePresence mode="wait">
-        <Suspense fallback={<Loading />}>
-          <Routes location={location} key={location.pathname}>
-            {pageRoutes}
-          </Routes>
-        </Suspense>
-      </AnimatePresence>
-    </>
+    <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          {pageRoutes}
+        </Routes>
+    </AnimatePresence>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import PageTransition from './pageTransition';
+import PageTransition from './PageTransition';
 
 type ReactComponent = React.FC;
 

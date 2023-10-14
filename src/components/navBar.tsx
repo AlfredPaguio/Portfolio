@@ -19,10 +19,10 @@ export function NavBar() {
         <div className="p-2">
           <Link to="/">
             <div className="flex items-center">
-              <h1 className="animate-ping ease-in-out bg-gradient-to-r from-primary to-accent bg-clip-text  text-3xl font-bold text-transparent dark:from-primary-dark  dark:to-accent-dark">
+              <h1 className="animate-ping bg-gradient-to-r from-primary to-accent bg-clip-text text-3xl  font-bold text-transparent ease-in-out dark:from-primary-dark  dark:to-accent-dark">
                 ∀
               </h1>
-              <h1 className="animate-pulse ease-in-out text-3xl  font-bold text-text shadow-primary text-shadow-sm dark:text-text-dark dark:shadow-primary-dark">
+              <h1 className="animate-pulse text-3xl font-bold  text-text shadow-primary ease-in-out text-shadow-sm dark:text-text-dark dark:shadow-primary-dark">
                 lfred
               </h1>
             </div>
@@ -67,15 +67,13 @@ export function NavBar() {
             .filter((route: routerType) => route.path != "*")
             .map((route: routerType, key) => {
               return (
-                <>
-                  <Link
-                    key={"MenuMobileView" + key}
-                    to={`/${route.path}`}
-                    className="pb-1 text-text transition-all duration-300 ease-in-out hover:text-accent dark:text-text-dark dark:hover:text-accent-dark"
-                  >
-                    {route.title}
-                  </Link>
-                </>
+                <Link
+                  key={"MenuMobileView" + key}
+                  to={`/${route.path}`}
+                  className="pb-1 text-text transition-all duration-300 ease-in-out hover:text-accent dark:text-text-dark dark:hover:text-accent-dark"
+                >
+                  {route.title}
+                </Link>
               );
             })}
         </div>

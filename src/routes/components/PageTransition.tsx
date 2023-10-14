@@ -7,12 +7,7 @@ interface PageTransitionProps {
 
 const pageVariants: Variants = {
   initial: { opacity: 0 },
-  animate: {
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-    },
-  },
+  animate: { opacity: 1, transition: { duration: 0.5 } },
   exit: { opacity: 0 },
 };
 
@@ -23,6 +18,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
       animate="animate"
       exit="exit"
       variants={pageVariants}
+       transition={{ duration: 0.5 }}
     >
       {children}
     </motion.div>

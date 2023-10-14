@@ -5,7 +5,8 @@ import { BriefcaseIcon, HomeIcon, MailIcon } from "lucide-react";
 const Home = lazy(() => import("@/pages/Home"));
 const Projects = lazy(() => import("@/pages/Projects"));
 const Contact = lazy(() => import("@/pages/Contact"));
-const NoPage = lazy(() => import("@/pages/Errors/NoPage"));
+const NoPage = lazy(() => import("@/pages/SpecialPages/NoPage"));
+
 
 const pagesData: routerType[] = [
   {
