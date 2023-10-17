@@ -12,24 +12,15 @@ import { twMerge } from "tailwind-merge";
 export function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <nav className="relative mx-auto p-4 shadow-sm shadow-accent/40 dark:shadow-accent-dark/40">
+    <nav className="relative mx-auto p-4">
       {/* Container */}
       <div className="flex items-center justify-between">
-        {/* Logo */}
-        <div className="p-2">
-          <Link to="/">
-            <div className="flex items-center">
-              <h1 className="animate-ping bg-gradient-to-r from-primary to-accent bg-clip-text text-3xl  font-bold text-transparent ease-in-out dark:from-primary-dark  dark:to-accent-dark">
-                ∀
-              </h1>
-              <h1 className="animate-pulse text-3xl font-bold  text-text shadow-primary ease-in-out text-shadow-sm dark:text-text-dark dark:shadow-primary-dark">
-                lfred
-              </h1>
-            </div>
-          </Link>
+         {/* Theme ModeToggle */}
+        <div className="py-auto">
+          <ModeToggle />
         </div>
         {/* Menu Items */}
-        <div className="hidden items-center space-x-6 md:flex">
+        <div className="hidden items-center space-x-6 md:flex align-end">
           {pagesData
             .filter((route: routerType) => route.path !== "*")
             .map((route: routerType, key) => {
@@ -44,12 +35,11 @@ export function NavBar() {
                 </Link>
               );
             })}
-          <ModeToggle />
+          
         </div>
 
         <div className="block space-x-6 focus:outline-none md:hidden">
-          {/* Icons */}
-          <ModeToggle />
+          {/* Hamburger Menu */}
           <button id="menu-btn" onClick={() => setShowMenu(!showMenu)}>
             <Menu className="text-text transition-all duration-200 hover:text-accent dark:text-text-dark dark:hover:text-accent-dark" />
           </button>
