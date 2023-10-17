@@ -31,15 +31,16 @@ export function NavBar() {
         {/* Menu Items */}
         <div className="hidden items-center space-x-6 md:flex">
           {pagesData
-            .filter((route: routerType) => route.path != "*")
+            .filter((route: routerType) => route.path !== "*")
             .map((route: routerType, key) => {
               return (
                 <Link
                   key={key}
                   to={`/${route.path}`}
-                  className="relative pb-0.5 pt-1 text-text transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-accent after:transition-all after:duration-200 hover:text-accent hover:after:w-full dark:text-text-dark dark:hover:text-accent-dark"
+                  className="group relative text-text transition-all duration-300 ease-in-out dark:text-text-dark"
                 >
                   {route.title}
+                  <div className="top-50 absolute left-0 right-0 h-0.5 origin-left scale-x-0 transform bg-accent transition-all duration-200 ease-in-out group-hover:scale-x-100"></div>
                 </Link>
               );
             })}

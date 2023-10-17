@@ -5,9 +5,9 @@ import { Footer } from "@/components/footer";
 
 function App() {
   return (
-    <div className="h-100 bg-background font-roboto dark:bg-background-dark">
+    <div className="bg-background dark:bg-background-dark">
       <NavBar />
-      <main className="container">
+      <main className="container block min-w-full md:min-w-980">
         <Router />
       </main>
       <Footer />

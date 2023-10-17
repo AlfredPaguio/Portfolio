@@ -24,16 +24,6 @@ module.exports = {
     },
 
     extend: {
-      fontFamily: {
-        roboto: [
-          "Inter",
-          '"Nanum Gothic"',
-          '"Nanum Gothic Coding"',
-          '"PT Sans"',
-          "Roboto",
-          "sans-serif",
-        ],
-      },
       colors: {
         text: {
           light: "#171102",
