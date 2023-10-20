@@ -6,6 +6,14 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
 @tailwind components;
 @tailwind utilities;
 
+
+/* Force Dark Mode */
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: dark;
+  }
+}
+
 @layer base {
   html {
     color-scheme: dark;

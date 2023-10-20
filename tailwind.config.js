@@ -25,31 +25,11 @@ module.exports = {
 
     extend: {
       colors: {
-        text: {
-          light: "#171102",
-          DEFAULT: "#171102",
-          dark: "#fdf7e8",
-        },
-        background: {
-          light: "#fefbfc",
-          DEFAULT: "#fefbfc",
-          dark: "#040102",
-        },
-        primary: {
-          light: "#db146b",
-          DEFAULT: "#db146b",
-          dark: "#eb247a",
-        },
-        secondary: {
-          light: "#ddbcf5",
-          DEFAULT: "#ddbcf5",
-          dark: "#2b0a43",
-        },
-        accent: {
-          light: "#894abf",
-          DEFAULT: "#894abf",
-          dark: "#7e40b5",
-        },
+        text: "#fdf7e8",
+        background: "#040102",
+        primary:  "#eb247a",
+        secondary: "#2b0a43",
+        accent: "#7e40b5",
       },
       textShadow: {
         sm: "0 1px 2px var(--tw-shadow-color)",
