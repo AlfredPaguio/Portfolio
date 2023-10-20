@@ -9,12 +9,6 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    screens: {
-      sm: "480px",
-      md: "768px",
-      lg: "976px",
-      xl: "1440px",
-    },
     container: {
       center: true,
       padding: "2rem",
@@ -25,12 +19,13 @@ module.exports = {
 
     extend: {
       colors: {
-        text: "#fdf7e8",
-        background: "#040102",
-        primary:  "#eb247a",
-        secondary: "#2b0a43",
-        accent: "#7e40b5",
+        text: "#ebeeff",
+        background: "#000303",
+        primary: "#183f99",
+        secondary: "#08173e",
+        accent: "#697db0",
       },
+
       textShadow: {
         sm: "0 1px 2px var(--tw-shadow-color)",
         DEFAULT: "0 2px 4px var(--tw-shadow-color)",

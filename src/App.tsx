@@ -1,18 +1,16 @@
-import { NavBar } from "@/components/navBar";
+import { NavBar } from "@/components/NavBar";
 import Router from "./routes/router";
 import { Toaster } from "@/components/ui/toaster";
-import { Footer } from "@/components/footer";
+import { Footer } from "@/components/Footer";
 
 function App() {
   return (
-    <div className="bg-gradient-to-b from-blue-900 via-black to-black">
+    <main className="container md:min-w-980 flex min-h-screen min-w-full flex-col bg-gradient-to-b from-blue-900 via-black to-black bg-fixed">
       <NavBar />
-      <main className="container block min-w-full md:min-w-980">
-        <Router />
-      </main>
-      <Footer />
+      <Router />
       <Toaster />
-    </div>
+      <Footer />
+    </main>
   );
 }
 

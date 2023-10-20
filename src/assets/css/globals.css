@@ -40,7 +40,6 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
 
   body {
     font-family: "Noto Serif", serif;
-    @apply text-lg;
   }
 
   hr {
