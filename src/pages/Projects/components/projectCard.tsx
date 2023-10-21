@@ -1,9 +1,9 @@
+import { twMerge } from "tailwind-merge";
 import { projectType } from "../types/project.types";
 
 export function ProjectCard({ project }: { project: projectType }) {
   return (
-    <div className="border-3 flex flex-col overflow-hidden rounded-lg border-accent bg-black/40 px-6 py-4 shadow-lg backdrop-blur-md">
-      <h2 className="text-2xl font-semibold text-text">{project.title}</h2>
+    <div className="flex flex-col  gap-4 overflow-hidden rounded-lg bg-background/70 p-4 shadow-xl backdrop-blur-lg ">
       {project.imageUrls && (
         <div className="mt-4 space-y-4">
           <h3 className="text-lg font-semibold text-primary">Images</h3>
@@ -17,14 +17,17 @@ export function ProjectCard({ project }: { project: projectType }) {
           ))}
         </div>
       )}
-      <p className="mt-2 text-text">{project.description}</p>
+      <h2 className="text-3xl font-bold text-text">{project.title}</h2>
+      <p className="mt-2 text-xl font-normal text-text">
+        {project.description}
+      </p>
       <div className="mt-4 space-y-4">
         <h3 className="text-lg font-semibold text-primary">Stack</h3>
-        <ul className="flex flex-wrap gap-2">
+        <ul className="flex flex-wrap gap-2 pt-4">
           {project.stack.map((tech, index) => (
             <li
               key={index}
-              className="m-1 inline-block self-center rounded-md bg-accent px-2 py-1 text-text"
+              className="m-1 flex h-8 w-fit shrink-0 items-center justify-center self-center rounded-lg bg-secondary px-3 text-xl font-normal text-text "
             >
               {tech}
             </li>
@@ -37,7 +40,7 @@ export function ProjectCard({ project }: { project: projectType }) {
           <h3 className="text-lg font-semibold text-primary">
             Responsibilities
           </h3>
-          <ul className="list-disc pl-4">
+          <ul className="flex list-disc flex-wrap gap-2 pl-4 pt-4">
             {project.responsibilities.map((responsibility, index) => (
               <li key={index} className="text-text">
                 {responsibility}
@@ -50,14 +53,19 @@ export function ProjectCard({ project }: { project: projectType }) {
       {project.links && (
         <div className="mt-4 space-y-4">
           <h3 className="text-lg font-semibold text-primary">Links</h3>
-          <ul>
+          <ul className="flex h-fit w-full flex-row gap-4 pt-4">
             {Object.entries(project.links).map(([linkText, linkUrl], index) => (
               <li key={index} className="text-primary">
                 <a
                   href={linkUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline"
+                  className={twMerge(
+                    index == 0
+                      ? "bg-primary"
+                      : "border-2 border-solid border-text bg-transparent hover:border-transparent",
+                    "mt-4 rounded-md px-6 py-2 text-xl font-medium text-white transition-colors duration-200 hover:bg-accent",
+                  )}
                 >
                   {linkText}
                 </a>
