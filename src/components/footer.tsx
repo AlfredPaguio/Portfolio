@@ -11,7 +11,7 @@ export function Footer() {
         {/* Logo and social links container */}
         <div className="flex flex-col-reverse items-center justify-between space-y-6 md:flex-col md:items-start md:space-y-0">
           <div className="mx-auto my-6 text-center text-text  md:hidden">
-            Copyright &copy; {currentYear} Alfred U. Paguio. All Rights Reserved
+            Copyright &copy; Alfred U. Paguio | {currentYear}
           </div>
           <div className="flex justify-center space-x-3">
             <Link to="https://www.facebook.com/FleetingComet/">

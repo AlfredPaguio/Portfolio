@@ -12,7 +12,7 @@ export function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <nav className="relative p-4">
+    <nav className="navbar relative p-4">
       {/* Container */}
       <div className="flex items-center justify-end">
         {/* Menu Items */}
