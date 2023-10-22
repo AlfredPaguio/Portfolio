@@ -9,7 +9,7 @@ type SideBarProps = {
 
 export function SideBar({ showMenu }: SideBarProps) {
   return (
-    <div className="md:hidden">
+    <aside className="md:hidden">
       <div
         className={twMerge(
           showMenu ? "flex" : "hidden",
@@ -30,6 +30,6 @@ export function SideBar({ showMenu }: SideBarProps) {
             );
           })}
       </div>
-    </div>
+    </aside>
   );
 }
