@@ -19,6 +19,16 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
     scroll-behavior: smooth;
   }
 
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 3px;
+    background-color: theme(colors.background / 5%);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: theme(colors.accent / 50%);
+  }
+
   *,
   *::before,
   *::after {
