@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function HeroSection() {
   return (
-    <div className="z-20 mt-40 flex h-full w-full flex-col items-center bg-transparent">
+    <div className="pt-32 pb-32 flex h-full w-full flex-col items-center bg-transparent">
 
       <h1 className="mb-4 text-5xl lg:text-7xl xxl:text-8xl font-bold text-center">Alfred U. Paguio</h1>
       <h2 className="mb-2 text-lg lg:text-3xl xxl:text-4xl font-medium">
