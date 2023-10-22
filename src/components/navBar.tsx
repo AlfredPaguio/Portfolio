@@ -16,7 +16,7 @@ export function NavBar() {
       {/* Container */}
       <div className="flex items-center justify-end">
         {/* Menu Items */}
-        <div className="align-end hidden items-center gap-3 space-x-6 rounded-md bg-white/10 py-4 pe-4 ps-4 backdrop-blur-md md:flex">
+        <div className="align-end hidden items-center gap-3 space-x-3 rounded-md bg-white/10 py-4 pe-4 ps-4 backdrop-blur-md md:flex">
           {pagesData
             .filter((route: routerType) => route.path !== "*")
             .map((route: routerType, key) => {
@@ -24,7 +24,7 @@ export function NavBar() {
                 <Link
                   key={key}
                   to={`/${route.path}`}
-                  className="group relative w-max max-w-full text-text transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-in-out after:content-[''] after:hover:scale-x-100"
+                  className="font-medium opacity-70 text-2xl hover:opacity-100 focus-visible:opacity-100 peer relative w-max max-w-full text-text transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-secondary after:transition-transform after:ease-in-out after:content-[''] after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300 peer-hover:after:-translate-x-full peer-hover:after:duration-300"
                 >
                   {route.title}
                 </Link>
@@ -32,7 +32,7 @@ export function NavBar() {
             })}
         </div>
 
-        <div className="block space-x-6 focus:outline-none md:hidden bg-white/10 py-4 pe-4 ps-4 backdrop-blur-md rounded-md">
+        <div className="block space-x-6 rounded-md bg-white/10 py-4 pe-4 ps-4 backdrop-blur-md focus:outline-none md:hidden">
           {/* Hamburger Menu */}
           <button id="menu-btn" onClick={() => setShowMenu(!showMenu)}>
             <Menu className="text-text transition-all duration-200 hover:text-accent" />

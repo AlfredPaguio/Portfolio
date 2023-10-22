@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 
 function App() {
   return (
-    <main className="md:min-w-980 container flex min-h-screen min-w-full flex-col bg-gradient-to-b from-blue-900 via-black to-black bg-fixed">
+    <main className="md:min-w-980 flex min-h-screen min-w-full flex-col bg-gradient-to-b  from-blue-950 via-black via-80% to-black bg-fixed">
       <NavBar />
       <Router />
       <Footer />

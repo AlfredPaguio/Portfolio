@@ -13,7 +13,7 @@ export function SideBar({ showMenu }: SideBarProps) {
       <div
         className={twMerge(
           showMenu ? "flex" : "hidden",
-          "absolute left-6 right-6 mt-1 flex-col items-center space-y-6 self-end bg-background py-8 font-bold drop-shadow-md sm:w-auto sm:self-center z-50",
+          "absolute left-6 right-6 mt-1 flex-col divide-y-1 border-solid border-text items-center space-y-6 self-end bg-background py-8 font-bold drop-shadow-md sm:w-auto sm:self-center z-50",
         )}
       >
         {pagesData

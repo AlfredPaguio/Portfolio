@@ -3,7 +3,7 @@ import { ProjectCard } from "@/pages/Projects/components/projectCard";
 import { Link } from "react-router-dom";
 
 export default function ProjectsSection() {
-  const latestProjects = projectsData.slice(0, 3);
+  const latestProjects = projectsData.slice(0, 2);
 
   return (
     <section id="section">
