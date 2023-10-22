@@ -3,7 +3,7 @@ import { projectType } from "../types/project.types";
 
 export function ProjectCard({ project }: { project: projectType }) {
   return (
-    <div className="flex flex-col  gap-4 overflow-hidden rounded-lg bg-background/70 p-4 shadow-xl backdrop-blur-lg ">
+    <div className="flex flex-col  gap-4 overflow-hidden rounded-lg bg-background/80 p-4 shadow-xl backdrop-blur-lg ">
       {project.imageUrls && (
         <div className="mt-4 space-y-4">
           <h3 className="text-lg font-semibold text-primary">Images</h3>
