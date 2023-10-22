@@ -22,7 +22,6 @@ export default function ProjectsSection() {
           ))}
         </div>
         <Link
-          target="_blank"
           className="hidden-object pb-4 text-center text-xl font-bold text-text hover:underline"
           to="/projects"
         >

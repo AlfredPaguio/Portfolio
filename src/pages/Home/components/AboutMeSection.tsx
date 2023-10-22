@@ -1,11 +1,11 @@
-import { MoonStarIcon } from "lucide-react";
+import { MoonIcon } from "lucide-react";
 
 export default function AboutMeSection() {
   return (
     <section id="about-me">
       <div className="relative flex h-fit w-full items-center gap-16 px-2 pt-10">
         <div className="bg-text/10 backdrop-blur-md flex h-fit w-full flex-col gap-4 rounded-xl p-4">
-          <MoonStarIcon size={64} className="absolute -right-5 -top-5 hidden md:block" />
+          <MoonIcon size={64} className="text-accent fill-text absolute -right-5 -top-5 hidden md:block" />
           <h1 className="py-3 text-center text-5xl font-bold text-text">
             About Me
           </h1>

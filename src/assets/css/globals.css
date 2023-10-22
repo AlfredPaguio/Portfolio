@@ -6,7 +6,6 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
 @tailwind components;
 @tailwind utilities;
 
-
 /* Force Dark Mode */
 @media (prefers-color-scheme: light) {
   html {
@@ -33,7 +32,10 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
     padding: 0;
   }
 
-  img, svg, picture, video {
+  img,
+  svg,
+  picture,
+  video {
     display: block;
     vertical-align: middle;
     max-width: 100%;
@@ -41,6 +43,7 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
 
   body {
     font-family: "Noto Serif", serif;
+    @apply bg-gradient-to-b  from-blue-950 via-black via-80% to-black bg-fixed;
   }
 
   hr {
