@@ -21,9 +21,8 @@ export function NavBar() {
             .filter((route: routerType) => route.path !== "*")
             .map((route: routerType, key) => {
               return (
-                <li className="group peer relative after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in-out after:content-['']  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300">
+                <li key={key} className="group peer relative after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in-out after:content-['']  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300">
                   <Link
-                    key={key}
                     to={`/${route.path}`}
                     className="w-max max-w-full text-2xl font-medium text-white opacity-70 transition-all duration-300 ease-in-out group-hover:opacity-100 group-focus-visible:opacity-100 "
                   >
