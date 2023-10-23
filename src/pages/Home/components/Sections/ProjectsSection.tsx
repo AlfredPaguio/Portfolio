@@ -9,12 +9,8 @@ export default function ProjectsSection() {
   return (
     <section id="section">
       <div className="relative flex h-fit w-full flex-col items-center gap-8 bg-transparent px-2 pt-8">
-        <div className="flex flex-col items-center bg-transparent">
-          <Lead>Projects</Lead>
-          <p className="text-center text-lg font-normal text-gray-300">
-            Take a look at what I’ve created.
-          </p>
-        </div>
+        <Lead title="Projects" subtitle="Take a look at what I’ve created." />
+
         <div className="m-4 flex flex-wrap justify-center gap-y-4 p-4">
           {latestProjects.map((project, index) => (
             <ProjectCard key={index} project={project} />
