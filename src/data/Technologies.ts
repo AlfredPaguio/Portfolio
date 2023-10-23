@@ -1,6 +1,12 @@
-import { TechnologyType } from "../types/Technology.types";
+export type TechnologyProps = {
+  programmingLanguages: string[];
+  frameworks: string[];
+  databaseManagementSystems: string[];
+  developerTools: string[];
+  libraries: string[];
+};
 
-const TechnologiesData: TechnologyType = [
+export const Technologies = [
   {
     programmingLanguages: [
       "C#",
@@ -29,5 +35,3 @@ const TechnologiesData: TechnologyType = [
     libraries: ["jQuery", "React"],
   },
 ];
-
-export default TechnologiesData;

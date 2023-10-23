@@ -1,11 +1,11 @@
-import TechnologiesData from "../data/TechnologiesData";
+import { Technologies } from "@/data/Technologies";
 
 export default function TechStack() {
   return (
-    <>
-      {TechnologiesData.map((tech, index) => (
+    <div className="flex h-full w-full flex-col items-start gap-2 font-normal lg:w-2/5 lg:items-end">
+      {Technologies.map((tech, index) => (
         <div key={index} className="flex flex-col">
-          <h2 className="self-start pt-2 text-xl font-medium lg:self-end pe-8 text-slate-300">
+          <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300 lg:self-end">
             Programming Languages
           </h2>
           <ul className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
@@ -19,7 +19,7 @@ export default function TechStack() {
             ))}
           </ul>
 
-          <h2 className="self-start pt-2 text-xl font-medium lg:self-end pe-8 text-slate-300">
+          <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300 lg:self-end">
             Libraries
           </h2>
           <ul className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
@@ -33,7 +33,7 @@ export default function TechStack() {
             ))}
           </ul>
 
-          <h2 className="self-start pt-2 text-xl font-medium lg:self-end pe-8 text-slate-300">
+          <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300 lg:self-end">
             Frameworks
           </h2>
           <ul className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
@@ -47,7 +47,7 @@ export default function TechStack() {
             ))}
           </ul>
 
-          <h2 className="self-start pt-2 text-xl font-medium lg:self-end pe-8 text-slate-300">
+          <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300 lg:self-end">
             Developer Tools
           </h2>
           <ul className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
@@ -61,7 +61,7 @@ export default function TechStack() {
             ))}
           </ul>
 
-          <h2 className="self-start pt-2 text-xl font-medium lg:self-end pe-8 text-slate-300">
+          <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300 lg:self-end">
             Database Management Systems
           </h2>
           <ul className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
@@ -76,6 +76,6 @@ export default function TechStack() {
           </ul>
         </div>
       ))}
-    </>
+    </div>
   );
 }

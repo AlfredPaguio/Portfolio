@@ -7,9 +7,7 @@ export default function AboutMeSection() {
     <section id="about-me">
       <div className="relative mb-40 flex h-fit w-full snap-center flex-col items-center gap-8 px-2">
         <div className="flex flex-col items-center">
-          <Lead>
-            About Me
-          </Lead>
+          <Lead>About Me</Lead>
           <p className="text-center text-lg font-normal text-gray-300">
             Hello~
           </p>
@@ -17,7 +15,7 @@ export default function AboutMeSection() {
         <div className="flex h-fit w-full flex-col gap-4 rounded-xl bg-background/80 p-4 backdrop-blur-md md:flex-row">
           <MoonIcon
             size={64}
-            className="absolute -right-5 -top-5 hidden fill-text text-accent md:block"
+            className="fill-white absolute -right-5 -top-5 hidden text-accent md:block"
           />
           <div className="flex h-full w-full flex-col justify-between bg-transparent lg:w-3/5">
             <h1 className="py-3 text-start text-4xl font-bold text-white">
@@ -52,9 +50,7 @@ export default function AboutMeSection() {
               learner..
             </p>
           </div>
-          <div className="flex h-full w-full flex-col items-start gap-2 font-normal lg:w-2/5 lg:items-end">
-            <TechStack />
-          </div>
+          <TechStack />
         </div>
       </div>
     </section>

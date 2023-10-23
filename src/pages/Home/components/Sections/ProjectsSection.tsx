@@ -1,10 +1,10 @@
-import projectsData from "@/pages/Projects/data/projectsData";
+import { Projects } from "@/data/Projects";
 import { ProjectCard } from "@/pages/Projects/components/projectCard";
 import { Link } from "react-router-dom";
 import Lead from "@/components/Lead";
 
 export default function ProjectsSection() {
-  const latestProjects = projectsData.slice(0, 2);
+  const latestProjects = Projects.slice(0, 2);
 
   return (
     <section id="section">
@@ -21,7 +21,7 @@ export default function ProjectsSection() {
           ))}
         </div>
         <Link
-          className="pb-4 text-center text-xl font-bold text-white underline underline-offset-8 decoration-2 decoration-accent hover:underline"
+          className="pb-4 text-center text-xl font-bold text-white underline decoration-accent decoration-2 underline-offset-8 hover:underline"
           to="/projects"
         >
           See all projects.
