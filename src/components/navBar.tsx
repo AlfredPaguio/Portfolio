@@ -25,7 +25,7 @@ export function NavBar() {
                   <Link
                     key={key}
                     to={`/${route.path}`}
-                    className="w-max max-w-full text-2xl font-medium text-text opacity-70 transition-all duration-300 ease-in-out group-hover:opacity-100 group-focus-visible:opacity-100 "
+                    className="w-max max-w-full text-2xl font-medium text-white opacity-70 transition-all duration-300 ease-in-out group-hover:opacity-100 group-focus-visible:opacity-100 "
                   >
                     {route.title}
                   </Link>
@@ -37,7 +37,7 @@ export function NavBar() {
         <div className="block space-x-6 rounded-md bg-white/10 py-4 pe-4 ps-4 backdrop-blur-md focus:outline-none md:hidden">
           {/* Hamburger Menu */}
           <button id="menu-btn" onClick={() => setShowMenu(!showMenu)}>
-            <Menu className="text-text transition-all duration-200 hover:text-accent" />
+            <Menu className="text-white transition-all duration-200 hover:text-accent" />
           </button>
         </div>
       </div>

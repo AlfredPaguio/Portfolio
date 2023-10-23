@@ -17,8 +17,8 @@ export function ProjectCard({ project }: { project: projectType }) {
           ))}
         </div>
       )}
-      <h2 className="text-3xl font-bold text-text">{project.title}</h2>
-      <p className="mt-2 text-xl font-normal text-text">
+      <h2 className="text-3xl font-bold text-white">{project.title}</h2>
+      <p className="mt-2 text-xl font-normal text-white">
         {project.description}
       </p>
       <div className="mt-4 space-y-4">
@@ -27,7 +27,7 @@ export function ProjectCard({ project }: { project: projectType }) {
           {project.stack.map((tech, index) => (
             <li
               key={index}
-              className="m-1 flex h-8 w-fit shrink-0 items-center justify-center self-center rounded-lg bg-secondary px-3 text-xl font-normal text-text "
+              className="m-1 flex h-8 w-fit shrink-0 items-center justify-center self-center rounded-lg bg-secondary px-3 text-xl font-normal text-white "
             >
               {tech}
             </li>
@@ -42,7 +42,7 @@ export function ProjectCard({ project }: { project: projectType }) {
           </h3>
           <ul className="flex list-disc flex-wrap gap-2 pl-4 pt-4">
             {project.responsibilities.map((responsibility, index) => (
-              <li key={index} className="text-text">
+              <li key={index} className="text-white">
                 {responsibility}
               </li>
             ))}

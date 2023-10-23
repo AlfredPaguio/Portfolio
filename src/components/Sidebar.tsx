@@ -23,7 +23,7 @@ export function SideBar({ showMenu }: SideBarProps) {
               <Link
                 key={"MenuMobileView" + key}
                 to={`/${route.path}`}
-                className="pb-1 text-text transition-all duration-300 ease-in-out hover:text-accent"
+                className="pb-1 text-white transition-all duration-300 ease-in-out hover:text-accent"
               >
                 {route.title}
               </Link>

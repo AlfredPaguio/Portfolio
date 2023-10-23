@@ -13,7 +13,7 @@ function NoPage() {
           <MoonIcon size={124} />
           <div className="text-7xl font-bold text-primary">404</div>
 
-          <div className="mt-10 text-3xl font-bold text-text md:text-5xl lg:text-6xl xl:text-7xl">
+          <div className="mt-10 text-3xl font-bold text-white md:text-5xl lg:text-6xl xl:text-7xl">
             You've landed on the wrong moon!
           </div>
 
@@ -34,7 +34,7 @@ function NoPage() {
                   <Link
                     key={key}
                     to={`/${route.path}`}
-                    className="pt-1 text-text transition-all duration-200 hover:text-accent"
+                    className="pt-1 text-white transition-all duration-200 hover:text-accent"
                   >
                     <div
                       className="group flex flex-row border-t
@@ -47,7 +47,7 @@ function NoPage() {
 
                       {/* Text */}
                       <div className="flex grow flex-col pl-5 pt-2">
-                        <div className="text-sm font-bold text-text group-hover:underline md:text-lg lg:text-xl">
+                        <div className="text-sm font-bold text-white group-hover:underline md:text-lg lg:text-xl">
                           {route.title}
                         </div>
 

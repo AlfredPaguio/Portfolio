@@ -10,7 +10,7 @@ export function Footer() {
       <div className="flex flex-col-reverse justify-between space-y-8 px-6 py-1 md:flex-row md:space-y-0 md:py-10">
         {/* Logo and social links container */}
         <div className="flex flex-col-reverse items-center justify-between space-y-6 md:flex-col md:items-start md:space-y-0">
-          <div className="mx-auto my-6 text-center text-text  md:hidden">
+          <div className="mx-auto my-6 text-center text-white  md:hidden">
             Copyright &copy; Alfred U. Paguio | {currentYear}
           </div>
           <div className="flex justify-center space-x-3">
@@ -26,7 +26,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="hidden flex-col justify-center text-text md:flex">
+        <div className="hidden flex-col justify-center text-white md:flex">
           &copy; {currentYear} Alfred U. Paguio. All Rights Reserved
         </div>
       </div>
