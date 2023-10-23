@@ -41,9 +41,10 @@ function NoPage() {
                     border-primary px-4 py-8 transition-all
                     duration-200 hover:cursor-pointer"
                     >
-                      <div className="rounded-xl bg-secondary px-3 py-2 md:py-4">
-                        {route.icon}
-                      </div>
+                      {route.Icon && <div className="rounded-xl bg-secondary px-3 py-2 md:py-4">
+                        <route.Icon className="mx-auto 
+    text-2xl text-accent dark:text-accent-dark md:text-3xl" />
+                      </div>}
 
                       {/* Text */}
                       <div className="flex grow flex-col pl-5 pt-2">

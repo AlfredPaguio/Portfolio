@@ -14,36 +14,21 @@ const pagesData: routerType[] = [
     element: <Home />,
     title: "Home",
     description: "The starting point of creativity.",
-    icon: (
-      <HomeIcon
-        className="mx-auto 
-    text-2xl text-accent dark:text-accent-dark md:text-3xl"
-      />
-    ),
+    Icon: HomeIcon,
   },
   {
     path: "projects",
     element: <Projects />,
     title: "Projects",
     description: "Where innovation takes shape",
-    icon: (
-      <BriefcaseIcon
-        className="mx-auto 
-    text-2xl text-accent dark:text-accent-dark md:text-3xl"
-      />
-    ),
+    Icon: BriefcaseIcon,
   },
   {
     path: "contact",
     element: <Contact />,
     title: "Contact",
     description: "Get in touch, let's make magic.",
-    icon: (
-      <MailIcon
-        className="mx-auto 
-    text-2xl text-accent dark:text-accent-dark md:text-3xl"
-      />
-    ),
+    Icon: MailIcon,
   },
   {
     path: "*",
