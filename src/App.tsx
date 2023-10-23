@@ -5,9 +5,9 @@ import { Footer } from "@/components/Footer";
 
 function App() {
   return (
-    <div className="flex min-h-screen flex-col justify-between">
+    <div className="flex h-screen min-h-screen w-screen snap-y flex-col justify-between overflow-y-scroll scroll-smooth">
       <NavBar />
-      <main className="container grow">
+      <main className="container grow ">
         <Router />
       </main>
       <Footer />
