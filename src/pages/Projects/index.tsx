@@ -5,7 +5,7 @@ import withPageTransition from "@/routes/components/withPageTransition";
 import { SearchIcon } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import TechnologyPills from "./components/TechnologyPills";
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 
 type TechnologiesState = string[];
 export type Action =
@@ -21,12 +21,16 @@ function technologiesReducer(state: TechnologiesState, action: Action) {
   switch (action.type) {
     case ACTIONS.ADD_TECH_ON_SELECTED:
       if (state.includes(action.payload)) {
-        return state;
+        console.log("ADD IGNORED - State:", state);
+        return [...state];
       }
+      console.log("ADDED - State:", state);
       return [...state, action.payload];
     case ACTIONS.REMOVE_TECH_ON_SELECTED:
+      console.log("REMOVED - State:", state);
       return state.filter((tech) => tech !== action.payload);
     default:
+      console.log("NO CHANGES - State:", state);
       return state;
   }
 }
@@ -41,11 +45,8 @@ function Projects() {
 
   const [selectedTechnologies, dispatch] = useReducer(technologiesReducer, []);
 
-  console.log(selectedTechnologies);
-
   const filteredItems = ProjectsData.filter((project) => {
     if (queryParams !== null) {
-      console.log("here", queryParams);
       return project.title.toLowerCase().includes(queryParams.toLowerCase());
     }
     return true;
@@ -77,7 +78,10 @@ function Projects() {
         />
       </label>
 
-      <TechnologyPills dispatch={dispatch} selectedTechnologies={selectedTechnologies}/>
+      <TechnologyPills
+        dispatch={dispatch}
+        selectedTechnologies={selectedTechnologies}
+      />
 
       <div className="my-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filteredItems

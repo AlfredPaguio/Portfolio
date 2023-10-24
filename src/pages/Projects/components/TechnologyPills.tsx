@@ -1,12 +1,16 @@
 import { Technologies } from "@/data/Technologies";
 import { ACTIONS, Action } from "../index";
+import TechButton from "./TechButton";
 
 type TechnologyPillsProps = {
   dispatch: React.Dispatch<Action>;
   selectedTechnologies: string[];
 };
 
-export default function TechnologyPills({ dispatch, selectedTechnologies, }: TechnologyPillsProps) {
+export default function TechnologyPills({
+  dispatch,
+  selectedTechnologies,
+}: TechnologyPillsProps) {
   const toggleTechnology = (technology: string) => {
     // Check if the technology is selected
     if (selectedTechnologies.includes(technology)) {
@@ -19,7 +23,6 @@ export default function TechnologyPills({ dispatch, selectedTechnologies, }: Tec
     // I am having an headache here thinking this
   };
 
-
   return (
     <>
       {Technologies.map((tech, index) => (
@@ -30,15 +33,12 @@ export default function TechnologyPills({ dispatch, selectedTechnologies, }: Tec
             </h2>
 
             {tech.programmingLanguages.map((language) => (
-              <button
+              <TechButton
                 key={language}
-                onClick={() => toggleTechnology(language)}
-                className={`whitespace-nowrap rounded-lg px-3 py-1 text-black ${
-                  selectedTechnologies.includes(language) ? 'bg-accent' : 'bg-slate-300' 
-                }`}
-              >
-                {language}
-              </button>
+                technology={language}
+                isSelected={selectedTechnologies.includes(language)}
+                onClickTechnology={() => toggleTechnology(language)}
+              />
             ))}
           </div>
           <div className="flex flex-row justify-start gap-2">
@@ -47,15 +47,12 @@ export default function TechnologyPills({ dispatch, selectedTechnologies, }: Tec
             </h2>
 
             {tech.libraries.map((library) => (
-              <button
+              <TechButton
                 key={library}
-                onClick={() => toggleTechnology(library)}
-                className={`whitespace-nowrap rounded-lg px-3 py-1 text-black ${
-                  selectedTechnologies.includes(library) ? 'bg-accent' : 'bg-slate-300'
-                }`}
-              >
-                {library}
-              </button>
+                technology={library}
+                isSelected={selectedTechnologies.includes(library)}
+                onClickTechnology={() => toggleTechnology(library)}
+              />
             ))}
           </div>
           {tech.frameworks && (
@@ -65,15 +62,12 @@ export default function TechnologyPills({ dispatch, selectedTechnologies, }: Tec
               </h2>
 
               {tech.frameworks.map((framework) => (
-                <button
+                <TechButton
                   key={framework}
-                  onClick={() => toggleTechnology(framework)}
-                  className={`whitespace-nowrap rounded-lg px-3 py-1 text-black ${
-                    selectedTechnologies.includes(framework) ? 'bg-accent' : 'bg-slate-300'
-                  }`}
-                >
-                  {framework}
-                </button>
+                  technology={framework}
+                  isSelected={selectedTechnologies.includes(framework)}
+                  onClickTechnology={() => toggleTechnology(framework)}
+                />
               ))}
             </div>
           )}
