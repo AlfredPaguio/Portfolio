@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function HeroSection() {
   return (
     <section id="hero">
-      <div className="mb-40 flex h-full w-full snap-center flex-col items-center bg-transparent pb-32 pt-32">
+      <div className="mb-40 flex h-full w-full snap-align-none flex-col items-center bg-transparent pb-32 pt-32">
         <h1 className="xxl:text-8xl mb-4 text-center text-5xl font-bold lg:text-7xl">
           Alfred U. Paguio
         </h1>

@@ -23,7 +23,7 @@ export function Navbar() {
               return (
                 <li
                   key={key}
-                  className="group peer relative pl-4 after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in-out after:content-[''] first:pl-0  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300"
+                  className="group peer relative pl-4 after:absolute after:bottom-0 after:left-0 after:ml-4 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in-out after:content-[''] first:pl-0 first:after:ml-0 after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300"
                 >
                   <Link
                     to={`/${route.path}`}

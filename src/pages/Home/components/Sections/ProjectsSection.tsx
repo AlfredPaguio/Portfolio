@@ -10,8 +10,8 @@ export default function ProjectsSection() {
 
   return (
     <section id="section">
-      <div className="relative flex h-fit w-full flex-col items-center gap-8 bg-transparent px-2 pt-8">
-        <Lead title="Projects" subtitle="Take a look at what I’ve created." />
+      <div className="relative flex h-fit w-full flex-col items-center gap-8 px-2 pt-8">
+        <Lead title="Recent Projects" subtitle="Check out my recent works." />
 
         <div className="m-4 flex flex-wrap justify-center gap-y-4 p-4">
           {latestProjects.map((project, index) => (
