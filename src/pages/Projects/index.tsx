@@ -5,7 +5,7 @@ import withPageTransition from "@/routes/components/withPageTransition";
 import { SearchIcon } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import TechnologyPills from "./components/TechnologyPills";
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 
 type TechnologiesState = string[];
 export type Action =
@@ -21,16 +21,12 @@ function technologiesReducer(state: TechnologiesState, action: Action) {
   switch (action.type) {
     case ACTIONS.ADD_TECH_ON_SELECTED:
       if (state.includes(action.payload)) {
-        console.log("ADD IGNORED - State:", state);
         return [...state];
       }
-      console.log("ADDED - State:", state);
       return [...state, action.payload];
     case ACTIONS.REMOVE_TECH_ON_SELECTED:
-      console.log("REMOVED - State:", state);
       return state.filter((tech) => tech !== action.payload);
     default:
-      console.log("NO CHANGES - State:", state);
       return state;
   }
 }
@@ -56,8 +52,6 @@ function Projects() {
               stackTech.toLowerCase() === selectedTech.toLowerCase(),
           ),
         ); // At least one selected technology matches project's stack
-
-      console.log("The Tech: ", techMatch);
       return titleMatch && techMatch;
     }
     return true;
