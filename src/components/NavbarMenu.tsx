@@ -3,13 +3,13 @@ import { routerType } from "@/routes/types/router.types";
 import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
-type SideBarProps = {
+type NavbarMenuProps = {
   showMenu: boolean;
 };
 
-export function SideBar({ showMenu }: SideBarProps) {
+export function NavbarMenu({ showMenu }: NavbarMenuProps) {
   return (
-    <aside className="md:hidden">
+    <div className="md:hidden">
       <div
         className={twMerge(
           showMenu ? "flex" : "hidden",
@@ -30,6 +30,6 @@ export function SideBar({ showMenu }: SideBarProps) {
             );
           })}
       </div>
-    </aside>
+    </div>
   );
 }

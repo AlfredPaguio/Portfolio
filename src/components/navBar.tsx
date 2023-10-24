@@ -6,9 +6,9 @@ import { Menu } from "lucide-react";
 import pagesData from "../routes/pagesData";
 import { routerType } from "../routes/types/router.types";
 import { useState } from "react";
-import { SideBar } from "./Sidebar";
+import { NavbarMenu } from "./NavbarMenu";
 
-export function NavBar() {
+export function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
@@ -43,7 +43,7 @@ export function NavBar() {
 
       {/* Mobile View Menu */}
 
-      <SideBar showMenu={showMenu} />
+      <NavbarMenu showMenu={showMenu} />
     </nav>
   );
 }
