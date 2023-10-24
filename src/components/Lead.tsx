@@ -1,11 +1,3 @@
-import { ComponentProps, ReactNode } from "react";
-import { twMerge } from "tailwind-merge";
-
-type LeadProps = {
-  title: string;
-  subtitle?: string;
-};
-
 export default function Lead({ title, subtitle }: LeadProps) {
   return (
     <div className="flex w-full flex-col items-center">
@@ -20,3 +12,8 @@ export default function Lead({ title, subtitle }: LeadProps) {
     </div>
   );
 }
+
+type LeadProps = {
+  title: string;
+  subtitle?: string;
+};
