@@ -23,7 +23,7 @@ export const Projects = [
   },
   {
     title: "Information Site",
-    stack: ["PHP", "Laravel", "Laravel Livewire", "JQuery", "Javascript"],
+    stack: ["PHP", "Laravel", "Laravel Livewire", "jQuery", "Javascript"],
     description:
       "The Information Site Enhancement project at B&D IT Consultancy aimed to elevate the company's online presence and improve the user experience (UX) for visitors to the website. This project was part of the company's strategic efforts to effectively communicate its services, values, and culture to potential clients and partners.",
     links: {
@@ -52,7 +52,7 @@ export const Projects = [
   },
   {
     title: "Human Resource Information System",
-    stack: ["Python", "Flask", "JQuery", "Javascript", "MySQL"],
+    stack: ["Python", "Flask", "jQuery", "Javascript", "MySQL"],
     description:
       "The HRIS aimed to streamline various HR processes within the company, including employee data management, payroll, and attendance tracking. The project focused on creating a user-friendly system to improve HR operations. I don't have information regarding the current status or implementation of this project within the company.",
     links: {

@@ -5,7 +5,7 @@ import withPageTransition from "@/routes/components/withPageTransition";
 import { SearchIcon } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import TechnologyPills from "./components/TechnologyPills";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 
 type TechnologiesState = string[];
 export type Action =
@@ -38,16 +38,27 @@ function technologiesReducer(state: TechnologiesState, action: Action) {
 function Projects() {
   const [searchParams, setSearchParams] = useSearchParams({
     queryParams: "",
-    techParams: "",
   });
   const queryParams = searchParams.get("queryParams");
-  // const techParams = searchParams.get("techParams");
 
   const [selectedTechnologies, dispatch] = useReducer(technologiesReducer, []);
 
   const filteredItems = ProjectsData.filter((project) => {
     if (queryParams !== null) {
-      return project.title.toLowerCase().includes(queryParams.toLowerCase());
+      const titleMatch = project.title
+        .toLowerCase()
+        .includes(queryParams.toLowerCase());
+      const techMatch =
+        selectedTechnologies.length === 0 || // No technologies selected or
+        project.stack.some((stackTech) =>
+          selectedTechnologies.some(
+            (selectedTech) =>
+              stackTech.toLowerCase() === selectedTech.toLowerCase(),
+          ),
+        ); // At least one selected technology matches project's stack
+
+      console.log("The Tech: ", techMatch);
+      return titleMatch && techMatch;
     }
     return true;
   });

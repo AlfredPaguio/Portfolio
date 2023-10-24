@@ -26,41 +26,39 @@ export default function TechnologyPills({
   return (
     <>
       {Technologies.map((tech, index) => (
-        <div key={index} className="flex flex-col gap-3">
-          <div className="flex flex-row justify-start gap-2">
-            <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300">
-              Programming Languages:
+        <div key={index} className="flex flex-row gap-2">
+          <div className="flex flex-col self-start text-slate-300">
+            <h2 className="text-xl font-medium">Programming Languages:</h2>
+            <h2 className="text-xl font-medium">Libraries:</h2>
+            <h2 className="text-xl font-medium">Frameworks:</h2>
+            <h2 className="text-xl font-medium">
+              Database Management Systems:
             </h2>
-
-            {tech.programmingLanguages.map((language) => (
-              <TechButton
-                key={language}
-                technology={language}
-                isSelected={selectedTechnologies.includes(language)}
-                onClickTechnology={() => toggleTechnology(language)}
-              />
-            ))}
           </div>
-          <div className="flex flex-row justify-start gap-2">
-            <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300">
-              Libraries:
-            </h2>
-
-            {tech.libraries.map((library) => (
-              <TechButton
-                key={library}
-                technology={library}
-                isSelected={selectedTechnologies.includes(library)}
-                onClickTechnology={() => toggleTechnology(library)}
-              />
-            ))}
-          </div>
-          {tech.frameworks && (
+          <div className="flex flex-col gap-3">
             <div className="flex flex-row justify-start gap-2">
-              <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300">
-                Frameworks:
-              </h2>
+              {tech.programmingLanguages.map((language) => (
+                <TechButton
+                  key={language}
+                  technology={language}
+                  isSelected={selectedTechnologies.includes(language)}
+                  onClickTechnology={() => toggleTechnology(language)}
+                />
+              ))}
+            </div>
 
+            <div className="flex flex-row justify-start gap-2">
+              {tech.libraries.map((library) => (
+                <TechButton
+                  key={library}
+                  technology={library}
+                  isSelected={selectedTechnologies.includes(library)}
+                  onClickTechnology={() => toggleTechnology(library)}
+                />
+              ))}
+            </div>
+
+            <div className="flex flex-row justify-start gap-2">
               {tech.frameworks.map((framework) => (
                 <TechButton
                   key={framework}
@@ -70,7 +68,18 @@ export default function TechnologyPills({
                 />
               ))}
             </div>
-          )}
+
+            <div className="flex flex-row justify-start gap-2">
+              {tech.databaseManagementSystems.map((DBMS) => (
+                <TechButton
+                  key={DBMS}
+                  technology={DBMS}
+                  isSelected={selectedTechnologies.includes(DBMS)}
+                  onClickTechnology={() => toggleTechnology(DBMS)}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       ))}
     </>
