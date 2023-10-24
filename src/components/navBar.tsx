@@ -16,15 +16,18 @@ export function Navbar() {
       {/* Container */}
       <div className="flex items-center justify-end">
         {/* Menu Items */}
-        <ul className="align-end hidden items-center gap-3 space-x-3 rounded-md bg-background/80 py-4 pe-4 ps-4 backdrop-blur-md md:flex">
+        <ul className="align-end hidden items-center gap-3 space-x-3 divide-x-2 divide-solid divide-accent rounded-md py-4 pe-4 ps-4 md:flex">
           {pagesData
             .filter((route: routerType) => route.path !== "*")
             .map((route: routerType, key) => {
               return (
-                <li key={key} className="group peer relative after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in-out after:content-['']  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300">
+                <li
+                  key={key}
+                  className="group peer relative pl-4 after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in-out after:content-[''] first:pl-0  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300"
+                >
                   <Link
                     to={`/${route.path}`}
-                    className="w-max max-w-full text-2xl font-medium text-white opacity-70 transition-all duration-300 ease-in-out group-hover:opacity-100 group-focus-visible:opacity-100 "
+                    className="w-max max-w-full text-2xl font-medium text-white opacity-70 transition-all duration-300 ease-in-out group-hover:opacity-100 group-focus-visible:opacity-100"
                   >
                     {route.title}
                   </Link>
