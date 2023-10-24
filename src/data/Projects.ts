@@ -5,6 +5,7 @@ export type ProjectProps = {
   responsibilities?: string[];
   imageUrls?: string[];
   links?: { [key: string]: string };
+  date?: Date;
 };
 
 export const Projects = [
@@ -18,6 +19,7 @@ export const Projects = [
       "Played a significant role in identifying and addressing bugs through thorough code analysis and systematic testing, ensuring the software's stability and reliability.",
       "Demonstrated strong problem-solving skills by implementing solutions that enhanced existing software features, contributing to the project's overall progress.",
     ],
+    date: new Date(2019, 2),
   },
   {
     title: "Information Site",
@@ -28,6 +30,7 @@ export const Projects = [
       GitHub: "https://github.com/AlfredPaguio/BND-Info-Site",
       Website: "https://bditconsultancy.com/",
     },
+    date: new Date("2023-07-19"),
   },
   {
     title: "E-Commerce System",
@@ -45,6 +48,7 @@ export const Projects = [
       GitHub: "https://github.com/AlfredPaguio/Livewire-Ecommerce",
       Website: "https://bditconsultancy.com/",
     },
+    date: new Date("2023-05-06"),
   },
   {
     title: "Human Resource Information System",
@@ -56,5 +60,6 @@ export const Projects = [
         "https://github.com/AlfredPaguio/Human-Resources-Information-System",
       Website: "https://bditconsultancy.com/",
     },
+    date: new Date("2023-04-26"),
   },
 ];

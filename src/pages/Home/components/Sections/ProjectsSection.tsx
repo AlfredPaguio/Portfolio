@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import Lead from "@/components/Lead";
 
 export default function ProjectsSection() {
-  const latestProjects = Projects.slice(0, 2);
+  const latestProjects = Projects.sort(
+    (a, b) => b.date.getTime() - a.date.getTime(),
+  ).slice(0, 2);
 
   return (
     <section id="section">
