@@ -19,7 +19,7 @@ export function ProjectCard({ project }: { project: ProjectProps }) {
       )}
       <div className="flex justify-between">
         <h2 className="text-3xl font-bold text-white">{project.title}</h2>
-        {project.date && <small className="font-semibold text-white">{project.date.toLocaleDateString()}</small>}
+        {project.date && <small className="font-semibold text-white whitespace-nowrap">{project.date.toDateString()}</small>}
       </div>
       <p className="mt-2 text-xl font-normal text-white">
         {project.description}
