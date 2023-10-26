@@ -1,5 +1,5 @@
 "use client";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { NavLink } from "react-router-dom";
 
 import { Menu } from "lucide-react";
 
@@ -25,12 +25,16 @@ export function Navbar() {
                   key={key}
                   className="group peer relative pl-4 after:absolute after:bottom-0 after:left-0 after:ml-4 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in-out after:content-[''] first:pl-0 first:after:ml-0 after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300"
                 >
-                  <Link
+                  <NavLink
                     to={`/${route.path}`}
-                    className="w-max max-w-full text-2xl font-medium text-white opacity-70 transition-all duration-300 ease-in-out group-hover:opacity-100 group-focus-visible:opacity-100"
+                    className={({ isActive }) =>
+                      `w-max max-w-full text-2xl font-medium text-white  transition-all duration-300 ease-in-out  ${
+                        isActive ? "opacity-100" : "opacity-70 group-hover:opacity-100 group-focus-visible:opacity-100"
+                      }`
+                    }
                   >
                     {route.title}
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}

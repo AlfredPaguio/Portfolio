@@ -34,7 +34,7 @@ const pagesData: routerType[] = [
     path: "*",
     element: <NoPage />,
     title: "404 Page Not Found",
-    description: "You've landed on a wrong planet!",
+    description: "You've landed on a wrong moon!",
   },
 ];
 

@@ -1,6 +1,6 @@
 import pagesData from "@/routes/pagesData";
 import { routerType } from "@/routes/types/router.types";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
 type NavbarMenuProps = {
@@ -20,13 +20,13 @@ export function NavbarMenu({ showMenu }: NavbarMenuProps) {
           .filter((route: routerType) => route.path != "*")
           .map((route: routerType, key) => {
             return (
-              <Link
+              <NavLink
                 key={"MenuMobileView" + key}
                 to={`/${route.path}`}
                 className="pb-1 text-white transition-all duration-300 ease-in-out hover:text-accent"
               >
                 {route.title}
-              </Link>
+              </NavLink>
             );
           })}
       </div>
