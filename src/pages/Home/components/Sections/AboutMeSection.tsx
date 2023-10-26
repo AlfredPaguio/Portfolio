@@ -5,17 +5,17 @@ import Lead from "@/components/Lead";
 export default function AboutMeSection() {
   return (
     <section id="about-me">
-      <div className="relative mb-40 flex h-fit w-full snap-center flex-col items-center gap-8 px-2">
-        <Lead title="About Me" subtitle="Hello~" />
+      <div className="relative mb-8 flex h-fit w-full snap-center flex-col items-center gap-8 px-2">
+        <Lead title="Introduction" subtitle="Hello~" />
         <div className="flex h-fit w-full flex-col gap-4 rounded-xl bg-background/80 p-4 backdrop-blur-md md:flex-row">
           <MoonIcon
             size={64}
             className="absolute -right-5 -top-5 hidden fill-white text-accent md:block"
           />
           <div className="flex h-full w-full flex-col justify-between bg-transparent lg:w-3/5">
-            <h1 className="py-3 text-start text-4xl font-bold text-white">
+            {/* <h1 className="py-3 text-start text-4xl font-bold text-white">
               Introduction
-            </h1>
+            </h1> */}
             <p className="text-xl font-light text-gray-200">
               Hello there! I’m Alfred, a passionate software developer, I love
               problem-solving and creating applications that make a real
