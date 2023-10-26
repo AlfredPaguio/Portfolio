@@ -24,8 +24,8 @@ export default function TechnologyPills({
   return (
     <>
       {Technologies.map((tech, index) => (
-        <div key={index} className="flex flex-col gap-3">
-          <div className="flex flex-row justify-start gap-2">
+        <div key={index} className="flex gap-3">
+          <div className="flex flex-col justify-start gap-2">
             <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300">
               Programming Languages:
             </h2>
@@ -39,7 +39,7 @@ export default function TechnologyPills({
               />
             ))}
           </div>
-          <div className="flex flex-row justify-start gap-2">
+          <div className="flex flex-col justify-start gap-2">
             <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300">
               Libraries:
             </h2>
@@ -54,7 +54,7 @@ export default function TechnologyPills({
             ))}
           </div>
           {tech.frameworks && (
-            <div className="flex flex-row justify-start gap-2">
+            <div className="flex flex-col justify-start gap-2">
               <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300">
                 Frameworks:
               </h2>
@@ -71,7 +71,7 @@ export default function TechnologyPills({
           )}
 
           {tech.databaseManagementSystems && (
-            <div className="flex flex-row justify-start gap-2">
+            <div className="flex flex-col justify-start gap-2">
               <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300">
                 Database Management Systems:
               </h2>
