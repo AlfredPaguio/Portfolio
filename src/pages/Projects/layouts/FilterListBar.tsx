@@ -1,6 +1,6 @@
 import { FilterIcon, XCircle } from "lucide-react";
 
-export default function FilterMenu() {
+export default function FilterListBar() {
   return (
     <div className="flex w-full items-center space-x-2 p-4">
       <FilterIcon />

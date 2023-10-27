@@ -4,7 +4,7 @@ type TechButtonProps = {
   onClickTechnology: () => void;
 };
 
-export default function TechButton({
+export default function TechPillButton({
   technology,
   isSelected,
   onClickTechnology,

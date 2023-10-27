@@ -1,6 +1,6 @@
 import { Technologies } from "@/data/Technologies";
 import React from "react";
-import TechButton from "../pages/Projects/components/TechButton";
+import TechPillButton from "../pages/Projects/components/TechPillButton";
 
 import { ACTIONS, Action } from "../pages/Projects/index";
 
@@ -35,7 +35,7 @@ export default function ({
             </h2>
 
             {tech.programmingLanguages.map((language) => (
-              <TechButton
+              <TechPillButton
                 key={language}
                 technology={language}
                 isSelected={selectedTechnologies.includes(language)}
@@ -49,7 +49,7 @@ export default function ({
             </h2>
 
             {tech.libraries.map((library) => (
-              <TechButton
+              <TechPillButton
                 key={library}
                 technology={library}
                 isSelected={selectedTechnologies.includes(library)}
@@ -64,7 +64,7 @@ export default function ({
               </h2>
 
               {tech.frameworks.map((framework) => (
-                <TechButton
+                <TechPillButton
                   key={framework}
                   technology={framework}
                   isSelected={selectedTechnologies.includes(framework)}
@@ -81,7 +81,7 @@ export default function ({
               </h2>
 
               {tech.databaseManagementSystems.map((DBMS) => (
-                <TechButton
+                <TechPillButton
                   key={DBMS}
                   technology={DBMS}
                   isSelected={selectedTechnologies.includes(DBMS)}
