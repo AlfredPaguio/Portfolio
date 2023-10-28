@@ -23,9 +23,9 @@ export default function FilterListMenu({
 
   return (
     <>
-      {Technologies.map((tech) => (
-        <div className="border-t border-solid border-slate-300 py-10">
-          <div className="md:text-md 3xl:text-3xl mx-auto grid max-w-7xl grid-cols-2 gap-x-4 px-6 text-sm transition-all duration-300 md:gap-x-6 md:px-4 lg:text-lg xl:text-xl 2xl:text-2xl">
+      {Technologies.map((tech, key) => (
+        <div key={key} className="w-full bg-accent/10 py-10">
+          <div className="md:text-md 3xl:text-3xl mx-auto grid max-w-7xl grid-cols-2 gap-x-4 px-4 text-sm transition-all duration-300 md:gap-x-6 md:px-6 lg:text-lg xl:text-xl 2xl:text-2xl">
             <div className="grid auto-rows-min grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-6">
               <fieldset>
                 <legend className="block p-0 font-medium">
@@ -33,7 +33,7 @@ export default function FilterListMenu({
                 </legend>
                 <div className="pt-1">
                   {tech.programmingLanguages.sort().map((language) => (
-                    <div className="flex items-center">
+                    <div key={language} className="flex items-center">
                       <TechCheckbox
                         key={language}
                         technology={language}
@@ -49,7 +49,7 @@ export default function FilterListMenu({
                 <legend className="block p-0 font-medium">Libraries:</legend>
                 <div className="pt-1">
                   {tech.libraries.sort().map((library) => (
-                    <div className="flex items-center">
+                    <div key={library} className="flex items-center">
                       <TechCheckbox
                         key={library}
                         technology={library}
@@ -66,7 +66,7 @@ export default function FilterListMenu({
                 <legend className="block p-0 font-medium">Frameworks:</legend>
                 <div className="pt-1">
                   {tech.frameworks.sort().map((framework) => (
-                    <div className="flex items-center">
+                    <div key={framework} className="flex items-center">
                       <TechCheckbox
                         key={framework}
                         technology={framework}
@@ -84,7 +84,7 @@ export default function FilterListMenu({
                 </legend>
                 <div className="pt-1">
                   {tech.databaseManagementSystems.sort().map((DBMS) => (
-                    <div className="flex items-center">
+                    <div key={DBMS} className="flex items-center">
                       <TechCheckbox
                         key={DBMS}
                         technology={DBMS}

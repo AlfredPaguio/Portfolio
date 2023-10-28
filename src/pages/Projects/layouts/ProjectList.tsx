@@ -55,11 +55,15 @@ export default function ProjectList() {
           name="search"
         />
       </label>
-      <FilterListBar />
-      <FilterListMenu
+      <FilterListBar
         dispatch={dispatch}
         selectedTechnologies={selectedTechnologies}
-      />
+      >
+        <FilterListMenu
+          dispatch={dispatch}
+          selectedTechnologies={selectedTechnologies}
+        />
+      </FilterListBar>
 
       <div className="my-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filteredItems
