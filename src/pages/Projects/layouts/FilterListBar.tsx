@@ -3,6 +3,7 @@ import TechPillButton from "../components/TechPillButton";
 import {
   ACTIONS,
   TechnologiesContextType,
+  useTechnologiesContext,
 } from "../contexts/TechnologiesContext";
 import { ReactNode, useState } from "react";
 
@@ -10,11 +11,9 @@ type FilterListBarProps = {
   children: ReactNode;
 };
 
-export default function FilterListBar({
-  dispatch,
-  selectedTechnologies,
-  children,
-}: TechnologiesContextType & FilterListBarProps) {
+export default function FilterListBar({ children }: FilterListBarProps) {
+  const { selectedTechnologies, dispatch } = useTechnologiesContext();
+
   const [isExpanded, setIsExpanded] = useState(false);
   const ButtonIcon = isExpanded ? ChevronUp : ChevronDown;
 

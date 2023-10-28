@@ -1,5 +1,5 @@
 import { Projects } from "@/data/Projects";
-import { ProjectCard } from "@/pages/Projects/components/projectCard";
+import { ProjectCard } from "@/pages/Projects/components/ProjectCard";
 import { Link } from "react-router-dom";
 import Lead from "@/components/Lead";
 
