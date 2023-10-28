@@ -1,9 +1,10 @@
 import { SearchIcon } from "lucide-react";
 import { ProjectCard } from "../components/projectCard";
-import TechnologyPills from "../components/TechnologyPills";
+import FilterListMenu from "./FilterListMenu";
 import { useSearchParams } from "react-router-dom";
 import { useTechnologiesContext } from "../contexts/TechnologiesContext";
 import { Projects as ProjectsData } from "@/data/Projects";
+import FilterListBar from "./FilterListBar";
 
 export default function ProjectList() {
   const [searchParams, setSearchParams] = useSearchParams({
@@ -54,11 +55,16 @@ export default function ProjectList() {
           name="search"
         />
       </label>
-
-      <TechnologyPills
+      <FilterListBar
         dispatch={dispatch}
         selectedTechnologies={selectedTechnologies}
-      />
+      >
+        <FilterListMenu
+          dispatch={dispatch}
+          selectedTechnologies={selectedTechnologies}
+        />
+      </FilterListBar>
+
       <div className="my-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filteredItems
           .sort((a, b) => b.date.getTime() - a.date.getTime())
