@@ -1,10 +1,10 @@
 import { Projects } from "@/data/Projects";
-import { ProjectCard } from "@/pages/Projects/components/ProjectCard";
 import { Link } from "react-router-dom";
 import Lead from "@/components/Lead";
+import { ProjectCard } from "@/pages/Projects/components/ProjectCard";
 
 export default function ProjectsSection() {
-  const latestProjects = Projects.sort(
+  const latestProjects = [...Projects].sort(
     (a, b) => b.date.getTime() - a.date.getTime(),
   ).slice(0, 2);
 

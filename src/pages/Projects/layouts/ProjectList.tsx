@@ -1,7 +1,7 @@
-import { ProjectCard } from "../components/ProjectCard";
 import { useSearchParams } from "react-router-dom";
 import { Projects } from "@/data/Projects";
 import { useTechnologiesContext } from "../contexts/TechnologiesContext";
+import { ProjectCard } from "../components/ProjectCard";
 
 export default function ProjectList() {
   const [searchParams] = useSearchParams();

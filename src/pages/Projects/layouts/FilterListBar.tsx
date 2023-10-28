@@ -2,7 +2,6 @@ import { ChevronDown, ChevronUp, FilterIcon, XIcon } from "lucide-react";
 import TechPillButton from "../components/TechPillButton";
 import {
   ACTIONS,
-  TechnologiesContextType,
   useTechnologiesContext,
 } from "../contexts/TechnologiesContext";
 import { ReactNode, useState } from "react";
