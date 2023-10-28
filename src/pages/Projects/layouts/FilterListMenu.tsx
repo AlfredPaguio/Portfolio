@@ -1,14 +1,13 @@
 import { Technologies } from "@/data/Technologies";
 import {
   ACTIONS,
-  TechnologiesContextType,
+  useTechnologiesContext,
 } from "../contexts/TechnologiesContext";
 import TechCheckbox from "../components/TechCheckBox";
 
-export default function FilterListMenu({
-  dispatch,
-  selectedTechnologies,
-}: TechnologiesContextType) {
+export default function FilterListMenu() {
+  const { selectedTechnologies, dispatch } = useTechnologiesContext();
+
   const toggleTechnology = (technology: string) => {
     // Check if the technology is selected
     if (selectedTechnologies.includes(technology)) {
