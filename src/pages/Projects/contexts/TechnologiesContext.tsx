@@ -1,10 +1,23 @@
 import React, { createContext, useReducer, useContext } from "react";
 
 type TechnologiesState = string[];
-export type Action =
-  | { type: typeof ACTIONS.ADD_TECH_ON_SELECTED; payload: string }
-  | { type: typeof ACTIONS.REMOVE_TECH_ON_SELECTED; payload: string }
-  | { type: typeof ACTIONS.REMOVE_ALL_SELECTED };
+// export type Action =
+//   | { type: typeof ACTIONS.ADD_TECH_ON_SELECTED; payload: string }
+//   | { type: typeof ACTIONS.REMOVE_TECH_ON_SELECTED; payload: string }
+//   | { type: typeof ACTIONS.REMOVE_ALL_SELECTED };
+
+interface withPayload {
+  type: string;
+  payload: string;
+}
+ 
+interface withoutPayload {
+  type: string;
+  payload: string;
+}
+
+
+export type Action = withPayload | withoutPayload;
 
 export const ACTIONS = {
   ADD_TECH_ON_SELECTED: "add_tech_on_selected",
@@ -15,10 +28,12 @@ export const ACTIONS = {
 function technologiesReducer(state: TechnologiesState, action: Action) {
   switch (action.type) {
     case ACTIONS.ADD_TECH_ON_SELECTED:
-      if ("payload" in action && state.includes(action.payload)) {
+      console.log(state.includes(action.payload), state)
+      if (state.includes(action.payload)) {
+        console.log(...state);
         return [...state];
       }
-      return "payload" in action ? [...state, action.payload] : [...state];
+      return [...state, action.payload];
     case ACTIONS.REMOVE_TECH_ON_SELECTED:
       return "payload" in action
         ? state.filter((tech) => tech !== action.payload)
