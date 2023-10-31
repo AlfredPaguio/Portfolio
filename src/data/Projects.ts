@@ -1,4 +1,4 @@
-export type ProjectProps = {
+export type ProjectType = {
   title: string;
   stack: string[];
   description?: string;

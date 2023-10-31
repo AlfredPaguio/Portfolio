@@ -6,16 +6,15 @@ type TechnologiesState = string[];
 //   | { type: typeof ACTIONS.REMOVE_TECH_ON_SELECTED; payload: string }
 //   | { type: typeof ACTIONS.REMOVE_ALL_SELECTED };
 
-interface withPayload {
+type withPayload = {
   type: string;
   payload: string;
-}
- 
-interface withoutPayload {
-  type: string;
-  payload: string;
-}
+};
 
+type withoutPayload = {
+  type: string;
+  payload: string;
+};
 
 export type Action = withPayload | withoutPayload;
 
@@ -28,16 +27,12 @@ export const ACTIONS = {
 function technologiesReducer(state: TechnologiesState, action: Action) {
   switch (action.type) {
     case ACTIONS.ADD_TECH_ON_SELECTED:
-      console.log(state.includes(action.payload), state)
       if (state.includes(action.payload)) {
-        console.log(...state);
         return [...state];
       }
       return [...state, action.payload];
     case ACTIONS.REMOVE_TECH_ON_SELECTED:
-      return "payload" in action
-        ? state.filter((tech) => tech !== action.payload)
-        : [...state];
+      return state.filter((tech) => tech !== action.payload);
     case ACTIONS.REMOVE_ALL_SELECTED:
       return [];
     default:

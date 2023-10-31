@@ -16,7 +16,6 @@ export default function FilterListMenu() {
     } else {
       // If not selected, add it
       dispatch({ type: ACTIONS.ADD_TECH_ON_SELECTED, payload: technology });
-      console.log(technology);
     }
     // I had a headache thinking of this lol
   };
