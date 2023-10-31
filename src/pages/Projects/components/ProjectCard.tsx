@@ -11,7 +11,7 @@ export function ProjectCard({ project }: { project: ProjectType }) {
             <img
               key={index}
               src={imageUrl}
-              alt={`${index}`}
+              alt={`${index + 1}`}
               className="max-w-full"
             />
           ))}

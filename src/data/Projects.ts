@@ -50,6 +50,10 @@ export const Projects = [
       "MySQL",
       "Bootstrap",
     ],
+    imageUrls: [
+      '',
+      "image-url-2.jpg",
+    ],
     description:
       "The E-commerce Development project at B&D IT Consultancy aimed to create a robust and scalable online platform for clients to showcase and sell their products or services. I'm not sure about the current status of the project's usage within the company. For accurate details on its usage and performance, I recommend contacting the relevant department for this project.",
     links: {
