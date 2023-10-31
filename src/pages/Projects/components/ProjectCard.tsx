@@ -4,22 +4,25 @@ import { ProjectType } from "@/data/Projects";
 export function ProjectCard({ project }: { project: ProjectType }) {
   return (
     <div className="flex flex-col  gap-4 overflow-hidden rounded-lg bg-background/80 p-4 shadow-xl backdrop-blur-lg ">
-      {project.imageUrls && (
+      {project.images && project.images.length > 0 && (
         <div className="mt-4 space-y-4">
           <h3 className="text-lg font-semibold text-primary">Images</h3>
-          {project.imageUrls.map((imageUrl, index) => (
-            <img
-              key={index}
-              src={imageUrl}
-              alt={`${index + 1}`}
-              className="max-w-full"
-            />
-          ))}
+          <img
+            key={0}
+            src={project.images[0].imageUrl}
+            alt={project.images[0].description || `Image 1`}
+            className="max-w-full"
+            title={project.images[0].description || `Image 1`}
+          />
         </div>
       )}
       <div className="flex justify-between">
         <h2 className="text-3xl font-bold text-white">{project.title}</h2>
-        {project.date && <small className="font-semibold text-white whitespace-nowrap">{project.date.toDateString()}</small>}
+        {project.date && (
+          <small className="whitespace-nowrap font-semibold text-white">
+            {project.date.toDateString()}
+          </small>
+        )}
       </div>
       <p className="mt-2 text-xl font-normal text-white">
         {project.description}

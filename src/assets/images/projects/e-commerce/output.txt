@@ -1,0 +1,18 @@
+@\assets\images\projects\e-commerce\admin\add_file.PNG
+@\assets\images\projects\e-commerce\admin\add_promotional banner.png
+@\assets\images\projects\e-commerce\admin\admin_site_settings-3.png
+@\assets\images\projects\e-commerce\admin\brand_add.png
+@\assets\images\projects\e-commerce\admin\brands.png
+@\assets\images\projects\e-commerce\admin\categories.png
+@\assets\images\projects\e-commerce\admin\category_add.png
+@\assets\images\projects\e-commerce\admin\category_delete.PNG
+@\assets\images\projects\e-commerce\admin\category_edit.png
+@\assets\images\projects\e-commerce\admin\landing_page.png
+@\assets\images\projects\e-commerce\admin\product_edit-1.png
+@\assets\images\projects\e-commerce\admin\product_edit-2-1.png
+@\assets\images\projects\e-commerce\admin\product_edit-2-2.png
+@\assets\images\projects\e-commerce\admin\product_edit-3.png
+@\assets\images\projects\e-commerce\admin\product_list.png
+@\assets\images\projects\e-commerce\admin\promotional_banner_list.png
+@\assets\images\projects\e-commerce\admin\site_settings_2.png
+@\assets\images\projects\e-commerce\admin\site_settings-1.png

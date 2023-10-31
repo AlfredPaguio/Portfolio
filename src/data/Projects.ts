@@ -1,9 +1,37 @@
+/*eslint import/no-unresolved: [2, { caseSensitive: false }]*/
+
+// E-commerce
+import e_commerce_login_throttle from "@/assets/images/projects/e-commerce/login_throttle.png";
+import e_commerce_login_attempt from "@/assets/images/projects/e-commerce/login_attempt.png";
+import e_commerce_login from "@/assets/images/projects/e-commerce/login.png";
+import e_commerce_register from "@/assets/images/projects/e-commerce/register.png";
+import e_commerce_shopping_cart from "@/assets/images/projects/e-commerce/shopping_cart.png";
+
+import e_commerce_admin_add_file from "@/assets/images/projects/e-commerce/admin/add_file.png";
+import e_commerce_admin_add_promotional_banner from "@/assets/images/projects/e-commerce/admin/add_promotional banner.png";
+import e_commerce_admin_brand_add from "@/assets/images/projects/e-commerce/admin/brand_add.png";
+import e_commerce_admin_brands from "@/assets/images/projects/e-commerce/admin/brands.png";
+import e_commerce_admin_categories from "@/assets/images/projects/e-commerce/admin/categories.png";
+import e_commerce_admin_category_add from "@/assets/images/projects/e-commerce/admin/category_add.png";
+import e_commerce_admin_category_delete from "@/assets/images/projects/e-commerce/admin/category_delete.png";
+import e_commerce_admin_category_edit from "@/assets/images/projects/e-commerce/admin/category_edit.png";
+import e_commerce_admin_landing_page from "@/assets/images/projects/e-commerce/admin/landing_page.png";
+import e_commerce_admin_product_edit_1 from "@/assets/images/projects/e-commerce/admin/product_edit-1.png";
+import e_commerce_admin_product_edit_2_1 from "@/assets/images/projects/e-commerce/admin/product_edit-2-1.png";
+import e_commerce_admin_product_edit_2_2 from "@/assets/images/projects/e-commerce/admin/product_edit-2-2.png";
+import e_commerce_admin_product_edit_3 from "@/assets/images/projects/e-commerce/admin/product_edit-3.png";
+import e_commerce_admin_product_list from "@/assets/images/projects/e-commerce/admin/product_list.png";
+import e_commerce_admin_promotional_banner_list from "@/assets/images/projects/e-commerce/admin/promotional_banner_list.png";
+import e_commerce_admin_site_settings_2 from "@/assets/images/projects/e-commerce/admin/site_settings_2.png";
+import e_commerce_admin_site_settings_1 from "@/assets/images/projects/e-commerce/admin/site_settings-1.png";
+import e_commerce_admin_site_settings_3 from "@/assets/images/projects/e-commerce/admin/site_settings-3.png";
+
 export type ProjectType = {
   title: string;
   stack: string[];
   description?: string;
   responsibilities?: string[];
-  imageUrls?: string[];
+  images?: Array<{ imageUrl: string; description?: string }>;
   links?: { [key: string]: string };
   date: Date;
 };
@@ -50,19 +78,81 @@ export const Projects = [
       "MySQL",
       "Bootstrap",
     ],
-    imageUrls: [
-      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/login.png",
-      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/login_attempt.png",
-      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/login_throttle.png",
-      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/register.png",
-      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/shopping_cart.png",
-      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/user_all_categories.png",
-      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/user_list_of_categories.png",
-      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/user_product_view.png",
-      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/Admin/add_file.PNG",
-      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/Admin/add_promotional%20banner.png",
-      
+    images: [
+      { imageUrl: e_commerce_login_attempt, description: "Login Attempt" },
+      { imageUrl: e_commerce_login_throttle, description: "Login Throttle" },
+      { imageUrl: e_commerce_login, description: "Login" },
+      { imageUrl: e_commerce_register, description: "Register" },
+      { imageUrl: e_commerce_shopping_cart, description: "Shopping Cart" },
+      {
+        imageUrl: e_commerce_admin_categories,
+        description: "Admin Categories",
+      },
+      { imageUrl: e_commerce_admin_add_file, description: "Admin Add File" },
+      {
+        imageUrl: e_commerce_admin_add_promotional_banner,
+        description: "Admin Add Promotional Banner",
+      },
+      {
+        imageUrl: e_commerce_admin_site_settings_3,
+        description: "Admin Site Settings 3",
+      },
+      { imageUrl: e_commerce_admin_brand_add, description: "Admin Brand Add" },
+      { imageUrl: e_commerce_admin_brands, description: "Admin Brands" },
+      {
+        imageUrl: e_commerce_admin_categories,
+        description: "Admin Categories",
+      },
+      {
+        imageUrl: e_commerce_admin_category_add,
+        description: "Admin Category Add",
+      },
+      {
+        imageUrl: e_commerce_admin_category_delete,
+        description: "Admin Category Delete",
+      },
+      {
+        imageUrl: e_commerce_admin_category_edit,
+        description: "Admin Category Edit",
+      },
+      {
+        imageUrl: e_commerce_admin_landing_page,
+        description: "Admin Landing Page",
+      },
+      {
+        imageUrl: e_commerce_admin_product_edit_1,
+        description: "Admin Product Edit 1",
+      },
+      {
+        imageUrl: e_commerce_admin_product_edit_2_1,
+        description: "Admin Product Edit 2-1",
+      },
+      {
+        imageUrl: e_commerce_admin_product_edit_2_2,
+        description: "Admin Product Edit 2-2",
+      },
+      {
+        imageUrl: e_commerce_admin_product_edit_3,
+        description: "Admin Product Edit 3",
+      },
+      {
+        imageUrl: e_commerce_admin_product_list,
+        description: "Admin Product List",
+      },
+      {
+        imageUrl: e_commerce_admin_promotional_banner_list,
+        description: "Admin Promotional Banner List",
+      },
+      {
+        imageUrl: e_commerce_admin_site_settings_2,
+        description: "Admin Site Settings 2",
+      },
+      {
+        imageUrl: e_commerce_admin_site_settings_1,
+        description: "Admin Site Settings 1",
+      },
     ],
+
     description:
       "The E-commerce Development project at B&D IT Consultancy aimed to create a robust and scalable online platform for clients to showcase and sell their products or services. I'm not sure about the current status of the project's usage within the company. For accurate details on its usage and performance, I recommend contacting the relevant department for this project.",
     links: {
