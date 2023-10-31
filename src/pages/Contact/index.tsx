@@ -1,14 +1,13 @@
 import { InputForm } from "@/components/InputForm";
 import { MailOpen } from "lucide-react";
-import withPageTransition from '../../routes/components/withPageTransition';
 
 function Contact() {
   return (
-    <div className="my-auto min-h-screen mx-auto">
+    <div className="mx-auto my-auto min-h-screen">
       <h1 className="text-3xl font-bold underline">Contact</h1>
-      <div className="p-6 max-w-sm mx-auto bg-slate-800 dark:bg-white rounded-xl shadow-lg flex items-center space-x-4">
+      <div className="mx-auto flex max-w-sm items-center space-x-4 rounded-xl bg-slate-800 p-6 shadow-lg dark:bg-white">
         <div className="shrink-0">
-          <MailOpen className="dark:fill-slate-900 fill-white" />
+          <MailOpen className="fill-white dark:fill-slate-900" />
         </div>
         <div>
           <div className="text-xl font-medium text-white dark:text-black">
@@ -23,4 +22,4 @@ function Contact() {
   );
 }
 
-export default withPageTransition(Contact);
+export default Contact;

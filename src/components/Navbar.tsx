@@ -1,10 +1,7 @@
 "use client";
 import { NavLink } from "react-router-dom";
-
 import { Menu } from "lucide-react";
-
-import pagesData from "../routes/pagesData";
-import { routerType } from "../routes/types/router.types";
+import pagesData, { routerType } from "../routes/pagesData";
 import { useState } from "react";
 import { NavbarMenu } from "./NavbarMenu";
 
@@ -31,6 +28,7 @@ export function Navbar() {
                         : "opacity-70 hover:opacity-100 focus-visible:opacity-100"
                     }`
                   }
+                  unstable_viewTransition
                 >
                   <li className="relative transition-all  duration-300 ease-in-out after:absolute after:bottom-0 after:left-0  after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in-out after:content-['']  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300">
                     {route.title}

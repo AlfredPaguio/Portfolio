@@ -1,4 +1,3 @@
-import withPageTransition from "@/routes/components/withPageTransition";
 import HeroSection from "./components/Sections/HeroSection";
 import ProjectsSection from "./components/Sections/ProjectsSection";
 import AboutMeSection from "./components/Sections/AboutMeSection";
@@ -13,4 +12,4 @@ function Home() {
   );
 }
 
-export default withPageTransition(Home);
+export default Home;

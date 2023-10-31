@@ -1,5 +1,4 @@
-import pagesData from "@/routes/pagesData";
-import { routerType } from "@/routes/types/router.types";
+import pagesData, { routerType } from "@/routes/pagesData";
 import { NavLink } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 

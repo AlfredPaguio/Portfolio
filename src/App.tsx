@@ -1,19 +1,22 @@
-import { Navbar } from "@/components/Navbar";
-import Router from "./routes/router";
-import { Toaster } from "@/components/ui/toaster";
-import { Footer } from "@/components/Footer";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import pagesData from "./routes/pagesData";
+import LoadingPage from "./routes/layouts/LoadingPage";
+import Layout from "./routes/layouts/main";
 
-function App() {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: pagesData,
+  },
+]);
+
+export default function App() {
   return (
-    <div className="flex h-screen min-h-screen w-screen lg:snap-y flex-col justify-between overflow-y-scroll scroll-smooth">
-      <Navbar />
-      <main className="container grow ">
-        <Router />
-      </main>
-      <Footer />
-      <Toaster />
-    </div>
+    <RouterProvider
+      future={{ v7_startTransition: true }}
+      router={router}
+      fallbackElement={<LoadingPage />}
+    />
   );
 }
-
-export default App;
