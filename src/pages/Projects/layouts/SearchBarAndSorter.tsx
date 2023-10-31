@@ -46,6 +46,7 @@ export default function SearchBarAndSorter() {
 
       <select
         value={sortQuery || ""}
+        id={`sorter`}
         className="ml-5 h-10 rounded-lg border border-solid border-slate-300 bg-transparent pl-5 pr-7 text-sm focus:outline-none"
         onChange={(e) => handleSort(e.target.value)}
       >

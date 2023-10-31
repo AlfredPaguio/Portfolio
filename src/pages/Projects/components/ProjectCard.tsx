@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
-import { ProjectProps } from "@/data/Projects";
+import { ProjectType } from "@/data/Projects";
 
-export function ProjectCard({ project }: { project: ProjectProps }) {
+export function ProjectCard({ project }: { project: ProjectType }) {
   return (
     <div className="flex flex-col  gap-4 overflow-hidden rounded-lg bg-background/80 p-4 shadow-xl backdrop-blur-lg ">
       {project.imageUrls && (
