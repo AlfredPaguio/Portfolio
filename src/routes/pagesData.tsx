@@ -1,12 +1,19 @@
-import { routerType } from "./types/router.types";
 import { lazy } from "react";
 import { BriefcaseIcon, HomeIcon, MailIcon } from "lucide-react";
+import { ElementType } from "react";
 
 const Home = lazy(() => import("@/pages/Home"));
 const Projects = lazy(() => import("@/pages/Projects"));
 const Contact = lazy(() => import("@/pages/Contact"));
 const NoPage = lazy(() => import("@/pages/SpecialPages/NoPage"));
 
+export type routerType = {
+  title: string;
+  path: string;
+  description?: string;
+  element: JSX.Element;
+  Icon?: ElementType;
+};
 
 const pagesData: routerType[] = [
   {

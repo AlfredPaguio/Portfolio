@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import pagesData from "@/routes/pagesData";
-import { routerType } from "@/routes/types/router.types";
-import withPageTransition from "@/routes/components/withPageTransition";
+import pagesData, { routerType } from "@/routes/pagesData";
 import { MoonIcon } from "lucide-react";
 
 function NoPage() {
@@ -41,10 +39,14 @@ function NoPage() {
                     border-primary px-4 py-8 transition-all
                     duration-200 hover:cursor-pointer"
                     >
-                      {route.Icon && <div className="rounded-xl bg-secondary px-3 py-2 md:py-4">
-                        <route.Icon className="mx-auto 
-    text-2xl text-accent dark:text-accent-dark md:text-3xl" />
-                      </div>}
+                      {route.Icon && (
+                        <div className="rounded-xl bg-secondary px-3 py-2 md:py-4">
+                          <route.Icon
+                            className="dark:text-accent-dark 
+    mx-auto text-2xl text-accent md:text-3xl"
+                          />
+                        </div>
+                      )}
 
                       {/* Text */}
                       <div className="flex grow flex-col pl-5 pt-2">
@@ -71,4 +73,4 @@ function NoPage() {
   );
 }
 
-export default withPageTransition(NoPage);
+export default NoPage;

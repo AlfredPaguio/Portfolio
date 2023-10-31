@@ -1,5 +1,4 @@
 import Lead from "@/components/Lead";
-import withPageTransition from "@/routes/components/withPageTransition";
 import TechnologiesProvider from "./contexts/TechnologiesContext";
 import ProjectList from "./layouts/ProjectList";
 import FilterListBar from "./layouts/FilterListBar";
@@ -22,4 +21,4 @@ function Projects() {
   );
 }
 
-export default withPageTransition(Projects);
+export default Projects;
