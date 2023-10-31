@@ -7,12 +7,12 @@ type TechnologiesState = string[];
 //   | { type: typeof ACTIONS.REMOVE_ALL_SELECTED };
 
 type withPayload = {
-  type: string;
+  type: typeof ACTIONS.ADD_TECH_ON_SELECTED | typeof ACTIONS.REMOVE_TECH_ON_SELECTED;
   payload: string;
 };
 
 type withoutPayload = {
-  type: string;
+  type: typeof ACTIONS.REMOVE_ALL_SELECTED;
   payload: string;
 };
 
