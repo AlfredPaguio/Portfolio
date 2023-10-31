@@ -13,7 +13,6 @@ type withPayload = {
 
 type withoutPayload = {
   type: typeof ACTIONS.REMOVE_ALL_SELECTED;
-  payload: string;
 };
 
 export type Action = withPayload | withoutPayload;
