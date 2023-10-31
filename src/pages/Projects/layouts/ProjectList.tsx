@@ -9,8 +9,8 @@ export default function ProjectList() {
   const { selectedTechnologies } = useTechnologiesContext();
   const [filteredItems, setFilteredItems] = useState<ProjectType[]>([]);
 
-  const titleQuery = searchParams.get("title");
-  const sortQuery = searchParams.get("sort");
+  const titleQuery = searchParams.get("title") || "";
+  const sortQuery = searchParams.get("sort") || "";
 
   useEffect(() => {
     //avoid mutating the original data
@@ -32,19 +32,21 @@ export default function ProjectList() {
       return true;
     });
 
-    switch (sortQuery) {
-      case "date-asc":
-        filteredItems.sort((a, b) => a.date.getTime() - b.date.getTime());
-        break;
-      case "date-desc":
-        filteredItems.sort((a, b) => b.date.getTime() - a.date.getTime());
-        break;
-      case "name-asc":
-        filteredItems.sort((a, b) => a.title.localeCompare(b.title));
-        break;
-      case "name-desc":
-        filteredItems.sort((a, b) => b.title.localeCompare(a.title));
-        break;
+    if (sortQuery !== null) {
+      switch (sortQuery) {
+        case "date-asc":
+          filteredItems.sort((a, b) => a.date.getTime() - b.date.getTime());
+          break;
+        case "date-desc":
+          filteredItems.sort((a, b) => b.date.getTime() - a.date.getTime());
+          break;
+        case "name-asc":
+          filteredItems.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+        case "name-desc":
+          filteredItems.sort((a, b) => b.title.localeCompare(a.title));
+          break;
+      }
     }
 
     setFilteredItems(filteredItems);
