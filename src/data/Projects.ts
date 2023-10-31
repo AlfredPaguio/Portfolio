@@ -51,8 +51,17 @@ export const Projects = [
       "Bootstrap",
     ],
     imageUrls: [
-      '',
-      "image-url-2.jpg",
+      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/login.png",
+      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/login_attempt.png",
+      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/login_throttle.png",
+      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/register.png",
+      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/shopping_cart.png",
+      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/user_all_categories.png",
+      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/user_list_of_categories.png",
+      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/user_product_view.png",
+      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/Admin/add_file.PNG",
+      "https://github.com/AlfredPaguio/Portfolio/blob/4-add-image-previews-video-demos-to-projects/src/assets/images/projects/e-commerce/Admin/add_promotional%20banner.png",
+      
     ],
     description:
       "The E-commerce Development project at B&D IT Consultancy aimed to create a robust and scalable online platform for clients to showcase and sell their products or services. I'm not sure about the current status of the project's usage within the company. For accurate details on its usage and performance, I recommend contacting the relevant department for this project.",
