@@ -1,30 +1,30 @@
-/*eslint import/no-unresolved: [2, { caseSensitive: false }]*/
+/* eslint import/no-unresolved: [2, { ignore: ['\\.png$'] }]*/
 
 // E-commerce
-import e_commerce_login_throttle from "@/assets/images/projects/e-commerce/login_throttle.png";
-import e_commerce_login_attempt from "@/assets/images/projects/e-commerce/login_attempt.png";
-import e_commerce_login from "@/assets/images/projects/e-commerce/login.png";
-import e_commerce_register from "@/assets/images/projects/e-commerce/register.png";
-import e_commerce_shopping_cart from "@/assets/images/projects/e-commerce/shopping_cart.png";
+import e_commerce_login_throttle from "/images/projects/e-commerce/login_throttle.png";
+import e_commerce_login_attempt from "/images/projects/e-commerce/login_attempt.png";
+import e_commerce_login from "/images/projects/e-commerce/login.png";
+import e_commerce_register from "/images/projects/e-commerce/register.png";
+import e_commerce_shopping_cart from "/images/projects/e-commerce/shopping_cart.png";
 
-import e_commerce_admin_add_file from "@/assets/images/projects/e-commerce/admin/add_file.png";
-import e_commerce_admin_add_promotional_banner from "@/assets/images/projects/e-commerce/admin/add_promotional banner.png";
-import e_commerce_admin_brand_add from "@/assets/images/projects/e-commerce/admin/brand_add.png";
-import e_commerce_admin_brands from "@/assets/images/projects/e-commerce/admin/brands.png";
-import e_commerce_admin_categories from "@/assets/images/projects/e-commerce/admin/categories.png";
-import e_commerce_admin_category_add from "@/assets/images/projects/e-commerce/admin/category_add.png";
-import e_commerce_admin_category_delete from "@/assets/images/projects/e-commerce/admin/category_delete.png";
-import e_commerce_admin_category_edit from "@/assets/images/projects/e-commerce/admin/category_edit.png";
-import e_commerce_admin_landing_page from "@/assets/images/projects/e-commerce/admin/landing_page.png";
-import e_commerce_admin_product_edit_1 from "@/assets/images/projects/e-commerce/admin/product_edit-1.png";
-import e_commerce_admin_product_edit_2_1 from "@/assets/images/projects/e-commerce/admin/product_edit-2-1.png";
-import e_commerce_admin_product_edit_2_2 from "@/assets/images/projects/e-commerce/admin/product_edit-2-2.png";
-import e_commerce_admin_product_edit_3 from "@/assets/images/projects/e-commerce/admin/product_edit-3.png";
-import e_commerce_admin_product_list from "@/assets/images/projects/e-commerce/admin/product_list.png";
-import e_commerce_admin_promotional_banner_list from "@/assets/images/projects/e-commerce/admin/promotional_banner_list.png";
-import e_commerce_admin_site_settings_2 from "@/assets/images/projects/e-commerce/admin/site_settings_2.png";
-import e_commerce_admin_site_settings_1 from "@/assets/images/projects/e-commerce/admin/site_settings-1.png";
-import e_commerce_admin_site_settings_3 from "@/assets/images/projects/e-commerce/admin/site_settings-3.png";
+import e_commerce_admin_add_file from "/images/projects/e-commerce/admin/add_file.png";
+import e_commerce_admin_add_promotional_banner from "/images/projects/e-commerce/admin/add_promotional banner.png";
+import e_commerce_admin_brand_add from "/images/projects/e-commerce/admin/brand_add.png";
+import e_commerce_admin_brands from "/images/projects/e-commerce/admin/brands.png";
+import e_commerce_admin_categories from "/images/projects/e-commerce/admin/categories.png";
+import e_commerce_admin_category_add from "/images/projects/e-commerce/admin/category_add.png";
+import e_commerce_admin_category_delete from "/images/projects/e-commerce/admin/category_delete.png";
+import e_commerce_admin_category_edit from "/images/projects/e-commerce/admin/category_edit.png";
+import e_commerce_admin_landing_page from "/images/projects/e-commerce/admin/landing_page.png";
+import e_commerce_admin_product_edit_1 from "/images/projects/e-commerce/admin/product_edit-1.png";
+import e_commerce_admin_product_edit_2_1 from "/images/projects/e-commerce/admin/product_edit-2-1.png";
+import e_commerce_admin_product_edit_2_2 from "/images/projects/e-commerce/admin/product_edit-2-2.png";
+import e_commerce_admin_product_edit_3 from "/images/projects/e-commerce/admin/product_edit-3.png";
+import e_commerce_admin_product_list from "/images/projects/e-commerce/admin/product_list.png";
+import e_commerce_admin_promotional_banner_list from "/images/projects/e-commerce/admin/promotional_banner_list.png";
+import e_commerce_admin_site_settings_2 from "/images/projects/e-commerce/admin/site_settings_2.png";
+import e_commerce_admin_site_settings_1 from "/images/projects/e-commerce/admin/site_settings-1.png";
+import e_commerce_admin_site_settings_3 from "/images/projects/e-commerce/admin/site_settings-3.png";
 
 export type ProjectType = {
   title: string;
