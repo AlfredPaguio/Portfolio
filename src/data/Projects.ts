@@ -25,6 +25,13 @@ import e_commerce_admin_promotional_banner_list from "/images/projects/e-commerc
 import e_commerce_admin_site_settings_2 from "/images/projects/e-commerce/admin/site_settings_2.png";
 import e_commerce_admin_site_settings_1 from "/images/projects/e-commerce/admin/site_settings-1.png";
 import e_commerce_admin_site_settings_3 from "/images/projects/e-commerce/admin/site_settings-3.png";
+// Information Site
+import info_site_home from "/images/projects/information_site/home.png";
+import info_site_about from "/images/projects/information_site/about.png";
+import info_site_services from "/images/projects/information_site/services.png";
+import info_site_faq from "/images/projects/information_site/faq.png";
+import info_site_faq_open from "/images/projects/information_site/faq_open.png";
+import info_site_contact from "/images/projects/information_site/contact.png";
 
 export type ProjectType = {
   title: string;
@@ -66,6 +73,17 @@ export const Projects = [
       Website: "https://bditconsultancy.com/",
     },
     date: new Date("2023-07-19"),
+    images: [
+      { imageUrl: info_site_home, description: "Home" },
+      { imageUrl: info_site_about, description: "About" },
+      { imageUrl: info_site_services, description: "Services" },
+      { imageUrl: info_site_faq, description: "FAQ" },
+      {
+        imageUrl: info_site_faq_open,
+        description: "FAQ - All accordion opened",
+      },
+      { imageUrl: info_site_contact, description: "Contact" },
+    ],
   },
   {
     title: "E-Commerce System",
@@ -86,70 +104,70 @@ export const Projects = [
       { imageUrl: e_commerce_shopping_cart, description: "Shopping Cart" },
       {
         imageUrl: e_commerce_admin_categories,
-        description: "Admin Categories",
+        description: "Admin - Categories",
       },
-      { imageUrl: e_commerce_admin_add_file, description: "Admin Add File" },
+      { imageUrl: e_commerce_admin_add_file, description: "Admin - Add File" },
       {
         imageUrl: e_commerce_admin_add_promotional_banner,
-        description: "Admin Add Promotional Banner",
+        description: "Admin - Add Promotional Banner",
       },
       {
         imageUrl: e_commerce_admin_site_settings_3,
-        description: "Admin Site Settings 3",
+        description: "Admin - Site Settings 3",
       },
-      { imageUrl: e_commerce_admin_brand_add, description: "Admin Brand Add" },
-      { imageUrl: e_commerce_admin_brands, description: "Admin Brands" },
+      { imageUrl: e_commerce_admin_brand_add, description: "Admin - Brand Add" },
+      { imageUrl: e_commerce_admin_brands, description: "Admin - Brands" },
       {
         imageUrl: e_commerce_admin_categories,
-        description: "Admin Categories",
+        description: "Admin - Categories",
       },
       {
         imageUrl: e_commerce_admin_category_add,
-        description: "Admin Category Add",
+        description: "Admin - Category Add",
       },
       {
         imageUrl: e_commerce_admin_category_delete,
-        description: "Admin Category Delete",
+        description: "Admin - Category Delete",
       },
       {
         imageUrl: e_commerce_admin_category_edit,
-        description: "Admin Category Edit",
+        description: "Admin - Category Edit",
       },
       {
         imageUrl: e_commerce_admin_landing_page,
-        description: "Admin Landing Page",
+        description: "Admin - Landing Page",
       },
       {
         imageUrl: e_commerce_admin_product_edit_1,
-        description: "Admin Product Edit 1",
+        description: "Admin - Product Edit 1",
       },
       {
         imageUrl: e_commerce_admin_product_edit_2_1,
-        description: "Admin Product Edit 2-1",
+        description: "Admin - Product Edit 2-1",
       },
       {
         imageUrl: e_commerce_admin_product_edit_2_2,
-        description: "Admin Product Edit 2-2",
+        description: "Admin - Product Edit 2-2",
       },
       {
         imageUrl: e_commerce_admin_product_edit_3,
-        description: "Admin Product Edit 3",
+        description: "Admin - Product Edit 3",
       },
       {
         imageUrl: e_commerce_admin_product_list,
-        description: "Admin Product List",
+        description: "Admin - Product List",
       },
       {
         imageUrl: e_commerce_admin_promotional_banner_list,
-        description: "Admin Promotional Banner List",
+        description: "Admin - Promotional Banner List",
       },
       {
         imageUrl: e_commerce_admin_site_settings_2,
-        description: "Admin Site Settings 2",
+        description: "Admin - Site Settings 2",
       },
       {
         imageUrl: e_commerce_admin_site_settings_1,
-        description: "Admin Site Settings 1",
+        description: "Admin - Site Settings 1",
       },
     ],
 
