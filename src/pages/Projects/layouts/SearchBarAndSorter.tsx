@@ -50,10 +50,10 @@ export default function SearchBarAndSorter() {
         className="ml-5 h-10 rounded-lg border border-solid border-slate-300 bg-transparent pl-5 pr-7 text-sm focus:outline-none"
         onChange={(e) => handleSort(e.target.value)}
       >
-        <option value="date-asc">Sort by Date (Ascending)</option>
         <option value="date-desc">Sort by Date (Descending)</option>
-        <option value="name-asc">Sort by Name (Ascending)</option>
+        <option value="date-asc">Sort by Date (Ascending)</option>
         <option value="name-desc">Sort by Name (Descending)</option>
+        <option value="name-asc">Sort by Name (Ascending)</option>
       </select>
     </div>
   );

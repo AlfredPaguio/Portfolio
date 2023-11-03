@@ -10,7 +10,7 @@ export default function ProjectList() {
   const [filteredItems, setFilteredItems] = useState<ProjectType[]>([]);
 
   const titleQuery = searchParams.get("title") || "";
-  const sortQuery = searchParams.get("sort") || "";
+  const sortQuery = searchParams.get("sort") || "date-desc";
 
   useEffect(() => {
     //avoid mutating the original data
