@@ -5,9 +5,9 @@ import { Outlet } from "react-router-dom";
 
 export default function Layout() {
   return (
-    <div className="flex h-screen min-h-screen w-screen flex-col justify-between overflow-y-scroll scroll-smooth lg:snap-y">
+    <div className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark flex h-screen min-h-screen w-screen flex-col justify-between overflow-y-scroll lg:snap-y">
       <Navbar />
-      <main className="container grow ">
+      <main className="container grow">
         <Outlet />
       </main>
       <Footer />

@@ -9,18 +9,16 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 
 export function ProjectCard({ project }: { project: ProjectType }) {
   return (
-    <Card>
+    <Card className="dark:bg-background-800/20 bg-background-200/20">
       <CardHeader>
         <CardTitle>{project.title}</CardTitle>
         <CardDescription>{project.date.toDateString()}</CardDescription>
         {project.images && project.images.length > 0 && (
           <div className="w-full">
-            <AspectRatio ratio={16 / 9}>
               <img
                 key={0}
                 src={project.images[0].imageUrl}
@@ -28,7 +26,6 @@ export function ProjectCard({ project }: { project: ProjectType }) {
                 className="rounded-md object-cover"
                 title={project.images[0].description || `Image 1`}
               />
-            </AspectRatio>
           </div>
         )}
       </CardHeader>

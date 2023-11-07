@@ -25,3 +25,10 @@ If you are developing a production application, we recommend updating the config
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+https://devicons-react.vercel.app/
+https://ui.shadcn.com/
+https://tailwindcss.com/
+
+https://www.realtimecolors.com/?colors=f1f1fe-0e0f11-4842f0-080646-312bee&fonts=Poppins-Poppins

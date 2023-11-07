@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { DownloadIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -8,7 +9,7 @@ export default function HeroSection() {
         <h1 className="mb-4 text-center text-5xl font-bold lg:text-7xl xl:text-8xl">
           I'm Alfred U. Paguio
         </h1>
-        <h2 className="text-center text-lg font-medium lg:text-3xl 2xl:text-4xl mb-2">
+        <h2 className="mb-2 text-center text-lg font-medium lg:text-3xl 2xl:text-4xl">
           Web Developer with a Diverse Skill Set
         </h2>
         <p className="text-center text-base lg:text-lg xl:text-xl 2xl:text-2xl">
@@ -18,20 +19,17 @@ export default function HeroSection() {
         <p className="m-2 text-center text-base lg:text-lg xl:text-xl 2xl:text-2xl">
           Let me help you build and optimize your web projects.
         </p>
-        <div className="mx-auto flex p-2">
-          <Link
-            to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.pdf"
-            className="me-2 mt-2 flex items-center justify-center rounded bg-primary px-4 py-2 text-white hover:bg-accent"
-          >
-            <DownloadIcon size={16} className="mr-1" />
-            Download CV
-          </Link>
-          <Link
-            to="/contact"
-            className="border-text mt-2 rounded border-2 border-solid bg-transparent px-4 py-2 font-medium text-white hover:border-transparent hover:bg-accent"
-          >
-            Contact Me
-          </Link>
+        <div className="mx-auto flex gap-x-2 p-2">
+          <Button asChild>
+            <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.pdf">
+              <DownloadIcon className="mr-2 h-4 w-4" />
+              Download CV
+            </Link>
+          </Button>
+
+          <Button variant={"outline"} asChild>
+            <Link to="/contact">Contact Me</Link>
+          </Button>
         </div>
       </div>
     </section>

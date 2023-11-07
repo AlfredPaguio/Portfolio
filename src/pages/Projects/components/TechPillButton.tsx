@@ -1,3 +1,6 @@
+import { badgeVariants } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { XCircle } from "lucide-react";
 
 type TechButtonProps = {
@@ -14,16 +17,17 @@ export default function TechPillButton({
   onClickTechnology,
 }: TechButtonProps) {
   return (
-    <button
+    <Button
       onClick={onClickTechnology}
-      className={`inline-flex shrink-0 items-center overflow-hidden rounded-full py-1 pl-3 pr-2 text-sm font-medium ${
+      className={cn(badgeVariants({ variant: "default" }),`shrink-0 ${
         isSelected
           ? "bg-blue-500 hover:bg-blue-600 focus:outline-none"
           : "bg-blue-500 hover:bg-blue-600"
-      }`}
+      }`)}
     >
+      {/* will remove that isSelected*/}
       {technology}
       {hasCloseIcon && <XCircle className="shrink-0 pl-1" />}
-    </button>
+    </Button>
   );
 }
