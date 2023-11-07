@@ -22,7 +22,7 @@ export const Technologies = [
       "Laravel Livewire",
       "Flask",
       "Bootstrap",
-      "Tailwind CSS",
+      "TailwindCSS",
     ],
     databaseManagementSystems: ["Microsoft SQL Server", "MySQL"],
     developerTools: [
