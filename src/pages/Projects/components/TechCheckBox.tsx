@@ -1,3 +1,5 @@
+import { Label } from "@/components/ui/label";
+
 type TechButtonProps = {
   technology: string;
   isSelected: boolean;
@@ -11,11 +13,11 @@ export default function TechCheckbox({
 }: TechButtonProps) {
   return (
     <>
-      <div className="flex items-center">
+      <div className="flex items-center space-x-2">
         <input type="checkbox" className="shrink-0 accent-accent hover:accent-secondary" id={technology} checked={isSelected} onChange={onChangeTechnology}/>
-        <label htmlFor={technology} className="ml-2 flex-1">
+        <Label htmlFor={technology}>
           {technology}
-        </label>
+        </Label>
       </div>
     </>
   );

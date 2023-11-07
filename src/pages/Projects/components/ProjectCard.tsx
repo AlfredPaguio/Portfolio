@@ -1,85 +1,81 @@
-import { twMerge } from "tailwind-merge";
 import { ProjectType } from "@/data/Projects";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Badge } from "@/components/ui/badge";
 
 export function ProjectCard({ project }: { project: ProjectType }) {
   return (
-    <div className="flex flex-col  gap-4 overflow-hidden rounded-lg bg-background/80 p-4 shadow-xl backdrop-blur-lg ">
-      {project.images && project.images.length > 0 && (
-        <div className="mt-4 space-y-4">
-          <h3 className="text-lg font-semibold text-primary">Images</h3>
-          <img
-            key={0}
-            src={project.images[0].imageUrl}
-            alt={project.images[0].description || `Image 1`}
-            className="max-w-full"
-            title={project.images[0].description || `Image 1`}
-          />
-        </div>
-      )}
-      <div className="flex justify-between">
-        <h2 className="text-3xl font-bold text-white">{project.title}</h2>
-        {project.date && (
-          <small className="whitespace-nowrap font-semibold text-white">
-            {project.date.toDateString()}
-          </small>
+    <Card>
+      <CardHeader>
+        <CardTitle>{project.title}</CardTitle>
+        <CardDescription>{project.date.toDateString()}</CardDescription>
+        {project.images && project.images.length > 0 && (
+          <div className="w-full">
+            <AspectRatio ratio={16 / 9}>
+              <img
+                key={0}
+                src={project.images[0].imageUrl}
+                alt={project.images[0].description || `Image 1`}
+                className="rounded-md object-cover"
+                title={project.images[0].description || `Image 1`}
+              />
+            </AspectRatio>
+          </div>
         )}
-      </div>
-      <p className="mt-2 text-xl font-normal text-white">
-        {project.description}
-      </p>
-      <div className="mt-4 space-y-4">
-        <h3 className="text-lg font-semibold text-primary">Stack</h3>
-        <ul className="flex flex-wrap gap-2 pt-4">
-          {project.stack.map((tech, index) => (
-            <li
-              key={index}
-              className="m-1 flex h-8 w-fit shrink-0 items-center justify-center self-center rounded-lg bg-secondary px-3 text-xl font-normal text-white "
-            >
-              {tech}
-            </li>
-          ))}
-        </ul>
-      </div>
+      </CardHeader>
+      <CardContent className="grid gap-4">
+        <CardDescription>{project.description}</CardDescription>
 
-      {project.responsibilities && (
-        <div className="mt-4 space-y-4">
-          <h3 className="text-lg font-semibold text-primary">
-            Responsibilities
-          </h3>
-          <ul className="flex list-disc flex-wrap gap-2 pl-4 pt-4">
-            {project.responsibilities.map((responsibility, index) => (
-              <li key={index} className="text-white">
-                {responsibility}
-              </li>
+        {project.responsibilities && (
+          <div className="space-y-4">
+            <CardTitle>
+              Responsibilities
+            </CardTitle>
+            <ul className="flex list-disc flex-wrap pl-4">
+              {project.responsibilities.map((responsibility, index) => (
+                <li key={index}>
+                  <CardDescription>{responsibility}</CardDescription>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <div className="space-y-4">
+          <CardTitle>Stack</CardTitle>
+          <div className="flex flex-wrap gap-2">
+            {project.stack.map((tech, index) => (
+              <Badge key={index}>{tech}</Badge>
             ))}
-          </ul>
+          </div>
         </div>
-      )}
-
+      </CardContent>
       {project.links && (
-        <div className="mt-4 space-y-4">
-          <h3 className="text-lg font-semibold text-primary">Links</h3>
-          <ul className="flex h-fit w-full flex-row gap-4 pt-4">
+        <CardFooter className="flex flex-col items-start justify-start">
+          <CardTitle>Links</CardTitle>
+          <div className="flex gap-4 pt-4">
             {Object.entries(project.links).map(([linkText, linkUrl], index) => (
-              <li key={index} className="text-primary">
-                <a
-                  href={linkUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={twMerge(
-                    index == 0
-                      ? "bg-primary"
-                      : "border-text border-2 border-solid bg-transparent hover:border-transparent",
-                    "mt-4 rounded-md px-6 py-2 text-xl font-medium text-white transition-colors duration-200 hover:bg-accent",
-                  )}
-                >
+              <Button
+                key={index}
+                variant={index == 0 ? "default" : "outline"}
+                asChild
+              >
+                <Link to={linkUrl} target="_blank" rel="noopener noreferrer">
                   {linkText}
-                </a>
-              </li>
+                </Link>
+              </Button>
             ))}
-          </ul>
-        </div>
+          </div>
+        </CardFooter>
       )}
-    </div>
+    </Card>
   );
 }
