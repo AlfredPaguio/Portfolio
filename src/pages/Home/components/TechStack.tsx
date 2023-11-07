@@ -1,81 +1,58 @@
+import { Badge } from "@/components/ui/badge";
+import { CardContent, CardTitle } from "@/components/ui/card";
 import { Technologies } from "@/data/Technologies";
 
 export default function TechStack() {
   return (
-    <div className="flex h-full w-full flex-col items-start gap-2 font-normal lg:w-2/5 lg:items-end">
+    <CardContent className="flex h-full w-full flex-col items-start gap-2 font-normal lg:w-2/5 lg:items-end">
       {Technologies.map((tech, index) => (
         <div key={index} className="flex flex-col">
-          <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300 lg:self-end">
+          <CardTitle className="self-start py-2 text-xl font-medium lg:self-end">
             Programming Languages
-          </h2>
-          <ul className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
+          </CardTitle>
+          <div className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
             {tech.programmingLanguages.map((language: string) => (
-              <li
-                key={language}
-                className=" rounded-xl bg-secondary px-4 py-2 text-white shadow-md"
-              >
-                {language}
-              </li>
+              <Badge key={language}>{language}</Badge>
             ))}
-          </ul>
+          </div>
 
-          <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300 lg:self-end">
+          <CardTitle className="self-start py-2 text-xl font-medium lg:self-end">
             Libraries
-          </h2>
-          <ul className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
+          </CardTitle>
+          <div className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
             {tech.libraries.map((library: string) => (
-              <li
-                key={library}
-                className=" rounded-xl bg-secondary px-4 py-2 text-white shadow-md"
-              >
-                {library}
-              </li>
+              <Badge key={library}>{library}</Badge>
             ))}
-          </ul>
+          </div>
 
-          <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300 lg:self-end">
+          <CardTitle className="self-start py-2 text-xl font-medium lg:self-end">
             Frameworks
-          </h2>
-          <ul className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
+          </CardTitle>
+          <div className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
             {tech.frameworks.map((framework: string) => (
-              <li
-                key={framework}
-                className=" rounded-xl bg-secondary px-4 py-2 text-white shadow-md"
-              >
-                {framework}
-              </li>
+              <Badge key={framework}>{framework}</Badge>
             ))}
-          </ul>
+          </div>
 
-          <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300 lg:self-end">
+          <CardTitle className="self-start py-2 text-xl font-medium lg:self-end">
             Developer Tools
-          </h2>
-          <ul className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
+          </CardTitle>
+          <div className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
             {tech.developerTools.map((tools: string) => (
-              <li
-                key={tools}
-                className=" rounded-xl bg-secondary px-4 py-2 text-white shadow-md"
-              >
-                {tools}
-              </li>
+              <Badge key={tools}>{tools}</Badge>
             ))}
-          </ul>
+          </div>
 
-          <h2 className="self-start pe-8 pt-2 text-xl font-medium text-slate-300 lg:self-end">
+          <CardTitle className="self-start py-2 text-xl font-medium lg:self-end">
             Database Management Systems
-          </h2>
-          <ul className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
+          </CardTitle>
+          <div className="flex flex-row flex-wrap justify-start gap-2 lg:justify-end">
             {tech.databaseManagementSystems.map((database: string) => (
-              <li
-                key={database}
-                className=" rounded-xl bg-secondary px-4 py-2 text-white shadow-md"
-              >
-                {database}
-              </li>
+              <Badge key={database}>{database}</Badge>
             ))}
-          </ul>
+          </div>
         </div>
       ))}
-    </div>
+    </CardContent>
   );
 }

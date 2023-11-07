@@ -2,28 +2,29 @@ import { Projects } from "@/data/Projects";
 import { Link } from "react-router-dom";
 import Lead from "@/components/Lead";
 import { ProjectCard } from "@/pages/Projects/components/ProjectCard";
+import { Button } from "@/components/ui/button";
 
 export default function ProjectsSection() {
-  const latestProjects = [...Projects].sort(
-    (a, b) => b.date.getTime() - a.date.getTime(),
-  ).slice(0, 2);
+  const latestProjects = [...Projects]
+    .sort((a, b) => b.date.getTime() - a.date.getTime())
+    .slice(0, 2);
 
   return (
     <section id="section">
-      <div className="relative flex h-fit w-full flex-col items-center gap-8 px-2 pt-8">
+      <div className="relative flex h-fit w-full flex-col items-center gap-4 px-2 pt-8">
         <Lead title="Recent Projects" subtitle="Check out my recent works." />
-
         <div className="m-4 flex flex-wrap justify-center gap-y-4 p-4">
           {latestProjects.map((project, index) => (
             <ProjectCard key={index} project={project} />
           ))}
         </div>
-        <Link
-          className="pb-4 text-center text-xl font-bold text-white underline decoration-accent decoration-2 underline-offset-8 hover:underline"
-          to="/projects"
+        <Button
+          variant={"link"}
+          className="decoration-accent-light dark:decoration-accent-dark mb-4 text-center text-xl font-bold decoration-2 underline-offset-8 transition-all duration-300 ease-in"
+          asChild
         >
-          See all projects.
-        </Link>
+          <Link to="/projects">See all projects.</Link>
+        </Button>
       </div>
     </section>
   );
