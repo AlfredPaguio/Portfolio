@@ -1,4 +1,3 @@
-import { twMerge } from "tailwind-merge";
 import { ProjectType } from "@/data/Projects";
 import {
   Card,
