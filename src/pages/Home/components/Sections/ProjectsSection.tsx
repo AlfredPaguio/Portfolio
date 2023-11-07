@@ -1,8 +1,8 @@
 import { Projects } from "@/data/Projects";
 import { Link } from "react-router-dom";
 import Lead from "@/components/Lead";
-import { ProjectCard } from "@/pages/Projects/components/ProjectCard";
 import { Button } from "@/components/ui/button";
+import CompactProjectCard from "@/pages/Projects/components/CompactProjectCard";
 
 export default function ProjectsSection() {
   const latestProjects = [...Projects]
@@ -15,7 +15,7 @@ export default function ProjectsSection() {
         <Lead title="Recent Projects" subtitle="Check out my recent works." />
         <div className="m-4 flex flex-wrap justify-center gap-y-4 p-4">
           {latestProjects.map((project, index) => (
-            <ProjectCard key={index} project={project} />
+            <CompactProjectCard key={index} project={project} />
           ))}
         </div>
         <Button
