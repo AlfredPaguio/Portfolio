@@ -19,10 +19,9 @@ import {
   MysqlOriginalWordmark,
   // Developer Tools
   GitPlain,
-  AndroidStudio,
-  NetbeansOriginal,
-  MicrosoftVisualstudioPlain,
-  VisualstudiocodePlain,
+  AndroidstudioOriginalWordmark,
+  VisualstudioPlainWordmark,
+  VscodeOriginalWordmark,
   // Libraries
   JqueryPlainWordmark,
   ReactOriginalWordmark,
@@ -98,19 +97,15 @@ export const iconData: IconType[] = [
   },
   {
     name: "Android Studio",
-    Icon: AndroidStudio,
-  },
-  {
-    name: "NetBeans",
-    Icon: NetbeansOriginal,
+    Icon: AndroidstudioOriginalWordmark,
   },
   {
     name: "Microsoft Visual Studio",
-    Icon: MicrosoftVisualstudioPlain,
+    Icon: VisualstudioPlainWordmark,
   },
   {
     name: "Visual Studio Code",
-    Icon: VisualstudiocodePlain,
+    Icon: VscodeOriginalWordmark,
   },
   {
     name: "jQuery",

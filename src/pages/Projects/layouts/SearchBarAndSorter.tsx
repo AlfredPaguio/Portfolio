@@ -52,7 +52,6 @@ export default function SearchBarAndSorter() {
         />
       </div>
       <Select
-        id={`sorter`}
         onValueChange={(value) => handleSort(value)}
         defaultValue={sortQuery || "date-desc"}
       >
