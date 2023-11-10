@@ -1,24 +1,22 @@
-import { technologiesWithIcons } from "@/data/Icons";
+import { Badge } from "@/components/ui/badge";
+import { IconType, getIconForTechnology } from "@/data/Icons";
 
 type TechnologyIconsProps = {
-  category:
-    | "programmingLanguages"
-    | "frameworks"
-    | "libraries"
-    | "developerTools"
-    | "databaseManagementSystems";
+  Stacks: string[];
 };
 
-export default function TechnologyIcons({ category }: TechnologyIconsProps) {
+export default function TechnologyIcons({ Stacks }: TechnologyIconsProps) {
+  const stackWithIcons: IconType[] = Stacks.map((stack) =>
+    getIconForTechnology(stack),
+  );
+
   return (
-    <>
-      {technologiesWithIcons.map((tech, key) => (
-        <div key={key} className="flex justify-center items-center">
-          {tech[category].map((item) => (
-            <div key={item.name}>{item.Icon && <item.Icon size={32} />}</div>
-          ))}
-        </div>
+    <div className="flex space-x-4">
+      {stackWithIcons.map((stack, key) => (
+        <Badge variant={"outline"}>
+          <stack.Icon key={key} size={32}/>
+        </Badge>
       ))}
-    </>
+    </div>
   );
 }

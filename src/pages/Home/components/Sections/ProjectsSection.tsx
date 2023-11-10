@@ -13,14 +13,14 @@ export default function ProjectsSection() {
     <section id="section">
       <div className="relative flex h-fit w-full flex-col items-center gap-4 px-2 pt-8">
         <Lead title="Recent Projects" subtitle="Check out my recent works." />
-        <div className="m-4 flex flex-wrap justify-center gap-y-4 p-4">
+        <div className="m-4 flex flex-col justify-center gap-y-4 p-4">
           {latestProjects.map((project, index) => (
             <CompactProjectCard key={index} project={project} />
           ))}
         </div>
         <Button
           variant={"link"}
-          className="decoration-accent-light dark:decoration-accent-dark mb-4 text-center text-xl font-bold decoration-2 underline-offset-8 transition-all duration-300 ease-in"
+          className="mb-4 text-center text-xl font-bold decoration-accent-light decoration-2 underline-offset-8 transition-all duration-300 ease-in dark:decoration-accent-dark"
           asChild
         >
           <Link to="/projects">See all projects.</Link>

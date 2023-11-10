@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -16,26 +15,47 @@ export default function CompactProjectCard({
   project: ProjectType;
 }) {
   return (
-    <Card className="flex flex-col items-center rounded-lg border border-gray-200 bg-white shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:max-w-xl md:flex-row">
-      {project.images && project.images.length > 0 && (
-        <img
-          className="h-96 w-full rounded-t-lg object-cover md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-          src={project.images[0].imageUrl}
-          alt=""
-        />
-      )}
-      <CardContent className="flex flex-col justify-between p-4 leading-normal">
-        <CardTitle className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {project.title} - {project.date.toUTCString()}
-        </CardTitle>
-        <CardDescription className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          <TechnologyIcons category="programmingLanguages" />
-          <TechnologyIcons category="frameworks" />
-          <TechnologyIcons category="developerTools" />
-          <TechnologyIcons category="databaseManagementSystems" />
-          <TechnologyIcons category="libraries" />
-        </CardDescription>
-      </CardContent>
-    </Card>
+    <>
+      <Card className="group mx-auto flex max-w-3xl transform flex-wrap overflow-hidden antialiased shadow-lg duration-500 hover:-translate-y-1 hover:subpixel-antialiased md:flex-nowrap">
+        {project.images && project.images.length > 0 && (
+          <img
+            className="h-960 w-full rounded-t-lg object-cover md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+            src={project.images[0].imageUrl}
+            alt=""
+          />
+        )}
+        <CardContent className="p-0">
+          <CardHeader className="items-center p-5">
+            <CardTitle className="mt-4 text-2xl font-medium text-text-light dark:text-text-dark">
+              {project.title}
+            </CardTitle>
+            {/* <CardDescription className="mt-2 text-xl leading-relaxed text-gray-400 text-clip overflow-hidden">
+              {project.description}
+            </CardDescription> */}
+          </CardHeader>
+          <CardFooter className="block p-5">
+            <div className="sm:flex sm:justify-between">
+              <div>
+                <div className="text-lg text-text-light dark:text-text-dark">
+                  Tech Stack{" "}
+                  <span className="font-bold text-primary-light dark:text-primary-dark">
+                    Used
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <TechnologyIcons Stacks={project.stack} />
+                </div>
+              </div>
+            </div>
+            <div className="mt-3 text-sm text-gray-600 md:text-sm">
+              {project.date.toUTCString()}
+              {"\n"}
+              *Note: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Aliquid, eum?
+            </div>
+          </CardFooter>
+        </CardContent>
+      </Card>
+    </>
   );
 }

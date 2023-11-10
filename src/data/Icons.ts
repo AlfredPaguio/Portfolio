@@ -26,7 +26,6 @@ import {
   JqueryPlainWordmark,
   ReactOriginalWordmark,
 } from "@beta/devicons-react";
-import { Technologies } from "./Technologies";
 import { CircleOffIcon } from "lucide-react";
 
 export type IconType = {
@@ -117,42 +116,12 @@ export const iconData: IconType[] = [
   },
 ];
 
-// map
-export const technologiesWithIcons = Technologies.map((tech) => ({
-  ...tech,
-  programmingLanguages: tech.programmingLanguages.map((name) => {
-    const icon = iconData.find((icon) => icon.name === name);
-    return {
-      name,
-      Icon: icon ? icon.Icon : CircleOffIcon,
-    };
-  }),
-  frameworks: tech.frameworks.map((name) => {
-    const icon = iconData.find((icon) => icon.name === name);
-    return {
-      name,
-      Icon: icon ? icon.Icon : CircleOffIcon,
-    };
-  }),
-  libraries: tech.libraries.map((name) => {
-    const icon = iconData.find((icon) => icon.name === name);
-    return {
-      name,
-      Icon: icon ? icon.Icon : CircleOffIcon,
-    };
-  }),
-  developerTools: tech.developerTools.map((name) => {
-    const icon = iconData.find((icon) => icon.name === name);
-    return {
-      name,
-      Icon: icon ? icon.Icon : CircleOffIcon,
-    };
-  }),
-  databaseManagementSystems: tech.databaseManagementSystems.map((name) => {
-    const icon = iconData.find((icon) => icon.name === name);
-    return {
-      name,
-      Icon: icon ? icon.Icon : CircleOffIcon,
-    };
-  }),
-}));
+export const getIconForTechnology = (technologyName: string): IconType => {
+  const icon = iconData.find(
+    (icon) => icon.name.toLowerCase() === technologyName.toLowerCase(),
+  );
+  return {
+    name: technologyName,
+    Icon: icon ? icon.Icon : CircleOffIcon,
+  };
+};
