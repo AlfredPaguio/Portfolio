@@ -1,31 +1,31 @@
 import { ElementType } from "react";
-import {
-  // Programming Languages
-  CsharpPlain,
-  DotNetOriginalWordmark,
-  JavaOriginalWordmark,
-  PhpOriginal,
-  PythonOriginalWordmark,
-  TypescriptOriginal,
-  JavascriptOriginal,
-  // Frameworks
-  LaravelOriginal,
-  LivewireOriginalWordmark,
-  FlaskOriginalWordmark,
-  BootstrapOriginalWordmark,
-  TailwindcssPlainWordmark,
-  // Database Management Systems
-  MicrosoftsqlserverPlainWordmark,
-  MysqlOriginalWordmark,
-  // Developer Tools
-  GitPlain,
-  AndroidstudioOriginalWordmark,
-  VisualstudioPlainWordmark,
-  VscodeOriginalWordmark,
-  // Libraries
-  JqueryPlainWordmark,
-  ReactOriginalWordmark,
-} from "@beta/devicons-react";
+
+// Programming Languages
+import CsharpPlain from "@beta/devicons-react/lib/icons/CsharpPlain";
+import DotNetOriginalWordmark from "@beta/devicons-react/lib/icons/DotNetOriginalWordmark";
+import JavaOriginalWordmark from "@beta/devicons-react/lib/icons/JavaOriginalWordmark";
+import PhpOriginal from "@beta/devicons-react/lib/icons/PhpOriginal";
+import PythonOriginalWordmark from "@beta/devicons-react/lib/icons/PythonOriginalWordmark";
+import TypescriptOriginal from "@beta/devicons-react/lib/icons/TypescriptOriginal";
+import JavascriptOriginal from "@beta/devicons-react/lib/icons/JavascriptOriginal";
+// Frameworks
+import LaravelOriginalWordmark from "@beta/devicons-react/lib/icons/LaravelOriginalWordmark";
+import LivewireOriginalWordmark from "@beta/devicons-react/lib/icons/LivewireOriginalWordmark";
+import FlaskOriginalWordmark from "@beta/devicons-react/lib/icons/FlaskOriginalWordmark";
+import BootstrapOriginalWordmark from "@beta/devicons-react/lib/icons/BootstrapOriginalWordmark";
+import TailwindcssPlainWordmark from "@beta/devicons-react/lib/icons/TailwindcssPlainWordmark";
+// Database Management Systems
+import MicrosoftsqlserverPlainWordmark from "@beta/devicons-react/lib/icons/MicrosoftsqlserverPlainWordmark";
+import MysqlOriginalWordmark from "@beta/devicons-react/lib/icons/MysqlOriginalWordmark";
+// Developer Tools
+import GitPlainWordmark from "@beta/devicons-react/lib/icons/GitPlainWordmark";
+import AndroidstudioOriginalWordmark from "@beta/devicons-react/lib/icons/AndroidstudioOriginalWordmark";
+import VisualstudioPlainWordmark from "@beta/devicons-react/lib/icons/VisualstudioPlainWordmark";
+import VscodeOriginalWordmark from "@beta/devicons-react/lib/icons/VscodeOriginalWordmark";
+// Libraries
+import JqueryPlainWordmark from "@beta/devicons-react/lib/icons/JqueryPlainWordmark";
+import ReactOriginalWordmark from "@beta/devicons-react/lib/icons/ReactOriginalWordmark";
+
 import { CircleOffIcon } from "lucide-react";
 
 export type IconType = {
@@ -64,7 +64,7 @@ export const iconData: IconType[] = [
   },
   {
     name: "Laravel",
-    Icon: LaravelOriginal,
+    Icon: LaravelOriginalWordmark,
   },
   {
     name: "Laravel Livewire",
@@ -92,7 +92,7 @@ export const iconData: IconType[] = [
   },
   {
     name: "Git",
-    Icon: GitPlain,
+    Icon: GitPlainWordmark,
   },
   {
     name: "Android Studio",
