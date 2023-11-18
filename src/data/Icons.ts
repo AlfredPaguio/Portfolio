@@ -1,32 +1,31 @@
 import { ElementType } from "react";
-import {
-  // Programming Languages
-  CsharpPlain,
-  DotNetOriginalWordmark,
-  JavaOriginalWordmark,
-  PhpOriginal,
-  PythonOriginalWordmark,
-  TypescriptOriginal,
-  JavascriptOriginal,
-  // Frameworks
-  LaravelOriginal,
-  LivewireOriginalWordmark,
-  FlaskOriginalWordmark,
-  BootstrapOriginalWordmark,
-  TailwindcssPlainWordmark,
-  // Database Management Systems
-  MicrosoftsqlserverPlainWordmark,
-  MysqlOriginalWordmark,
-  // Developer Tools
-  GitPlain,
-  AndroidstudioOriginalWordmark,
-  VisualstudioPlainWordmark,
-  VscodeOriginalWordmark,
-  // Libraries
-  JqueryPlainWordmark,
-  ReactOriginalWordmark,
-} from "@beta/devicons-react";
-import { Technologies } from "./Technologies";
+
+// Programming Languages
+import CsharpPlain from "@beta/devicons-react/lib/icons/CsharpPlain";
+import DotNetOriginalWordmark from "@beta/devicons-react/lib/icons/DotNetOriginalWordmark";
+import JavaOriginalWordmark from "@beta/devicons-react/lib/icons/JavaOriginalWordmark";
+import PhpOriginal from "@beta/devicons-react/lib/icons/PhpOriginal";
+import PythonOriginalWordmark from "@beta/devicons-react/lib/icons/PythonOriginalWordmark";
+import TypescriptOriginal from "@beta/devicons-react/lib/icons/TypescriptOriginal";
+import JavascriptOriginal from "@beta/devicons-react/lib/icons/JavascriptOriginal";
+// Frameworks
+import LaravelOriginalWordmark from "@beta/devicons-react/lib/icons/LaravelOriginalWordmark";
+import LivewireOriginalWordmark from "@beta/devicons-react/lib/icons/LivewireOriginalWordmark";
+import FlaskOriginalWordmark from "@beta/devicons-react/lib/icons/FlaskOriginalWordmark";
+import BootstrapOriginalWordmark from "@beta/devicons-react/lib/icons/BootstrapOriginalWordmark";
+import TailwindcssPlainWordmark from "@beta/devicons-react/lib/icons/TailwindcssPlainWordmark";
+// Database Management Systems
+import MicrosoftsqlserverPlainWordmark from "@beta/devicons-react/lib/icons/MicrosoftsqlserverPlainWordmark";
+import MysqlOriginalWordmark from "@beta/devicons-react/lib/icons/MysqlOriginalWordmark";
+// Developer Tools
+import GitPlainWordmark from "@beta/devicons-react/lib/icons/GitPlainWordmark";
+import AndroidstudioOriginalWordmark from "@beta/devicons-react/lib/icons/AndroidstudioOriginalWordmark";
+import VisualstudioPlainWordmark from "@beta/devicons-react/lib/icons/VisualstudioPlainWordmark";
+import VscodeOriginalWordmark from "@beta/devicons-react/lib/icons/VscodeOriginalWordmark";
+// Libraries
+import JqueryPlainWordmark from "@beta/devicons-react/lib/icons/JqueryPlainWordmark";
+import ReactOriginalWordmark from "@beta/devicons-react/lib/icons/ReactOriginalWordmark";
+
 import { CircleOffIcon } from "lucide-react";
 
 export type IconType = {
@@ -65,7 +64,7 @@ export const iconData: IconType[] = [
   },
   {
     name: "Laravel",
-    Icon: LaravelOriginal,
+    Icon: LaravelOriginalWordmark,
   },
   {
     name: "Laravel Livewire",
@@ -93,7 +92,7 @@ export const iconData: IconType[] = [
   },
   {
     name: "Git",
-    Icon: GitPlain,
+    Icon: GitPlainWordmark,
   },
   {
     name: "Android Studio",
@@ -117,42 +116,12 @@ export const iconData: IconType[] = [
   },
 ];
 
-// map
-export const technologiesWithIcons = Technologies.map((tech) => ({
-  ...tech,
-  programmingLanguages: tech.programmingLanguages.map((name) => {
-    const icon = iconData.find((icon) => icon.name === name);
-    return {
-      name,
-      Icon: icon ? icon.Icon : CircleOffIcon,
-    };
-  }),
-  frameworks: tech.frameworks.map((name) => {
-    const icon = iconData.find((icon) => icon.name === name);
-    return {
-      name,
-      Icon: icon ? icon.Icon : CircleOffIcon,
-    };
-  }),
-  libraries: tech.libraries.map((name) => {
-    const icon = iconData.find((icon) => icon.name === name);
-    return {
-      name,
-      Icon: icon ? icon.Icon : CircleOffIcon,
-    };
-  }),
-  developerTools: tech.developerTools.map((name) => {
-    const icon = iconData.find((icon) => icon.name === name);
-    return {
-      name,
-      Icon: icon ? icon.Icon : CircleOffIcon,
-    };
-  }),
-  databaseManagementSystems: tech.databaseManagementSystems.map((name) => {
-    const icon = iconData.find((icon) => icon.name === name);
-    return {
-      name,
-      Icon: icon ? icon.Icon : CircleOffIcon,
-    };
-  }),
-}));
+export const getIconForTechnology = (technologyName: string): IconType => {
+  const icon = iconData.find(
+    (icon) => icon.name.toLowerCase() === technologyName.toLowerCase(),
+  );
+  return {
+    name: technologyName,
+    Icon: icon ? icon.Icon : CircleOffIcon,
+  };
+};

@@ -10,33 +10,32 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import { formatDate } from "@/lib/formatDate";
 
 export function ProjectCard({ project }: { project: ProjectType }) {
   return (
-    <Card className="dark:bg-background-800/20 bg-background-200/20">
+    <Card className="flex h-full flex-col bg-background-200/20 dark:bg-background-800/20">
       <CardHeader>
         <CardTitle>{project.title}</CardTitle>
-        <CardDescription>{project.date.toDateString()}</CardDescription>
+        <CardDescription>{formatDate(project.date)}</CardDescription>
         {project.images && project.images.length > 0 && (
           <div className="w-full">
-              <img
-                key={0}
-                src={project.images[0].imageUrl}
-                alt={project.images[0].description || `Image 1`}
-                className="rounded-md object-cover"
-                title={project.images[0].description || `Image 1`}
-              />
+            <img
+              key={0}
+              src={project.images[0].imageUrl}
+              alt={project.images[0].description || `Image 1`}
+              className="rounded-md object-cover"
+              title={project.images[0].description || `Image 1`}
+            />
           </div>
         )}
       </CardHeader>
-      <CardContent className="grid gap-4">
+      <CardContent className="flex flex-1 flex-col gap-4 pt-4">
         <CardDescription>{project.description}</CardDescription>
 
         {project.responsibilities && (
           <div className="space-y-4">
-            <CardTitle>
-              Responsibilities
-            </CardTitle>
+            <CardTitle>Responsibilities</CardTitle>
             <ul className="flex list-disc flex-wrap pl-4">
               {project.responsibilities.map((responsibility, index) => (
                 <li key={index}>
@@ -56,7 +55,7 @@ export function ProjectCard({ project }: { project: ProjectType }) {
         </div>
       </CardContent>
       {project.links && (
-        <CardFooter className="flex flex-col items-start justify-start">
+        <CardFooter className="flex flex-col items-start justify-start  pt-4">
           <CardTitle>Links</CardTitle>
           <div className="flex gap-4 pt-4">
             {Object.entries(project.links).map(([linkText, linkUrl], index) => (

@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription } from "@/components/ui/card";
 export default function AboutMeSection() {
   return (
     <section id="about-me">
-      <div className="relative mb-8 flex h-fit w-full snap-center flex-col items-center gap-8 px-2">
+      <div className="relative mb-8 flex h-fit w-full snap-none flex-col items-center gap-8 px-2">
         <Lead title="Introduction" subtitle="Hello~" />
         <Card className="bg-background-200/20 dark:bg-background-800/20 flex h-fit w-full flex-col gap-4 rounded-xl p-4 backdrop-blur-md md:flex-row">
           <MoonIcon
