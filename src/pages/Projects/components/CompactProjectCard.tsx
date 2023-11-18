@@ -8,6 +8,7 @@ import {
 
 import { ProjectType } from "@/data/Projects";
 import TechnologyIcons from "./TechnologyIcons";
+import { formatDate } from "@/lib/formatDate";
 
 export default function CompactProjectCard({
   project,
@@ -16,15 +17,15 @@ export default function CompactProjectCard({
 }) {
   return (
     <>
-      <Card className="group mx-auto flex max-w-3xl transform flex-wrap overflow-hidden antialiased shadow-lg duration-500 hover:-translate-y-1 hover:subpixel-antialiased md:flex-nowrap">
+      <Card className="group mx-auto flex w-full max-w-3xl flex-1 transform flex-wrap  overflow-hidden antialiased shadow-lg duration-500 hover:-translate-y-1 hover:subpixel-antialiased md:flex-nowrap">
         {project.images && project.images.length > 0 && (
           <img
-            className="h-960 w-full rounded-t-lg object-cover md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+            className="h-960 w-full rounded-t-lg object-cover md:aspect-square md:h-auto md:w-48 md:rounded-none md:rounded-l-lg md:object-scale-down"
             src={project.images[0].imageUrl}
             alt=""
           />
         )}
-        <CardContent className="p-0">
+        <CardContent className="w-full p-0">
           <CardHeader className="items-center p-5">
             <CardTitle className="mt-4 text-2xl font-medium text-text-light dark:text-text-dark">
               {project.title}
@@ -48,10 +49,7 @@ export default function CompactProjectCard({
               </div>
             </div>
             <div className="mt-3 text-sm text-gray-600 md:text-sm">
-              {project.date.toUTCString()}
-              {"\n"}
-              *Note: Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Aliquid, eum?
+              {formatDate(project.date)}
             </div>
           </CardFooter>
         </CardContent>

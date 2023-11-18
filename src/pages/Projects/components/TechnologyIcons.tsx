@@ -13,7 +13,7 @@ export default function TechnologyIcons({ Stacks }: TechnologyIconsProps) {
   return (
     <div className="flex space-x-4">
       {stackWithIcons.map((stack, key) => (
-        <Badge variant={"outline"}>
+        <Badge key={key} variant={"ghost"}>
           <stack.Icon key={key} size={32}/>
         </Badge>
       ))}
