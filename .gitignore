@@ -158,3 +158,4 @@ sketch
 
 
 vite.config.ts.timestamp-*.mjs
+.vercel

@@ -61,10 +61,10 @@ export default function SearchBarAndSorter() {
           <SelectValue placeholder="Sort By..." />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="date-desc">Sort by Date (Descending)</SelectItem>
-          <SelectItem value="date-asc">Sort by Date (Ascending)</SelectItem>
-          <SelectItem value="name-desc">Sort by Name (Descending)</SelectItem>
-          <SelectItem value="name-asc">Sort by Name (Ascending)</SelectItem>
+          <SelectItem value="date-desc">Date (Newest First)</SelectItem>
+          <SelectItem value="date-asc">Date (Oldest First)</SelectItem>
+          <SelectItem value="name-asc">Name (A-Z)</SelectItem>
+          <SelectItem value="name-desc">Name (Z-A)</SelectItem>
         </SelectContent>
       </Select>
     </div>
