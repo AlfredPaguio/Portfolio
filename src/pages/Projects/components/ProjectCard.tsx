@@ -48,7 +48,7 @@ export function ProjectCard({ project }: { project: ProjectType }) {
                   </Button>
                 </div>
               </DialogTrigger>
-              <GalleryViewer images={project.images} title={project.title} />
+              <GalleryViewer images={project.images} title={project.title} key={project.title}/>
             </Dialog>
           </div>
         )}
