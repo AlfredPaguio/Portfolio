@@ -43,6 +43,7 @@ export default function GalleryViewer({ images, title }: GalleryViewerProps) {
       <div className="relative flex items-center space-x-2 overflow-hidden">
         {images.map((image, index) => (
           <div
+            key={index}
             className={`flex h-full w-full flex-col ${
               imageIndex !== index ? "hidden" : "block"
             }`}
