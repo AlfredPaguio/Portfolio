@@ -38,7 +38,7 @@ export type ProjectType = {
   stack: string[];
   description?: string;
   responsibilities?: string[];
-  images?: Array<{ imageUrl: string; description?: string }>;
+  images?: Array<{ imageUrl: string; alt?: string }>;
   links?: { [key: string]: string };
   date: Date;
 };
