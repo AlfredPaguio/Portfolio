@@ -11,22 +11,45 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/formatDate";
+import { useState } from "react";
+import { ScanEye } from "lucide-react";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import GalleryViewer from "@/components/GalleryViewer";
 
 export function ProjectCard({ project }: { project: ProjectType }) {
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <Card className="flex h-full flex-col bg-background-200/20 dark:bg-background-800/20">
       <CardHeader>
         <CardTitle>{project.title}</CardTitle>
         <CardDescription>{formatDate(project.date)}</CardDescription>
         {project.images && project.images.length > 0 && (
-          <div className="w-full">
+          <div
+            className="relative w-full overflow-hidden rounded-md"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
             <img
               key={0}
               src={project.images[0].imageUrl}
-              alt={project.images[0].description || `Image 1`}
-              className="rounded-md object-cover"
-              title={project.images[0].description || `Image 1`}
+              alt={project.images[0].alt || `Image 1`}
+              className="object-cover"
+              title={project.images[0].alt || `No Description`}
             />
+            <Dialog onOpenChange={setIsHovered}>
+              <DialogTrigger asChild>
+                <div
+                  className={`absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center bg-black transition-opacity ${
+                    isHovered ? "opacity-90 delay-200" : "opacity-0"
+                  }`}
+                >
+                  <Button variant={"link"}>
+                    <ScanEye className="mr-1" /> View Images
+                  </Button>
+                </div>
+              </DialogTrigger>
+              <GalleryViewer images={project.images} title={project.title} />
+            </Dialog>
           </div>
         )}
       </CardHeader>
