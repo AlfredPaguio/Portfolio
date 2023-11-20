@@ -8,7 +8,7 @@ import e_commerce_register from "/images/projects/e-commerce/register.png";
 import e_commerce_shopping_cart from "/images/projects/e-commerce/shopping_cart.png";
 
 import e_commerce_admin_add_file from "/images/projects/e-commerce/admin/add_file.png";
-import e_commerce_admin_add_promotional_banner from "/images/projects/e-commerce/admin/add_promotional banner.png";
+import e_commerce_admin_add_promotional_banner from "/images/projects/e-commerce/admin/add_promotional_banner.png";
 import e_commerce_admin_brand_add from "/images/projects/e-commerce/admin/brand_add.png";
 import e_commerce_admin_brands from "/images/projects/e-commerce/admin/brands.png";
 import e_commerce_admin_categories from "/images/projects/e-commerce/admin/categories.png";
