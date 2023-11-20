@@ -26,7 +26,8 @@ import e_commerce_admin_site_settings_2 from "/images/projects/e-commerce/admin/
 import e_commerce_admin_site_settings_1 from "/images/projects/e-commerce/admin/site_settings-1.png";
 import e_commerce_admin_site_settings_3 from "/images/projects/e-commerce/admin/site_settings-3.png";
 // Information Site
-import info_site_home from "/images/projects/information_site/home.png";
+// import info_site_home from "/images/projects/information_site/home.png";
+import info_site_home_large from "/images/projects/information_site/large_home.png";
 import info_site_about from "/images/projects/information_site/about.png";
 import info_site_services from "/images/projects/information_site/services.png";
 import info_site_faq from "/images/projects/information_site/faq.png";
@@ -74,15 +75,16 @@ export const Projects = [
     },
     date: new Date("2023-07-19"),
     images: [
-      { imageUrl: info_site_home, description: "Home" },
-      { imageUrl: info_site_about, description: "About" },
-      { imageUrl: info_site_services, description: "Services" },
-      { imageUrl: info_site_faq, description: "FAQ" },
+      { imageUrl: info_site_home_large, alt: "Home" },
+      // { imageUrl: info_site_home, alt: "Home" },
+      { imageUrl: info_site_about, alt: "About" },
+      { imageUrl: info_site_services, alt: "Services" },
+      { imageUrl: info_site_faq, alt: "FAQ" },
       {
         imageUrl: info_site_faq_open,
-        description: "FAQ - All accordion opened",
+        alt: "FAQ - All accordion opened",
       },
-      { imageUrl: info_site_contact, description: "Contact" },
+      { imageUrl: info_site_contact, alt: "Contact" },
     ],
   },
   {
@@ -97,77 +99,77 @@ export const Projects = [
       "Bootstrap",
     ],
     images: [
-      { imageUrl: e_commerce_login_attempt, description: "Login Attempt" },
-      { imageUrl: e_commerce_login_throttle, description: "Login Throttle" },
-      { imageUrl: e_commerce_login, description: "Login" },
-      { imageUrl: e_commerce_register, description: "Register" },
-      { imageUrl: e_commerce_shopping_cart, description: "Shopping Cart" },
+      { imageUrl: e_commerce_login_attempt, alt: "Login Attempt" },
+      { imageUrl: e_commerce_login_throttle, alt: "Login Throttle" },
+      { imageUrl: e_commerce_login, alt: "Login" },
+      { imageUrl: e_commerce_register, alt: "Register" },
+      { imageUrl: e_commerce_shopping_cart, alt: "Shopping Cart" },
       {
         imageUrl: e_commerce_admin_categories,
-        description: "Admin - Categories",
+        alt: "Admin - Categories",
       },
-      { imageUrl: e_commerce_admin_add_file, description: "Admin - Add File" },
+      { imageUrl: e_commerce_admin_add_file, alt: "Admin - Add File" },
       {
         imageUrl: e_commerce_admin_add_promotional_banner,
-        description: "Admin - Add Promotional Banner",
+        alt: "Admin - Add Promotional Banner",
       },
       {
         imageUrl: e_commerce_admin_site_settings_3,
-        description: "Admin - Site Settings 3",
+        alt: "Admin - Site Settings 3",
       },
-      { imageUrl: e_commerce_admin_brand_add, description: "Admin - Brand Add" },
-      { imageUrl: e_commerce_admin_brands, description: "Admin - Brands" },
+      { imageUrl: e_commerce_admin_brand_add, alt: "Admin - Brand Add" },
+      { imageUrl: e_commerce_admin_brands, alt: "Admin - Brands" },
       {
         imageUrl: e_commerce_admin_categories,
-        description: "Admin - Categories",
+        alt: "Admin - Categories",
       },
       {
         imageUrl: e_commerce_admin_category_add,
-        description: "Admin - Category Add",
+        alt: "Admin - Category Add",
       },
       {
         imageUrl: e_commerce_admin_category_delete,
-        description: "Admin - Category Delete",
+        alt: "Admin - Category Delete",
       },
       {
         imageUrl: e_commerce_admin_category_edit,
-        description: "Admin - Category Edit",
+        alt: "Admin - Category Edit",
       },
       {
         imageUrl: e_commerce_admin_landing_page,
-        description: "Admin - Landing Page",
+        alt: "Admin - Landing Page",
       },
       {
         imageUrl: e_commerce_admin_product_edit_1,
-        description: "Admin - Product Edit 1",
+        alt: "Admin - Product Edit 1",
       },
       {
         imageUrl: e_commerce_admin_product_edit_2_1,
-        description: "Admin - Product Edit 2-1",
+        alt: "Admin - Product Edit 2-1",
       },
       {
         imageUrl: e_commerce_admin_product_edit_2_2,
-        description: "Admin - Product Edit 2-2",
+        alt: "Admin - Product Edit 2-2",
       },
       {
         imageUrl: e_commerce_admin_product_edit_3,
-        description: "Admin - Product Edit 3",
+        alt: "Admin - Product Edit 3",
       },
       {
         imageUrl: e_commerce_admin_product_list,
-        description: "Admin - Product List",
+        alt: "Admin - Product List",
       },
       {
         imageUrl: e_commerce_admin_promotional_banner_list,
-        description: "Admin - Promotional Banner List",
+        alt: "Admin - Promotional Banner List",
       },
       {
         imageUrl: e_commerce_admin_site_settings_2,
-        description: "Admin - Site Settings 2",
+        alt: "Admin - Site Settings 2",
       },
       {
         imageUrl: e_commerce_admin_site_settings_1,
-        description: "Admin - Site Settings 1",
+        alt: "Admin - Site Settings 1",
       },
     ],
 

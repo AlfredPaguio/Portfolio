@@ -55,7 +55,7 @@ export default function GalleryViewer({ images, title }: GalleryViewerProps) {
               className={`h-full w-full flex-1 object-cover`}
               title={image.alt || `No Description`}
             />
-            <DialogDescription className="mt-4 self-center text-lg">
+            <DialogDescription className="mt-4 self-center text-lg text-text-light dark:text-text-dark font-medium">
               {image.alt}
             </DialogDescription>
           </div>

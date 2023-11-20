@@ -43,7 +43,7 @@ export function ProjectCard({ project }: { project: ProjectType }) {
                     isHovered ? "opacity-90 delay-200" : "opacity-0"
                   }`}
                 >
-                  <Button variant={"link"}>
+                  <Button variant={"link"} className="text-text-50">
                     <ScanEye className="mr-1" /> View Images
                   </Button>
                 </div>
