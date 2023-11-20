@@ -12,28 +12,26 @@ import { useSearchParams } from "react-router-dom";
 export default function SearchBarAndSorter() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSort = (value: string) => {
+  const handleParamUpdate = (paramName: string, value: string | null) => {
     setSearchParams(
       (prev: URLSearchParams) => {
-        prev.set("sort", value);
+        if (value) {
+          prev.set(paramName, value);
+        } else {
+          prev.delete(paramName);
+        }
         return prev;
       },
       { replace: true },
     );
   };
 
+  const handleSort = (value: string) => {
+    handleParamUpdate("sort", value);
+  };
+
   const handleSearch = (value: string) => {
-    setSearchParams(
-      (prev: URLSearchParams) => {
-        if (value) {
-          prev.set("title", value);
-        } else {
-          prev.delete("title");
-        }
-        return prev;
-      },
-      { replace: true },
-    );
+    handleParamUpdate("title", value);
   };
 
   const titleQuery = searchParams?.get("title");

@@ -21,7 +21,7 @@ export const ACTIONS = {
   REMOVE_ALL_SELECTED: "remove_all_selected",
 };
 
-function technologiesReducer(state: TechnologiesState, action: Action) {
+function reducer(state: TechnologiesState, action: Action) {
   switch (action.type) {
     case ACTIONS.ADD_TECH_ON_SELECTED:
       if (typeof action.payload === "string") {
@@ -65,12 +65,37 @@ type TechnologiesProviderProps = {
 };
 
 export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
-  const [selectedTechnologies, dispatch] = useReducer(technologiesReducer, []);
-  const [searchParams] = useSearchParams();
+  const [selectedTechnologies, dispatch] = useReducer(reducer, []);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [currentItems, setCurrentItems] = useState<ProjectType[]>(Projects);
 
+  const techQuery = searchParams?.get("q") || "";
   const titleQuery = searchParams?.get("title") || "";
   const sortQuery = searchParams?.get("sort") || "date-desc";
+
+  console.time("tech params");
+  useEffect(() => {
+    if (techQuery) {
+      const techs = techQuery.split(",");
+      techs.forEach((tech) => {
+        dispatch({ type: ACTIONS.ADD_TECH_ON_SELECTED, payload: tech });
+      });
+    }
+  }, [techQuery]);
+
+  useEffect(() => {
+
+    //why the hell if (selectedTechnologies) is truthy even empty? 
+    if (selectedTechnologies.length > 0) {
+      searchParams.set("q", selectedTechnologies.join(","));
+      setSearchParams(searchParams, { replace: true });
+    } else {
+      searchParams.delete("q");
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [searchParams, selectedTechnologies, setSearchParams]);
+
+  console.timeEnd("tech params");
 
   console.time("filter array");
   useEffect(() => {
@@ -97,22 +122,24 @@ export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
   console.timeEnd("filter array");
 
   console.time("sort array");
-  if (sortQuery !== null) {
-    switch (sortQuery) {
-      case "date-asc":
-        currentItems.sort((a, b) => a.date.getTime() - b.date.getTime());
-        break;
-      case "date-desc":
-        currentItems.sort((a, b) => b.date.getTime() - a.date.getTime());
-        break;
-      case "name-asc":
-        currentItems.sort((a, b) => a.title.localeCompare(b.title));
-        break;
-      case "name-desc":
-        currentItems.sort((a, b) => b.title.localeCompare(a.title));
-        break;
+  useEffect(() => {
+    if (sortQuery !== null) {
+      switch (sortQuery) {
+        case "date-asc":
+          currentItems.sort((a, b) => a.date.getTime() - b.date.getTime());
+          break;
+        case "date-desc":
+          currentItems.sort((a, b) => b.date.getTime() - a.date.getTime());
+          break;
+        case "name-asc":
+          currentItems.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+        case "name-desc":
+          currentItems.sort((a, b) => b.title.localeCompare(a.title));
+          break;
+      }
     }
-  }
+  }, [currentItems, sortQuery]);
   console.timeEnd("sort array");
 
   return (
