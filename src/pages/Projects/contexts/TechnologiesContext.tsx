@@ -73,7 +73,6 @@ export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
   const titleQuery = searchParams?.get("title") || "";
   const sortQuery = searchParams?.get("sort") || "date-desc";
 
-  console.time("tech params");
   useEffect(() => {
     if (techQuery) {
       const techs = techQuery.split(",");
@@ -84,8 +83,7 @@ export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
   }, [techQuery]);
 
   useEffect(() => {
-
-    //why the hell if (selectedTechnologies) is truthy even empty? 
+    //why the hell if (selectedTechnologies) is truthy even empty?
     if (selectedTechnologies.length > 0) {
       searchParams.set("q", selectedTechnologies.join(","));
       setSearchParams(searchParams, { replace: true });
@@ -95,9 +93,6 @@ export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
     }
   }, [searchParams, selectedTechnologies, setSearchParams]);
 
-  console.timeEnd("tech params");
-
-  console.time("filter array");
   useEffect(() => {
     //avoid mutating the original data
     const filteredItems = [...Projects].filter((project) => {
@@ -119,9 +114,7 @@ export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
     });
     setCurrentItems(filteredItems);
   }, [selectedTechnologies, titleQuery]);
-  console.timeEnd("filter array");
 
-  console.time("sort array");
   useEffect(() => {
     if (sortQuery !== null) {
       switch (sortQuery) {
@@ -140,7 +133,6 @@ export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
       }
     }
   }, [currentItems, sortQuery]);
-  console.timeEnd("sort array");
 
   return (
     <TechnologiesContext.Provider
