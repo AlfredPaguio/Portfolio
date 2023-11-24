@@ -1,8 +1,7 @@
 import Lead from "@/components/Lead";
-import TechnologiesProvider from "./contexts/TechnologiesContext";
+import { TechnologiesProvider } from "./contexts/TechnologiesContext";
 import ProjectList from "./layouts/ProjectList";
 import FilterListBar from "./layouts/FilterListBar";
-import FilterListMenu from "./layouts/FilterListMenu";
 import SearchBarAndSorter from "./layouts/SearchBarAndSorter";
 
 function Projects() {
@@ -12,9 +11,7 @@ function Projects() {
 
       <TechnologiesProvider>
         <SearchBarAndSorter />
-        <FilterListBar>
-          <FilterListMenu />
-        </FilterListBar>
+        <FilterListBar />
         <ProjectList />
       </TechnologiesProvider>
     </div>
