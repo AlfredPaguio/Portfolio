@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
+import { DialogClose, DialogContent } from "./ui/dialog";
+import { ChevronLeft, ChevronRight, XIcon } from "lucide-react";
+import { AspectRatio } from "./ui/aspect-ratio";
 import {
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "./ui/dialog";
-import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 
 type GalleryViewerProps = {
   title: string;
@@ -28,67 +29,76 @@ export default function GalleryViewer({ images, title }: GalleryViewerProps) {
   function showPrevImage() {
     setImageIndex((index) => {
       if (index === 0) return images.length - 1;
-      console.log(index);
       return index - 1;
     });
   }
 
   return (
-    <DialogContent className="flex flex-col">
-      <DialogHeader>
-        <DialogTitle className="text-text-light dark:text-text-dark">
-          {title}
-        </DialogTitle>
-      </DialogHeader>
-      <div className="relative flex items-center space-x-2 overflow-hidden">
+    <DialogContent
+      hideClose
+      className="flex h-screen min-w-full flex-col border-transparent bg-transparent dark:border-transparent dark:bg-transparent"
+    >
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between">
+            {title}
+            <DialogClose asChild>
+              <Button type="button" variant="ghost">
+                <XIcon className="h-6 w-6 text-text-light dark:text-text-dark" />
+                <span className="sr-only">Close</span>
+              </Button>
+            </DialogClose>
+          </CardTitle>
+        </CardHeader>
+      </Card>
+      <Card className="relative flex items-center overflow-hidden">
         {images.map((image, index) => (
-          <div
+          <CardContent
             key={index}
-            className={`flex h-full w-full flex-col ${
+            className={`flex flex-1 flex-col ${
               imageIndex !== index ? "hidden" : "block"
             }`}
           >
-            <img
-              key={index}
-              src={image.imageUrl}
-              alt={image.alt || `Image 1`}
-              className={`h-full w-full flex-1 object-cover`}
-              title={image.alt || `No Description`}
-            />
-            <DialogDescription className="mt-4 self-center text-lg text-text-light dark:text-text-dark font-medium">
+            <AspectRatio
+              ratio={16 / 9}
+              className="bg-muted max-h-full min-h-full min-w-full max-w-full"
+            >
+              <img
+                key={index}
+                src={image.imageUrl}
+                alt={image.alt || `Image 1`}
+                className={`mx-auto h-auto object-contain object-center`}
+                title={image.alt || `No Description`}
+              />
+            </AspectRatio>
+            <CardFooter className="mt-4 self-center text-lg font-medium text-text-light dark:text-text-dark">
               {image.alt}
-            </DialogDescription>
-          </div>
+            </CardFooter>
+          </CardContent>
         ))}
-        <button
+        <Button
+          variant={"ghost"}
           onClick={showPrevImage}
-          className="absolute left-0 rounded-md bg-background-950/10 p-1"
+          className="absolute left-0 rounded-md bg-background-950/10 p-1 dark:bg-background-950/10"
           aria-label="View Previous Image"
         >
-          <ArrowBigLeft
+          <ChevronLeft
             aria-hidden
-            className="text-text-light dark:text-text-dark"
+            className="h-8 w-8 text-text-light dark:text-text-dark"
           />
-        </button>
-        <button
+        </Button>
+        <Button
+          variant={"ghost"}
           onClick={showNextImage}
-          className="absolute right-0 rounded-md bg-background-950/10 p-1"
+          className="absolute right-0 rounded-md bg-background-950/10 p-1 dark:bg-background-950/10"
           aria-label="View Next Image"
         >
-          <ArrowBigRight
+          <ChevronRight
             aria-hidden
-            className="text-text-light dark:text-text-dark"
+            className="h-8 w-8 text-text-light dark:text-text-dark"
           />
-        </button>
-      </div>
-
-      <DialogFooter className="justify-start md:justify-end">
-        <DialogClose asChild>
-          <Button type="button" variant="secondary">
-            Close
-          </Button>
-        </DialogClose>
-      </DialogFooter>
+        </Button>
+      </Card>
     </DialogContent>
   );
 }
