@@ -15,10 +15,13 @@ export default function TechCheckbox({
   return (
     <>
       <div className="flex items-center space-x-2">
-        <Checkbox className="shrink-0 accent-accent hover:accent-secondary" id={technology} checked={isSelected} onCheckedChange={onChangeTechnology}/>
-        <Label htmlFor={technology}>
-          {technology}
-        </Label>
+        <Checkbox
+          className="shrink-0 accent-accent hover:accent-secondary"
+          id={technology}
+          checked={isSelected}
+          onCheckedChange={onChangeTechnology}
+        />
+        <Label htmlFor={technology} className="text-foreground">{technology}</Label>
       </div>
     </>
   );

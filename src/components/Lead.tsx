@@ -5,7 +5,7 @@ export default function Lead({ title, subtitle }: LeadProps) {
         {title}
       </h1>
       {subtitle && (
-        <p className="text-center text-lg font-normal text-gray-800 dark:text-gray-300">
+        <p className="text-center text-lg font-normal text-muted">
           {subtitle}
         </p>
       )}

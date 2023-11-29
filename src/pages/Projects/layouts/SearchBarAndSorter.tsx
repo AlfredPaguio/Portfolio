@@ -42,10 +42,10 @@ export default function SearchBarAndSorter() {
       <div className="grow-1 relative block w-full">
         <span className="sr-only">Search</span>
         <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-          <SearchIcon className="h-5 w-5  text-accent-light dark:text-accent-dark"></SearchIcon>
+          <SearchIcon className="h-5 w-5 text-accent-foreground"></SearchIcon>
         </span>
         <Input
-          className="block w-full rounded-md border border-solid border-slate-300 bg-transparent py-2 pl-9 pr-3 shadow-sm placeholder:italic placeholder:text-slate-400 focus:border-accent-light focus:outline-none focus:ring-1 focus:ring-accent-light focus:dark:border-accent-dark dark:focus:ring-accent-dark sm:text-sm"
+          className="block w-full rounded-md py-2 pl-9 pr-3 shadow-sm placeholder:italic placeholder:text-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-ring sm:text-sm"
           placeholder="Search for project..."
           type="text"
           onChange={(e) => handleSearch(e.target.value)}

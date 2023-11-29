@@ -38,8 +38,7 @@ export default function FilterListBar() {
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-y-2 rounded-lg">
-      <Card className="md:text-md 3xl:text-3xl w-full max-w-7xl bg-background-light/10 px-6 py-3 text-sm  transition-all  duration-300 dark:bg-background-dark/10 md:flex md:items-center md:px-4 lg:text-lg xl:text-xl 2xl:text-2xl">
+      <Card className="shadow-2xl border-none md:text-md 3xl:text-3xl w-full max-w-7xl bg-background/10 px-6 py-3 text-sm transition-all duration-300 md:flex md:items-center md:px-4 lg:text-lg xl:text-xl 2xl:text-2xl">
         <Button variant={"ghost"} type="button" className={`order-1`} asChild>
           <Sheet>
             <SheetTrigger asChild>
@@ -87,14 +86,15 @@ export default function FilterListBar() {
             variant={"destructive"}
             type="button"
             onClick={() => removeAllFilters()}
+            size={"icon"}
             className="order-2 ml-2 inline-flex shrink-0 items-center p-2 md:order-4"
           >
-            <XIcon className="h-6 w-6" />
+            <XIcon />
           </Button>
         )}
         <Separator
           orientation="vertical"
-          className="order-3 hidden h-8 w-0.5 bg-accent-light dark:bg-accent-dark md:order-2 md:mx-4 md:block"
+          className="order-3 hidden h-8 w-0.5 bg-accent md:order-2 md:mx-4 md:block"
         />
         <div className="order-4 mt-2 flex flex-1 flex-wrap items-center gap-1 md:order-3 md:mt-0">
           {!selectedTechnologies.length && (
@@ -112,6 +112,5 @@ export default function FilterListBar() {
           ))}
         </div>
       </Card>
-    </div>
   );
 }

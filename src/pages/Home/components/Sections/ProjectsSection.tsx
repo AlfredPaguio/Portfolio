@@ -20,7 +20,7 @@ export default function ProjectsSection() {
         </div>
         <Button
           variant={"link"}
-          className="mb-4 text-center text-xl font-bold decoration-accent-light decoration-2 underline-offset-8 transition-all duration-300 ease-in dark:decoration-accent-dark"
+          className="mb-4 text-center text-xl font-bold decoration-accent decoration-2 underline-offset-8 transition-all duration-300 ease-in"
           asChild
         >
           <Link to="/projects">See all projects.</Link>

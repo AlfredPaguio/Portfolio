@@ -40,11 +40,11 @@ export default function CompactProjectCard({
           <Dialog onOpenChange={setIsHovered}>
             <DialogTrigger asChild>
               <div
-                className={`absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center bg-black transition-opacity ${
+                className={`absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center bg-background transition-opacity ${
                   isHovered ? "opacity-90 delay-200" : "opacity-0"
                 }`}
               >
-                <Button variant={"link"} className="text-text-50">
+                <Button variant={"link"} className="text-foreground">
                   <ScanEye className="mr-1" /> View Images
                 </Button>
               </div>

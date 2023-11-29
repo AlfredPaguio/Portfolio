@@ -19,7 +19,7 @@ import GalleryViewer from "@/components/GalleryViewer";
 export function ProjectCard({ project }: { project: ProjectType }) {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <Card className="flex h-full flex-col bg-background-200/20 dark:bg-background-800/20">
+    <Card className="flex h-full flex-col border-accent shadow-2xl">
       <CardHeader>
         <CardTitle>{project.title}</CardTitle>
         <CardDescription>{formatDate(project.date)}</CardDescription>
@@ -39,16 +39,20 @@ export function ProjectCard({ project }: { project: ProjectType }) {
             <Dialog onOpenChange={setIsHovered}>
               <DialogTrigger asChild>
                 <div
-                  className={`absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center bg-black transition-opacity ${
+                  className={`absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center bg-background transition-opacity ${
                     isHovered ? "opacity-90 delay-200" : "opacity-0"
                   }`}
                 >
-                  <Button variant={"link"} className="text-text-50">
+                  <Button variant={"link"} className="text-foreground">
                     <ScanEye className="mr-1" /> View Images
                   </Button>
                 </div>
               </DialogTrigger>
-              <GalleryViewer images={project.images} title={project.title} key={project.title}/>
+              <GalleryViewer
+                images={project.images}
+                title={project.title}
+                key={project.title}
+              />
             </Dialog>
           </div>
         )}
@@ -78,7 +82,7 @@ export function ProjectCard({ project }: { project: ProjectType }) {
         </div>
       </CardContent>
       {project.links && (
-        <CardFooter className="flex flex-col items-start justify-start  pt-4">
+        <CardFooter className="flex flex-col items-start justify-start pt-4">
           <CardTitle>Links</CardTitle>
           <div className="flex gap-4 pt-4">
             {Object.entries(project.links).map(([linkText, linkUrl], index) => (
