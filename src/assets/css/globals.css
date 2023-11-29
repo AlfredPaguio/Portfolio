@@ -56,11 +56,11 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
   ::-webkit-scrollbar {
     width: 10px;
     height: 3px;
-    background-color: theme(colors.background.dark / 5%);
+    background-color: theme(colors.accent.DEFAULT / 5%);
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: theme(colors.accent.dark / 50%);
+    background-color: theme(colors.accent.DEFAULT / 50%);
   }
 
   body {
