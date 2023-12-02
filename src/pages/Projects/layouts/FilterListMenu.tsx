@@ -21,7 +21,7 @@ export default function FilterListMenu() {
   };
 
   return (
-    <div className="md:text-md 3xl:text-3xl grid max-w-7xl grid-cols-2 gap-x-4 pt-4 text-sm text-text-light transition-all duration-300 dark:text-text-dark md:gap-x-6 lg:text-lg xl:text-xl 2xl:text-2xl">
+    <div className="md:text-md 3xl:text-3xl grid max-w-7xl grid-cols-2 gap-x-4 pt-4 text-sm text-foreground transition-all duration-300 md:gap-x-6 lg:text-lg xl:text-xl 2xl:text-2xl">
       <div className="grid auto-rows-min grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-6">
         <fieldset>
           <legend className="text-foreground block pb-2 text-sm font-medium leading-none">
