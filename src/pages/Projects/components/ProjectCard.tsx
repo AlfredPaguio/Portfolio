@@ -13,10 +13,16 @@ import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/formatDate";
 import { useState } from "react";
 import { ScanEye } from "lucide-react";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import GalleryViewer from "@/components/GalleryViewer";
 
-export function ProjectCard({ project }: { project: ProjectType }) {
+type ProjectCardProps = {
+  project: ProjectType;
+  onOpenGalleryViewer: () => void;
+};
+
+export function ProjectCard({
+  project,
+  onOpenGalleryViewer,
+}: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <Card className="flex h-full flex-col border-accent shadow-2xl">
@@ -36,24 +42,17 @@ export function ProjectCard({ project }: { project: ProjectType }) {
               className="object-cover"
               title={project.images[0].alt || `No Description`}
             />
-            <Dialog onOpenChange={setIsHovered}>
-              <DialogTrigger asChild>
-                <div
-                  className={`absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center bg-background transition-opacity ${
-                    isHovered ? "opacity-90 delay-200" : "opacity-0"
-                  }`}
-                >
-                  <Button variant={"link"} className="text-foreground">
-                    <ScanEye className="mr-1" /> View Images
-                  </Button>
-                </div>
-              </DialogTrigger>
-              <GalleryViewer
-                images={project.images}
-                title={project.title}
-                key={project.title}
-              />
-            </Dialog>
+            <Button
+              variant={"ghost"}
+              onClick={() => onOpenGalleryViewer()}
+              className={`hover:text-background-foreground absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center transition-opacity hover:bg-background ${
+                isHovered ? "opacity-90" : "opacity-0"
+              }`}
+            >
+              <div className="flex text-foreground">
+                <ScanEye className="mr-1" /> View Images
+              </div>
+            </Button>
           </div>
         )}
       </CardHeader>
