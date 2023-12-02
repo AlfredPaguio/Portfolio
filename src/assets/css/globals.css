@@ -9,48 +9,48 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
 @layer base {
   /* this is for shadcn/ui */
   :root {
-    --background: 220 10% 94%;
-    --foreground: 240 87% 3%;
-    --card: 220 10% 94%;
-    --card-foreground: 240 87% 3%;
-    --popover: 220 10% 94%;
-    --popover-foreground: 240 87% 3%;
-    --primary: 242 85% 40%;
-    --primary-foreground: 220 10% 94%;
-    --secondary: 242 84% 85%;
-    --secondary-foreground: 240 87% 3%;
-    --muted: 222 10% 20%;
-    --muted-foreground: 240 87% 70%;
-    --accent: 242 85% 45%;
-    --accent-foreground: 220 10% 94%;
+    --background: 210 20% 98%;
+    --foreground: 220 17% 7%;
+    --card: 210 20% 98%;
+    --card-foreground: 220 17% 7%;
+    --popover: 210 20% 98%;
+    --popover-foreground: 220 17% 7%;
+    --primary: 238 80% 48%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 190 100% 64%;
+    --secondary-foreground: 220 17% 7%;
+    --muted: 210 20% 20%;
+    --muted-foreground: 220 18% 70%;
+    --accent: 0 0% 25%;
+    --accent-foreground: 210 20% 98%;
     --destructive: 0 85% 60%;
-    --destructive-foreground: 240 87% 3%;
-    --border: 222 10% 20%;
-    --input: 222 10% 20%;
-    --ring: 242 85% 40%;
+    --destructive-foreground: 220 17% 7%;
+    --border: 210 20% 20%;
+    --input: 210 20% 20%;
+    --ring: 0 0% 40%;
     --radius: 0.5rem;
   }
-
+ 
   .dark {
-    --background: 220 10% 6%;
-    --foreground: 240 87% 97%;
-    --card: 220 10% 6%;
-    --card-foreground: 240 87% 97%;
-    --popover: 220 10% 6%;
-    --popover-foreground: 240 87% 97%;
-    --primary: 242 85% 60%;
-    --primary-foreground: 240 87% 97%;
-    --secondary: 242 84% 15%;
-    --secondary-foreground: 240 87% 97%;
-    --muted: 222 10% 80%;
-    --muted-foreground: 240 87% 97%;
-    --accent: 242 85% 55%;
-    --accent-foreground: 240 87% 97%;
+    --background: 210 20% 2%;
+    --foreground: 220 17% 93%;
+    --card: 210 20% 2%;
+    --card-foreground: 220 17% 93%;
+    --popover: 210 20% 2%;
+    --popover-foreground: 220 17% 93%;
+    --primary: 238 80% 52%;
+    --primary-foreground: 220 17% 93%;
+    --secondary: 190 100% 36%;
+    --secondary-foreground: 210 20% 2%;
+    --muted: 210 20% 80%;
+    --muted-foreground: 220 17% 93%;
+    --accent: 0 0% 75%;
+    --accent-foreground: 210 20% 2%;
     --destructive: 0 62% 30%;
-    --destructive-foreground: 240 88% 10%;
-    --border: 219 10% 60%;
-    --input: 222 10% 80%;
-    --ring: 242 85% 60%;
+    --destructive-foreground: 220 18% 10%;
+    --border: 210 20% 60%;
+    --input: 210 20% 80%;
+    --ring: 0 0% 60%;
   }
 
   ::-webkit-scrollbar {
