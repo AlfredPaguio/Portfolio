@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -9,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
-import { ChevronDownIcon, DownloadIcon, PlusIcon } from "lucide-react";
+import { ChevronDownIcon, DownloadIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function HeroSection() {
@@ -29,41 +28,69 @@ export default function HeroSection() {
           Let me help you build and optimize your web projects.
         </p>
         <div className="mx-auto flex gap-x-2 p-2">
-        <div className="flex items-center space-x-1 rounded-md bg-primary text-secondary-foreground">
-          <Button asChild>
-            <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.pdf">
-              <DownloadIcon className="mr-2 h-4 w-4" />
-              Download CV
-            </Link>
-          </Button>
-          <Separator orientation="vertical" className="h-[20px]" />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button  className="px-2 shadow-none">
-                <ChevronDownIcon className="h-4 w-4 text-secondary-foreground" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              alignOffset={-5}
-              className="w-[200px]"
-              forceMount
-            >
-              
-              <DropdownMenuItem><DownloadIcon className="mr-2 h-4 w-4" /> With Picture</DropdownMenuItem>
-              <DropdownMenuItem><DownloadIcon className="mr-2 h-4 w-4" /> Normal CV (Not Programming Focused)</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem inset disabled>
-                Contact me for more.
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex items-center space-x-1 rounded-md bg-primary text-secondary-foreground">
+            <Button asChild>
+              <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.pdf">
+                <DownloadIcon className="mr-2 h-4 w-4" />
+                Download CV
+              </Link>
+            </Button>
+            <Separator orientation="vertical" className="h-[20px]" />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="px-2 shadow-none">
+                  <ChevronDownIcon className="h-4 w-4 text-secondary-foreground" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                alignOffset={-5}
+                className="w-[200px]"
+                forceMount
+              >
+                <DropdownMenuLabel>
+                  Download Options
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.docx">
+                    <DownloadIcon className="mr-2 h-4 w-4" /> Docx format
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+
+                <DropdownMenuLabel>
+                  With Picture
+                </DropdownMenuLabel>
+                <DropdownMenuItem>
+                  <DownloadIcon className="mr-2 h-4 w-4" /> PDF Format
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <DownloadIcon className="mr-2 h-4 w-4" /> DOCX Format
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+
+                <DropdownMenuLabel>
+                  Normal CV (Not Programming Focused)
+                </DropdownMenuLabel>
+                <DropdownMenuItem>
+                  <DownloadIcon className="mr-2 h-4 w-4" /> PDF Format
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <DownloadIcon className="mr-2 h-4 w-4" />
+                  DOCX Format
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel className="font-medium">
+                  Contact me for more.
+                </DropdownMenuLabel>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           <Button variant={"outline"} asChild>
             <Link to="/contact">Contact Me</Link>
           </Button>
-
         </div>
       </div>
     </section>
