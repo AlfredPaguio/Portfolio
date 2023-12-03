@@ -12,19 +12,23 @@ type TechButtonProps = {
 
 export default function TechPillButton({
   technology,
-  isSelected = false,
+  // isSelected = false,
   hasCloseIcon = true,
   onClickTechnology,
 }: TechButtonProps) {
   return (
     <Button
       onClick={onClickTechnology}
+      className={cn(badgeVariants({ variant: "default" }), `shrink-0`)}
+    >
+      {/* <Button
+      onClick={onClickTechnology}
       className={cn(badgeVariants({ variant: "default" }),`shrink-0 ${
         isSelected
-          ? "bg-blue-500 hover:bg-blue-600 focus:outline-none"
+          ? "bg-accent hover:bg-blue-600 focus:outline-none"
           : "bg-blue-500 hover:bg-blue-600"
       }`)}
-    >
+    > */}
       {/* will remove that isSelected*/}
       {technology}
       {hasCloseIcon && <XCircle className="shrink-0 pl-1" />}

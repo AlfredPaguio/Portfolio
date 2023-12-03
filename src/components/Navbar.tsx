@@ -14,7 +14,7 @@ export function Navbar() {
       {/* Container */}
       <div className="flex items-center justify-end">
         {/* Menu Items */}
-        <ul className="align-end divide-accent-light dark:divide-accent-dark hidden items-center gap-3 space-x-1 divide-x-2 divide-solid rounded-md py-4 pe-4 ps-4 md:flex">
+        <ul className="align-end hidden items-center gap-3 space-x-1 rounded-md py-4 pe-4 ps-4 md:flex">
           {pagesData
             .filter((route: routerType) => route.path !== "*")
             .map((route: routerType, key) => {
@@ -23,7 +23,7 @@ export function Navbar() {
                   key={key}
                   to={`/${route.path}`}
                   className={({ isActive }) =>
-                    `text-text-light dark:text-text-dark hover:text-accent-light hover:dark:text-accent-dark focus-visible:text-accent-light focus-visible:dark:text-accent-dark peer w-max max-w-full pl-4 text-2xl font-medium transition-all duration-75 ease-in first:pl-0 first:after:ml-0  ${
+                    `peer w-max max-w-full pl-4 text-2xl font-medium text-foreground transition-all duration-75 ease-in first:pl-0 first:after:ml-0 hover:text-accent focus-visible:text-accent  ${
                       isActive
                         ? "opacity-100"
                         : "opacity-70 hover:opacity-100 focus-visible:opacity-100"
@@ -31,7 +31,7 @@ export function Navbar() {
                   }
                   unstable_viewTransition
                 >
-                  <li className="after:bg-accent-light dark:after:bg-accent-dark  relative transition-all duration-300 ease-in-out after:absolute  after:bottom-0 after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:transition-transform after:ease-in after:content-['']  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300">
+                  <li className="relative transition-all duration-300 ease-in-out after:absolute after:bottom-0  after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in after:content-['']  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300">
                     {route.title}
                   </li>
                 </NavLink>
@@ -40,11 +40,11 @@ export function Navbar() {
           <ThemeToggle />
         </ul>
 
-        <div className="block space-x-6 rounded-md bg-white/10 py-4 pe-4 ps-4 backdrop-blur-md focus:outline-none md:hidden">
+        <div className="block space-x-6 rounded-md bg-card/10 py-4 pe-4 ps-4 backdrop-blur-md focus:outline-none md:hidden">
           <ThemeToggle />
           {/* Hamburger Menu */}
           <button id="menu-btn" onClick={() => setShowMenu(!showMenu)}>
-            <Menu className="text-text-light dark:text-text-dark hover:text-accent-light hover:dark:text-accent-dark transition-all duration-200" />
+            <Menu className="text-foreground hover:text-accent transition-all duration-200" />
           </button>
         </div>
       </div>

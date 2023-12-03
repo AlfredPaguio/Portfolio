@@ -82,3 +82,9 @@ Check out the live demo [here](https://alfredpaguio.vercel.app/).
 ## Contributions
 
 I welcome contributions and feedback. If you'd like to contribute or send feedback, please contact me.
+
+
+https://www.realtimecolors.com/?colors=eaecf0-040506-bfbfbf-0099b8-2329e7&fonts=Noto%20Serif%20JP-Noto%20Serif
+
+
+https://www.realtimecolors.com/?colors=eaecf0-040506-2329E7-0099b8-BFBFBF&fonts=Noto%20Serif%20JP-Noto%20Serif

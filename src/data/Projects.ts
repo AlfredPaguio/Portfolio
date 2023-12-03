@@ -35,6 +35,7 @@ import info_site_faq_open from "/images/projects/information_site/faq_open.png";
 import info_site_contact from "/images/projects/information_site/contact.png";
 
 export type ProjectType = {
+  id: string;
   title: string;
   stack: string[];
   description?: string;
@@ -46,6 +47,7 @@ export type ProjectType = {
 
 export const Projects = [
   {
+    id:"PDSS2019",
     title: "Personal Data Sheet System for public school teachers",
     stack: ["C#", "MySQL", "SAP Crystal Reports"],
     description:
@@ -58,6 +60,7 @@ export const Projects = [
     date: new Date(2019, 2),
   },
   {
+    id: "InfoSiteB&D",
     title: "Information Site",
     stack: [
       "PHP",
@@ -88,6 +91,7 @@ export const Projects = [
     ],
   },
   {
+    id: "E-CommerceB&D",
     title: "E-Commerce System",
     stack: [
       "PHP",
@@ -182,6 +186,7 @@ export const Projects = [
     date: new Date("2023-05-06"),
   },
   {
+    id: "HRISB&D",
     title: "Human Resource Information System",
     stack: ["Python", "Flask", "jQuery", "Javascript", "MySQL", "Bootstrap"],
     description:

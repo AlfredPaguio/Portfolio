@@ -12,7 +12,7 @@ export function NavbarMenu({ showMenu }: NavbarMenuProps) {
       <div
         className={twMerge(
           showMenu ? "flex" : "hidden",
-          "absolute left-6 right-6 mt-1 flex-col divide-y-1 border-solid border-text items-center space-y-6 self-end bg-background py-8 font-bold drop-shadow-md sm:w-auto sm:self-center z-50",
+          "divide-y-1 absolute left-6 right-6 z-50 mt-1 flex-col items-center space-y-6 self-end border-solid border-border bg-background py-8 font-bold drop-shadow-md sm:w-auto sm:self-center",
         )}
       >
         {pagesData
@@ -22,7 +22,7 @@ export function NavbarMenu({ showMenu }: NavbarMenuProps) {
               <NavLink
                 key={"MenuMobileView" + key}
                 to={`/${route.path}`}
-                className="pb-1 text-white transition-all duration-300 ease-in-out hover:text-accent"
+                className="pb-1 text-foreground transition-all duration-300 ease-in-out hover:text-accent"
               >
                 {route.title}
               </NavLink>
