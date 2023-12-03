@@ -15,7 +15,7 @@ export default function HeroSection() {
   return (
     <section id="hero">
       <div className="mb-8 mt-16 flex h-full w-full snap-align-none flex-col items-center pb-8 pt-16">
-        <h1 className="mb-4 text-center text-3xl font-bold [text-wrap:balance] md:text-4xl lg:text-5xl xl:text-6xl">
+        <h1 className="mb-4 text-center text-5xl font-bold [text-wrap:balance] md:text-6xl lg:text-7xl xl:text-8xl">
           I'm Alfred U. Paguio
         </h1>
         <h2 className="mb-2 text-center text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
@@ -39,7 +39,7 @@ export default function HeroSection() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="px-2 shadow-none">
-                  <ChevronDownIcon className="h-4 w-4 text-secondary-foreground" />
+                  <ChevronDownIcon className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent

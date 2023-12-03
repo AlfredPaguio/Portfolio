@@ -16,12 +16,10 @@ import { ScanEye } from "lucide-react";
 
 type ProjectCardProps = {
   project: ProjectType;
-  onOpenGalleryViewer: () => void;
 };
 
 export function ProjectCard({
   project,
-  onOpenGalleryViewer,
 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   return (
@@ -44,13 +42,13 @@ export function ProjectCard({
             />
             <Button
               variant={"ghost"}
-              onClick={() => onOpenGalleryViewer()}
+              // onClick={() => onOpenGalleryViewer()}
               className={`hover:text-background-foreground absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center transition-opacity hover:bg-background ${
                 isHovered ? "opacity-90" : "opacity-0"
               }`}
             >
               <div className="flex text-foreground">
-                <ScanEye className="mr-1" /> View Images
+                <ScanEye className="mr-1" /> View Project
               </div>
             </Button>
           </div>

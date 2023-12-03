@@ -14,7 +14,7 @@ export function Navbar() {
       {/* Container */}
       <div className="flex items-center justify-end">
         {/* Menu Items */}
-        <ul className="align-end hidden items-center gap-3 space-x-1 divide-x-2 divide-solid divide-accent rounded-md py-4 pe-4 ps-4 md:flex">
+        <ul className="align-end hidden items-center gap-3 space-x-1 rounded-md py-4 pe-4 ps-4 md:flex">
           {pagesData
             .filter((route: routerType) => route.path !== "*")
             .map((route: routerType, key) => {
