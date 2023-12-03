@@ -1,5 +1,5 @@
 import { MoonIcon } from "lucide-react";
-import TechStack from "../TechStack";
+import TechStack from "./TechStack";
 import Lead from "@/components/Lead";
 import { Card, CardContent, CardDescription } from "@/components/ui/card";
 

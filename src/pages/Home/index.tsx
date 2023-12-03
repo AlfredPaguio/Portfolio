@@ -1,13 +1,97 @@
-import HeroSection from "./components/Sections/HeroSection";
-import ProjectsSection from "./components/Sections/ProjectsSection";
-import AboutMeSection from "./components/Sections/AboutMeSection";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
+import { DownloadIcon, ChevronDownIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
     <section id="home">
-      <HeroSection />
-      <AboutMeSection />
-      <ProjectsSection />
+      <div className="mb-8 mt-16 flex h-full w-full snap-align-none flex-col justify-center pb-8 pt-16">
+        <h2 className="text-lg mb-2 text-center font-medium md:text-xl lg:text-2xl xl:text-3xl">
+          I'm
+        </h2>
+        <h1 className="lg:text-7xl xl:text-8xl mb-4 text-center text-5xl font-bold [text-wrap:balance] md:text-6xl">
+          Alfred U. Paguio
+        </h1>
+        <h2 className="text-lg mb-2 text-center font-medium md:text-xl lg:text-2xl xl:text-3xl">
+          Web Developer with a Diverse Skill Set
+        </h2>
+        <p className="text-small lg:text-lg text-center [text-wrap:balance] md:text-base xl:text-xl 2xl:text-2xl">
+          I specialize in web development with experience in various programming
+          languages and frameworks.
+          <br />
+          Let me help you build and optimize your web projects.
+        </p>
+        <div className="mx-auto flex gap-x-2 p-2">
+          <div className="flex items-center space-x-1 rounded-md bg-primary text-secondary-foreground">
+            <Button asChild>
+              <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.pdf">
+                <DownloadIcon className="mr-2 h-4 w-4" />
+                Download CV
+              </Link>
+            </Button>
+            <Separator orientation="vertical" className="h-[20px]" />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="px-2 shadow-none">
+                  <ChevronDownIcon className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                alignOffset={-5}
+                className="w-[200px]"
+                forceMount
+              >
+                <DropdownMenuLabel>Download Options</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.docx">
+                    <DownloadIcon className="mr-2 h-4 w-4" /> Docx format
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+
+                <DropdownMenuLabel>With Picture</DropdownMenuLabel>
+                <DropdownMenuItem>
+                  <DownloadIcon className="mr-2 h-4 w-4" /> PDF Format
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <DownloadIcon className="mr-2 h-4 w-4" /> DOCX Format
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+
+                <DropdownMenuLabel>
+                  Normal CV (Not Programming Focused)
+                </DropdownMenuLabel>
+                <DropdownMenuItem>
+                  <DownloadIcon className="mr-2 h-4 w-4" /> PDF Format
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <DownloadIcon className="mr-2 h-4 w-4" />
+                  DOCX Format
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel className="font-medium">
+                  Contact me for more.
+                </DropdownMenuLabel>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          <Button variant={"outline"} asChild>
+            <Link to="/contact">Contact Me</Link>
+          </Button>
+        </div>
+      </div>
     </section>
   );
 }
