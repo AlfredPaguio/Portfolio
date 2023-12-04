@@ -3,7 +3,7 @@ import { MailOpen } from "lucide-react";
 
 function Contact() {
   return (
-    <div className="mx-auto my-auto min-h-screen">
+    <div className="">
       <h1 className="text-3xl font-bold underline">Contact</h1>
       <div className="mx-auto flex max-w-sm items-center space-x-4 rounded-xl bg-slate-800 p-6 shadow-lg dark:bg-white">
         <div className="shrink-0">
