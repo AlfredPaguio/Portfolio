@@ -49,7 +49,7 @@ export const Projects = [
   {
     id:"PDSS2019",
     title: "Personal Data Sheet System for public school teachers",
-    stack: ["C#", "MySQL", "SAP Crystal Reports"],
+    stack: ["C# 5.0", "MySQL", "SAP Crystal Reports"],
     description:
       "This project was created as a part of the School Division Office (Muntinlupa) project. Our primary goal was to create software that could efficiently manage and process personal data for teachers within the public school system. However, I am currently unaware of the status or utilization of this system within the organization.",
     responsibilities: [

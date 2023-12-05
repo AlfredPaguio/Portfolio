@@ -10,7 +10,7 @@ export type TechnologyProps = {
 
 export const Technologies = {
   programmingLanguages: [
-    "C#",
+    "C# 5.0",
     "Visual Basic .NET",
     "Java",
     "PHP",
@@ -28,8 +28,6 @@ export const Technologies = {
   databaseManagementSystems: ["Microsoft SQL Server", "MySQL"],
   developerTools: [
     "Git",
-    "Android Studio",
-    "NetBeans",
     "Microsoft Visual Studio",
     "Visual Studio Code",
   ],

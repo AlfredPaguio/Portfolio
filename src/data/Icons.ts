@@ -35,7 +35,7 @@ export type IconType = {
 
 export const iconData: IconType[] = [
   {
-    name: "C#",
+    name: "C# 5.0",
     Icon: CsharpPlain,
   },
   {
@@ -93,10 +93,6 @@ export const iconData: IconType[] = [
   {
     name: "Git",
     Icon: GitPlainWordmark,
-  },
-  {
-    name: "Android Studio",
-    Icon: AndroidstudioOriginalWordmark,
   },
   {
     name: "Microsoft Visual Studio",
