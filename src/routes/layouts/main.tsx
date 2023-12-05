@@ -71,9 +71,9 @@ export default function Layout() {
   //https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
 
   return (
-    <div className="overflow-y-scroll flex h-screen min-h-screen w-screen min-w-[1024px] flex-col justify-between bg-background text-foreground lg:snap-y">
+    <div className="flex h-screen min-h-screen w-screen flex-col justify-between overflow-y-scroll bg-background text-foreground">
       <Navbar />
-      <main className="container grow">
+      <main className="grow">
         <Outlet />
       </main>
       {location.pathname === "/contact" ? <Footer /> : <ScrollMore />}

@@ -10,9 +10,12 @@ export function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <nav className="navbar relative p-4">
+    <nav className="navbar relative p-16">
       {/* Container */}
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-between">
+        <h1 className="text-center text-2xl font-bold">
+          Alfred U. Paguio
+        </h1>
         {/* Menu Items */}
         <ul className="align-end hidden items-center gap-3 space-x-1 rounded-md py-4 pe-4 ps-4 md:flex">
           {pagesData
@@ -44,7 +47,7 @@ export function Navbar() {
           <ThemeToggle />
           {/* Hamburger Menu */}
           <button id="menu-btn" onClick={() => setShowMenu(!showMenu)}>
-            <Menu className="text-foreground hover:text-accent transition-all duration-200" />
+            <Menu className="text-foreground transition-all duration-200 hover:text-accent" />
           </button>
         </div>
       </div>
