@@ -30,18 +30,21 @@ function Home() {
           <br />
           Let me help you build and optimize your web projects.
         </p>
-        <div className="flex gap-x-2 p-4">
-          <div className="flex items-start space-x-1 rounded-md bg-primary text-secondary-foreground">
-            <Button asChild>
+        <div className="flex gap-x-2 p-4 pl-0">
+          <div className="flex items-start rounded-md bg-primary text-primary-foreground">
+            <Button variant={"ghost"} className="rounded-r-none" asChild>
               <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.pdf">
                 <DownloadIcon className="mr-2 h-4 w-4" />
                 Download CV
               </Link>
             </Button>
-            <Separator orientation="vertical" className="h-[20px]" />
+            <Separator orientation="vertical" className="h-full" />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="px-2 shadow-none">
+                <Button
+                  variant={"ghost"}
+                  className="rounded-l-none px-2 shadow-none"
+                >
                   <ChevronDownIcon className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -92,8 +95,12 @@ function Home() {
           </Button>
         </div>
       </div>
-      <div className="flex flex-col">
-        something
+      <div className="hidden flex-col md:flex">
+        <img
+          className="h-[42rem] object-scale-down"
+          src="https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books/blob/master/Typescript/Morgan_le_Fay_Typescript_pros.png?raw=true"
+          alt="Morgan le Fay holding Typescript Pro book"
+        />
       </div>
     </div>
   );

@@ -7,9 +7,9 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
 @tailwind utilities;
 
 @layer base {
-  * {
+  /* * {
     outline: 1px solid #ff0000;
-  }
+  } */
   /* this is for shadcn/ui */
   :root {
     --background: 210 20% 98%;
