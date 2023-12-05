@@ -1,5 +1,5 @@
 "use client";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
 import pagesData, { routerType } from "../routes/pagesData";
 import { useState } from "react";
@@ -8,14 +8,28 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
+  const location = useLocation();
+  const currentLocation = location.pathname;
 
   return (
     <nav className="navbar relative p-16">
       {/* Container */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-center text-2xl font-bold">
-          Alfred U. Paguio
-        </h1>
+      <div
+        className={`flex items-center ${
+          currentLocation != "/" ? "justify-between" : "justify-end"
+        }`}
+      >
+        {currentLocation != "/" ? (
+          <h1
+            className="text-center text-2xl font-bold"
+            style={{ viewTransitionName: "brand-name" }}
+          >
+            Alfred U. Paguio
+          </h1>
+        ) : (
+          ""
+        )}
+
         {/* Menu Items */}
         <ul className="align-end hidden items-center gap-3 space-x-1 rounded-md py-4 pe-4 ps-4 md:flex">
           {pagesData

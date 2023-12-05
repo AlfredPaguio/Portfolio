@@ -21,7 +21,7 @@ export default function Layout() {
           (currentIndex - 1 + validPages.length) % validPages.length;
         console.log("this is previous route: ", validPages[prevRoute].title);
         setCurrentIndex(prevRoute);
-        navigate(validPages[prevRoute].path);
+        navigate(validPages[prevRoute].path, { unstable_viewTransition: true });
       }
     }
 
@@ -30,7 +30,7 @@ export default function Layout() {
         const nextRoute = (currentIndex + 1) % validPages.length;
         console.log("this is next route: ", validPages[nextRoute].title);
         setCurrentIndex(nextRoute);
-        navigate(validPages[nextRoute].path);
+        navigate(validPages[nextRoute].path, { unstable_viewTransition: true });
       }
     }
 
