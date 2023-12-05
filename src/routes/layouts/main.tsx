@@ -1,6 +1,6 @@
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import ScrollMore from "@/components/ScrollMore";
+import ScrollMoreIndicator from "@/components/ScrollMoreIndicator";
 import { Toaster } from "@/components/ui/toaster";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ export default function Layout() {
       if (currentIndex !== 0 && !isInputFocused()) {
         const prevRoute =
           (currentIndex - 1 + validPages.length) % validPages.length;
-        console.log("this is previous route: ", validPages[prevRoute].title);
+        // console.log("this is previous route: ", validPages[prevRoute].title);
         setCurrentIndex(prevRoute);
         navigate(validPages[prevRoute].path, { unstable_viewTransition: true });
       }
@@ -37,7 +37,7 @@ export default function Layout() {
     function handleArrowRight() {
       if (currentIndex !== validPages.length - 1 && !isInputFocused()) {
         const nextRoute = (currentIndex + 1) % validPages.length;
-        console.log("this is next route: ", validPages[nextRoute].title);
+        // console.log("this is next route: ", validPages[nextRoute].title);
         setCurrentIndex(nextRoute);
         navigate(validPages[nextRoute].path, { unstable_viewTransition: true });
       }
@@ -85,7 +85,7 @@ export default function Layout() {
       <main className="grow">
         <Outlet />
       </main>
-      {location.pathname === "/contact" ? <Footer /> : <ScrollMore />}
+      {location.pathname === "/contact" ? <Footer /> : <ScrollMoreIndicator />}
       <Toaster />
     </div>
   );

@@ -64,7 +64,7 @@ module.exports = {
       },
 
       keyframes: {
-        scroll: {
+        scrollToRight: {
           '0%': { transform: 'translateX(0)', opacity: 0 },
           '25%, 75%': { opacity: 1 },
           '100%': { transform: 'translateX(4.5rem)', opacity: 0 },
@@ -72,7 +72,7 @@ module.exports = {
       },
 
       animation: {
-        scrollInfinite: 'scroll 3s ease-in-out infinite',
+        scrollToRightInfinite: 'scrollToRight 3s ease-in-out infinite',
       },
     },
   },
