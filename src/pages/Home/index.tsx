@@ -22,13 +22,13 @@ function Home() {
           Alfred U. Paguio
         </h1>
         <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
-          Web Developer with a Diverse Skill Set
+          A web developer with a diverse skill set
         </h2>
         <p className="text-small text-start [text-wrap:balance] md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
-          I specialize in web development with experience in various programming
+          Specializing in web development, experienced in various programming
           languages and frameworks.
           <br />
-          Let me help you build and optimize your web projects.
+          Ready to assist in building and optimizing your web projects.
         </p>
         <div className="flex gap-x-2 p-4 pl-0">
           <div className="flex items-start rounded-md bg-primary text-primary-foreground">
