@@ -15,8 +15,17 @@ export default function Layout() {
   const validPages = pagesData.filter((page) => page.path !== "*");
 
   useEffect(() => {
+    function isInputFocused() {
+      const focusedElement = document.activeElement;
+      return (
+        focusedElement &&
+        (focusedElement.tagName === "Input" ||
+          focusedElement.tagName === "Textarea")
+      );
+    }
+
     function handleArrowLeft() {
-      if (currentIndex !== 0) {
+      if (currentIndex !== 0 && !isInputFocused()) {
         const prevRoute =
           (currentIndex - 1 + validPages.length) % validPages.length;
         console.log("this is previous route: ", validPages[prevRoute].title);
@@ -26,7 +35,7 @@ export default function Layout() {
     }
 
     function handleArrowRight() {
-      if (currentIndex !== validPages.length - 1) {
+      if (currentIndex !== validPages.length - 1 && !isInputFocused()) {
         const nextRoute = (currentIndex + 1) % validPages.length;
         console.log("this is next route: ", validPages[nextRoute].title);
         setCurrentIndex(nextRoute);
