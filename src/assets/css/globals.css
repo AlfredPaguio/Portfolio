@@ -98,4 +98,11 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
     padding: 0;
     height: 1px;
   }
+
+  @media (prefers-reduced-motion) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+    }
+  }
 }

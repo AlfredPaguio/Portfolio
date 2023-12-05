@@ -10,6 +10,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { DownloadIcon, ChevronDownIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+// eslint-disable-next-line import/no-unresolved
+import Morgan_le_Fay from "/images/Morgan_le_Fay_Typescript_mini.png";
 
 function Home() {
   return (
@@ -18,10 +20,7 @@ function Home() {
         <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
           I'm
         </h2>
-        <h1
-          className="mb-4 text-start text-5xl font-bold [text-wrap:balance] md:text-6xl lg:text-7xl xl:text-8xl"
-          style={{ viewTransitionName: "brand-name" }}
-        >
+        <h1 className="mb-4 text-start text-5xl font-bold [text-wrap:balance] [viewTransitionName:brand-name] md:text-6xl lg:text-7xl xl:text-8xl">
           Alfred U. Paguio
         </h1>
         <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
@@ -99,9 +98,14 @@ function Home() {
         </div>
       </div>
       <div className="hidden flex-col md:flex">
-        <img
+        {/* <img
           className="h-[42rem] object-scale-down"
           src="https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books/blob/master/Typescript/Morgan_le_Fay_Typescript_pros.png?raw=true"
+          alt="Morgan le Fay holding Typescript Pro book"
+        /> */}
+        <img
+          className="h-[42rem] object-scale-down"
+          src={Morgan_le_Fay}
           alt="Morgan le Fay holding Typescript Pro book"
         />
       </div>

@@ -20,10 +20,7 @@ export function Navbar() {
         }`}
       >
         {currentLocation != "/" ? (
-          <h1
-            className="text-center text-2xl font-bold"
-            style={{ viewTransitionName: "brand-name" }}
-          >
+          <h1 className="text-center text-2xl font-bold [viewTransitionName:brand-name]">
             Alfred U. Paguio
           </h1>
         ) : (
