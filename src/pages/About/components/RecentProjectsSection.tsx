@@ -1,6 +1,5 @@
 import { Projects } from "@/data/Projects";
 import { Link } from "react-router-dom";
-import Lead from "@/components/Lead";
 import { Button } from "@/components/ui/button";
 import CompactProjectCard from "@/pages/Projects/components/CompactProjectCard";
 
@@ -11,12 +10,7 @@ export default function ProjectsSection() {
 
   return (
     <div className="relative flex h-fit w-full flex-col items-center gap-4 px-2 pt-8">
-      <Lead
-        title="Recent Projects"
-        subtitle="Check out my recent works."
-        left={false}
-        right={false}
-      />
+      <h1>Recent Projects</h1>
       <div className="m-4 flex flex-col justify-center gap-y-4 p-4">
         {latestProjects.map((project, index) => (
           <CompactProjectCard key={index} project={project} />
