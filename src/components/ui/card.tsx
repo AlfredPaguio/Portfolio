@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/heading-has-content */
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
@@ -9,7 +10,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-xl border bg-card text-card-foreground shadow",
+      "rounded-3xl border bg-card/40 border-card/25 shadow-black/25 text-card-foreground shadow-lg backdrop-blur-lg",
       className
     )}
     {...props}
