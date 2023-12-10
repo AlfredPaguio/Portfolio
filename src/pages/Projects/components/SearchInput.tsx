@@ -7,19 +7,19 @@ type SearchInputProps = {
 };
 
 const SearchInput = ({ onChange, value }: SearchInputProps) => (
-  <div className="grow-1 relative block w-full">
+  <div className="relative block w-2/3 shrink-0">
     <span className="sr-only">Search</span>
-    <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-      <SearchIcon className="h-5 w-5 text-foreground"></SearchIcon>
-    </span>
     <Input
-      className="block pl-9 pr-3"
+      className="block pr-9 pl-4 h-12"
       placeholder="Search for project..."
       type="text"
       onChange={(e) => onChange(e.target.value)}
       value={value || ""}
       name="search"
     />
+    <span className="absolute inset-y-0 right-0 flex items-center pr-4">
+      <SearchIcon className="h-5 w-5 text-foreground" />
+    </span>
   </div>
 );
 

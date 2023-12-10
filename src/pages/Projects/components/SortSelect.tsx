@@ -16,7 +16,7 @@ const SortSelect = ({ onValueChange, value }: SortSelectProps) => (
     onValueChange={(value) => onValueChange(value)}
     value={value || "date-desc"}
   >
-    <SelectTrigger className="ml-2 w-fit">
+    <SelectTrigger className="ml-2 h-12 w-fit">
       <SelectValue placeholder="Sort By..." />
     </SelectTrigger>
     <SelectContent>

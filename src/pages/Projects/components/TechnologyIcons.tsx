@@ -21,7 +21,7 @@ export default function TechnologyIcons({ Stacks }: TechnologyIconsProps) {
       {stackWithIcons.map((stack, key) => (
         <Tooltip key={key}>
           <TooltipTrigger>
-            <Badge variant="outline">
+            <Badge variant="ghost">
               <stack.Icon size={32} />
             </Badge>
           </TooltipTrigger>
