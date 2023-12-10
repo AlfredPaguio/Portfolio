@@ -3,7 +3,7 @@ import TechStack from "./TechStack";
 
 export default function AboutMeSection() {
   return (
-    <Card className="relative flex h-full w-full flex-col items-left animate-revealAnimation">
+    <Card className="relative flex h-full w-full flex-col items-left">
       <div className="flex h-full w-full flex-col gap-y-2 p-4">
         <p className="lg:text-lg xl:text-xl">( ^_^)／</p>
         <p className="font-light text-card-foreground lg:text-lg xl:text-xl">
