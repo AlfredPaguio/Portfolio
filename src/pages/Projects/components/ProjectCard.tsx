@@ -1,7 +1,6 @@
 import { ProjectType } from "@/data/Projects";
 import { CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/formatDate";
 import {
@@ -12,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import LinkButtonIcons from "./LinkButtonIcons";
 
 type ProjectCardProps = {
   project: ProjectType;
@@ -50,30 +50,20 @@ export function ProjectDetailedView({ project }: ProjectCardProps) {
           <CardTitle>Stack</CardTitle>
           <div className="flex flex-wrap gap-2">
             {project.stack.map((tech, index) => (
-              <Badge variant={"secondary"} key={index}>{tech}</Badge>
+              <Badge variant={"secondary"} key={index}>
+                {tech}
+              </Badge>
             ))}
           </div>
           {project.links && (
             <>
               <CardTitle>Links</CardTitle>
               <div className="flex gap-2">
-                {Object.entries(project.links).map(
-                  ([linkText, linkUrl], index) => (
-                    <Button
-                      key={index}
-                      variant={index == 0 ? "default" : "outline"}
-                      asChild
-                    >
-                      <Link
-                        to={linkUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {linkText}
-                      </Link>
-                    </Button>
-                  ),
-                )}
+                <LinkButtonIcons
+                  links={project.links}
+                  displayText={true}
+                  variant={"default"}
+                />
               </div>
             </>
           )}
@@ -81,7 +71,9 @@ export function ProjectDetailedView({ project }: ProjectCardProps) {
       </div>
 
       <DialogFooter className="flex items-center sm:justify-between">
-        <Badge variant={"ghost"}>{formatDate(project.date)}</Badge>
+        <Badge variant={"ghost"} className="p-0">
+          {formatDate(project.date)}
+        </Badge>
         <DialogClose asChild>
           <Button type="button" variant="destructive">
             Close
