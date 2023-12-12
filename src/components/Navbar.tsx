@@ -12,7 +12,7 @@ export function Navbar() {
   const currentLocation = location.pathname;
 
   return (
-    <nav className="navbar relative p-4 md:p-16">
+    <nav className="navbar relative p-4 md:p-16 md:pb-10">
       {/* Container */}
       <div
         className={`flex items-center ${
