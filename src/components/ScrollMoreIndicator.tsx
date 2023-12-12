@@ -7,7 +7,7 @@ import {
 export default function ScrollMoreIndicator() {
   return (
     <footer className="flex w-full items-center justify-between">
-      <div className="relative invisible flex w-96 overflow-hidden px-16 py-1 md:visible md:space-y-0 before:content-['Press_arrow_keys_to_navigate'] before:absolute before:left-48 before:block ">
+      <div className="animate-fadeInFadeOutInfinite relative invisible flex w-96 overflow-hidden px-16 py-1 md:visible md:space-y-0 before:content-['Press_arrow_keys_to_navigate'] before:absolute before:left-48 before:block ">
         <ArrowLeftSquare className="h-14 w-14" />
         <ArrowRightSquare className="h-14 w-14" />
       </div>

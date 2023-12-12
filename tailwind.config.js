@@ -70,32 +70,16 @@ module.exports = {
           "100%": { transform: "translateX(4.5rem)", opacity: 0 },
         },
 
-        revealKeyFrame: {
-          "0%": {
-            transform: "scaleX(0) scaleY(0.01)",
-            opacity: 0,
-          },
-          "2%, 6%, 10%, 14%, 18%": {
-            opacity: 0,
-          },
-          "4%, 8%, 12%, 16%, 20%": {
-            opacity: 1,
-          },
-          "60%": {
-            opacity: 1,
-            transform: "scaleX(1) scaleY(0.01)",
-          },
-          "100%": {
-            opacity: 1,
-            transform: "scaleX(1) scaleY(1)",
-          },
+        fadeInFadeOut: {
+          "0%": { opacity: 0 },
+          "25%, 75%": { opacity: 1 },
+          "100%": { opacity: 0 },
         },
       },
 
       animation: {
         scrollToRightInfinite: "scrollToRight 3s ease-in-out infinite",
-        revealAnimation:
-          "revealKeyFrame 1.5s cubic-bezier(0.5, 0.5, 0, 1) 1 forwards",
+        fadeInFadeOutInfinite: "fadeInFadeOut 3s ease-in-out infinite",
       },
     },
   },
