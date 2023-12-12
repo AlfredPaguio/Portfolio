@@ -12,6 +12,7 @@ import { DownloadIcon, ChevronDownIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line import/no-unresolved
 import Morgan_le_Fay from "/images/Morgan_le_Fay_Typescript_mini.png";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 function Home() {
   return (
@@ -41,7 +42,7 @@ function Home() {
               </Link>
             </Button>
             <Separator orientation="vertical" className="h-full" />
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant={"ghost"}
@@ -50,44 +51,47 @@ function Home() {
                   <ChevronDownIcon className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                alignOffset={-5}
-                className="w-[200px]"
-                forceMount
-              >
-                <DropdownMenuLabel>Download Options</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.docx">
-                    <DownloadIcon className="mr-2 h-4 w-4" /> Docx format
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
+              <DropdownMenuContent align="start" alignOffset={-5} forceMount>
+                <ScrollArea>
+                  <DropdownMenuLabel>Download Options</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.docx">
+                      <DownloadIcon className="mr-2 h-4 w-4" /> DOCX Format
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel>With Picture</DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV_with_Picture.pdf">
+                      <DownloadIcon className="mr-2 h-4 w-4" /> PDF Format
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV_with_Picture.docx">
+                      <DownloadIcon className="mr-2 h-4 w-4" /> DOCX Format
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
 
-                <DropdownMenuLabel>With Picture</DropdownMenuLabel>
-                <DropdownMenuItem>
-                  <DownloadIcon className="mr-2 h-4 w-4" /> PDF Format
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <DownloadIcon className="mr-2 h-4 w-4" /> DOCX Format
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-
-                <DropdownMenuLabel>
-                  Normal CV (Not Programming Focused)
-                </DropdownMenuLabel>
-                <DropdownMenuItem>
-                  <DownloadIcon className="mr-2 h-4 w-4" /> PDF Format
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <DownloadIcon className="mr-2 h-4 w-4" />
-                  DOCX Format
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuLabel className="font-medium">
-                  Contact me for more.
-                </DropdownMenuLabel>
+                  <DropdownMenuLabel>
+                    With Reference
+                  </DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV_with_Number_and_Reference.pdf">
+                      <DownloadIcon className="mr-2 h-4 w-4" /> PDF Format
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV_with_Number_and_Reference.docx">
+                      <DownloadIcon className="mr-2 h-4 w-4" /> DOCX Format
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="font-medium">
+                    Contact me for more.
+                  </DropdownMenuLabel>
+                </ScrollArea>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
