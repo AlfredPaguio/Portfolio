@@ -1,4 +1,10 @@
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { IconType, getIconForTechnology } from "@/data/Icons";
 
 type TechnologyIconsProps = {
@@ -11,12 +17,19 @@ export default function TechnologyIcons({ Stacks }: TechnologyIconsProps) {
   );
 
   return (
-    <div className="flex flex-wrap gap-4">
+    <TooltipProvider>
       {stackWithIcons.map((stack, key) => (
-        <Badge key={key} variant={"ghost"}>
-          <stack.Icon key={key} size={32}/>
-        </Badge>
+        <Tooltip key={key}>
+          <TooltipTrigger>
+            <Badge variant="ghost">
+              <stack.Icon size={32} />
+            </Badge>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{stack.name}</p>
+          </TooltipContent>
+        </Tooltip>
       ))}
-    </div>
+    </TooltipProvider>
   );
 }

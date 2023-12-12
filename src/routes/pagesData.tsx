@@ -1,8 +1,8 @@
-import { lazy } from "react";
-import { BriefcaseIcon, HomeIcon, MailIcon } from "lucide-react";
-import { ElementType } from "react";
+import { BriefcaseIcon, HomeIcon, MailIcon, UserIcon } from "lucide-react";
+import { lazy, ElementType } from "react";
 
 const Home = lazy(() => import("@/pages/Home"));
+const About = lazy(() => import("@/pages/About"));
 const Projects = lazy(() => import("@/pages/Projects"));
 const Contact = lazy(() => import("@/pages/Contact"));
 const NoPage = lazy(() => import("@/pages/SpecialPages/NoPage"));
@@ -22,6 +22,13 @@ const pagesData: routerType[] = [
     title: "Home",
     description: "The starting point of creativity.",
     Icon: HomeIcon,
+  },
+  {
+    path: "about",
+    element: <About />,
+    title: "About",
+    description: "blablbab.",
+    Icon: UserIcon,
   },
   {
     path: "projects",

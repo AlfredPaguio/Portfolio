@@ -62,6 +62,25 @@ module.exports = {
         DEFAULT: "0 2px 4px var(--tw-shadow-color)",
         lg: "0 8px 16px var(--tw-shadow-color)",
       },
+
+      keyframes: {
+        scrollToRight: {
+          "0%": { transform: "translateX(0)", opacity: 0 },
+          "25%, 75%": { opacity: 1 },
+          "100%": { transform: "translateX(4.5rem)", opacity: 0 },
+        },
+
+        fadeInFadeOut: {
+          "0%": { opacity: 0 },
+          "25%, 75%": { opacity: 1 },
+          "100%": { opacity: 0 },
+        },
+      },
+
+      animation: {
+        scrollToRightInfinite: "scrollToRight 3s ease-in-out infinite",
+        fadeInFadeOutInfinite: "fadeInFadeOut 3s ease-in-out infinite",
+      },
     },
   },
   plugins: [require("tailwindcss-animate"), require("./plugins/textShadow")],

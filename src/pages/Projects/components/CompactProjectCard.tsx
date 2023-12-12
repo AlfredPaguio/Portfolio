@@ -1,58 +1,63 @@
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 
 import { ProjectType } from "@/data/Projects";
-import TechnologyIcons from "./TechnologyIcons";
 import { formatDate } from "@/lib/formatDate";
+import { Badge } from "@/components/ui/badge";
+import { Folder } from "lucide-react";
+import LinkButtonIcons from "./LinkButtonIcons";
+// import TechnologyIcons from "./TechnologyIcons";
+
+type CompactProjectCard = {
+  project: ProjectType;
+  onOpenDetailedView: () => void;
+};
 
 export default function CompactProjectCard({
   project,
-}: {
-  project: ProjectType;
-}) {
+  onOpenDetailedView,
+}: CompactProjectCard) {
   return (
-    <Card className="group mx-auto flex w-full max-w-3xl flex-1 transform flex-wrap  overflow-hidden antialiased shadow-lg duration-500 hover:-translate-y-1 hover:subpixel-antialiased md:flex-nowrap">
-      {project.images && project.images.length > 0 && (
-        <img
-          className="h-960 w-full rounded-t-lg object-cover md:aspect-square md:h-auto md:w-48 md:rounded-none md:rounded-l-lg md:object-scale-down"
-          src={project.images[0].imageUrl}
-          alt={project.images[0].alt || `Image 1`}
-        />
-      )}
-
-      <CardContent className="w-full p-0">
-        <CardHeader className="items-center p-5">
-          <CardTitle className="text-foreground mt-4 text-2xl font-medium">
-            {project.title}
+    <Card
+      onClick={() => onOpenDetailedView()}
+      className="flex max-w-md flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased md:flex-nowrap"
+    >
+      <CardHeader>
+        <div className="flex justify-between">
+          <CardTitle>
+            <span className="flex items-center gap-1">
+              <Folder />
+              {project.title}
+            </span>
           </CardTitle>
-          {/* <CardDescription className="mt-2 text-xl leading-relaxed text-gray-400 text-clip overflow-hidden">
-              {project.description}
-            </CardDescription> */}
-        </CardHeader>
-        <CardFooter className="block p-5">
-          <div className="sm:flex sm:justify-between">
-            <div>
-              <div className="text-foreground text-lg">
-                Tech Stack{" "}
-                <span className="text-primary-light dark:text-primary-dark font-bold">
-                  Used
-                </span>
-              </div>
-              <div className="flex items-center">
-                <TechnologyIcons Stacks={project.stack} />
-              </div>
+          {project.links && (
+            <div className="flex gap-2">
+              <LinkButtonIcons links={project.links} />
             </div>
-          </div>
-          <div className="mt-3 text-sm text-gray-600 md:text-sm">
-            {formatDate(project.date)}
-          </div>
-        </CardFooter>
+          )}
+        </div>
+
+        <Badge variant={"ghost"} className="p-0">
+          {formatDate(project.date)}
+        </Badge>
+      </CardHeader>
+      <CardContent className="flex-1">
+        <CardDescription>{project.description}</CardDescription>
       </CardContent>
+      <CardFooter className="flex-wrap">
+        {project.stack.map((tech, index) => (
+          <Badge variant={"ghost"} key={index}>
+            {tech}
+          </Badge>
+        ))}
+        {/* <TechnologyIcons Stacks={project.stack} /> */}
+      </CardFooter>
     </Card>
   );
 }

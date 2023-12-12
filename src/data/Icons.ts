@@ -19,7 +19,6 @@ import MicrosoftsqlserverPlainWordmark from "@beta/devicons-react/lib/icons/Micr
 import MysqlOriginalWordmark from "@beta/devicons-react/lib/icons/MysqlOriginalWordmark";
 // Developer Tools
 import GitPlainWordmark from "@beta/devicons-react/lib/icons/GitPlainWordmark";
-import AndroidstudioOriginalWordmark from "@beta/devicons-react/lib/icons/AndroidstudioOriginalWordmark";
 import VisualstudioPlainWordmark from "@beta/devicons-react/lib/icons/VisualstudioPlainWordmark";
 import VscodeOriginalWordmark from "@beta/devicons-react/lib/icons/VscodeOriginalWordmark";
 // Libraries
@@ -35,7 +34,7 @@ export type IconType = {
 
 export const iconData: IconType[] = [
   {
-    name: "C#",
+    name: "C# 5.0",
     Icon: CsharpPlain,
   },
   {
@@ -93,10 +92,6 @@ export const iconData: IconType[] = [
   {
     name: "Git",
     Icon: GitPlainWordmark,
-  },
-  {
-    name: "Android Studio",
-    Icon: AndroidstudioOriginalWordmark,
   },
   {
     name: "Microsoft Visual Studio",

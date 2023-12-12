@@ -1,5 +1,5 @@
 "use client";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
 import pagesData, { routerType } from "../routes/pagesData";
 import { useState } from "react";
@@ -8,11 +8,25 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
+  const location = useLocation();
+  const currentLocation = location.pathname;
 
   return (
-    <nav className="navbar relative p-4">
+    <nav className="navbar relative p-4 md:p-16 md:pb-3">
       {/* Container */}
-      <div className="flex items-center justify-end">
+      <div
+        className={`flex items-center ${
+          currentLocation != "/" ? "justify-between" : "justify-end"
+        }`}
+      >
+        {currentLocation != "/" ? (
+          <h1 className="text-center text-2xl font-bold [viewTransitionName:brand-name]">
+            Alfred
+          </h1>
+        ) : (
+          ""
+        )}
+
         {/* Menu Items */}
         <ul className="align-end hidden items-center gap-3 space-x-1 rounded-md py-4 pe-4 ps-4 md:flex">
           {pagesData
@@ -31,7 +45,8 @@ export function Navbar() {
                   }
                   unstable_viewTransition
                 >
-                  <li className="relative transition-all duration-300 ease-in-out after:absolute after:bottom-0  after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in after:content-['']  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300">
+                  <li className="relative flex items-center justify-center gap-1 transition-all duration-300 ease-in-out after:absolute after:bottom-0  after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in after:content-['']  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300">
+                    {route.Icon && <route.Icon className="h-6 w-6" />}
                     {route.title}
                   </li>
                 </NavLink>
@@ -44,7 +59,7 @@ export function Navbar() {
           <ThemeToggle />
           {/* Hamburger Menu */}
           <button id="menu-btn" onClick={() => setShowMenu(!showMenu)}>
-            <Menu className="text-foreground hover:text-accent transition-all duration-200" />
+            <Menu className="text-foreground transition-all duration-200 hover:text-accent" />
           </button>
         </div>
       </div>
