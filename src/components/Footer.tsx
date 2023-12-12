@@ -1,6 +1,6 @@
-import { Facebook, Github, Linkedin } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
+// import { Facebook, Github, Linkedin } from "lucide-react";
+// import { Link } from "react-router-dom";
+// import { Button } from "./ui/button";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -14,7 +14,7 @@ export function Footer() {
           <div className="mx-auto my-6 text-center text-foreground md:hidden">
             Copyright &copy; Alfred U. Paguio | {currentYear}
           </div>
-          <div className="flex justify-center">
+          {/* <div className="flex justify-center">
             <Button variant={"ghost"} className="group" asChild>
               <Link to="https://www.facebook.com/FleetingComet/">
                 <Facebook className="h-8 text-accent group-hover:text-secondary" />
@@ -32,7 +32,7 @@ export function Footer() {
                 <Linkedin className="h-8 text-accent group-hover:text-secondary" />
               </Link>
             </Button>
-          </div>
+          </div> */}
         </div>
 
         <div className="hidden flex-col justify-center text-foreground md:flex">

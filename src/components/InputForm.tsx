@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
+  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,7 +20,7 @@ import { Textarea } from "./ui/textarea";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Name must be at least 2 characters.",
   }),
   email: z.string().email("Email must be valid."),
   message: z
@@ -59,11 +59,11 @@ export function InputForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="enter your name here" {...field} />
+                <Input placeholder="Enter your name here" {...field} />
               </FormControl>
-              <FormDescription>
+              {/* <FormDescription>
                 To be displayed at subject or something.
-              </FormDescription>
+              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
@@ -75,11 +75,11 @@ export function InputForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="@gmail.com" {...field} />
+                <Input placeholder="alfred@gmail.com" {...field} />
               </FormControl>
-              <FormDescription>
+              {/* <FormDescription>
                 something.
-              </FormDescription>
+              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
@@ -93,9 +93,9 @@ export function InputForm() {
               <FormControl>
                 <Textarea placeholder="Type your message here." {...field} />
               </FormControl>
-              <FormDescription>
+              {/* <FormDescription>
                 blablblbabllba.
-              </FormDescription>
+              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
