@@ -5,7 +5,7 @@ import SearchBarAndSorter from "./layouts/SearchBarAndSorter";
 
 function Projects() {
   return (
-    <div className="flex flex-col items-center gap-6 px-16">
+    <div className="flex flex-col items-center gap-6">
       <TechnologiesProvider>
         <SearchBarAndSorter />
         <FilterListBar />

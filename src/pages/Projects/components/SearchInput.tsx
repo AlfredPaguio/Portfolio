@@ -7,7 +7,7 @@ type SearchInputProps = {
 };
 
 const SearchInput = ({ onChange, value }: SearchInputProps) => (
-  <div className="relative block w-2/3 shrink-0">
+  <div className="relative block w-full md:w-2/3 shrink-0">
     <span className="sr-only">Search</span>
     <Input
       className="block pr-9 pl-4 h-12"

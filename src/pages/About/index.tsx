@@ -4,7 +4,7 @@ import myPicture from "/images/my_picture.png";
 
 function About() {
   return (
-    <div className="flex flex-col items-center justify-between px-16 lg:flex-row">
+    <div className="flex flex-col items-center justify-between lg:flex-row">
       <AboutMeSection />
         <img
           src={myPicture}

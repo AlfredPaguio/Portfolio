@@ -15,7 +15,7 @@ import Morgan_le_Fay from "/images/Morgan_le_Fay_Typescript_mini.png";
 
 function Home() {
   return (
-    <div className="flex h-full w-full items-center justify-between px-16">
+    <div className="flex h-full w-full items-center justify-between">
       <div className="flex flex-col">
         <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
           I'm

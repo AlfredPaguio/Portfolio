@@ -82,7 +82,7 @@ export default function Layout() {
   return (
     <div className="flex h-screen min-h-screen w-screen flex-col justify-between overflow-y-scroll bg-background text-foreground">
       <Navbar />
-      <main className="grow">
+      <main className="grow px-4 md:px-16">
         <Outlet />
       </main>
       {location.pathname === "/contact" ? <Footer /> : <ScrollMoreIndicator />}

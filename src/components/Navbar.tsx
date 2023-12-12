@@ -12,7 +12,7 @@ export function Navbar() {
   const currentLocation = location.pathname;
 
   return (
-    <nav className="navbar relative p-16">
+    <nav className="navbar relative p-4 md:p-16">
       {/* Container */}
       <div
         className={`flex items-center ${
@@ -21,7 +21,7 @@ export function Navbar() {
       >
         {currentLocation != "/" ? (
           <h1 className="text-center text-2xl font-bold [viewTransitionName:brand-name]">
-            Alfred U. Paguio
+            Alfred
           </h1>
         ) : (
           ""
@@ -45,8 +45,8 @@ export function Navbar() {
                   }
                   unstable_viewTransition
                 >
-                  <li className="flex justify-center items-center gap-1 relative transition-all duration-300 ease-in-out after:absolute after:bottom-0  after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in after:content-['']  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300">
-                    {route.Icon && <route.Icon className="h-6 w-6"/>}
+                  <li className="relative flex items-center justify-center gap-1 transition-all duration-300 ease-in-out after:absolute after:bottom-0  after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in after:content-['']  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-300">
+                    {route.Icon && <route.Icon className="h-6 w-6" />}
                     {route.title}
                   </li>
                 </NavLink>
