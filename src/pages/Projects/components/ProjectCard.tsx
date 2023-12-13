@@ -22,7 +22,9 @@ export function ProjectDetailedView({ project }: ProjectCardProps) {
     <DialogContent>
       <DialogHeader>
         <DialogTitle>{project.title}</DialogTitle>
-        <DialogDescription>{project.description}</DialogDescription>
+        <DialogDescription className="whitespace-pre-line indent-8">
+          {project.description}
+        </DialogDescription>
         {project.images && project.images.length > 0 && (
           <img
             key={0}
@@ -37,7 +39,7 @@ export function ProjectDetailedView({ project }: ProjectCardProps) {
         {project.responsibilities && (
           <div className="space-y-4">
             <CardTitle>Responsibilities</CardTitle>
-            <ul className="flex list-disc flex-wrap pl-4">
+            <ul className="flex list-disc flex-wrap pl-6">
               {project.responsibilities.map((responsibility, index) => (
                 <li key={index}>
                   <CardDescription>{responsibility}</CardDescription>

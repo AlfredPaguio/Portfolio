@@ -48,7 +48,12 @@ export default function CompactProjectCard({
         </Badge>
       </CardHeader>
       <CardContent className="flex-1">
-        <CardDescription>{project.description}</CardDescription>
+        <CardDescription className="whitespace-pre-line">
+          {project.summary ||
+            (project.description
+              ? project.description.slice(0, 100) + "..."
+              : "No Description")}
+        </CardDescription>
       </CardContent>
       <CardFooter className="flex-wrap">
         {project.stack.map((tech, index) => (

@@ -38,6 +38,7 @@ export type ProjectType = {
   id: string;
   title: string;
   stack: string[];
+  summary?: string;
   description?: string;
   responsibilities?: string[];
   images?: Array<{ imageUrl: string; alt?: string }>;
@@ -47,9 +48,10 @@ export type ProjectType = {
 
 export const Projects = [
   {
-    id:"PDSS2019",
+    id: "PDSS2019",
     title: "Personal Data Sheet System for public school teachers",
     stack: ["C# 5.0", "MySQL", "SAP Crystal Reports"],
+    summary: "Managed personal data for public school teachers.",
     description:
       "This project was created as a part of the School Division Office (Muntinlupa) project. Our primary goal was to create software that could efficiently manage and process personal data for teachers within the public school system. However, I am currently unaware of the status or utilization of this system within the organization.",
     responsibilities: [
@@ -70,6 +72,8 @@ export const Projects = [
       "Javascript",
       "Bootstrap",
     ],
+    summary:
+      "Elevated online presence and improved UX for B&D IT Consultancy site.",
     description:
       "The Information Site Enhancement project at B&D IT Consultancy aimed to elevate the company's online presence and improve the user experience (UX) for visitors to the website. This project was part of the company's strategic efforts to effectively communicate its services, values, and culture to potential clients and partners.",
     links: {
@@ -176,7 +180,8 @@ export const Projects = [
         alt: "Admin - Site Settings 1",
       },
     ],
-
+    summary:
+      "Developed a robust and scalable online platform for selling products.",
     description:
       "The E-commerce Development project at B&D IT Consultancy aimed to create a robust and scalable online platform for clients to showcase and sell their products or services. I'm not sure about the current status of the project's usage within the company. For accurate details on its usage and performance, I recommend contacting the relevant department for this project.",
     links: {
@@ -189,6 +194,7 @@ export const Projects = [
     id: "HRISB&D",
     title: "Human Resource Information System",
     stack: ["Python", "Flask", "jQuery", "Javascript", "MySQL", "Bootstrap"],
+    summary: "Streamlined HR processes, including data management and payroll.",
     description:
       "The HRIS aimed to streamline various HR processes within the company, including employee data management, payroll, and attendance tracking. The project focused on creating a user-friendly system to improve HR operations. I don't have information regarding the current status or implementation of this project within the company.",
     links: {
