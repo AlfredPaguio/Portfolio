@@ -10,8 +10,9 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { DownloadIcon, ChevronDownIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+// import Morgan_le_Fay from "/images/Morgan_le_Fay_Typescript_mini.png";
 // eslint-disable-next-line import/no-unresolved
-import Morgan_le_Fay from "/images/Morgan_le_Fay_Typescript_mini.png";
+import CodeThinking from "/images/undraw_code_thinking_re_gka2.svg";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 function Home() {
@@ -74,9 +75,7 @@ function Home() {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuLabel>
-                    With Reference
-                  </DropdownMenuLabel>
+                  <DropdownMenuLabel>With Reference</DropdownMenuLabel>
                   <DropdownMenuItem asChild>
                     <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV_with_Number_and_Reference.pdf">
                       <DownloadIcon className="mr-2 h-4 w-4" /> PDF Format
@@ -107,11 +106,21 @@ function Home() {
           src="https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books/blob/master/Typescript/Morgan_le_Fay_Typescript_pros.png?raw=true"
           alt="Morgan le Fay holding Typescript Pro book"
         /> */}
-        <img
+        {/* <img
           className="h-[42rem] object-scale-down"
           src={Morgan_le_Fay}
           alt="Morgan le Fay holding Typescript Pro book"
-        />
+        /> */}
+        <figure className="max-h-min drop-shadow-lg">
+          <img
+            className="h-96 fill-accent object-scale-down"
+            src={CodeThinking}
+            alt="An illustration of a man thinking sitting beside their laptop"
+          />
+          <figcaption className="px-5 text-center">
+            Illustration from https://undraw.co/
+          </figcaption>
+        </figure>
       </div>
     </div>
   );
