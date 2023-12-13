@@ -27,7 +27,7 @@ const pagesData: routerType[] = [
     path: "about",
     element: <About />,
     title: "About",
-    description: "blablbab.",
+    description: "Explore my coding journey",
     Icon: UserIcon,
   },
   {
