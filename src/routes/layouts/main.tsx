@@ -57,7 +57,7 @@ export default function Layout() {
 
     function handleTouchEnd(event: TouchEvent) {
       const touchEndX = event.changedTouches[0].clientX;
-      const swipeThreshold = 200;
+      const swipeThreshold = 175;
 
       if (touchEndX < touchStartX - swipeThreshold) {
         handleArrowRight(); // Swipe from left to right
@@ -80,7 +80,7 @@ export default function Layout() {
   //https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
 
   return (
-    <div className="flex h-screen min-h-screen w-screen flex-col justify-between overflow-y-scroll bg-background text-foreground">
+    <div className="flex h-screen min-h-screen w-screen flex-col justify-between overflow-x-hidden overflow-y-scroll bg-background text-foreground">
       <Navbar />
       <main className="grow px-4 pb-4 md:px-16">
         <Outlet />

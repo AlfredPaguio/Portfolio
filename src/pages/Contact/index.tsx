@@ -8,7 +8,7 @@ function Contact() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-y-4">
       <Card>
-        <CardContent className="flex h-full w-full flex-col items-center justify-center gap-8 p-14">
+        <CardContent className="flex h-full w-full flex-col items-center justify-center gap-8 p-0 lg:p-14">
           <Button variant={"link"} className="group" asChild>
             <Link to="https://www.facebook.com/FleetingComet/">
               <Facebook className="mr-1 h-8 w-8" />
