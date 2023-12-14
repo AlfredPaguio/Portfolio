@@ -18,8 +18,8 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
     --card-foreground: 0 0% 0%;
     --popover: 0 0% 95%;
     --popover-foreground: 0 0% 0%;
-    --primary: 206 100% 23%;
-    --primary-foreground: 0 0% 95%;
+    --primary: 247 18% 71%;
+    --primary-foreground: 0 0% 0%;
     --secondary: 199 12% 73%;
     --secondary-foreground: 0 0% 0%;
     --muted: 0 0% 20%;
@@ -33,7 +33,7 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
     --ring: 193 9% 40%;
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 0 0% 5%;
     --foreground: 0 0% 100%;
@@ -41,8 +41,8 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
     --card-foreground: 0 0% 100%;
     --popover: 0 0% 5%;
     --popover-foreground: 0 0% 100%;
-    --primary: 206 100% 77%;
-    --primary-foreground: 0 0% 5%;
+    --primary: 247 18% 29%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 199 12% 27%;
     --secondary-foreground: 0 0% 100%;
     --muted: 0 0% 80%;

@@ -12,7 +12,7 @@ Welcome to my personal portfolio! This project showcases my skills and projects,
 - [**TailwindCSS**](https://tailwindcss.com/): A utility-first CSS framework for rapidly building modern websites without ever leaving your HTML.
 - [**Lucide Icons**](https://lucide.dev/guide/packages/lucide-react): Beautiful & consistent icon toolkit made by the community. Open-source project and a fork of Feather Icons.
 - [**Devicons React**](https://devicons-react.vercel.app/): A collection of icons that symbolize programming languages, design tools, and development software.
-- [**Realtime Colors**](https://www.realtimecolors.com/?colors=ffffff-0d0d0d-8accff-3d484d-cad1d3&fonts=Noto%20Serif%20JP-Noto%20Serif): A tool that uses simple UI elements to visualize color palettes on a real website. The website works instantaneously and offers users the ability to export their color palettes to use them anywhere. I linked my colors at the hyperlink, and the previously chosen color is [**here**](https://www.realtimecolors.com/?colors=f1f1fe-0e0f11-4842f0-080646-312bee&fonts=Poppins-Poppins).
+- [**Realtime Colors**](https://www.realtimecolors.com/?colors=ffffff-0d0d0d-403d57-3d484d-cad1d3&fonts=Noto%20Serif%20JP-Noto%20Serif): A tool that uses simple UI elements to visualize color palettes on a real website. The website works instantaneously and offers users the ability to export their color palettes to use them anywhere. I linked my colors at the hyperlink, and the previously chosen color is [**here**](https://www.realtimecolors.com/?colors=f1f1fe-0e0f11-4842f0-080646-312bee&fonts=Poppins-Poppins).
 - [**unDraw**](https://undraw.co/): Open-source illustrations for any idea you can imagine and create.
 
 ## Getting Started

@@ -35,7 +35,7 @@ function Home() {
           Ready to assist in building and optimizing your projects.
         </p>
         <div className="flex gap-x-2 p-4 pl-0">
-          <div className="flex items-start rounded-md bg-primary text-primary-foreground">
+          <div className="flex items-start rounded-md bg-primary text-primary-foreground hover:bg-primary/80">
             <Button variant={"ghost"} className="rounded-r-none" asChild>
               <Link to="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.pdf">
                 <DownloadIcon className="mr-2 h-4 w-4" />
