@@ -3,7 +3,12 @@ import { Navbar } from "@/components/Navbar";
 import ScrollMoreIndicator from "@/components/ScrollMoreIndicator";
 import { Toaster } from "@/components/ui/toaster";
 import { useEffect, useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  Outlet,
+  matchRoutes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import pagesData from "../pagesData";
 
 export default function Layout() {
@@ -13,6 +18,18 @@ export default function Layout() {
   const [touchStartX, setTouchStartX] = useState(0);
 
   const validPages = pagesData.filter((page) => page.path !== "*");
+
+  //one time initialization
+  useEffect(() => {
+    const matchedRoutes = matchRoutes(validPages, location.pathname);
+    if (matchedRoutes && matchedRoutes.length > 0) {
+      const index = validPages.findIndex(
+        (page) => page.path === matchedRoutes[0].route.path,
+      );
+      setCurrentIndex(index);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     function isInputFocused() {
