@@ -19,7 +19,7 @@ export default function Layout() {
 
   const validPages = pagesData.filter((page) => page.path !== "*");
 
-  //one time initialization
+  //need to update when the location updates
   useEffect(() => {
     const matchedRoutes = matchRoutes(validPages, location.pathname);
     if (matchedRoutes && matchedRoutes.length > 0) {
@@ -29,7 +29,7 @@ export default function Layout() {
       setCurrentIndex(index);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     function isInputFocused() {
@@ -45,16 +45,18 @@ export default function Layout() {
       if (currentIndex !== 0 && !isInputFocused()) {
         const prevRoute =
           (currentIndex - 1 + validPages.length) % validPages.length;
-        // console.log("this is previous route: ", validPages[prevRoute].title);
         setCurrentIndex(prevRoute);
-        navigate(validPages[prevRoute].path, { unstable_viewTransition: true });
+        navigate(validPages[prevRoute].path, {
+          unstable_viewTransition: true,
+          replace: true,
+        });
+        //testing some navigation history (back)
       }
     }
 
     function handleArrowRight() {
       if (currentIndex !== validPages.length - 1 && !isInputFocused()) {
         const nextRoute = (currentIndex + 1) % validPages.length;
-        // console.log("this is next route: ", validPages[nextRoute].title);
         setCurrentIndex(nextRoute);
         navigate(validPages[nextRoute].path, { unstable_viewTransition: true });
       }
@@ -97,7 +99,7 @@ export default function Layout() {
   //https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
 
   return (
-    <div className="flex h-screen min-h-screen w-screen flex-col justify-between overflow-x-hidden overflow-y-scroll bg-background text-foreground">
+    <div className="flex h-svh min-h-svh w-screen flex-col justify-between overflow-x-hidden  bg-background text-foreground">
       <Navbar />
       <main className="grow px-4 pb-4 md:px-16">
         <Outlet />

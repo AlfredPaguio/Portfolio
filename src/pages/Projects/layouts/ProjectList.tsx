@@ -23,7 +23,8 @@ export default function ProjectList() {
   return (
     <>
       <ScrollArea>
-        <div className="mb-2 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 [&:has(:hover)>:not(:hover)]:scale-90 [&:has(:hover)>:not(:hover)]:opacity-50">
+        {/* [&:has(:hover)>:not(:hover)]:scale-90 [&:has(:hover)>:not(:hover)]:opacity-50 */}
+        <div className="group mb-2 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {currentItems.map((project, index) => (
             <CompactProjectCard
               key={index}

@@ -17,18 +17,18 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 function Home() {
   return (
-    <div className="flex h-full w-full items-center justify-between">
+    <div className="flex h-full items-center justify-between">
       <div className="flex flex-col">
         <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
           I'm
         </h2>
-        <h1 className="mb-4 text-start text-5xl font-bold [text-wrap:balance] [viewTransitionName:brand-name] md:text-6xl lg:text-7xl xl:text-8xl">
+        <h1 className="mb-4 text-balance text-start text-5xl font-bold [viewTransitionName:brand-name] md:text-6xl lg:text-7xl xl:text-8xl">
           Alfred U. Paguio
         </h1>
         <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
           A Software Engineer
         </h2>
-        <p className="text-small text-start [text-wrap:wrap] md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+        <p className="text-small text-pretty text-start md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
           Experienced in various programming languages and frameworks,
           specializing in crafting and optimizing web projects.
           <br />
