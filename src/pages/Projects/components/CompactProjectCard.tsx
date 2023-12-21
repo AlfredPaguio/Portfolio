@@ -26,7 +26,7 @@ export default function CompactProjectCard({
   return (
     <Card
       onClick={() => onOpenDetailedView()}
-      className="flex max-w-md grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased md:flex-nowrap group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
+      className="flex max-w-sm md:max-w-md lg:max-w-lg grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased md:flex-nowrap group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
     >
       <CardHeader>
         <div className="flex justify-between">
