@@ -11,27 +11,27 @@ function Contact() {
         <CardContent className="flex h-full w-full flex-col items-center justify-center gap-8 p-0 lg:p-14">
           <Button variant={"link"} className="group" asChild>
             <Link to="https://www.facebook.com/FleetingComet/">
-              <Facebook className="mr-1 h-8 w-8" />
+              <Facebook className="mr-1 size-8" />
               <h1 className="text-2xl">Facebook</h1>
             </Link>
           </Button>
 
           <Button variant={"link"} className="group" asChild>
             <Link to="https://github.com/AlfredPaguio">
-              <Github className="mr-1 h-8 w-8" />
+              <Github className="mr-1 size-8" />
               <h1 className="text-2xl">Github</h1>
             </Link>
           </Button>
 
           <Button variant={"link"} className="group" asChild>
             <Link to="https://www.linkedin.com/in/alfredpaguio">
-              <Linkedin className="mr-1 h-8 w-8" />
+              <Linkedin className="mr-1 size-8" />
               <h1 className="text-2xl">LinkedIn</h1>
             </Link>
           </Button>
           <Button variant={"link"} className="group" asChild>
             <Link to="mailto:alfredpaguio36@gmail.com">
-              <Mail className="mr-1 h-8 w-8" />
+              <Mail className="mr-1 size-8" />
               <h1 className="text-2xl">alfredpaguio36@gmail.com</h1>
             </Link>
           </Button>
