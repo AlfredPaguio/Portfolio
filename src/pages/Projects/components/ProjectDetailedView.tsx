@@ -44,7 +44,7 @@ export function ProjectDetailedView({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{project.title}</DialogTitle>
-            <DialogDescription className="whitespace-pre-line text-pretty indent-8">
+            <DialogDescription className="whitespace-pre-line text-pretty indent-8 text-muted">
               {project.description}
             </DialogDescription>
             <ImageCarouselView imageList={project.images} />
@@ -105,13 +105,13 @@ export function ProjectDetailedView({
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle className="flex justify-between">
+          <DrawerTitle className="flex flex-col justify-between">
             {project.title}
-            <Badge variant={"ghost"} className="self-center p-0">
+            <Badge variant={"ghost"} className="px-0 pt-2">
               {formatDate(project.date)}
             </Badge>
           </DrawerTitle>
-          <DrawerDescription className="whitespace-pre-line text-pretty indent-4">
+          <DrawerDescription className="whitespace-pre-line text-pretty indent-4 text-muted">
             {project.description}
           </DrawerDescription>
         </DrawerHeader>
