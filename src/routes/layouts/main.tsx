@@ -34,10 +34,14 @@ export default function Layout() {
   useEffect(() => {
     function isInputFocused() {
       const focusedElement = document.activeElement;
+      // console.log(focusedElement?.getAttribute("role"));
+      // Need to check the role to avoid switching page when dialog or menu is opened
       return (
         focusedElement &&
-        (focusedElement.tagName === "Input" ||
-          focusedElement.tagName === "Textarea")
+        (focusedElement.tagName === "INPUT" ||
+          focusedElement.tagName === "TEXTAREA" ||
+          focusedElement?.getAttribute("role") === "dialog" ||
+          focusedElement?.getAttribute("role") === "menu")
       );
     }
 
@@ -76,7 +80,7 @@ export default function Layout() {
 
     function handleTouchEnd(event: TouchEvent) {
       const touchEndX = event.changedTouches[0].clientX;
-      const swipeThreshold = 175;
+      const swipeThreshold = 150;
 
       if (touchEndX < touchStartX - swipeThreshold) {
         handleArrowRight(); // Swipe from left to right
