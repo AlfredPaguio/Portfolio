@@ -2,9 +2,8 @@ import { useTechnologiesContext } from "../contexts/TechnologiesContext";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import CompactProjectCard from "../components/CompactProjectCard";
 import { useState } from "react";
-import { Dialog } from "@/components/ui/dialog";
 import { ProjectType } from "@/data/Projects";
-import { ProjectDetailedView } from "../components/ProjectCard";
+import { ProjectDetailedView } from "../components/ProjectDetailedView";
 
 export default function ProjectList() {
   const { currentItems } = useTechnologiesContext();
@@ -36,12 +35,13 @@ export default function ProjectList() {
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
 
-      <Dialog
-        onOpenChange={setIsDetailedViewOpened}
-        open={isDetailedViewOpened}
-      >
-        {selectedProject && <ProjectDetailedView project={selectedProject} />}
-      </Dialog>
+      {selectedProject && (
+        <ProjectDetailedView
+          project={selectedProject}
+          onOpenChange={setIsDetailedViewOpened}
+          open={isDetailedViewOpened}
+        />
+      )}
     </>
   );
 }
