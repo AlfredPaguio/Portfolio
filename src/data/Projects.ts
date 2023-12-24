@@ -107,9 +107,13 @@ export const Projects = [
       "Bootstrap",
     ],
     images: [
+      {
+        imageUrl: e_commerce_admin_landing_page,
+        alt: "Admin - Landing Page",
+      },
+      { imageUrl: e_commerce_login, alt: "Login" },
       { imageUrl: e_commerce_login_attempt, alt: "Login Attempt" },
       { imageUrl: e_commerce_login_throttle, alt: "Login Throttle" },
-      { imageUrl: e_commerce_login, alt: "Login" },
       { imageUrl: e_commerce_register, alt: "Register" },
       { imageUrl: e_commerce_shopping_cart, alt: "Shopping Cart" },
       {
@@ -142,10 +146,6 @@ export const Projects = [
       {
         imageUrl: e_commerce_admin_category_edit,
         alt: "Admin - Category Edit",
-      },
-      {
-        imageUrl: e_commerce_admin_landing_page,
-        alt: "Admin - Landing Page",
       },
       {
         imageUrl: e_commerce_admin_product_edit_1,
