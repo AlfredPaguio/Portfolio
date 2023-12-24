@@ -39,7 +39,7 @@ export default function CompactProjectCard({
 
       <div
         className={
-          project.images && project.images.length > 0 ? "bg-black/80" : ""
+          project.images && project.images.length > 0 ? "bg-background/70" : ""
         }
       >
         <CardHeader>
