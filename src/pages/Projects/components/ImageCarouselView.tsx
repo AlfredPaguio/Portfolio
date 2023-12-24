@@ -25,11 +25,11 @@ export default function ImageCarouselView({
       }}
     >
       <CarouselContent>
-        {imageList.length > 0 &&
+        {imageList && imageList.length > 0 &&
           imageList.map((image, index) => (
             <CarouselItem key={index} className="relative">
               {/* It becomes larger when adding elements, so I just hacked it using position absolute. */}
-              <Link to={image.imageUrl}>
+              <Link to={image.imageUrl} target="_top" rel="noopener noreferrer">
                 <img
                   key={index}
                   src={image.imageUrl}
@@ -46,6 +46,9 @@ export default function ImageCarouselView({
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
+      <Label className="flex justify-center text-card-foreground">
+        Kindly click on the image to view a larger version.
+      </Label>
     </Carousel>
   );
 }
