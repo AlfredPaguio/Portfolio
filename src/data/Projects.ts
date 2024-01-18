@@ -33,6 +33,9 @@ import info_site_services from "/images/projects/information_site/services.png";
 import info_site_faq from "/images/projects/information_site/faq.png";
 import info_site_faq_open from "/images/projects/information_site/faq_open.png";
 import info_site_contact from "/images/projects/information_site/contact.png";
+// React Typescript Calculator
+import react_ts_calculator_screenshot1 from "/images/projects/react-ts-calculator/screenshot1.png";
+import react_ts_calculator_screenshot2 from "/images/projects/react-ts-calculator/screenshot2.png";
 
 export type ProjectType = {
   id: string;
@@ -44,9 +47,10 @@ export type ProjectType = {
   images?: Array<{ imageUrl: string; alt?: string }>;
   links?: { [key: string]: string };
   date: Date;
+  status: "Active" | "Archived" | "Maintenance" | "Unknown";
 };
 
-export const Projects = [
+export const Projects: ProjectType[] = [
   {
     id: "PDSS2019",
     title: "Personal Data Sheet System for public school teachers",
@@ -60,6 +64,7 @@ export const Projects = [
       "Demonstrated strong problem-solving skills by implementing solutions that enhanced existing software features, contributing to the project's overall progress.",
     ],
     date: new Date(2019, 2),
+    status: "Unknown",
   },
   {
     id: "InfoSiteB&D",
@@ -93,6 +98,7 @@ export const Projects = [
       },
       { imageUrl: info_site_contact, alt: "Contact" },
     ],
+    status: "Archived",
   },
   {
     id: "E-CommerceB&D",
@@ -189,6 +195,7 @@ export const Projects = [
       Website: "https://bditconsultancy.com/",
     },
     date: new Date("2023-05-06"),
+    status: "Unknown",
   },
   {
     id: "HRISB&D",
@@ -203,5 +210,56 @@ export const Projects = [
       Website: "https://bditconsultancy.com/",
     },
     date: new Date("2023-04-26"),
+    status: "Unknown",
+  },
+  {
+    id: "react-ts-calculator",
+    title: "Calculator",
+    stack: ["TypeScript", "React", "TailwindCSS"],
+    summary:
+      "A React-based calculator web application, designed to perform basic math operations without relying on the built-in `eval()` function in JavaScript.",
+    description:
+      "A simple calculator web application built with React, TypeScript, Vite, and TailwindCSS. The project intentionally avoids using the built-in eval() function in JavaScript, providing a challenge and a more controlled approach to expression evaluation. Users can perform basic arithmetic calculations using this intuitive and responsive calculator.",
+    date: new Date("2024-01-14"),
+    links: {
+      GitHub: "https://github.com/AlfredPaguio/react-ts-calculator",
+      Website: "https://alfredpaguio.github.io/react-ts-calculator/",
+    },
+    images: [
+      {
+        imageUrl: react_ts_calculator_screenshot1,
+        alt: "Main screen",
+      },
+      { imageUrl: react_ts_calculator_screenshot2, alt: "History screen" },
+    ],
+    status: "Maintenance",
+  },
+  {
+    id: "Portfolio",
+    title: "This Portfolio",
+    stack: ["React", "TypeScript", "TailwindCSS"],
+    summary:
+      "This project showcases my skills and projects, built using TypeScript, React, and various other libraries and tools.",
+    description:
+      "This project showcases my skills and projects, built using TypeScript, React, and various other libraries and tools.",
+    links: {
+      GitHub: "https://github.com/AlfredPaguio/Portfolio",
+    },
+    date: new Date("2023-09-17"),
+    status: "Active",
+  },
+  {
+    id: "CI4News",
+    title: "CodeIgniter News Project",
+    stack: ["CodeIgniter 4", "Bootstrap", "PHP", "MySQL"],
+    summary:
+      "This project documents my journey of my hands-on learning for CodeIgniter 4.",
+    description:
+      "This project serves as a platform for me to learn CodeIgniter, document my experience, and share my insights with the community. Through this project, I aim to showcase my progress as I explore the CodeIgniter framework and build a news-related application.",
+    links: {
+      GitHub: "https://github.com/AlfredPaguio/CodeIgniter-News",
+    },
+    date: new Date("2023-08-25"),
+    status: "Archived",
   },
 ];
