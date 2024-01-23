@@ -105,4 +105,45 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
       animation: none;
     }
   }
+
+  @keyframes toDown {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(4px);
+      opacity: 0;
+    }
+  }
+  
+  /* Counter fade in and coming from top */
+  @keyframes fromUp {
+    from {
+      transform: translateY(-3px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @supports (view-transition-name: none) {
+    /* ::view-transition-image-pair(root) {
+      animation-duration: 400ms;
+      animation-timing-function: ease-in-out;
+    } */
+
+    ::view-transition-group(project-name) {
+      animation-timing-function: ease-in;
+      animation-duration: 0.6s;
+    }
+    ::view-transition-old(project-name) {
+      animation: toDown 0.15s cubic-bezier(0.4, 0, 1, 1) both;
+    }
+    ::view-transition-new(project-name) {
+      animation: fromUp 0.15s cubic-bezier(0, 0, 0.2, 1) 0.15s both;
+    }
+  }
 }
