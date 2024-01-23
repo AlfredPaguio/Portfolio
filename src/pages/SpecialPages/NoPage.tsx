@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import pagesData, { routerType } from "@/routes/pagesData";
+import { validPagesDataType, validPagesData } from "@/pages/routes";
 import { MoonIcon } from "lucide-react";
 
 function NoPage() {
@@ -27,9 +27,9 @@ function NoPage() {
           </div>
 
           <div className="mt-5 flex flex-col items-stretch">
-            {pagesData
-              .filter((route: routerType) => route.path !== "*")
-              .map((route: routerType, key) => {
+            {validPagesData
+              .filter((route: validPagesDataType) => route.path !== "*")
+              .map((route: validPagesDataType, key) => {
                 return (
                   <Link
                     key={key}

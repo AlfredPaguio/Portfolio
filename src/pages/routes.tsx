@@ -1,5 +1,8 @@
 import { BriefcaseIcon, HomeIcon, MailIcon, UserIcon } from "lucide-react";
 import { lazy, ElementType } from "react";
+import { createBrowserRouter } from "react-router-dom";
+import Layout from "./Layout";
+import ProjectDetails from "./Projects/ProjectDetails";
 
 const Home = lazy(() => import("@/pages/Home"));
 const About = lazy(() => import("@/pages/About"));
@@ -7,7 +10,7 @@ const Projects = lazy(() => import("@/pages/Projects"));
 const Contact = lazy(() => import("@/pages/Contact"));
 const NoPage = lazy(() => import("@/pages/SpecialPages/NoPage"));
 
-export type routerType = {
+export type validPagesDataType = {
   title: string;
   path: string;
   description?: string;
@@ -15,7 +18,7 @@ export type routerType = {
   Icon?: ElementType;
 };
 
-const pagesData: routerType[] = [
+export const validPagesData: validPagesDataType[] = [
   {
     path: "",
     element: <Home />,
@@ -52,4 +55,30 @@ const pagesData: routerType[] = [
   },
 ];
 
-export default pagesData;
+const routers = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/projects",
+        element: <Projects />,
+      },
+      { path: "/projects/:projectId", element: <ProjectDetails /> },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+    ],
+  },
+]);
+
+export default routers;

@@ -9,7 +9,7 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import pagesData from "../pagesData";
+import { validPagesData } from "./routes";
 
 export default function Layout() {
   const location = useLocation();
@@ -17,7 +17,7 @@ export default function Layout() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState(0);
 
-  const validPages = pagesData.filter((page) => page.path !== "*");
+  const validPages = validPagesData.filter((page) => page.path !== "*");
 
   //need to update when the location updates
   useEffect(() => {
