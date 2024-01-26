@@ -1,5 +1,5 @@
 import { ProjectType } from "@/data/Projects";
-import { CardDescription, CardTitle } from "@/components/ui/card";
+import { CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/formatDate";
@@ -23,7 +23,6 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import ImageCarouselView from "./ImageCarouselView";
 
 type ProjectDetailedViewProps = {
   project: ProjectType;
@@ -47,21 +46,9 @@ export function ProjectDetailedView({
             <DialogDescription className="whitespace-pre-line text-pretty indent-8 text-muted">
               {project.description}
             </DialogDescription>
-            <ImageCarouselView imageList={project.images} />
+            {/* <ImageCarouselView imageList={project.images} /> */}
           </DialogHeader>
           <div className="flex flex-1 flex-col gap-4 pt-4">
-            {project.responsibilities && (
-              <div className="space-y-4">
-                <CardTitle>Responsibilities</CardTitle>
-                <ul className="flex list-disc flex-wrap pl-6 text-accent-foreground marker:text-accent">
-                  {project.responsibilities.map((responsibility, index) => (
-                    <li key={index}>
-                      <CardDescription>{responsibility}</CardDescription>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
             <div className="space-y-4">
               <CardTitle>Stack</CardTitle>
               <div className="flex flex-wrap gap-2">
@@ -115,21 +102,9 @@ export function ProjectDetailedView({
             {project.description}
           </DrawerDescription>
         </DrawerHeader>
-        <ImageCarouselView imageList={project.images} />
+        {/* <ImageCarouselView imageList={project.images} /> */}
 
         <div className="mx-4 flex flex-1 flex-col gap-4 pt-4">
-          {project.responsibilities && (
-            <div className="space-y-4">
-              <CardTitle>Responsibilities</CardTitle>
-              <ul className="flex list-disc flex-wrap pl-6 text-accent-foreground marker:text-accent">
-                {project.responsibilities.map((responsibility, index) => (
-                  <li key={index}>
-                    <CardDescription>{responsibility}</CardDescription>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
           <div className="space-y-4">
             <CardTitle>Stack</CardTitle>
             <div className="flex flex-wrap gap-2">
