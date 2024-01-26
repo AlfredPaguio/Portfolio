@@ -14,6 +14,7 @@ Welcome to my personal portfolio! This project showcases my skills and projects,
 - [**Devicons React**](https://devicons-react.vercel.app/): A collection of icons that symbolize programming languages, design tools, and development software.
 - [**Realtime Colors**](https://www.realtimecolors.com/?colors=ffffff-0d0d0d-24213b-234353-cad1d3&fonts=Noto%20Serif%20JP-Noto%20Serif): A tool that uses simple UI elements to visualize color palettes on a real website. The website works instantaneously and offers users the ability to export their color palettes to use them anywhere. I linked my colors at the hyperlink, and the previously chosen color is [**here**](https://www.realtimecolors.com/?colors=f1f1fe-0e0f11-4842f0-080646-312bee&fonts=Poppins-Poppins).
 - [**unDraw**](https://undraw.co/): Open-source illustrations for any idea you can imagine and create.
+- [**Favicon Generator**](https://realfavicongenerator.net/): Favicon Generator for perfect icons on all browsers
 
 ## Getting Started
 
@@ -37,9 +38,7 @@ To run this project locally, follow these steps:
 ### 1. Project Filtering
 
 - **Filter by Name:** Easily search and filter projects by their names using the search bar.
-
   - **How to use:** Type the project name in the search bar to instantly filter the projects.
-
 - **Filter by Technologies Used:** Find projects based on the technologies used.
   - **How to use:** Use the technology filter options to display projects using specific technologies.
 
@@ -68,10 +67,10 @@ To run this project locally, follow these steps:
 
 ### 5. Interactive UI
 
- **User-Friendly Interface:** Enjoy a clean and intuitive user interface for easy navigation.
-  - **How to use:**
-    - **Mobile Devices:** Swipe left or right to effortlessly navigate through different pages.
-    - **Desktop:** Use the arrow keys (left and right) for convenient page navigation.
+**User-Friendly Interface:** Enjoy a clean and intuitive user interface for easy navigation.
+- **How to use:**
+  - **Mobile Devices:** Swipe left or right to effortlessly navigate through different pages.
+  - **Desktop:** Use the arrow keys (left and right) for convenient page navigation.
 
 <!-- ## Screenshots
 No screenshot yet
