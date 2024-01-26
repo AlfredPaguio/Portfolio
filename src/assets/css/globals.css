@@ -105,4 +105,59 @@ https://fonts.coollabs.io/ A privacy-friendly drop-in replacement for Google Fon
       animation: none;
     }
   }
+
+  @keyframes toDown {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(4px);
+      opacity: 0;
+    }
+  }
+
+  /* Counter fade in and coming from top */
+  @keyframes fromUp {
+    from {
+      transform: translateY(-3px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @supports (view-transition-name: none) {
+    /* ::view-transition-image-pair(root) {
+      animation-duration: 400ms;
+      animation-timing-function: ease-in-out;
+    } */
+
+    ::view-transition-group(project-name) {
+      animation-timing-function: ease-in;
+      animation-duration: 0.3s;
+    }
+    /* ::view-transition-old(project-name) {
+      animation: toDown 0.15s cubic-bezier(0.4, 0, 1, 1) both;
+    }
+    ::view-transition-new(project-name) {
+      animation: fromUp 0.15s cubic-bezier(0, 0, 0.2, 1) 0.15s both;
+    } */
+    .markdown p {
+      @apply indent-8 text-sm lg:text-lg xl:text-xl;
+    }
+
+    .markdowm li {
+      @apply text-sm lg:text-lg xl:text-xl;
+    }
+
+    .markdown ul {
+      @apply list-inside list-disc marker:text-accent;
+    }
+    .markdown a {
+      @apply relative w-fit text-accent transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0  after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in after:content-[''] hover:text-accent/80  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300;
+    }
+  }
 }

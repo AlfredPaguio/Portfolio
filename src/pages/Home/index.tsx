@@ -22,8 +22,8 @@ function Home() {
         <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
           I'm
         </h2>
-        <h1 className="mb-4 text-balance text-start text-5xl font-bold [viewTransitionName:brand-name] md:text-6xl lg:text-7xl xl:text-8xl">
-          Alfred U. Paguio
+        <h1 className="mb-4 text-balance text-start text-5xl font-bold md:text-6xl lg:text-7xl xl:text-8xl">
+          <span className="[viewTransitionName:brand-name]">Alfred</span> U. Paguio
         </h1>
         <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
           A Software Engineer

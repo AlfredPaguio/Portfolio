@@ -9,7 +9,7 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import pagesData from "../pagesData";
+import { pageInformation } from "./routes";
 
 export default function Layout() {
   const location = useLocation();
@@ -17,7 +17,7 @@ export default function Layout() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState(0);
 
-  const validPages = pagesData.filter((page) => page.path !== "*");
+  const validPages = pageInformation.filter((page) => page.path !== "*");
 
   //need to update when the location updates
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function Layout() {
   //https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
 
   return (
-    <div className="flex h-svh min-h-svh w-screen flex-col justify-between overflow-x-hidden  bg-background text-foreground">
+    <div className="antialiased flex h-svh min-h-svh w-screen flex-col justify-between overflow-x-hidden  bg-background text-foreground">
       <Navbar />
       <main className="grow px-4 pb-4 md:px-16">
         <Outlet />

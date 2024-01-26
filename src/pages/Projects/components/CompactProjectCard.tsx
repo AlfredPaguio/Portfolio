@@ -11,21 +11,31 @@ import { ProjectType } from "@/data/Projects";
 import { formatDate } from "@/lib/formatDate";
 import { Badge } from "@/components/ui/badge";
 import { Folder } from "lucide-react";
-import LinkButtonIcons from "./LinkButtonIcons";
-// import TechnologyIcons from "./TechnologyIcons";
+import { useRef } from "react";
 
 type CompactProjectCard = {
   project: ProjectType;
-  onOpenDetailedView: () => void;
+  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
 };
 
 export default function CompactProjectCard({
   project,
-  onOpenDetailedView,
+  onClick,
 }: CompactProjectCard) {
+  const titleRef = useRef<HTMLDivElement>(null);
+
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const viewTransitionNameClass = `[viewTransitionName:project-name]`;
+
+    if (titleRef.current) {
+      titleRef.current.classList.add(viewTransitionNameClass);
+    }
+    onClick(e);
+  };
+
   return (
     <Card
-      onClick={() => onOpenDetailedView()}
+      onClick={handleCardClick}
       data-status={project.status}
       className="relative flex max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased data-[status=Active]:border-green-400 data-[status=Archived]:border-gray-500 data-[status=Maintenance]:border-yellow-400 md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
     >
@@ -45,17 +55,10 @@ export default function CompactProjectCard({
       >
         <CardHeader>
           <div className="flex justify-between">
-            <CardTitle>
-              <span className="flex items-center gap-1 text-pretty">
-                <Folder className="shrink-0" />
-                {project.title}
-              </span>
+            <CardTitle className="flex items-center gap-1 text-pretty">
+              <Folder className="shrink-0" />
+              <span ref={titleRef}>{project.title}</span>
             </CardTitle>
-            {project.links && (
-              <div className="flex gap-2">
-                <LinkButtonIcons links={project.links} />
-              </div>
-            )}
           </div>
 
           <Badge variant={"ghost"} className="p-0">
@@ -70,7 +73,7 @@ export default function CompactProjectCard({
                 : "No Description")}
           </CardDescription>
         </CardContent>
-        <CardFooter className="flex-wrap">
+        <CardFooter className="flex-wrap p-4">
           {project.stack.map((tech, index) => (
             <Badge variant={"ghost"} key={index}>
               {tech}

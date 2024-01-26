@@ -1,22 +1,15 @@
 import { useTechnologiesContext } from "../contexts/TechnologiesContext";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import CompactProjectCard from "../components/CompactProjectCard";
-import { useState } from "react";
-import { ProjectType } from "@/data/Projects";
-import { ProjectDetailedView } from "../components/ProjectDetailedView";
+import { useNavigate } from "react-router-dom";
 
 export default function ProjectList() {
   const { currentItems } = useTechnologiesContext();
+  const navigate = useNavigate();
 
-  const [isDetailedViewOpened, setIsDetailedViewOpened] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<
-    ProjectType | undefined
-  >(undefined);
-
-  const handleOpenDetailedView = (projectId: string) => {
-    const project = currentItems.find((project) => project.id === projectId);
-    setSelectedProject(project || undefined);
-    setIsDetailedViewOpened(true);
+  const handleOpenProjectDetail = (projectId: string) => {
+    if (!projectId) return;
+    navigate(`/projects/${projectId}`, { unstable_viewTransition: true });
   };
 
   return (
@@ -28,20 +21,12 @@ export default function ProjectList() {
             <CompactProjectCard
               key={index}
               project={project}
-              onOpenDetailedView={() => handleOpenDetailedView(project.id)}
+              onClick={() => handleOpenProjectDetail(project.id)}
             />
           ))}
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-
-      {selectedProject && (
-        <ProjectDetailedView
-          project={selectedProject}
-          onOpenChange={setIsDetailedViewOpened}
-          open={isDetailedViewOpened}
-        />
-      )}
     </>
   );
 }
