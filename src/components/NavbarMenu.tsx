@@ -1,4 +1,4 @@
-import { validPagesData, validPagesDataType } from "@/pages/routes";
+import { pageInformation, PageInformationType } from "@/pages/routes";
 import { NavLink } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
@@ -15,9 +15,9 @@ export function NavbarMenu({ showMenu }: NavbarMenuProps) {
           "divide-y-1 absolute left-6 right-6 z-50 mt-1 flex-col items-center space-y-6 self-end border-solid border-border bg-background py-8 font-bold drop-shadow-md sm:w-auto sm:self-center",
         )}
       >
-        {validPagesData
-          .filter((route: validPagesDataType) => route.path != "*")
-          .map((route: validPagesDataType, key) => {
+        {pageInformation
+          .filter((route: PageInformationType) => route.path != "*")
+          .map((route: PageInformationType, key) => {
             return (
               <NavLink
                 key={"MenuMobileView" + key}

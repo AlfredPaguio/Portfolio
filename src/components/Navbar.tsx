@@ -1,7 +1,7 @@
 "use client";
 import { NavLink, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
-import { validPagesDataType, validPagesData } from "../pages/routes";
+import { PageInformationType, pageInformation } from "../pages/routes";
 import { useState } from "react";
 import { NavbarMenu } from "./NavbarMenu";
 import { ThemeToggle } from "./ThemeToggle";
@@ -29,9 +29,9 @@ export function Navbar() {
 
         {/* Menu Items */}
         <ul className="align-end hidden items-center gap-3 space-x-1 rounded-md py-4 pe-4 ps-4 md:flex">
-          {validPagesData
-            .filter((route: validPagesDataType) => route.path !== "*")
-            .map((route: validPagesDataType, key) => {
+          {pageInformation
+            .filter((route: PageInformationType) => route.path !== "*")
+            .map((route: PageInformationType, key) => {
               return (
                 <NavLink
                   key={key}

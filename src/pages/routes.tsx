@@ -10,7 +10,7 @@ const Projects = lazy(() => import("@/pages/Projects"));
 const Contact = lazy(() => import("@/pages/Contact"));
 const NoPage = lazy(() => import("@/pages/SpecialPages/NoPage"));
 
-export type validPagesDataType = {
+export type PageInformationType = {
   title: string;
   path: string;
   description?: string;
@@ -18,7 +18,7 @@ export type validPagesDataType = {
   Icon?: ElementType;
 };
 
-export const validPagesData: validPagesDataType[] = [
+export const pageInformation: PageInformationType[] = [
   {
     path: "",
     element: <Home />,
