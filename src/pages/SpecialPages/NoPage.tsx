@@ -42,18 +42,18 @@ function NoPage() {
                     duration-200 hover:cursor-pointer"
                     >
                       {route.Icon && (
-                        <div className="rounded-xl bg-accent px-3 py-2 md:py-4">
+                        <div className="rounded-xl bg-accent p-2 md:p-4">
                           <route.Icon className="mx-auto text-2xl text-accent-foreground md:text-3xl" />
                         </div>
                       )}
 
                       {/* Text */}
                       <div className="flex grow flex-col pl-5 pt-2">
-                        <div className="text-sm font-bold text-foreground group-hover:underline md:text-lg lg:text-xl">
+                        <div className="text-sm font-bold text-foreground group-hover:text-foreground/80 group-hover:underline md:text-lg lg:text-xl">
                           {route.title}
                         </div>
 
-                        <div className="md:text-md text-sm font-semibold text-popover transition-all duration-200 group-hover:text-popover-foreground lg:text-lg">
+                        <div className="md:text-md text-sm font-semibold text-accent transition-all duration-200 group-hover:text-accent/80 group-hover:underline lg:text-lg">
                           {route.description}
                         </div>
                       </div>
