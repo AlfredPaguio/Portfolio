@@ -1,8 +1,15 @@
 import { Projects } from "@/data/Projects";
 import LinkButtonIcons from "../components/LinkButtonIcons";
 import { Badge } from "@/components/ui/badge";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ErrorBoundaryPage from "@/pages/ErrorBoundaryPage";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Folder } from "lucide-react";
+import { formatDate } from "@/lib/formatDate";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
+import { Label } from "@/components/ui/label";
 
 export default function ProjectDetails() {
   const { projectId } = useParams();
@@ -13,22 +20,32 @@ export default function ProjectDetails() {
   }
 
   return (
-    <div>
-      <h1 className="[viewTransitionName:project-name] text-foreground font-semibold leading-none tracking-tight">{project.title}</h1>
-      <p>{project.description}</p>
+    <div className="flex h-full flex-col items-start justify-between gap-y-2">
+      <div className="flex items-center gap-x-2">
+        <Button variant={"ghost"} size={"icon"} asChild>
+          <Link to={"/projects"}>
+            <ArrowLeft />
+          </Link>
+        </Button>
+
+        <h1 className="text-md flex items-center gap-1 text-pretty font-semibold leading-none tracking-tight text-foreground [viewTransitionName:project-name] md:text-lg lg:text-xl xl:text-2xl">
+          <Folder className="shrink-0" />
+          {project.title}
+        </h1>
+      </div>
+      <Badge variant={"ghost"} className="p-0">
+        {formatDate(project.date)}
+      </Badge>
+      {/* <p className="text-sm text-muted">{project.description}</p> */}
+      <ReactMarkdown
+        className={
+          "markdown flex flex-col gap-y-2 leading-relaxed text-foreground transition-all lg:text-lg xl:text-xl"
+        }
+        remarkPlugins={[remarkGfm, remarkBreaks]}
+      >
+        {project.description}
+      </ReactMarkdown>
       <div className="flex flex-1 flex-col gap-4 pt-4">
-        {project.responsibilities && (
-          <div className="space-y-4">
-            <span>Responsibilities</span>
-            <ul className="flex list-disc flex-wrap pl-6 text-accent-foreground marker:text-accent">
-              {project.responsibilities.map((responsibility, index) => (
-                <li key={index}>
-                  <p>{responsibility}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
         <div className="space-y-4">
           <span>Stack</span>
           <div className="flex flex-wrap gap-2">
@@ -52,6 +69,25 @@ export default function ProjectDetails() {
           )}
         </div>
       </div>
+
+      {project.images &&
+        project.images.length > 0 &&
+        project.images.map((image, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center justify-center self-center"
+          >
+            <Label className="text-lg">{image.alt || `Image ${index}`}</Label>
+            <img
+              loading="lazy"
+              key={index}
+              src={image.imageUrl}
+              alt={image.alt || `Image ${index}`}
+              className="aspect-video"
+              title={image.alt || `No Description`}
+            />
+          </div>
+        ))}
     </div>
   );
 }

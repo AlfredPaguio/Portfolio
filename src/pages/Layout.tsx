@@ -103,7 +103,7 @@ export default function Layout() {
   //https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
 
   return (
-    <div className="flex h-svh min-h-svh w-screen flex-col justify-between overflow-x-hidden  bg-background text-foreground">
+    <div className="antialiased flex h-svh min-h-svh w-screen flex-col justify-between overflow-x-hidden  bg-background text-foreground">
       <Navbar />
       <main className="grow px-4 pb-4 md:px-16">
         <Outlet />

@@ -43,7 +43,6 @@ export type ProjectType = {
   stack: string[];
   summary?: string;
   description?: string;
-  responsibilities?: string[];
   images?: Array<{ imageUrl: string; alt?: string }>;
   links?: { [key: string]: string };
   date: Date;
@@ -56,13 +55,11 @@ export const Projects: ProjectType[] = [
     title: "Personal Data Sheet System for public school teachers",
     stack: ["C# 5.0", "MySQL", "SAP Crystal Reports"],
     summary: "Managed personal data for public school teachers.",
-    description:
-      "This project was created as a part of the School Division Office (Muntinlupa) project. Our primary goal was to create software that could efficiently manage and process personal data for teachers within the public school system. However, I am currently unaware of the status or utilization of this system within the organization.",
-    responsibilities: [
-      "Assisted Nite Guerrero in the development of the system, contributing to software code creation and feature enhancement.",
-      "Played a significant role in identifying and addressing bugs through thorough code analysis and systematic testing, ensuring the software's stability and reliability.",
-      "Demonstrated strong problem-solving skills by implementing solutions that enhanced existing software features, contributing to the project's overall progress.",
-    ],
+    description: `This project was created as a part of the School Division Office (Muntinlupa) project. Our primary goal was to create software that could efficiently manage and process personal data for teachers within the public school system. However, I am currently unaware of the status or utilization of this system within the organization.
+## Responsibilities:
+- Assisted [Nite Guerrero](https://www.facebook.com/nite.guerrero) in the development of the system, contributing to software code creation and feature enhancement.
+- Played a significant role in identifying and addressing bugs through thorough code analysis and systematic testing, ensuring the software's stability and reliability.
+- Demonstrated strong problem-solving skills by implementing solutions that enhanced existing software features, contributing to the project's overall progress.`,
     date: new Date(2019, 2),
     status: "Unknown",
   },
@@ -240,8 +237,18 @@ export const Projects: ProjectType[] = [
     stack: ["React", "TypeScript", "TailwindCSS"],
     summary:
       "This project showcases my skills and projects, built using TypeScript, React, and various other libraries and tools.",
-    description:
-      "This project showcases my skills and projects, built using TypeScript, React, and various other libraries and tools.",
+    description: `
+This project showcases my skills and projects, built using TypeScript, React, and various other libraries and tools.
+## Features
+### 1. Filter Projects
+- **Filter by Name:** Easily search and filter projects by their names using the search bar.
+- **Filter by Technologies Used:** Find projects based on the technologies used.
+### 2. Sort Projects
+- **Name (A-Z):** Sort projects alphabetically by name in ascending order.
+- **Name (Z-A):** Sort projects alphabetically by name in descending order.
+- **Date (Newest First):** Sort projects by date, showcasing the most recent projects first.
+- **Date (Oldest First):** Sort projects by date, showcasing the oldest projects first.
+    `,
     links: {
       GitHub: "https://github.com/AlfredPaguio/Portfolio",
     },
