@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { PageInformationType, pageInformation } from "@/data/constant";
 import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 export function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -98,11 +99,24 @@ interface NavLinkProps {
 }
 
 function NavLink({ href, name, Icon }: NavLinkProps) {
+  const pathname = usePathname();
+
   return (
     <Link href={href} passHref legacyBehavior>
-      <Button>
-        {Icon && <Icon className="size-6" />}
-        {name}
+      <Button
+        variant={"ghost"}
+        className={`peer w-max max-w-full pl-4 text-2xl font-medium text-foreground transition-all duration-75 ease-in first:pl-0 first:after:ml-0 hover:text-accent focus-visible:text-accent`}
+      >
+        <span
+          className={`relative flex items-center justify-center gap-1 transition-all duration-300 ease-in-out after:absolute after:bottom-0  after:left-0 after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in after:content-['']  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300  peer-hover:after:-translate-x-full peer-hover:after:duration-30 ${
+            pathname === href
+              ? "opacity-100"
+              : "opacity-70 hover:opacity-100 focus-visible:opacity-100"
+          }`}
+        >
+          {Icon && <Icon className="size-6 pr-2" />}
+          {name}
+        </span>
       </Button>
     </Link>
   );

@@ -16,7 +16,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-between p-24">
+    <main className="flex h-full items-center justify-between px-4 pb-4 md:px-16">
       <div className="flex flex-col">
         <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
           I&apos;m
@@ -107,6 +107,7 @@ export default function Home() {
       <div className="hidden flex-col md:flex">
         <figure className="max-h-min drop-shadow-lg">
           <Image
+            priority={false}
             className="h-96 fill-accent object-scale-down"
             src={ManThink}
             alt="An illustration of a man thinking sitting beside their laptop"
