@@ -113,6 +113,10 @@ export default function Layout() {
         />
         <meta property="og:title" content="Alfred's Portfolio" />
         <meta property="og:url" content="https://alfredpaguio.vercel.app" />
+        <link
+          rel="canonical"
+          href={`https://alfredpaguio.vercel.app${location.pathname}`}
+        />
         <meta
           property="og:image"
           content="http://alfredpaguio.vercel.app/og_image.png"
