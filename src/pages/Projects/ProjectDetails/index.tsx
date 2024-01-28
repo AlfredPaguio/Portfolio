@@ -46,12 +46,13 @@ export default function ProjectDetails() {
         />
         <meta
           property="og:image"
-          content={`http://alfredpaguio.vercel.app${project.images ? project.images[0].imageUrl : ""}`}
+          content={`http://alfredpaguio.vercel.app${project.images ? project.images[0].imageUrl : "/og_image.png"}`}
         />
         <meta
-          property="og:image:secure"
-          content={`https://alfredpaguio.vercel.app${project.images ? project.images[0].imageUrl : ""}`}
+          property="og:image:secure_url"
+          content={`https://alfredpaguio.vercel.app${project.images ? project.images[0].imageUrl : "/og_image.png"}`}
         />
+        <meta property="og:image:type" content="image/png" />
       </Helmet>
       <div className="flex h-full flex-col items-start justify-between gap-y-2">
         <div className="flex items-center gap-x-2">
