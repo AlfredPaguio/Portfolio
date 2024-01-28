@@ -10,6 +10,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { pageInformation } from "./routes";
+import { Helmet } from "react-helmet-async";
 
 export default function Layout() {
   const location = useLocation();
@@ -103,13 +104,29 @@ export default function Layout() {
   //https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
 
   return (
-    <div className="antialiased flex h-svh min-h-svh w-screen flex-col justify-between overflow-x-hidden  bg-background text-foreground">
-      <Navbar />
-      <main className="grow px-4 pb-4 md:px-16">
-        <Outlet />
-      </main>
-      {location.pathname === "/contact" ? <Footer /> : <ScrollMoreIndicator />}
-      <Toaster />
-    </div>
+    <>
+      <Helmet>
+        <title>Alfred's Portfolio</title>
+        <meta
+          name="description"
+          content="Welcome to Alfred's portfolio! This portfolio showcases my skills and projects, built using TypeScript, React, and various other libraries and tools."
+        />
+        <meta property="og:title" content="Alfred's Portfolio" />
+        <meta property="og:url" content="https://alfredpaguio.vercel.app" />
+        <meta property="og:image" content="/og_image.png" />
+      </Helmet>
+      <div className="flex h-svh min-h-svh w-screen flex-col justify-between overflow-x-hidden bg-background  text-foreground antialiased">
+        <Navbar />
+        <main className="grow px-4 pb-4 md:px-16">
+          <Outlet />
+        </main>
+        {location.pathname === "/contact" ? (
+          <Footer />
+        ) : (
+          <ScrollMoreIndicator />
+        )}
+        <Toaster />
+      </div>
+    </>
   );
 }
