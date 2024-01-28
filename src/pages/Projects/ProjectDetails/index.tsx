@@ -40,19 +40,18 @@ export default function ProjectDetails() {
           property="og:url"
           content={`https://alfredpaguio.vercel.app/projects/${project.id}/`}
         />
-        <link rel="canonical" href={`https://alfredpaguio.vercel.app/projects/${project.id}/`} />
-        {project.images && project.images.length > 0 && (
-          <>
-            <meta
-              property="og:image"
-              content={`http://alfredpaguio.vercel.app${project.images[0].imageUrl}`}
-            />
-            <meta
-              property="og:image:secure"
-              content={`https://alfredpaguio.vercel.app${project.images[0].imageUrl}`}
-            />
-          </>
-        )}
+        <link
+          rel="canonical"
+          href={`https://alfredpaguio.vercel.app/projects/${project.id}/`}
+        />
+        <meta
+          property="og:image"
+          content={`http://alfredpaguio.vercel.app${project.images ? project.images[0].imageUrl : ""}`}
+        />
+        <meta
+          property="og:image:secure"
+          content={`https://alfredpaguio.vercel.app${project.images ? project.images[0].imageUrl : ""}`}
+        />
       </Helmet>
       <div className="flex h-full flex-col items-start justify-between gap-y-2">
         <div className="flex items-center gap-x-2">
