@@ -40,6 +40,7 @@ export default function ProjectDetails() {
           property="og:url"
           content={`https://alfredpaguio.vercel.app/projects/${project.id}/`}
         />
+        <link rel="canonical" href={`https://alfredpaguio.vercel.app/projects/${project.id}/`} />
         {project.images && project.images.length > 0 && (
           <>
             <meta
