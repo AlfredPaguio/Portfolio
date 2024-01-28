@@ -113,7 +113,14 @@ export default function Layout() {
         />
         <meta property="og:title" content="Alfred's Portfolio" />
         <meta property="og:url" content="https://alfredpaguio.vercel.app" />
-        <meta property="og:image" content="/og_image.png" />
+        <meta
+          property="og:image"
+          content="http://alfredpaguio.vercel.app/og_image.png"
+        />
+        <meta
+          property="og:image:secure"
+          content="https://alfredpaguio.vercel.app/og_image.png"
+        />
       </Helmet>
       <div className="flex h-svh min-h-svh w-screen flex-col justify-between overflow-x-hidden bg-background  text-foreground antialiased">
         <Navbar />

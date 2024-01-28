@@ -24,8 +24,12 @@ export default function ProjectDetails() {
     <>
       <Helmet>
         <title>{project.title} | Alfred's Portfolio</title>
-        <meta
+        {/* <meta
           name="description"
+          content={project.summary || project.description}
+        /> */}
+        <meta
+          name="og:description"
           content={project.summary || project.description}
         />
         <meta
@@ -37,7 +41,16 @@ export default function ProjectDetails() {
           content={`https://alfredpaguio.vercel.app/projects/${project.id}/`}
         />
         {project.images && project.images.length > 0 && (
-          <meta property="og:image" content={`https://alfredpaguio.vercel.app${project.images[0].imageUrl}`} />
+          <>
+            <meta
+              property="og:image"
+              content={`http://alfredpaguio.vercel.app${project.images[0].imageUrl}`}
+            />
+            <meta
+              property="og:image:secure"
+              content={`https://alfredpaguio.vercel.app${project.images[0].imageUrl}`}
+            />
+          </>
         )}
       </Helmet>
       <div className="flex h-full flex-col items-start justify-between gap-y-2">
