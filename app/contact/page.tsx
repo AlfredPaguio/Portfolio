@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Facebook, Github, Linkedin, Mail, PhoneIcon, HomeIcon, LanguagesIcon } from "lucide-react";
