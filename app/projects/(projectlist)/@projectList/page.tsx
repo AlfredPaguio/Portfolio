@@ -1,7 +1,7 @@
 "use client";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useRouter } from "next/navigation";
-import CompactProjectCard from "../components/CompactProjectCard";
+import CompactProjectCard from "../../components/CompactProjectCard";
 import { useTechnologiesContext } from "@/contexts/TechnologiesContext";
 
 export default function Home() {

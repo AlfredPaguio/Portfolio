@@ -62,7 +62,7 @@ export const Projects: ProjectType[] = [
     status: "Unknown",
   },
   {
-    id: "InfoSiteB&D",
+    id: "InfoSiteB_D",
     title: "Information Site",
     stack: [
       "PHP",
@@ -96,7 +96,7 @@ export const Projects: ProjectType[] = [
     status: "Archived",
   },
   {
-    id: "E-CommerceB&D",
+    id: "E-CommerceB_D",
     title: "E-Commerce System",
     stack: [
       "PHP",
@@ -193,7 +193,7 @@ export const Projects: ProjectType[] = [
     status: "Unknown",
   },
   {
-    id: "HRISB&D",
+    id: "HRISB_D",
     title: "Human Resource Information System",
     stack: ["Python", "Flask", "jQuery", "Javascript", "MySQL", "Bootstrap"],
     summary: "Streamlined HR processes, including data management and payroll.",
