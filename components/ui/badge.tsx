@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
@@ -15,6 +16,8 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
         outline: "text-foreground",
+        ghost: "text-muted rounded-none border-0 border-transparent",
+        icon: "rounded-full bg-background text-foreground hover:bg-background/80",
       },
     },
     defaultVariants: {

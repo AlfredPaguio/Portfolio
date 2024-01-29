@@ -9,27 +9,33 @@ import {
 } from "@/components/ui/select";
 import { SearchIcon } from "lucide-react";
 import { parseAsString, useQueryState } from "nuqs";
-// import { useSearchParams } from "next/navigation";
 
 export default function SearchBarAndSorter() {
-  //   const [searchParams, setSearchParams] = useSearchParams();
-  const [titleQuery, setTitleQuery] = useQueryState("title", parseAsString);
-  const [sortQuery, setSortQuery] = useQueryState("sort", parseAsString);
+  const [titleQuery, setTitleQuery] = useQueryState("title", {
+    history: "replace",
+    shallow: false,
+  });
+  const [sortQuery, setSortQuery] = useQueryState(
+    "sort",
+    parseAsString
+      .withDefault("date-desc")
+      .withOptions({ history: "replace", shallow: false })
+  );
 
   const handleSort = (value: string) => {
-    if (sortQuery !== null) {
-      setSortQuery(value);
-    }
+    if (!value) setSortQuery(null);
+    setSortQuery(value);
   };
 
   const handleSearch = (value: string) => {
+    if (!value) setTitleQuery(null);
     setTitleQuery(value);
   };
 
   return (
     <div className="flex w-full flex-col items-center justify-start gap-y-2 md:flex-row md:gap-y-0">
       <SearchInput onChange={handleSearch} value={titleQuery || ""} />
-      <SortSelect onChange={handleSort} value={sortQuery || ""} />
+      <SortSelect onChange={handleSort} value={sortQuery} />
     </div>
   );
 }

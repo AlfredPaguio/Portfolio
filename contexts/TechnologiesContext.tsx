@@ -7,7 +7,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-// import { useSearchParams } from 'next/navigation'
 import { parseAsString, useQueryState } from "nuqs";
 
 type TechnologiesState = string[];
@@ -68,12 +67,16 @@ type TechnologiesProviderProps = {
 
 export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
   const [selectedTechnologies, dispatch] = useReducer(reducer, []);
-  //   const searchParams = useSearchParams()
   const [techQuery, setTechQuery] = useQueryState("q", { history: "replace" });
-  const [titleQuery, setTitleQuery] = useQueryState("title");
+  const [titleQuery, setTitleQuery] = useQueryState("title", {
+    history: "replace",
+    shallow: false,
+  });
   const [sortQuery, setSortQuery] = useQueryState(
     "sort",
-    parseAsString.withDefault("date-desc")
+    parseAsString
+      .withDefault("date-desc")
+      .withOptions({ history: "replace", shallow: false })
   );
 
   const [currentItems, setCurrentItems] = useState<ProjectType[]>(Projects);

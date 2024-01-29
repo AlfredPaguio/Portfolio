@@ -1,8 +1,10 @@
 "use client";
-import { ACTIONS, useTechnologiesContext } from "@/contexts/TechnologiesContext";
+import {
+  ACTIONS,
+  useTechnologiesContext,
+} from "@/contexts/TechnologiesContext";
 import { filteredTechs } from "@/data/Technologies";
 import TechCheckbox from "./TechCheckBox";
-
 
 export default function FilterListMenu() {
   const { selectedTechnologies, dispatch } = useTechnologiesContext();

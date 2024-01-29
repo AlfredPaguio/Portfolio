@@ -44,8 +44,12 @@ export default function CompactProjectCard({
       {project.images && project.images.length > 0 && (
         <Image
           src={project.images[0].imageUrl}
-          className="absolute -z-50 h-full w-full object-cover"
+          fill
+          className="absolute object-cover -z-50"
+          loading="lazy"
           aria-hidden
+          quality={75}
+          placeholder="empty"
           alt="background"
         />
       )}
@@ -63,7 +67,7 @@ export default function CompactProjectCard({
             </CardTitle>
           </div>
 
-          <Badge variant={"outline"} className="p-0">
+          <Badge variant={"ghost"} className="p-0">
             {formatDate(project.date)}
           </Badge>
         </CardHeader>
@@ -77,7 +81,7 @@ export default function CompactProjectCard({
         </CardContent>
         <CardFooter className="flex-wrap p-4">
           {project.stack.map((tech, index) => (
-            <Badge variant={"outline"} key={index}>
+            <Badge variant={"ghost"} key={index}>
               {tech}
             </Badge>
           ))}
