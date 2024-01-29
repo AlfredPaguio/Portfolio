@@ -9,7 +9,7 @@ import TechnologyIcons from "@/components/TechnologyIcons";
 
 export default function Home() {
   return (
-    <main className="flex flex-col md:flex-row h-full items-center justify-between px-4 pb-4 md:px-16">
+    <div className="flex flex-col items-center justify-between lg:flex-row">
       <AboutMeSection />
       <div className="ml-6 flex flex-col items-center gap-y-4">
         <Card className="px-4 hidden md:block">
@@ -38,7 +38,7 @@ export default function Home() {
           </CardContent>
         </Card>
       </div>
-    </main>
+    </div>
   );
 }
 

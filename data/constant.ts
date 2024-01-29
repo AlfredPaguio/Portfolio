@@ -10,7 +10,7 @@ export type PageInformationType = {
 
 export const pageInformation: PageInformationType[] = [
   {
-    path: "",
+    path: "/",
     title: "Home",
     description: "The starting point of creativity.",
     Icon: HomeIcon,

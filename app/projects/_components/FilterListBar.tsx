@@ -44,7 +44,7 @@ export default function FilterListBar() {
               className={`order-1 inline-flex shrink-0 items-center p-2`}
             >
               <FilterIcon className="mr-2 h-6 w-6" />
-              <Label>Filters {selectedTechnologies.length}</Label>
+              <span>Filters {selectedTechnologies.length}</span>
             </Button>
           </SheetTrigger>
           <SheetContent side={"bottom"}>

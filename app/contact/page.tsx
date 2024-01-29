@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex h-full items-center justify-between px-4 pb-4 md:px-16">
+    <div className="flex h-full items-center justify-between px-4 pb-4 md:px-16">
       <div className="flex h-full w-full flex-col items-center justify-center gap-y-4">
       <Card>
         <CardContent className="flex h-full w-full flex-col items-center justify-center gap-8 p-4 lg:p-14">
@@ -70,6 +70,6 @@ export default function Home() {
       <h1>There&#39;s no form fully functioning yet. (╥﹏╥)</h1>
       {/* <InputForm /> */}
     </div>
-    </main>
+    </div>
   );
 }

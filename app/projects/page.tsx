@@ -5,12 +5,12 @@ import ProjectList from "./_components/ProjectList";
 
 export default function Home() {
   return (
-    <main className="flex h-full items-center justify-between px-4 pb-4 md:px-16">
+    <div className="flex flex-col items-center gap-6">
       <TechnologiesProvider>
         <SearchBarAndSorter />
         <FilterListBar />
         {/* <ProjectList /> */}
       </TechnologiesProvider>
-    </main>
+    </div>
   );
 }

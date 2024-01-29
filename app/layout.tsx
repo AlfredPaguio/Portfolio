@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import BottomComponent from "@/components/BottomComponent";
+import NavigationHandler from "@/components/NavigationHandler";
 
 const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
       <body
         className={cn(
           noto_serif.className,
-          "flex h-svh min-h-svh w-screen flex-col justify-between bg-background text-foreground antialiased"
+          "overflow-x-hidden flex h-svh min-h-svh w-screen flex-col justify-between bg-background text-foreground antialiased"
         )}
       >
         <ThemeProvider
@@ -36,7 +37,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          {children}
+          <NavigationHandler />
+          <main className="grow px-4 pb-4 md:px-16">{children}</main>
           <BottomComponent />
           <Toaster />
         </ThemeProvider>

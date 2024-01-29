@@ -1,23 +1,23 @@
+"use client";
 import { pageInformation } from "@/data/constant";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function NavigationHandler() {
   const router = useRouter();
+  const pathname = usePathname();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState(0);
 
-  const validPages = pageInformation.filter((page) => page.path !== "*");
-
   //need to update when the location updates
   useEffect(() => {
-    const matchedRoute = validPages.findIndex(
-      (page) => page.path === router.pathname
+    const matchedRoute = pageInformation.findIndex(
+      (page) => page.path === pathname
     );
     if (matchedRoute !== -1) {
       setCurrentIndex(matchedRoute);
     }
-  }, [router.pathname, validPages]);
+  }, [pathname]);
 
   const isInputFocused = () => {
     const focusedElement = document.activeElement;
@@ -36,21 +36,17 @@ export default function NavigationHandler() {
     const handleArrowLeft = () => {
       if (currentIndex !== 0 && !isInputFocused()) {
         const prevRoute =
-          (currentIndex - 1 + validPages.length) % validPages.length;
+          (currentIndex - 1 + pageInformation.length) % pageInformation.length;
         setCurrentIndex(prevRoute);
-        router.push(validPages[prevRoute].path, undefined, {
-          shallow: true,
-        });
+        router.push(pageInformation[prevRoute].path);
       }
     };
 
     const handleArrowRight = () => {
-      if (currentIndex !== validPages.length - 1 && !isInputFocused()) {
-        const nextRoute = (currentIndex + 1) % validPages.length;
+      if (currentIndex !== pageInformation.length - 1 && !isInputFocused()) {
+        const nextRoute = (currentIndex + 1) % pageInformation.length;
         setCurrentIndex(nextRoute);
-        router.push(validPages[nextRoute].path, undefined, {
-          shallow: true,
-        });
+        router.push(pageInformation[nextRoute].path);
       }
     };
 
@@ -85,7 +81,7 @@ export default function NavigationHandler() {
       document.removeEventListener("touchstart", handleTouchStart);
       document.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [currentIndex, validPages, touchStartX, router]);
+  }, [currentIndex, touchStartX, router]);
   //https://stackoverflow.com/questions/69819877/navigating-router-through-arrow-keys
   //https://codesandbox.io/p/sandbox/fix-bug-for-question-stackoverflow-forked-lj3rcg
   //https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
