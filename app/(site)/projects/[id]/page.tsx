@@ -1,16 +1,11 @@
-import { fetchAllContents, fetchContent } from "@/lib/fetchContent";
-import { removeFileExtension } from "@/lib/utils";
-// import { MDXRemote } from 'next-mdx-remote/rsc'
+import { fetchContent } from "@/lib/fetchContent";
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const {content}:any = await fetchContent(params.id);
-  // const allContent = await fetchAllContents();
+  const { content }: any = await fetchContent(params.id);
 
   return (
     <div className="wrapper">
-     {content}
-      {/* <MDXRemote {...postData} /> */}
+      {content}
     </div>
   );
-  // return <MDXRemote source={postData.props.source} />;
 }
