@@ -1,5 +1,5 @@
 "use client";
-import { pageInformation } from "@/data/constant";
+import { pageInformation } from "@/app/data/constant";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 

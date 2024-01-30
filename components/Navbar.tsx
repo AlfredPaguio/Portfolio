@@ -5,7 +5,7 @@ import { ElementType, useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { PageInformationType, pageInformation } from "@/data/constant";
+import { PageInformationType, pageInformation } from "@/app/data/constant";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 

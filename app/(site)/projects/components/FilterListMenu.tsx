@@ -3,7 +3,7 @@ import {
   ACTIONS,
   useTechnologiesContext,
 } from "@/contexts/TechnologiesContext";
-import { filteredTechs } from "@/data/Technologies";
+import { filteredTechs } from "@/app/data/Technologies";
 import TechCheckbox from "./TechCheckBox";
 
 export default function FilterListMenu() {

@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { ProjectType } from "@/data/Projects";
+import { ProjectType } from "@/app/data/Projects";
 import { formatDate } from "@/lib/formatDate";
 import { Badge } from "@/components/ui/badge";
 import { Folder } from "lucide-react";

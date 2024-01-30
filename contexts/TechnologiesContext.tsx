@@ -1,5 +1,5 @@
 "use client";
-import { ProjectType, Projects } from "@/data/Projects";
+import { ProjectType, Projects } from "@/app/data/Projects";
 import React, {
   createContext,
   useReducer,

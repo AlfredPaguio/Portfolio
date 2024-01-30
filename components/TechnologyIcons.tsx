@@ -7,7 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { IconType, getIconForTechnology } from "@/data/Icons";
+import { IconType, getIconForTechnology } from "@/app/data/Icons";
 
 type TechnologyIconsProps = {
   Stacks: string[];

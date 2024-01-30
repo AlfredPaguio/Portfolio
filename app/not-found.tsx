@@ -1,9 +1,8 @@
 "use client"
-import { PageInformationType, pageInformation } from "@/data/constant";
 import { MoonIcon } from "lucide-react";
 import Link from "next/link";
-import { headers } from "next/headers";
 import { usePathname } from "next/navigation";
+import { PageInformationType, pageInformation } from "@/app/data/constant";
 function NotFound() {
   const pathname = usePathname();
   return (
