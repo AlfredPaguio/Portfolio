@@ -7,14 +7,38 @@ import Link from "next/link";
 import GithubOriginal from "@beta/devicons-react/lib/icons/GithubOriginal";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
-export default function Page({ params }: { params: { id: string } }) {
-  const project = Projects.find((p) => p.id === params.id);
-  if (!project) {
-    return {
-      notFound: true,
-    };
-  }
+interface ProjectProps {
+  params: {
+    id: string;
+  };
+}
+
+function getProjectById(id: string) {
+  return Projects.find((p) => p.id === id);
+}
+
+export function generateMetadata({ params }: ProjectProps): Metadata {
+  const project = getProjectById(params.id);
+  if (project == null) return {};
+  return {
+    title: project.title,
+    description: project.summary || project.description,
+  };
+}
+
+export function generateStaticParams(): ProjectProps["params"][] {
+  return Projects.map((project) => ({
+    id: project.id,
+  }));
+}
+
+export default function Page({ params }: ProjectProps) {
+  const project = getProjectById(params.id);
+  if (!project) notFound();
+
   return (
     <div className="flex h-full flex-col items-start justify-between gap-y-2">
       <div className="flex items-center gap-x-2">
