@@ -8,46 +8,12 @@ import React, {
   useState,
 } from "react";
 import { parseAsString, useQueryState } from "nuqs";
-
-type TechnologiesState = string[];
-
-export type Action = {
-  type: string;
-  payload?: string;
-};
-
-export const ACTIONS = {
-  ADD_TECH_ON_SELECTED: "add_tech_on_selected",
-  REMOVE_TECH_ON_SELECTED: "remove_tech_on_selected",
-  REMOVE_ALL_SELECTED: "remove_all_selected",
-};
-
-function reducer(state: TechnologiesState, action: Action) {
-  switch (action.type) {
-    case ACTIONS.ADD_TECH_ON_SELECTED:
-      if (typeof action.payload === "string") {
-        if (state.includes(action.payload)) {
-          return state;
-        }
-        return [...state, action.payload];
-      }
-      return state;
-    case ACTIONS.REMOVE_TECH_ON_SELECTED:
-      if (typeof action.payload === "string") {
-        return state.filter((tech) => tech !== action.payload);
-      }
-      return state;
-    case ACTIONS.REMOVE_ALL_SELECTED:
-      return [];
-    default:
-      return state;
-  }
-}
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { addTechnology } from "@/features/technology/technology-slice";
 
 export type TechnologiesContextType = {
-  selectedTechnologies: TechnologiesState;
+  selectedTechnologies: string[];
   currentItems: ProjectType[];
-  dispatch: React.Dispatch<Action>;
 };
 
 const TechnologiesContext = createContext<TechnologiesContextType | null>(null);
@@ -66,16 +32,19 @@ type TechnologiesProviderProps = {
 };
 
 export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
-  const [selectedTechnologies, dispatch] = useReducer(reducer, []);
+  const selectedTechnologies = useAppSelector(
+    (state) => state.technology.value
+  );
+  const dispatch = useAppDispatch();
   const [techQuery, setTechQuery] = useQueryState("q", {
     history: "replace",
     shallow: false,
   });
-  const [titleQuery, setTitleQuery] = useQueryState("title", {
+  const [titleQuery] = useQueryState("title", {
     history: "replace",
     shallow: false,
   });
-  const [sortQuery, setSortQuery] = useQueryState(
+  const [sortQuery] = useQueryState(
     "sort",
     parseAsString
       .withDefault("date-desc")
@@ -84,14 +53,6 @@ export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
 
   const [currentItems, setCurrentItems] = useState<ProjectType[]>(Projects);
 
-  useEffect(() => {
-    if (techQuery) {
-      const techs = techQuery.split(",");
-      techs.forEach((tech) => {
-        dispatch({ type: ACTIONS.ADD_TECH_ON_SELECTED, payload: tech });
-      });
-    }
-  }, [techQuery]);
 
   useEffect(() => {
     //why the hell if (selectedTechnologies) is truthy even empty?
@@ -100,7 +61,18 @@ export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
     } else {
       setTechQuery(null);
     }
-  }, [selectedTechnologies, setTechQuery]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedTechnologies]);
+
+  useEffect(() => {
+    if (techQuery) {
+      const techs = techQuery.split(",");
+      techs.forEach((tech) => {
+        dispatch(addTechnology(tech));
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     //avoid mutating the original data
@@ -145,7 +117,7 @@ export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
 
   return (
     <TechnologiesContext.Provider
-      value={{ selectedTechnologies, dispatch, currentItems }}
+      value={{ selectedTechnologies, currentItems }}
     >
       {children}
     </TechnologiesContext.Provider>

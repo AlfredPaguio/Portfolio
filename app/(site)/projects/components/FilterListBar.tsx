@@ -2,7 +2,6 @@
 import { FilterIcon, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetClose,
@@ -14,23 +13,29 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ACTIONS, useTechnologiesContext } from "@/contexts/TechnologiesContext";
+import { useTechnologiesContext } from "@/contexts/TechnologiesContext";
 import FilterListMenu from "./FilterListMenu";
 import TechPillButton from "./TechPillButton";
+import {
+  removeAllTechnology,
+  removeTechnology,
+} from "@/features/technology/technology-slice";
+import { useAppDispatch } from "@/app/hooks";
 
 export default function FilterListBar() {
-  const { selectedTechnologies, dispatch } = useTechnologiesContext();
+  const { selectedTechnologies } = useTechnologiesContext();
+  const dispatch = useAppDispatch();
 
-  const removeTechnology = (technology: string) => {
+  const handleRemoveTechnology = (technology: string) => {
     // Check if the technology is selected
     if (selectedTechnologies.includes(technology)) {
       // If selected, remove it
-      dispatch({ type: ACTIONS.REMOVE_TECH_ON_SELECTED, payload: technology });
+      dispatch(removeTechnology(technology));
     }
   };
 
-  const removeAllFilters = () => {
-    dispatch({ type: ACTIONS.REMOVE_ALL_SELECTED });
+  const handleRemoveAllFilters = () => {
+    dispatch(removeAllTechnology());
   };
 
   return (
@@ -58,7 +63,7 @@ export default function FilterListBar() {
                   type="button"
                   className="mt-4"
                   variant={"link"}
-                  onClick={() => removeAllFilters()}
+                  onClick={() => handleRemoveAllFilters()}
                 >
                   <XIcon className="h-6 w-6" /> Clear current filters
                 </Button>
@@ -78,18 +83,18 @@ export default function FilterListBar() {
         </Sheet>
 
         {!!selectedTechnologies.length && (
-        <Button
-          variant={"destructive"}
-          type="button"
-          onClick={() => removeAllFilters()}
-          size={"icon"}
-          className="order-2 ml-2 inline-flex shrink-0 items-center p-2 md:order-4"
-        >
-          <XIcon />
-        </Button>
-      )}
+          <Button
+            variant={"destructive"}
+            type="button"
+            onClick={() => handleRemoveAllFilters()}
+            size={"icon"}
+            className="order-2 ml-2 inline-flex shrink-0 items-center p-2 md:order-4"
+          >
+            <XIcon />
+          </Button>
+        )}
       </div>
-     
+
       <Separator
         orientation="vertical"
         className="order-3 hidden h-8 w-0.5 bg-accent md:order-2 md:mx-4 md:block"
@@ -105,7 +110,7 @@ export default function FilterListBar() {
             key={tech + " Pill"}
             isSelected={selectedTechnologies.includes(tech)}
             technology={tech}
-            onClickTechnology={() => removeTechnology(tech)}
+            onClickTechnology={() => handleRemoveTechnology(tech)}
           />
         ))}
       </div>

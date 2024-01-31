@@ -1,22 +1,25 @@
 "use client";
-import {
-  ACTIONS,
-  useTechnologiesContext,
-} from "@/contexts/TechnologiesContext";
+import { useTechnologiesContext } from "@/contexts/TechnologiesContext";
 import { filteredTechs } from "@/data/Technologies";
 import TechCheckbox from "./TechCheckBox";
+import { useAppDispatch } from "@/app/hooks";
+import {
+  addTechnology,
+  removeTechnology,
+} from "@/features/technology/technology-slice";
 
 export default function FilterListMenu() {
-  const { selectedTechnologies, dispatch } = useTechnologiesContext();
+  const { selectedTechnologies } = useTechnologiesContext();
+  const dispatch = useAppDispatch();
 
   const toggleTechnology = (technology: string) => {
     // Check if the technology is selected
     if (selectedTechnologies.includes(technology)) {
       // If selected, remove it
-      dispatch({ type: ACTIONS.REMOVE_TECH_ON_SELECTED, payload: technology });
+      dispatch(removeTechnology(technology));
     } else {
       // If not selected, add it
-      dispatch({ type: ACTIONS.ADD_TECH_ON_SELECTED, payload: technology });
+      dispatch(addTechnology(technology));
     }
     // I had a headache thinking of this lol
   };
