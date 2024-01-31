@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner";
 import BottomComponent from "@/components/BottomComponent";
 import NavigationHandler from "@/components/NavigationHandler";
 import ReduxProvider from "@/features/ReduxProvider";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
@@ -45,6 +46,7 @@ export default function RootLayout({
             <Toaster />
           </ThemeProvider>
         </ReduxProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
