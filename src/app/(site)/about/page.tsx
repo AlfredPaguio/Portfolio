@@ -2,7 +2,7 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Link, Facebook, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
-import myPicture from "@/public/images/my_picture.png";
+import myPicture from "@@/public/images/my_picture.png";
 import { Button } from "@/components/ui/button";
 import { Technologies } from "@/data/Technologies";
 import TechnologyIcons from "@/components/TechnologyIcons";

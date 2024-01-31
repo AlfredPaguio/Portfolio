@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ManThink from "@/public/images/undraw_code_thinking_re_gka2.svg";
+import ManThink from "@@/public/images/undraw_code_thinking_re_gka2.svg";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronDownIcon, DownloadIcon } from "@radix-ui/react-icons";
