@@ -9,6 +9,11 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import rehypeSlug from "rehype-slug";
+import rehypeAutoLinkHeadings from "rehype-autolink-headings";
+import Markdown from "react-markdown";
+import remarkBreaks from "remark-breaks";
+import remarkGfm from "remark-gfm";
 
 interface ProjectProps {
   params: {
@@ -37,6 +42,7 @@ export function generateStaticParams(): ProjectProps["params"][] {
 
 export default function Page({ params }: ProjectProps) {
   const project = getProjectById(params.id);
+
   if (!project) notFound();
 
   return (
@@ -56,15 +62,19 @@ export default function Page({ params }: ProjectProps) {
       <Badge variant={"ghost"} className="p-0">
         {formatDate(project.date)}
       </Badge>
-      {/* <p className="text-sm text-muted">{project.description}</p> */}
-      {/* <ReactMarkdown
-      className={
-        "markdown flex flex-col gap-y-2 leading-relaxed text-foreground transition-all lg:text-lg xl:text-xl"
-      }
-      remarkPlugins={[remarkGfm, remarkBreaks]}
-    >
-      {project.description}
-    </ReactMarkdown> */}
+      <Markdown
+        className={
+          "prose md:prose-xl prose-p:indent-8 dark:prose-invert prose-ul:list-inside prose-ul:list-disc prose-ul:marker:text-accent"
+        }
+        remarkPlugins={[
+          remarkGfm,
+          remarkBreaks,
+          rehypeSlug,
+          rehypeAutoLinkHeadings,
+        ]}
+      >
+        {project.description}
+      </Markdown>
       <div className="flex flex-1 flex-col gap-4 pt-4">
         <div className="space-y-4">
           <span>Stack</span>

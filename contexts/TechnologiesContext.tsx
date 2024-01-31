@@ -67,7 +67,10 @@ type TechnologiesProviderProps = {
 
 export function TechnologiesProvider({ children }: TechnologiesProviderProps) {
   const [selectedTechnologies, dispatch] = useReducer(reducer, []);
-  const [techQuery, setTechQuery] = useQueryState("q", { history: "replace" });
+  const [techQuery, setTechQuery] = useQueryState("q", {
+    history: "replace",
+    shallow: false,
+  });
   const [titleQuery, setTitleQuery] = useQueryState("title", {
     history: "replace",
     shallow: false,

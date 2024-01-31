@@ -57,18 +57,18 @@
     @apply bg-background text-foreground;
   }
 
-  .markdown p {
+  /* .markdowm p {
     @apply indent-8 text-sm lg:text-lg xl:text-xl;
   }
 
   .markdowm li {
     @apply text-sm lg:text-lg xl:text-xl;
-  }
+  } */
 
-  .markdown ul {
+  /* .markdown ul {
     @apply list-inside list-disc marker:text-accent;
-  }
-  .markdown a {
+  } */
+  .prose a {
     @apply relative w-fit text-accent transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0  after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in after:content-[''] hover:text-accent/80  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300;
   }
 }
