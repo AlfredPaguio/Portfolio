@@ -13,7 +13,10 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Alfred's Portfolio",
+  title: {
+    template: "%s | Alfred's Portfolio",
+    default: "Alfred's Portfolio",
+  },
   description:
     "Welcome to Alfred's portfolio! This portfolio showcases my skills and projects, built using TypeScript, React, and various other libraries and tools.",
   keywords: ["Next.js", "React", "TypeScript", "Portfolio"],

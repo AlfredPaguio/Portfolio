@@ -2,8 +2,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Facebook, Github, Linkedin, Mail, PhoneIcon, HomeIcon, LanguagesIcon } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: 'Contact',
+}
 
 export default function Home() {
   return (

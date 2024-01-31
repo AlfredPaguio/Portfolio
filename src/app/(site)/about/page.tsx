@@ -6,6 +6,11 @@ import myPicture from "@@/public/images/my_picture.png";
 import { Button } from "@/components/ui/button";
 import { Technologies } from "@/data/Technologies";
 import TechnologyIcons from "@/components/TechnologyIcons";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'About',
+}
 
 export default function Home() {
   return (
