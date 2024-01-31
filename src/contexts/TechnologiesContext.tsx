@@ -1,8 +1,7 @@
 "use client";
-import { ProjectType, Projects } from "@/data/Projects";
+import { ProjectType, Projects } from "../data/Projects";
 import React, {
   createContext,
-  useReducer,
   useContext,
   useEffect,
   useState,

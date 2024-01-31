@@ -1,39 +1,39 @@
 // E-commerce
-import e_commerce_login_throttle from "@/public/images/projects/e-commerce/login_throttle.png";
-import e_commerce_login_attempt from "@/public/images/projects/e-commerce/login_attempt.png";
-import e_commerce_login from "@/public/images/projects/e-commerce/login.png";
-import e_commerce_register from "@/public/images/projects/e-commerce/register.png";
-import e_commerce_shopping_cart from "@/public/images/projects/e-commerce/shopping_cart.png";
+import e_commerce_login_throttle from "@@/public/images/projects/e-commerce/login_throttle.png";
+import e_commerce_login_attempt from "@@/public/images/projects/e-commerce/login_attempt.png";
+import e_commerce_login from "@@/public/images/projects/e-commerce/login.png";
+import e_commerce_register from "@@/public/images/projects/e-commerce/register.png";
+import e_commerce_shopping_cart from "@@/public/images/projects/e-commerce/shopping_cart.png";
 
-import e_commerce_admin_add_file from "@/public/images/projects/e-commerce/admin/add_file.png";
-import e_commerce_admin_add_promotional_banner from "@/public/images/projects/e-commerce/admin/add_promotional_banner.png";
-import e_commerce_admin_brand_add from "@/public/images/projects/e-commerce/admin/brand_add.png";
-import e_commerce_admin_brands from "@/public/images/projects/e-commerce/admin/brands.png";
-import e_commerce_admin_categories from "@/public/images/projects/e-commerce/admin/categories.png";
-import e_commerce_admin_category_add from "@/public/images/projects/e-commerce/admin/category_add.png";
-import e_commerce_admin_category_delete from "@/public/images/projects/e-commerce/admin/category_delete.png";
-import e_commerce_admin_category_edit from "@/public/images/projects/e-commerce/admin/category_edit.png";
-import e_commerce_admin_landing_page from "@/public/images/projects/e-commerce/admin/landing_page.png";
-import e_commerce_admin_product_edit_1 from "@/public/images/projects/e-commerce/admin/product_edit-1.png";
-import e_commerce_admin_product_edit_2_1 from "@/public/images/projects/e-commerce/admin/product_edit-2-1.png";
-import e_commerce_admin_product_edit_2_2 from "@/public/images/projects/e-commerce/admin/product_edit-2-2.png";
-import e_commerce_admin_product_edit_3 from "@/public/images/projects/e-commerce/admin/product_edit-3.png";
-import e_commerce_admin_product_list from "@/public/images/projects/e-commerce/admin/product_list.png";
-import e_commerce_admin_promotional_banner_list from "@/public/images/projects/e-commerce/admin/promotional_banner_list.png";
-import e_commerce_admin_site_settings_2 from "@/public/images/projects/e-commerce/admin/site_settings_2.png";
-import e_commerce_admin_site_settings_1 from "@/public/images/projects/e-commerce/admin/site_settings-1.png";
-import e_commerce_admin_site_settings_3 from "@/public/images/projects/e-commerce/admin/site_settings-3.png";
+import e_commerce_admin_add_file from "@@/public/images/projects/e-commerce/admin/add_file.png";
+import e_commerce_admin_add_promotional_banner from "@@/public/images/projects/e-commerce/admin/add_promotional_banner.png";
+import e_commerce_admin_brand_add from "@@/public/images/projects/e-commerce/admin/brand_add.png";
+import e_commerce_admin_brands from "@@/public/images/projects/e-commerce/admin/brands.png";
+import e_commerce_admin_categories from "@@/public/images/projects/e-commerce/admin/categories.png";
+import e_commerce_admin_category_add from "@@/public/images/projects/e-commerce/admin/category_add.png";
+import e_commerce_admin_category_delete from "@@/public/images/projects/e-commerce/admin/category_delete.png";
+import e_commerce_admin_category_edit from "@@/public/images/projects/e-commerce/admin/category_edit.png";
+import e_commerce_admin_landing_page from "@@/public/images/projects/e-commerce/admin/landing_page.png";
+import e_commerce_admin_product_edit_1 from "@@/public/images/projects/e-commerce/admin/product_edit-1.png";
+import e_commerce_admin_product_edit_2_1 from "@@/public/images/projects/e-commerce/admin/product_edit-2-1.png";
+import e_commerce_admin_product_edit_2_2 from "@@/public/images/projects/e-commerce/admin/product_edit-2-2.png";
+import e_commerce_admin_product_edit_3 from "@@/public/images/projects/e-commerce/admin/product_edit-3.png";
+import e_commerce_admin_product_list from "@@/public/images/projects/e-commerce/admin/product_list.png";
+import e_commerce_admin_promotional_banner_list from "@@/public/images/projects/e-commerce/admin/promotional_banner_list.png";
+import e_commerce_admin_site_settings_2 from "@@/public/images/projects/e-commerce/admin/site_settings_2.png";
+import e_commerce_admin_site_settings_1 from "@@/public/images/projects/e-commerce/admin/site_settings-1.png";
+import e_commerce_admin_site_settings_3 from "@@/public/images/projects/e-commerce/admin/site_settings-3.png";
 // Information Site
-// import info_site_home from "@/public/images/projects/information_site/home.png";
-import info_site_home_large from "@/public/images/projects/information_site/large_home.png";
-import info_site_about from "@/public/images/projects/information_site/about.png";
-import info_site_services from "@/public/images/projects/information_site/services.png";
-import info_site_faq from "@/public/images/projects/information_site/faq.png";
-import info_site_faq_open from "@/public/images/projects/information_site/faq_open.png";
-import info_site_contact from "@/public/images/projects/information_site/contact.png";
+// import info_site_home from "@@/public/images/projects/information_site/home.png";
+import info_site_home_large from "@@/public/images/projects/information_site/large_home.png";
+import info_site_about from "@@/public/images/projects/information_site/about.png";
+import info_site_services from "@@/public/images/projects/information_site/services.png";
+import info_site_faq from "@@/public/images/projects/information_site/faq.png";
+import info_site_faq_open from "@@/public/images/projects/information_site/faq_open.png";
+import info_site_contact from "@@/public/images/projects/information_site/contact.png";
 // React Typescript Calculator
-import react_ts_calculator_screenshot1 from "@/public/images/projects/react-ts-calculator/screenshot1.png";
-import react_ts_calculator_screenshot2 from "@/public/images/projects/react-ts-calculator/screenshot2.png";
+import react_ts_calculator_screenshot1 from "@@/public/images/projects/react-ts-calculator/screenshot1.png";
+import react_ts_calculator_screenshot2 from "@@/public/images/projects/react-ts-calculator/screenshot2.png";
 
 export type ProjectType = {
   id: string;
