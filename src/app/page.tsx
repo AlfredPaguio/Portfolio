@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import GithubReleaseDate from "../components/GithubReleaseDate";
 
 export default function Home() {
   return (
@@ -34,7 +35,7 @@ export default function Home() {
           <br />
           Ready to assist in building and optimizing your projects.
         </p>
-        <div className="flex gap-x-2 p-4 pl-0">
+        <div className="flex flex-col gap-x-2 p-4 pl-0">
           <div className="flex items-start rounded-md bg-primary text-primary-foreground hover:bg-primary/80">
             <Button variant={"ghost"} className="rounded-r-none" asChild>
               <Link
@@ -97,11 +98,11 @@ export default function Home() {
                 </ScrollArea>
               </DropdownMenuContent>
             </DropdownMenu>
+            <Button variant={"outline"} asChild>
+              <Link href="/contact">Contact Me</Link>
+            </Button>
           </div>
-
-          <Button variant={"outline"} asChild>
-            <Link href="/contact">Contact Me</Link>
-          </Button>
+          <GithubReleaseDate />
         </div>
       </div>
       <div className="hidden flex-col md:flex">
