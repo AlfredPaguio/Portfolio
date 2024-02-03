@@ -2,18 +2,8 @@ import Image from "next/image";
 import ManThink from "@@/public/images/undraw_code_thinking_re_gka2.svg";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ChevronDownIcon, DownloadIcon } from "@radix-ui/react-icons";
-import { Separator } from "@/components/ui/separator";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import GithubReleaseDate from "../components/GithubReleaseDate";
+import DownloadCVButtons from "../components/DownloadCVButtons";
 
 export default function Home() {
   return (
@@ -35,75 +25,13 @@ export default function Home() {
           <br />
           Ready to assist in building and optimizing your projects.
         </p>
-        <div className="flex flex-col gap-x-2 p-4 pl-0">
-          <div className="flex items-start rounded-md bg-primary text-primary-foreground hover:bg-primary/80">
-            <Button variant={"ghost"} className="rounded-r-none" asChild>
-              <Link
-                href={
-                  "https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.pdf"
-                }
-              >
-                <DownloadIcon className="mr-2 h-4 w-4" />
-                Download CV
-              </Link>
-            </Button>
-            <Separator orientation="vertical" className="h-full" />
-            <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant={"ghost"}
-                  className="rounded-l-none px-2 shadow-none"
-                >
-                  <ChevronDownIcon className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" alignOffset={-5} forceMount>
-                <ScrollArea>
-                  <DropdownMenuLabel>Download Options</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV.docx">
-                      <DownloadIcon className="mr-2 h-4 w-4" /> DOCX Format
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel>With Picture</DropdownMenuLabel>
-                  <DropdownMenuItem asChild>
-                    <Link href="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV_with_Picture.pdf">
-                      <DownloadIcon className="mr-2 h-4 w-4" /> PDF Format
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV_with_Picture.docx">
-                      <DownloadIcon className="mr-2 h-4 w-4" /> DOCX Format
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-
-                  <DropdownMenuLabel>With Reference</DropdownMenuLabel>
-                  <DropdownMenuItem asChild>
-                    <Link href="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV_with_Number_and_Reference.pdf">
-                      <DownloadIcon className="mr-2 h-4 w-4" /> PDF Format
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="https://github.com/AlfredPaguio/AlfredPaguio.github.io/raw/main/res/AlfredPaguio_CV_with_Number_and_Reference.docx">
-                      <DownloadIcon className="mr-2 h-4 w-4" /> DOCX Format
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel className="font-medium">
-                    Contact me for more.
-                  </DropdownMenuLabel>
-                </ScrollArea>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <Button variant={"outline"} asChild>
-              <Link href="/contact">Contact Me</Link>
-            </Button>
-          </div>
-          <GithubReleaseDate />
+        <div className="flex gap-x-2 p-4 pl-0">
+          <DownloadCVButtons />
+          <Button variant={"outline"} asChild>
+            <Link href="/contact">Contact Me</Link>
+          </Button>
         </div>
+        <GithubReleaseDate />
       </div>
       <div className="hidden flex-col md:flex">
         <figure className="max-h-min drop-shadow-lg">
