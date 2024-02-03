@@ -5,6 +5,9 @@ const formatter = new Intl.DateTimeFormat(undefined, {
   timeZoneName: "short",
 });
 
-export function formatDate(date: number | Date | undefined) {
+export function formatDate(date: number | Date | null | undefined) {
+  if (date === null || date === undefined) {
+    return "Invalid Date";
+  }
   return formatter.format(date);
 }
