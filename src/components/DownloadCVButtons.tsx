@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { ScrollArea } from "./ui/scroll-area";
-import fetchLatestRelease from "../lib/fetchLatestReleaseData";
+import fetchLatestRelease from "../data/fetchLatestReleaseData";
 import toTitleCase from "../lib/toTitleCase";
 
 export default function DownloadCVButtons() {

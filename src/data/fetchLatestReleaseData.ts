@@ -1,7 +1,9 @@
 import { Octokit } from "@octokit/rest";
 import type { GetResponseDataTypeFromEndpointMethod } from "@octokit/types";
 
-const octokit = new Octokit();
+const octokit = new Octokit({
+  userAgent: "alfred-paguio-portfolio/v0.1.0",
+});
 
 export type GitHubRelease = GetResponseDataTypeFromEndpointMethod<
   typeof octokit.repos.getLatestRelease
