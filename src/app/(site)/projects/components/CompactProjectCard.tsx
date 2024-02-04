@@ -55,9 +55,9 @@ export default function CompactProjectCard({
       )}
 
       <div
-        className={
+        className={`w-full h-full ${
           project.images && project.images.length > 0 ? "bg-background/70" : ""
-        }
+        }`}
       >
         <CardHeader>
           <div className="flex justify-between">
@@ -79,9 +79,9 @@ export default function CompactProjectCard({
                 : "No Description")}
           </CardDescription>
         </CardContent>
-        <CardFooter className="flex-wrap p-4">
+        <CardFooter className="flex-wrap p-4 gap-2">
           {project.stack.map((tech, index) => (
-            <Badge variant={"ghost"} key={index}>
+            <Badge variant={"secondary"} key={index}>
               {tech}
             </Badge>
           ))}
