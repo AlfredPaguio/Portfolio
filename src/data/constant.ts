@@ -1,4 +1,13 @@
-import { Home, HomeIcon, UserIcon, BriefcaseIcon, Contact, MailIcon } from "lucide-react";
+import GithubOriginal from "@beta/devicons-react/lib/icons/GithubOriginal";
+import {
+  Home,
+  HomeIcon,
+  UserIcon,
+  BriefcaseIcon,
+  Contact,
+  MailIcon,
+  ArrowUpRight,
+} from "lucide-react";
 import { ElementType } from "react";
 
 export type PageInformationType = {
