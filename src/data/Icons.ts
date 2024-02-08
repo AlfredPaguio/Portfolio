@@ -122,6 +122,13 @@ export const iconData: IconType[] = [
 ];
 
 export const getIconForTechnology = (technologyName: string): IconType => {
+  if (typeof technologyName !== "string") {
+    console.error(`Invalid technologyName: ${technologyName}`);
+    return {
+      name: technologyName,
+      Icon: CircleOffIcon,
+    };
+  }
   const lowerCaseTechnologyName = technologyName.toLowerCase();
 
   const icon = iconData.find(
