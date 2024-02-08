@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { formatDate } from "../lib/formatDate";
 import fetchLatestRelease, { Release } from "../data/fetchLatestReleaseData";
 
@@ -18,30 +18,42 @@ const GithubReleaseDate = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchLatestRelease]);
+  // ensure this function is memoized
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  const formattedDate = formatDate(
-    release?.main.published_at ? new Date(release.main.published_at) : null
+  const formattedDate = useMemo(
+    () =>
+      formatDate(
+        release?.main?.published_at ? new Date(release.main.published_at) : null
+      ),
+    [release]
   );
+
+  if (loading) {
+    return <p>Fetching latest information.</p>;
+  }
+
+  if (error) {
+    return <p>Failed to fetch latest information.</p>;
+  }
+
+  if (!release) {
+    return <p>No release information available.</p>;
+  }
 
   return (
     <>
-      {loading && <p>Fetching latest information.</p>}
-      {error && <p>Failed to fetch latest information.</p>}
-      {release && (
-        <>
-          <h2 className="flex gap-2">
-            Last updated:
-            <time dateTime={formattedDate} title={formattedDate}>
-              {formattedDate}
-            </time>
-          </h2>
-        </>
-      )}
+      <h2 className="flex flex-wrap gap-2">
+        Last updated:
+        <time dateTime={formattedDate} title={formattedDate}>
+          {formattedDate}
+        </time>
+      </h2>
     </>
   );
 };
