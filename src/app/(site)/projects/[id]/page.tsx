@@ -55,13 +55,13 @@ export default function Page({ params }: ProjectProps) {
 
   return (
     <div className="flex h-full flex-col items-start justify-between gap-y-2">
+      <Breadcrumbs name={project.title} id={project.id} />
       <div className="flex items-center gap-x-2">
         <Button variant={"ghost"} size={"icon"} asChild>
           <Link href={"/projects"}>
             <ArrowLeft />
           </Link>
         </Button>
-
         <h1 className="text-md flex items-center gap-1 text-pretty font-semibold leading-none tracking-tight text-foreground [viewTransitionName:project-name] md:text-lg lg:text-xl xl:text-2xl">
           <Folder className="shrink-0" />
           {project.title}
@@ -140,5 +140,37 @@ export default function Page({ params }: ProjectProps) {
           </div>
         ))}
     </div>
+  );
+}
+
+function Breadcrumbs({ name, id }: { name: string; id: string }) {
+  return (
+    <nav>
+      <ul className="flex text-md text-foreground space-x-2">
+        <li>
+          <Link className="hover:text-foreground/75 transition-colors" href="/">
+            Home
+          </Link>
+        </li>
+        <li>/</li>
+        <li>
+          <Link
+            className="hover:text-foreground/75 transition-colors"
+            href="/projects"
+          >
+            Projects
+          </Link>
+        </li>
+        <li>/</li>
+        <li>
+          <Link
+            className="hover:text-foreground/75 transition-colors"
+            href={`/projects/${id}`}
+          >
+            {name}
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 }
