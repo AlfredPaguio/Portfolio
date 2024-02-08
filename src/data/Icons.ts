@@ -121,6 +121,8 @@ export const iconData: IconType[] = [
   },
 ];
 
+const iconCache: { [key: string]: IconType } = {};
+
 export const getIconForTechnology = (technologyName: string): IconType => {
   if (typeof technologyName !== "string") {
     console.error(`Invalid technologyName: ${technologyName}`);
@@ -131,20 +133,28 @@ export const getIconForTechnology = (technologyName: string): IconType => {
   }
   const lowerCaseTechnologyName = technologyName.toLowerCase();
 
+  if (iconCache[lowerCaseTechnologyName]) {
+    return iconCache[lowerCaseTechnologyName];
+  }
+
   const icon = iconData.find(
     (icon) => icon.name.toLowerCase() === lowerCaseTechnologyName
   );
 
   if (!icon) {
     console.error(`Icon not found for technology: ${technologyName}`);
-    return {
+    const defaultIcon: IconType = {
       name: technologyName,
       Icon: CircleOffIcon,
     };
+    iconCache[lowerCaseTechnologyName] = defaultIcon;
+    return defaultIcon;
   }
 
-  return {
+  iconCache[lowerCaseTechnologyName] = {
     name: technologyName,
     Icon: icon.Icon,
   };
+
+  return iconCache[lowerCaseTechnologyName];
 };
