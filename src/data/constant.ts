@@ -1,4 +1,13 @@
-import { Home, HomeIcon, UserIcon, BriefcaseIcon, Contact, MailIcon } from "lucide-react";
+import GithubOriginal from "@beta/devicons-react/lib/icons/GithubOriginal";
+import {
+  Home,
+  HomeIcon,
+  UserIcon,
+  BriefcaseIcon,
+  Contact,
+  MailIcon,
+  ArrowUpRight,
+} from "lucide-react";
 import { ElementType } from "react";
 
 export type PageInformationType = {
@@ -16,19 +25,19 @@ export const pageInformation: PageInformationType[] = [
     Icon: HomeIcon,
   },
   {
-    path: "about",
+    path: "/about",
     title: "About",
     description: "Explore my coding journey",
     Icon: UserIcon,
   },
   {
-    path: "projects",
+    path: "/projects",
     title: "Projects",
     description: "Where innovation takes shape",
     Icon: BriefcaseIcon,
   },
   {
-    path: "contact",
+    path: "/contact",
     title: "Contact",
     description: "Get in touch, let's make magic.",
     Icon: MailIcon,
