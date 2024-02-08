@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Projects } from "@/data/Projects";
 import { formatDate } from "@/lib/formatDate";
-import { ArrowLeft, Folder } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Folder } from "lucide-react";
 import Link from "next/link";
 import GithubOriginal from "@beta/devicons-react/lib/icons/GithubOriginal";
 import { Label } from "@/components/ui/label";
@@ -14,6 +14,7 @@ import rehypeAutoLinkHeadings from "rehype-autolink-headings";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
+import React from "react";
 
 interface ProjectProps {
   params: {
@@ -39,6 +40,13 @@ export function generateStaticParams(): ProjectProps["params"][] {
     id: project.id,
   }));
 }
+
+type LinkType = "Website" | "GitHub";
+
+const icons: Record<LinkType, React.ComponentType> = {
+  Website: ArrowUpRight,
+  GitHub: GithubOriginal,
+};
 
 export default function Page({ params }: ProjectProps) {
   const project = getProjectById(params.id);
@@ -89,14 +97,22 @@ export default function Page({ params }: ProjectProps) {
             <>
               <p>Links</p>
               <div className="flex gap-2">
-                {project.links.GitHub && (
-                  <Button variant={"ghost"} className="rounded-r-none" asChild>
-                    <Link href={project.links.GitHub}>
-                      <GithubOriginal className="mr-2 size-4" />
-                      Github
-                    </Link>
-                  </Button>
-                )}
+                {project.links &&
+                  Object.entries(project.links).map(([linkText, linkUrl]) => {
+                    return (
+                      <Button key={linkText} variant={"default"} asChild>
+                        {/* <Link href={linkUrl}>
+                          <GithubOriginal className="mr-2 size-4" />
+                          {linkText}
+                        </Link> */}
+
+                        <Link href={linkUrl} className="fill-accent">
+                          {React.createElement(icons[linkText as LinkType])}
+                          {linkText}
+                        </Link>
+                      </Button>
+                    );
+                  })}
               </div>
             </>
           )}
