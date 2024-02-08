@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  /* * {
+    outline: 1px solid #ff0000;
+  } */
   :root {
     --background: 0 0% 95%;
     --foreground: 0 0% 0%;
