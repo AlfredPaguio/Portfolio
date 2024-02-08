@@ -67,7 +67,7 @@ export function Navbar() {
               return (
                 <NavLink
                   key={key}
-                  href={`/${route.path}`}
+                  href={route.path}
                   name={route.title}
                   Icon={route.Icon}
                 />
