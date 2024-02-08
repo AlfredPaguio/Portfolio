@@ -1,4 +1,5 @@
-import { ElementType, lazy } from "react";
+import { ElementType } from "react";
+import dynamic from 'next/dynamic'
 
 const iconImports = {
   // Programming Languages
@@ -45,79 +46,79 @@ export type IconType = {
 export const iconData: IconType[] = [
   {
     name: "C# 5.0",
-    Icon: lazy(() => iconImports["C# 5.0"]()),
+    Icon: dynamic(() => iconImports["C# 5.0"]()),
   },
   {
     name: "Visual Basic .NET",
-    Icon: lazy(() => iconImports["Visual Basic .NET"]()),
+    Icon: dynamic(() => iconImports["Visual Basic .NET"]()),
   },
   {
     name: "Java",
-    Icon: lazy(() => iconImports["Java"]()),
+    Icon: dynamic(() => iconImports["Java"]()),
   },
   {
     name: "PHP",
-    Icon: lazy(() => iconImports["PHP"]()),
+    Icon: dynamic(() => iconImports["PHP"]()),
   },
   {
     name: "Python",
-    Icon: lazy(() => iconImports["Python"]()),
+    Icon: dynamic(() => iconImports["Python"]()),
   },
   {
     name: "TypeScript",
-    Icon: lazy(() => iconImports["TypeScript"]()),
+    Icon: dynamic(() => iconImports["TypeScript"]()),
   },
   {
     name: "JavaScript",
-    Icon: lazy(() => iconImports["JavaScript"]()),
+    Icon: dynamic(() => iconImports["JavaScript"]()),
   },
   {
     name: "Laravel",
-    Icon: lazy(() => iconImports["Laravel"]()),
+    Icon: dynamic(() => iconImports["Laravel"]()),
   },
   {
     name: "Laravel Livewire",
-    Icon: lazy(() => iconImports["Livewire"]()),
+    Icon: dynamic(() => iconImports["Livewire"]()),
   },
   {
     name: "Flask",
-    Icon: lazy(() => iconImports["Flask"]()),
+    Icon: dynamic(() => iconImports["Flask"]()),
   },
   {
     name: "Bootstrap",
-    Icon: lazy(() => iconImports["Bootstrap"]()),
+    Icon: dynamic(() => iconImports["Bootstrap"]()),
   },
   {
     name: "TailwindCSS",
-    Icon: lazy(() => iconImports["Tailwind CSS"]()),
+    Icon: dynamic(() => iconImports["Tailwind CSS"]()),
   },
   {
     name: "Microsoft SQL Server",
-    Icon: lazy(() => iconImports["Microsoft SQL Server"]()),
+    Icon: dynamic(() => iconImports["Microsoft SQL Server"]()),
   },
   {
     name: "MySQL",
-    Icon: lazy(() => iconImports["MySQL"]()),
+    Icon: dynamic(() => iconImports["MySQL"]()),
   },
   {
     name: "Git",
-    Icon: lazy(() => iconImports["Git"]()),
+    Icon: dynamic(() => iconImports["Git"]()),
   },
   {
     name: "Microsoft Visual Studio",
-    Icon: lazy(() => iconImports["Visual Studio"]()),
+    Icon: dynamic(() => iconImports["Visual Studio"]()),
   },
   {
     name: "Visual Studio Code",
-    Icon: lazy(() => iconImports["VS Code"]()),
+    Icon: dynamic(() => iconImports["VS Code"]()),
   },
   {
     name: "jQuery",
-    Icon: lazy(() => iconImports["jQuery"]()),
+    Icon: dynamic(() => iconImports["jQuery"]()),
   },
   {
     name: "React",
-    Icon: lazy(() => iconImports["React"]()),
+    Icon: dynamic(() => iconImports["React"]()),
   },
 ];
 
