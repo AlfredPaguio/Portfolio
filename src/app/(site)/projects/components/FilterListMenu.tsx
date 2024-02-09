@@ -1,15 +1,16 @@
 "use client";
-import { useTechnologiesContext } from "@/contexts/TechnologiesContext";
 import { filteredTechs } from "@/data/Technologies";
 import TechCheckbox from "./TechCheckBox";
-import { useAppDispatch } from "@/app/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import {
   addTechnology,
   removeTechnology,
 } from "@/features/technology/technology-slice";
 
 export default function FilterListMenu() {
-  const { selectedTechnologies } = useTechnologiesContext();
+  const selectedTechnologies = useAppSelector(
+    (state) => state.technology.selectedTechnologies
+  );
   const dispatch = useAppDispatch();
 
   const toggleTechnology = (technology: string) => {
