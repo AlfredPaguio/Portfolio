@@ -1,29 +1,42 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-interface SelectedState {
-  value: string[];
+interface SelectedTechnologiesState {
+  selectedTechnologies: string[];
 }
 
-const initialState: SelectedState = { value: [] };
+const initialState: SelectedTechnologiesState = { selectedTechnologies: [] };
 
 const technologySlice = createSlice({
   name: "tech",
   initialState,
   reducers: {
     addTechnology(state, action: PayloadAction<string>) {
-      if (!state.value.includes(action.payload)) {
-        state.value.push(action.payload);
+      if (!state.selectedTechnologies.includes(action.payload)) {
+        state.selectedTechnologies.push(action.payload);
       }
     },
+    batchAddTechnologies(state, action: PayloadAction<string[]>) {
+      action.payload.forEach((tech) => {
+        if (!state.selectedTechnologies.includes(tech)) {
+          state.selectedTechnologies.push(tech);
+        }
+      });
+    },
     removeTechnology(state, action: PayloadAction<string>) {
-      state.value = state.value.filter((tech) => tech != action.payload);
+      state.selectedTechnologies = state.selectedTechnologies.filter(
+        (tech) => tech != action.payload
+      );
     },
     removeAllTechnology(state) {
-      state.value = [];
+      state.selectedTechnologies = [];
     },
   },
 });
 
-export const { addTechnology, removeAllTechnology, removeTechnology } =
-  technologySlice.actions;
+export const {
+  addTechnology,
+  batchAddTechnologies,
+  removeAllTechnology,
+  removeTechnology,
+} = technologySlice.actions;
 export default technologySlice.reducer;
