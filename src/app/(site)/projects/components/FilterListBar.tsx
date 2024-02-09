@@ -13,17 +13,18 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useTechnologiesContext } from "@/contexts/TechnologiesContext";
 import FilterListMenu from "./FilterListMenu";
 import TechPillButton from "./TechPillButton";
 import {
   removeAllTechnology,
   removeTechnology,
 } from "@/features/technology/technology-slice";
-import { useAppDispatch } from "@/app/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 
 export default function FilterListBar() {
-  const { selectedTechnologies } = useTechnologiesContext();
+  const selectedTechnologies = useAppSelector(
+    (state) => state.technology.selectedTechnologies
+  );
   const dispatch = useAppDispatch();
 
   const handleRemoveTechnology = (technology: string) => {

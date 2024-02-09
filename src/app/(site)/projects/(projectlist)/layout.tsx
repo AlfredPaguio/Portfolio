@@ -1,4 +1,4 @@
-import TechnologiesProvider from "@/contexts/TechnologiesContext";
+import ProjectsHandler from "@@/src/components/ProjectsHandler";
 
 export default function Layout({
   children,
@@ -8,11 +8,12 @@ export default function Layout({
   projectList: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center gap-6">
-      <TechnologiesProvider>
+    <>
+      <ProjectsHandler />
+      <div className="flex flex-col items-center gap-6">
         {children}
         {projectList}
-      </TechnologiesProvider>
-    </div>
+      </div>
+    </>
   );
 }
