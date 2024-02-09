@@ -1,6 +1,7 @@
+"use client";
 import { parseAsString, useQueryState } from "nuqs";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { ProjectType, Projects } from "../data/Projects";
 import { batchAddTechnologies } from "../features/technology/technology-slice";
 import { setCurrentItems } from "../features/project/project-slice";
