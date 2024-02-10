@@ -35,16 +35,23 @@ import info_site_contact from "@@/public/images/projects/information_site/contac
 import react_ts_calculator_screenshot1 from "@@/public/images/projects/react-ts-calculator/screenshot1.png";
 import react_ts_calculator_screenshot2 from "@@/public/images/projects/react-ts-calculator/screenshot2.png";
 
+export interface ImageInterface {
+  imageUrl: string;
+  alt?: string;
+}
+
+export type StatusType = "Active" | "Archived" | "Maintenance" | "Unknown";
+
 export type ProjectType = {
   id: string;
   title: string;
   stack: string[];
   summary?: string;
   description?: string;
-  images?: Array<{ imageUrl: string; alt?: string }>;
-  links?: { [key: string]: string };
+  images?: ImageInterface[];
+  links?: Record<string, string>;
   date: Date;
-  status: "Active" | "Archived" | "Maintenance" | "Unknown";
+  status: StatusType;
 };
 
 export const Projects: ProjectType[] = [
