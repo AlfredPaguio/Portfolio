@@ -81,7 +81,7 @@ export default function CompactProjectCard({
         </CardContent>
         <CardFooter className="flex-wrap p-4 gap-2">
           {project.stack.map((tech, index) => (
-            <Badge variant={"secondary"} key={index}>
+            <Badge variant={"accent"} key={index}>
               {tech}
             </Badge>
           ))}
