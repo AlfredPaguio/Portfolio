@@ -32,7 +32,7 @@ export default function RootLayout({
       <body
         className={cn(
           noto_serif.className,
-          "overflow-x-hidden flex h-svh min-h-svh w-screen flex-col justify-between bg-background text-foreground antialiased"
+          "flex h-svh min-h-svh flex-col justify-between bg-background text-foreground antialiased"
         )}
       >
         <ReduxProvider>
