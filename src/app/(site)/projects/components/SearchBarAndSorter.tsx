@@ -50,15 +50,25 @@ type SearchInputProps = GenericInputProps<string>;
 
 const SearchInput = ({ onChange, value }: SearchInputProps) => (
   <div className="relative block w-full md:w-2/3 shrink-0">
-    <span className="sr-only">Search</span>
-    <Input
-      className="block pr-9 pl-4 h-12"
-      placeholder="Search for project..."
-      type="text"
-      onChange={(e) => onChange(e.target.value)}
-      value={value || ""}
-      name="search"
-    />
+    <div className="relative">
+      <span className="sr-only">Search</span>
+      <Input
+        className="block pr-9 pl-2 h-12 peer group placeholder:invisible"
+        variant={"outline"}
+        type="text"
+        onChange={(e) => onChange(e.target.value)}
+        value={value ?? undefined}
+        name="search"
+        placeholder="Search for project..."
+        id="search"
+      />
+      <label
+        htmlFor="search"
+        className={`absolute left-0 top-2 mt-2 cursor-text text-xs transition-all peer-focus:text-accent peer-focus:-top-4 peer-[&:not(:placeholder-shown)]:text-xs peer-[&:not(:placeholder-shown)]:-top-4`}
+      >
+        {!value ? "Search for project..." : "Searching for:"}
+      </label>
+    </div>
     <span className="absolute inset-y-0 right-0 flex items-center pr-4">
       <SearchIcon className="h-5 w-5 text-foreground" />
     </span>
