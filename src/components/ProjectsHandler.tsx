@@ -1,10 +1,10 @@
 "use client";
 import { parseAsString, useQueryState } from "nuqs";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/store/hooks";
 import { useEffect } from "react";
 import { ProjectType, Projects } from "../data/Projects";
-import { batchAddTechnologies } from "../features/technology/technology-slice";
-import { setCurrentItems } from "../features/project/project-slice";
+import { batchAddTechnologies } from "../app/store/technology/technology-slice";
+import { setCurrentItems } from "../app/store/project/project-slice";
 
 export default function ProjectsHandler() {
   const selectedTechnologies = useAppSelector(

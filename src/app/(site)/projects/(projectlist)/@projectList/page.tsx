@@ -2,7 +2,7 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useRouter } from "next/navigation";
 import CompactProjectCard from "../../components/CompactProjectCard";
-import { useAppSelector } from "@@/src/app/hooks";
+import { useAppSelector } from "@@/src/app/store/hooks";
 
 export default function Home() {
   const router = useRouter();

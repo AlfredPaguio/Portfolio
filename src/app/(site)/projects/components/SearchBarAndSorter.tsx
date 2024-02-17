@@ -34,7 +34,7 @@ export default function SearchBarAndSorter() {
 
   return (
     <div className="flex w-full flex-col items-center justify-start gap-y-2 md:flex-row md:gap-y-0">
-      <SearchInput onChange={handleSearch} value={titleQuery || ""} />
+      <SearchInput onChange={handleSearch} value={titleQuery} />
       <SortSelect onChange={handleSort} value={sortQuery} />
     </div>
   );

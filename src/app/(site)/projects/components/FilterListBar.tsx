@@ -18,8 +18,8 @@ import TechPillButton from "./TechPillButton";
 import {
   removeAllTechnology,
   removeTechnology,
-} from "@/features/technology/technology-slice";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
+} from "@@/src/app/store/technology/technology-slice";
+import { useAppDispatch, useAppSelector } from "@@/src/app/store/hooks";
 
 export default function FilterListBar() {
   const selectedTechnologies = useAppSelector(

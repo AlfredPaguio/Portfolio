@@ -1,5 +1,5 @@
-import TechnologyReducer from "../features/technology/technology-slice";
-import ProjectReducer from "../features/project/project-slice";
+import TechnologyReducer from "./technology/technology-slice";
+import ProjectReducer from "./project/project-slice";
 import { Tuple, configureStore } from "@reduxjs/toolkit";
 import { createReduxMiddleware } from "@karmaniverous/serify-deserify";
 const serifyMiddleware = createReduxMiddleware();
