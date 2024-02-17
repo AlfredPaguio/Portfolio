@@ -39,7 +39,7 @@ export default function CompactProjectCard({
     <Card
       onClick={handleCardClick}
       data-status={project.status}
-      className="relative flex max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased data-[status=Active]:border-green-400 data-[status=Archived]:border-gray-500 data-[status=Maintenance]:border-yellow-400 md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
+      className="relative group flex max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased data-[status=Active]:border-green-600 data-[status=Archived]:border-gray-600 data-[status=Maintenance]:border-yellow-600 md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
     >
       {project.images && project.images.length > 0 && (
         <Image
@@ -65,6 +65,9 @@ export default function CompactProjectCard({
               <Folder className="shrink-0" />
               <span ref={titleRef}>{project.title}</span>
             </CardTitle>
+            <Badge className="group-data-[status=Active]:bg-green-600 group-data-[status=Archived]:bg-gray-600 group-data-[status=Maintenance]:bg-yellow-600">
+              {project.status}
+            </Badge>
           </div>
 
           <Badge variant={"ghost"} className="p-0">
