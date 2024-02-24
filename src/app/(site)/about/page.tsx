@@ -1,45 +1,49 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Link, Facebook, Github, Linkedin } from "lucide-react";
+import { Facebook, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
 import myPicture from "@@/public/images/my_picture.png";
 import { Button } from "@/components/ui/button";
 import { Technologies } from "@/data/Technologies";
 import TechnologyIcons from "@/components/TechnologyIcons";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: 'About',
-}
+  title: "About",
+};
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-between lg:flex-row">
       <AboutMeSection />
       <div className="ml-6 flex flex-col items-center gap-y-4">
-        <Card className="px-4 hidden md:block">
-          <Image src={myPicture} alt="Picture of myself (Alfred)" className=" h-[35rem] object-cover " />
-        </Card>
-        <Card className="w-fit">
-          <CardContent className="flex items-center gap-1 p-4">
+        <Card className="px-4 hidden md:flex flex-col justify-center items-center">
+          <Image
+            src={myPicture}
+            alt="Picture of myself (Alfred)"
+            className="h-[35rem] object-cover "
+          />
+
+          <div className="flex items-center gap-1 p-4">
             <CardTitle>Socials:</CardTitle>
             <Button variant={"ghost"} className="group" asChild>
-              <Link to="https://www.facebook.com/FleetingComet/">
+              <Link href="https://www.facebook.com/FleetingComet/">
                 <Facebook className="h-8 text-accent group-hover:text-secondary" />
               </Link>
             </Button>
 
             <Button variant={"ghost"} className="group" asChild>
-              <Link to="https://github.com/AlfredPaguio">
+              <Link href="https://github.com/AlfredPaguio">
                 <Github className="h-8 text-accent group-hover:text-secondary" />
               </Link>
             </Button>
 
             <Button variant={"ghost"} className="group" asChild>
-              <Link to="https://www.linkedin.com/in/alfredpaguio">
+              <Link href="https://www.linkedin.com/in/alfredpaguio">
                 <Linkedin className="h-8 text-accent group-hover:text-secondary" />
               </Link>
             </Button>
-          </CardContent>
+          </div>
         </Card>
       </div>
     </div>
