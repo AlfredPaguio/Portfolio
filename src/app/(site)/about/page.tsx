@@ -17,7 +17,7 @@ export default function Home() {
       <AboutMeSection />
       <div className="ml-6 flex flex-col items-center gap-y-4">
         <Card className="px-4 hidden md:block">
-          <Image src={myPicture} alt="" className=" h-[35rem] object-cover " />
+          <Image src={myPicture} alt="Picture of myself (Alfred)" className=" h-[35rem] object-cover " />
         </Card>
         <Card className="w-fit">
           <CardContent className="flex items-center gap-1 p-4">
