@@ -84,7 +84,7 @@ export function Navbar() {
         <ThemeToggle />
       </ul>
 
-      <div className="flex space-x-6 rounded-md bg-card/10 py-4 pe-4 ps-4 backdrop-blur-md focus:outline-none md:hidden">
+      <div className="flex space-x-6 rounded-md bg-card/10 py-4 backdrop-blur-md focus:outline-none md:hidden">
         <ThemeToggle />
         {/* Hamburger Menu */}
         {/* <button id="menu-btn" onClick={() => setShowMenu(!showMenu)}>

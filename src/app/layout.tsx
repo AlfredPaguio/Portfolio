@@ -7,8 +7,8 @@ import { Navbar } from "@/components/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import BottomComponent from "@/components/BottomComponent";
 import NavigationHandler from "@/components/NavigationHandler";
-import ReduxProvider from "@/features/ReduxProvider";
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import ReduxProvider from "./store/ReduxProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
@@ -32,7 +32,7 @@ export default function RootLayout({
       <body
         className={cn(
           noto_serif.className,
-          "overflow-x-hidden flex h-svh min-h-svh w-screen flex-col justify-between bg-background text-foreground antialiased"
+          "flex h-svh min-h-svh flex-col justify-between bg-background text-foreground antialiased"
         )}
       >
         <ReduxProvider>

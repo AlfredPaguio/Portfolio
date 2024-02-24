@@ -1,11 +1,11 @@
 "use client";
 import { filteredTechs } from "@/data/Technologies";
 import TechCheckbox from "./TechCheckBox";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { useAppDispatch, useAppSelector } from "@@/src/app/store/hooks";
 import {
   addTechnology,
   removeTechnology,
-} from "@/features/technology/technology-slice";
+} from "@@/src/app/store/technology/technology-slice";
 
 export default function FilterListMenu() {
   const selectedTechnologies = useAppSelector(
