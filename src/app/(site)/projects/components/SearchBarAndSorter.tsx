@@ -53,7 +53,7 @@ const SearchInput = ({ onChange, value }: SearchInputProps) => (
     <div className="relative">
       <span className="sr-only">Search</span>
       <Input
-        className="block pr-9 pl-2 h-12 peer group placeholder:invisible"
+        className="block pr-9 pl-2 h-12 peer group placeholder:invisible placeholder:text-[0]"
         variant={"outline"}
         type="text"
         onChange={(e) => onChange(e.target.value)}
