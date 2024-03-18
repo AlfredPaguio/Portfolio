@@ -15,8 +15,8 @@ export const Technologies = {
     "Java",
     "PHP",
     "Python",
-    "TypeScript",
     "JavaScript",
+    "TypeScript",
   ],
   frameworks: [
     "Laravel",
@@ -24,14 +24,14 @@ export const Technologies = {
     "Flask",
     "Bootstrap",
     "TailwindCSS",
+    "Next.js",
   ],
   databaseManagementSystems: ["Microsoft SQL Server", "MySQL"],
   developerTools: [
     "Git",
-    "Microsoft Visual Studio",
     "Visual Studio Code",
   ],
-  libraries: ["jQuery", "React"],
+  libraries: ["React"],
 };
 
 //I have to use set in order to get unique techs
