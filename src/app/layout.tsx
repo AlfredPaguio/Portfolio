@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Serif } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
+import { cn } from "@@/src/utils/cn";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/Navbar";
 import { Toaster } from "@/components/ui/sonner";
@@ -9,6 +9,7 @@ import BottomComponent from "@/components/BottomComponent";
 import NavigationHandler from "@/components/NavigationHandler";
 import ReduxProvider from "./store/ReduxProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { cookies, draftMode } from "next/headers";
 
 const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
@@ -27,12 +28,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isEnabled } = draftMode();
+
   return (
     <html lang="en">
       <body
         className={cn(
           noto_serif.className,
-          "flex h-svh min-h-svh flex-col justify-between bg-background text-foreground antialiased"
+          "h-svh min-h-svh",
+          "flex flex-col overflow-y-visible justify-between bg-background text-foreground antialiased"
         )}
       >
         <ReduxProvider>
@@ -47,6 +51,14 @@ export default function RootLayout({
             <main className="grow px-4 pb-4 md:px-16">{children}</main>
             <BottomComponent />
             <Toaster />
+            {isEnabled && (
+              <div>
+                Draft mode ({cookies().get("ks-branch")?.value}){" "}
+                <form method="POST" action="/preview/end">
+                  <button>End preview</button>
+                </form>
+              </div>
+            )}
           </ThemeProvider>
         </ReduxProvider>
         <SpeedInsights />
