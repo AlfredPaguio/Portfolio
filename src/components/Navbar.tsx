@@ -17,7 +17,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
-import { cn } from "../lib/utils";
+import { cn } from "@@/src/utils/cn";
 
 export function Navbar() {
   // const [showMenu, setShowMenu] = useState(false);

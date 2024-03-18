@@ -13,8 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { ScrollArea } from "./ui/scroll-area";
-import fetchLatestRelease from "../data/fetchLatestReleaseData";
-import toTitleCase from "../lib/toTitleCase";
+import fetchLatestRelease from "@/data/fetchLatestReleaseData";
+import toTitleCase from "@/utils/toTitleCase";
 
 export default function DownloadCVButtons() {
   const [assets, setAssets] = useState<Asset[]>([]);

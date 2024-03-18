@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Projects } from "@/data/Projects";
-import { formatDate } from "@/lib/formatDate";
+import { formatDate } from "@/utils/formatDate";
 import { ArrowLeft, ArrowUpRight, Folder } from "lucide-react";
 import Link from "next/link";
 import GithubOriginal from "@beta/devicons-react/lib/icons/GithubOriginal";

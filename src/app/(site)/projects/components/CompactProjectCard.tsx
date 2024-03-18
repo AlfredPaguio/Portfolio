@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 
 import { ProjectType } from "@/data/Projects";
-import { formatDate } from "@/lib/formatDate";
+import { formatDate } from "@/utils/formatDate";
 import { Badge } from "@/components/ui/badge";
 import { Folder } from "lucide-react";
 import { useRef } from "react";

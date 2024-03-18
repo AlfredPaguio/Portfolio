@@ -1,6 +1,6 @@
 import { badgeVariants } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@@/src/utils/cn";
 import { XCircle } from "lucide-react";
 
 type TechButtonProps = {

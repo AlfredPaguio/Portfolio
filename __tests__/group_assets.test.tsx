@@ -1,4 +1,4 @@
-import toTitleCase from "@@/src/lib/toTitleCase";
+import toTitleCase from "@@/src/utils/toTitleCase";
 
 type Asset = {
   name: string;
