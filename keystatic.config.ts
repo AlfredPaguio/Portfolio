@@ -1,8 +1,14 @@
+// import { REPOSITORIES, REPO_OWNER } from "@/data/Repositories";
 import { config, fields, collection, singleton } from "@keystatic/core";
 
 export default config({
   storage: {
     kind: "local",
+    // kind: "github",
+    // repo: {
+    //   owner: REPO_OWNER,
+    //   name: REPOSITORIES.PortfolioData,
+    // },
   },
   ui: {
     brand: { name: "Alfred's Portfolio" },
@@ -117,38 +123,48 @@ export default config({
                 "Image Url",
             },
           },
-          { label: "Images", description: "Collection of images showcasing various aspects of the project." }
+          {
+            label: "Images",
+            description:
+              "Collection of images showcasing various aspects of the project.",
+          }
         ),
       },
     }),
   },
 
   singletons: {
-    // stacks: singleton({
-    //   path: "src/content/data/stack",
-    //   label: 'Tech Stack',
-    //   schema: {
-    //     programmingLanguages: fields.array(fields.text({ label: "Language Name" }), {
-    //       label: "Programming Languages",
-    //       itemLabel: (props) => props.value,
-    //     }),
-    //     frameworks: fields.array(fields.text({ label: "Framework Name" }), {
-    //       label: "Frameworks",
-    //       itemLabel: (props) => props.value,
-    //     }),
-    //     databaseManagementSystems: fields.array(fields.text({ label: "DBMS Name" }), {
-    //       label: "Database Management Systems",
-    //       itemLabel: (props) => props.value,
-    //     }),
-    //     developerTools: fields.array(fields.text({ label: "Tool Name" }), {
-    //       label: "Developer Tools",
-    //       itemLabel: (props) => props.value,
-    //     }),
-    //     libraries: fields.array(fields.text({ label: "Library name" }), {
-    //       label: "Libraries",
-    //       itemLabel: (props) => props.value,
-    //     }),
-    //   }
-    // }),
+    stacks: singleton({
+      path: "src/content/data/stack",
+      label: "Tech Stack",
+      schema: {
+        programmingLanguages: fields.array(
+          fields.text({ label: "Language Name" }),
+          {
+            label: "Programming Languages",
+            itemLabel: (props) => props.value,
+          }
+        ),
+        frameworks: fields.array(fields.text({ label: "Framework Name" }), {
+          label: "Frameworks",
+          itemLabel: (props) => props.value,
+        }),
+        databaseManagementSystems: fields.array(
+          fields.text({ label: "DBMS Name" }),
+          {
+            label: "Database Management Systems",
+            itemLabel: (props) => props.value,
+          }
+        ),
+        developerTools: fields.array(fields.text({ label: "Tool Name" }), {
+          label: "Developer Tools",
+          itemLabel: (props) => props.value,
+        }),
+        libraries: fields.array(fields.text({ label: "Library name" }), {
+          label: "Libraries",
+          itemLabel: (props) => props.value,
+        }),
+      },
+    }),
   },
 });
