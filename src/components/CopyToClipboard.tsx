@@ -20,18 +20,14 @@ function CopyToClipboard({
     try {
       navigator.clipboard.writeText(toCopy);
       setIsCopied(true);
-      toast("Code has been copied", {
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white text-balance">{toCopy}</code>
-          </pre>
-        ),
-      });
+      toast.success("Code has been copied");
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
     } catch (error) {
-      console.error("Error:", error);
+      toast.error("Uh oh! Something went wrong.", {
+        description: "" + error,
+      });
     }
   };
 

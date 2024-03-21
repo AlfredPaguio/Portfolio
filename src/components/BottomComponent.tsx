@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import { Footer } from "./Footer";
 import ScrollMoreIndicator from "./ScrollMoreIndicator";
+import FooterCompact from "./FooterCompact";
 
 export default function BottomComponent() {
   // const router = useRouter();
@@ -13,6 +14,10 @@ export default function BottomComponent() {
 
   if (pathname === "/contact") {
     return <Footer />;
+  }
+
+  if (pathname.startsWith("/kprojects/") || pathname.startsWith("/projects/")) {
+    return <FooterCompact />;
   }
 
   return <ScrollMoreIndicator />;
