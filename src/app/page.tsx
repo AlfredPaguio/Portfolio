@@ -7,7 +7,7 @@ import DownloadCVButtons from "../components/DownloadCVButtons";
 
 export default function Home() {
   return (
-    <main className="flex h-full items-center justify-between px-4 pb-4 md:px-16">
+    <div className="flex items-center justify-between md:py-12 lg:py-20 xl:py-36">
       <div className="flex flex-col">
         <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
           I&apos;m
@@ -46,6 +46,6 @@ export default function Home() {
           </figcaption>
         </figure>
       </div>
-    </main>
+    </div>
   );
 }

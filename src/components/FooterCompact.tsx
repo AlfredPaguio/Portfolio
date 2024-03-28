@@ -1,4 +1,4 @@
-import { pageInformation } from "@/data/constant";
+import { pageInformation } from "@/config/pageInformation";
 import { cn } from "@/utils/cn";
 import {
   SiFacebook,
@@ -14,7 +14,7 @@ import { Separator } from "./ui/separator";
 function FooterCompact() {
   const pathname = usePathname();
   return (
-    <footer className="px-4 py-6 md:py-10">
+    <footer className="px-4 py-6 md:py-10 flex-none">
       <h2 className="sr-only">Footer</h2>
       <div className="mx-auto max-w-7xl">
         <div

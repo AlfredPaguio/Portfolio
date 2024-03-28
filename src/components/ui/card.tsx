@@ -10,13 +10,22 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-3xl border bg-card/40 border-card/25 shadow-black/25 text-card-foreground shadow-lg backdrop-blur-lg",
-      className
+      "rounded-3xl border border-card/25 bg-card/40 text-card-foreground shadow-lg shadow-black/25 backdrop-blur-lg",
+      className,
     )}
     {...props}
   />
 ));
 Card.displayName = "Card";
+
+const CardImage = React.forwardRef<
+  HTMLImageElement,
+  React.ImgHTMLAttributes<HTMLImageElement>
+>(({ className, ...props }, ref) => (
+  // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+  <img ref={ref} className={cn("h-auto w-full", className)} {...props} />
+));
+CardImage.displayName = "CardImage";
 
 const CardHeader = React.forwardRef<
   HTMLDivElement,
@@ -37,8 +46,8 @@ const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      "text-foreground font-semibold leading-none tracking-tight",
-      className
+      "font-semibold leading-none tracking-tight text-foreground",
+      className,
     )}
     {...props}
   />
@@ -76,6 +85,7 @@ CardFooter.displayName = "CardFooter";
 export {
   Card,
   CardHeader,
+  CardImage,
   CardFooter,
   CardTitle,
   CardDescription,
