@@ -7,9 +7,16 @@ const formatter = new Intl.DateTimeFormat(undefined, {
   timeZoneName: "short",
 });
 
-export function formatDate(date: number | Date | null | undefined) {
+export function formatDate(date: number | Date | null | string | undefined) {
   if (date === null || date === undefined) {
     return "Invalid Date";
+  }
+
+  if (typeof date === "string") {
+    return new Intl.DateTimeFormat(undefined, {
+      dateStyle: "full",
+      timeStyle: "long",
+    }).format(new Date(date));
   }
 
   const DeserifiedDate = deserify<Date>(date);

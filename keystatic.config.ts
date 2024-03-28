@@ -37,20 +37,43 @@ export default config({
           label: "Project Date",
           description: "The date of the project's first/last commit",
         }),
-        links: fields.array(
-          fields.object({
-            name: fields.text({ label: "Website Name" }),
-            url: fields.url({
-              label: "URL",
-              description:
-                "The website URL associated with the project. This could be either the deployed website of the project, the repository where the project's source code is hosted, or any relevant social media links pertaining to the project.",
-            }),
+        gitHubURL: fields.url({
+          label: "Repository URL",
+          description: "Github URL of repo",
+          validation: { isRequired: false },
+        }),
+        websiteURL: fields.url({
+          label: "Website URL",
+          description: "Where project is deployed",
+          validation: { isRequired: false },
+        }),
+        externalLinks: fields.conditional(
+          fields.checkbox({
+            label: "External Links?",
+            defaultValue: false,
+            description: "(e.g., GitLab, Facebook, X, etc.)",
           }),
           {
-            label: "Links",
-            itemLabel: (props) =>
-              props.fields.name.value ?? props.fields.url.value,
-          }
+            true: fields.array(
+              fields.object({
+                name: fields.text({ label: "Website Name" }),
+                url: fields.url({
+                  label: "URL",
+                  description:
+                    "The website URL associated with the project. This could be either the deployed website of the project, the repository where the project's source code is hosted, or any relevant social media links pertaining to the project.",
+                  validation: {
+                    isRequired: true,
+                  },
+                }),
+              }),
+              {
+                label: "External Links",
+                itemLabel: (props) =>
+                  props.fields.name.value ?? props.fields.url.value,
+              },
+            ),
+            false: fields.empty(),
+          },
         ),
         status: fields.select({
           label: "Status",
@@ -65,9 +88,23 @@ export default config({
         }),
         content: fields.document({
           label: "Description",
-          formatting: true,
-          dividers: true,
           links: true,
+          layouts: [[1], [1, 1]],
+          dividers: true,
+          formatting: {
+            alignment: true,
+            blockTypes: true,
+            headingLevels: true,
+            inlineMarks: {
+              code: true,
+              bold: true,
+              italic: true,
+              underline: true,
+              strikethrough: true,
+            },
+            listTypes: true,
+          },
+          tables: true,
           // images: {
           //   directory: "public/images/projects",
           //   publicPath: "/images/projects",
@@ -127,7 +164,7 @@ export default config({
             label: "Images",
             description:
               "Collection of images showcasing various aspects of the project.",
-          }
+          },
         ),
       },
     }),
@@ -143,7 +180,7 @@ export default config({
           {
             label: "Programming Languages",
             itemLabel: (props) => props.value,
-          }
+          },
         ),
         frameworks: fields.array(fields.text({ label: "Framework Name" }), {
           label: "Frameworks",
@@ -154,7 +191,7 @@ export default config({
           {
             label: "Database Management Systems",
             itemLabel: (props) => props.value,
-          }
+          },
         ),
         developerTools: fields.array(fields.text({ label: "Tool Name" }), {
           label: "Developer Tools",

@@ -1,52 +1,79 @@
+/* eslint-disable @next/next/no-img-element */
 import { cn } from "@/utils/cn";
 import { DocumentRendererProps } from "@keystatic/core/renderer";
-import Image from "next/image";
+// import Image from "next/image";
 import Link, { LinkProps } from "next/link";
+import { Button } from "../ui/button";
 
 const ComponentBlocks: DocumentRendererProps["componentBlocks"] = {
-  image: ({ image, width, height, altText, classes, ...props }) => {
+  image: ({
+    width,
+    height,
+    alt,
+    className,
+    ...props
+  }: React.ImgHTMLAttributes<HTMLImageElement>) => {
     return (
-      <figure>
-        <Image
-          {...props}
-          src={image}
-          width={width || 640}
-          height={height || 480}
-          alt={altText}
-          className={cn(classes, "max-h-[800px] w-auto rounded-lg shadow-lg")}
-        />
-
-        {props.caption && (
-          <figcaption
-            className="!mt-3"
-            dangerouslySetInnerHTML={{ __html: props.caption }}
-          />
-        )}
-      </figure>
+      <img
+        width={width || 640}
+        height={height || 480}
+        alt={alt}
+        className={cn(className, "max-h-[800px] w-auto rounded-lg shadow-lg")}
+        {...props}
+      />
     );
   },
-  div: ({ children, ...props }) => (
+  div: ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
     <div className="text-foreground" {...props}>
       {children}
     </div>
   ),
-  li: ({ children, ...props }) => (
+  hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
+    <hr className="my-4 md:my-8" {...props} />
+  ),
+  li: ({ children, ...props }: React.HTMLAttributes<HTMLLIElement>) => (
     <li className="text-sm lg:text-lg xl:text-xl" {...props}>
       {children}
     </li>
   ),
-  ul: ({ children, ...props }) => (
+  ul: ({ children, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
     <ul className="list-inside list-disc marker:text-accent" {...props}>
       {children}
     </ul>
   ),
-  a: ({ children, ...props }) => (
-    <Link
-      {...(props as LinkProps)}
-      className="relative w-fit text-accent transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0  after:h-1 after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:ease-in after:content-[''] hover:text-accent/80  after:hover:translate-x-0 after:hover:scale-x-100 after:hover:duration-300"
-    >
-      {children}
-    </Link>
+  Link: ({ ...props }: LinkProps) => (
+    <Button variant={"link"} asChild>
+      <Link {...props} />
+    </Button>
+  ),
+  table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
+    <div className="my-6 w-full overflow-y-auto">
+      <table className={cn("w-full", className)} {...props} />
+    </div>
+  ),
+  tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
+    <tr
+      className={cn("m-0 border-t p-0 even:bg-muted", className)}
+      {...props}
+    />
+  ),
+  th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
+    <th
+      className={cn(
+        "border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right",
+        className,
+      )}
+      {...props}
+    />
+  ),
+  td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
+    <td
+      className={cn(
+        "border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right",
+        className,
+      )}
+      {...props}
+    />
   ),
   iframe: (props) => <div dangerouslySetInnerHTML={{ __html: props.code }} />,
 };
