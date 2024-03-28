@@ -1,13 +1,11 @@
 "use client";
 import { Menu } from "lucide-react";
 import React, { ElementType } from "react";
-// import { NavbarMenu } from "./NavbarMenu";
 import { ThemeToggle } from "./ThemeToggle";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { PageInformationType, pageInformation } from "@/data/constant";
+import { PageInformationType, pageInformation } from "@/config/pageInformation";
 import { usePathname } from "next/navigation";
-import clsx from "clsx";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,7 +13,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
 import { cn } from "@@/src/utils/cn";
 

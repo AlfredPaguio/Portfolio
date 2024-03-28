@@ -1,12 +1,9 @@
-import GithubOriginal from "@beta/devicons-react/lib/icons/GithubOriginal";
+"use client"
 import {
-  Home,
-  HomeIcon,
-  UserIcon,
   BriefcaseIcon,
-  Contact,
+  HomeIcon,
   MailIcon,
-  ArrowUpRight,
+  UserIcon,
 } from "lucide-react";
 import { ElementType } from "react";
 

@@ -10,46 +10,51 @@ import NavigationHandler from "@/components/NavigationHandler";
 import ReduxProvider from "./store/ReduxProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { cookies, draftMode } from "next/headers";
+import { siteConfig } from "@/config/site";
 
 const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Alfred's Portfolio",
-    default: "Alfred's Portfolio",
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "Welcome to Alfred's portfolio! This portfolio showcases my skills and projects, built using TypeScript, React, and various other libraries and tools.",
-  keywords: ["Next.js", "React", "TypeScript", "Portfolio"],
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  icons: {
+    icon: "/favicon.ico",
+    // shortcut: "/favicon-16x16.png",
+    // apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    images: "/opengraph-image.png",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface RootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   const { isEnabled } = draftMode();
 
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          noto_serif.className,
-          "h-svh min-h-svh",
-          "flex flex-col overflow-y-visible justify-between bg-background text-foreground antialiased"
-        )}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn(noto_serif.className, "min-h-screen")}>
         <ReduxProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
-            disableTransitionOnChange
+            // disableTransitionOnChange
           >
-            <Navbar />
-            <NavigationHandler />
-            <main className="grow px-4 pb-4 md:px-16">{children}</main>
-            <BottomComponent />
+            <NavigationHandler /> 
+            <div className="relative flex min-h-svh flex-col">
+              <Navbar />
+              <main className="flex-1 px-4 md:px-16">{children}</main>
+              <BottomComponent />
+            </div>
+
             <Toaster />
             {isEnabled && (
               <div>
