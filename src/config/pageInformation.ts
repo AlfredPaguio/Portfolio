@@ -33,10 +33,10 @@ export const pageInformation: PageInformationType[] = [
     description: "Where innovation takes shape",
     Icon: BriefcaseIcon,
   },
-  {
-    path: "/contact",
-    title: "Contact",
-    description: "Get in touch, let's make magic.",
-    Icon: MailIcon,
-  },
+  // {
+  //   path: "/contact",
+  //   title: "Contact",
+  //   description: "Get in touch, let's make magic.",
+  //   Icon: MailIcon,
+  // },
 ];

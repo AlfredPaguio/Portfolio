@@ -12,7 +12,7 @@ export default function BottomComponent() {
 
   const pathname = usePathname();
 
-  if (pathname === "/contact") {
+  if (pathname === "/projects") {
     return <Footer />;
   }
 
