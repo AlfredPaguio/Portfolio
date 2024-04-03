@@ -8,24 +8,24 @@ import DownloadCVButtons from "../components/DownloadCVButtons";
 export default function Home() {
   return (
     <div className="flex items-center justify-between md:py-12 lg:py-20 xl:py-36">
-      <div className="flex flex-col">
-        <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
-          I&apos;m
+      <div className="flex flex-col items-center">
+        <h2 className="mb-2 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
+          <span className="highlight-secondary">Hi, nice to meet you! 👋🏻</span>
+          {/* I&apos;m */}
         </h2>
-        <h1 className="mb-4 text-balance text-start text-5xl font-bold md:text-6xl lg:text-7xl xl:text-8xl">
-          <span className="[viewTransitionName:brand-name]">Alfred</span> U.
-          Paguio
-        </h1>
-        <h2 className="mb-4 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
-          A Software Engineer
-        </h2>
-        <p className="text-small text-pretty text-start md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
-          Experienced in various programming languages and frameworks,
-          specializing in crafting and optimizing web projects.
-          <br />
-          Ready to assist in building and optimizing your projects.
+        <div className="flex items-end justify-start gap-2">
+          <h2 className="mb-2 text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
+            I&apos;m
+          </h2>
+          <h1 className="highlight mb-2 text-balance text-4xl font-bold md:text-5xl lg:text-6xl xl:text-7xl">
+            <span className="[viewTransitionName:brand-name]">Alfred</span>
+          </h1>
+        </div>
+        <p className="text-small text-balance text-center md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+          A passionate <span className="underline decoration-accent/80 decoration-2 underline-offset-2">software developer</span>, I love problem-solving and creating
+          applications that make a real difference.
         </p>
-        <div className="flex gap-x-2 p-4 pl-0">
+        <div className="flex gap-x-2 p-4">
           <DownloadCVButtons />
           <Button variant={"outline"} asChild>
             <Link href="/contact">Contact Me</Link>
