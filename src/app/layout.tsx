@@ -15,6 +15,7 @@ import { siteConfig } from "@/config/site";
 const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
@@ -28,6 +29,12 @@ export const metadata: Metadata = {
   },
   openGraph: {
     images: "/opengraph-image.png",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    type: "website",
+    siteName: siteConfig.name,
+    url: siteConfig.url,
+    locale: "en_US",
   },
 };
 
@@ -40,7 +47,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(noto_serif.className, "min-h-screen")}>
+      <body className={cn(noto_serif.className, "min-h-screen overflow-x-hidden overflow-y-scroll antialiased")}>
         <ReduxProvider>
           <ThemeProvider
             attribute="class"
