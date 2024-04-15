@@ -1,33 +1,48 @@
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Facebook, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
-import myPicture from "@@/public/images/my_picture.png";
-import { Button } from "@/components/ui/button";
+// import myPicture from "@@/public/images/my_picture.png";
 import { Technologies } from "@/data/Technologies";
 import TechnologyIcons from "@/components/TechnologyIcons";
 import { Metadata } from "next";
 import Link from "next/link";
+import { reader } from "@/utils/reader";
+import CustomDocumentRenderer from "@/components/keystatic/renderers/CustomDocumentRenderer";
 
 export const metadata: Metadata = {
   title: "About",
 };
 
-export default function Home() {
+export default async function Home() {
+  const about = await reader().singletons.about.read();
+  if (!about) return "null";
+
   return (
     <div className="container grid grid-cols-1 gap-y-16 py-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
-      <div className="lg:pl-20">
-        <div className="max-w-xs px-2 lg:max-w-none">
-          <Image
-            src={myPicture}
-            alt="Picture of myself (Alfred)"
-            className="aspect-square -rotate-3 rounded-2xl bg-card shadow-lg shadow-gray-900/10 ring-1 ring-gray-900/5 motion-safe:transition dark:opacity-90 dark:hover:opacity-100"
-          />
+      {about.cover && (
+        <div className="lg:pl-20">
+          <div className="relative max-w-xs px-2 lg:max-w-none">
+            <Image
+              width={700}
+              height={700}
+              src={about.cover}
+              alt="Picture of myself (Alfred)"
+              className="aspect-square -rotate-3 rounded-2xl bg-card shadow-lg shadow-gray-900/10 ring-1 ring-gray-900/5 motion-safe:transition dark:opacity-90 dark:hover:opacity-100"
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="lg:order-first lg:row-span-2">
-        will come from keystatic
-        <AboutMeSection />
+        {process.env.NODE_ENV === "development" && (
+          <pre className="whitespace-pre-wrap bg-slate-950">
+            <code className="text-foreground">
+              {JSON.stringify(about, undefined, 2)}
+            </code>
+          </pre>
+        )}
+
+        <CustomDocumentRenderer document={await about.content()} />
+
+        {/* <AboutMeSection /> */}
       </div>
 
       <div className="lg:pl-20">
@@ -54,10 +69,13 @@ function AboutMeSection() {
     <div className="flex h-full w-full flex-col gap-y-2">
       <p className="lg:text-lg xl:text-xl">( ^_^)／</p>
       <p className="font-light text-card-foreground lg:text-lg xl:text-xl">
-        Hello there! I’m <span className="highlight">Alfred</span>, a passionate <span className="underline decoration-accent/80 decoration-2 underline-offset-2">software developer</span>, I love
-        problem-solving and creating applications that make a real difference.
-        I’ve been on a continuous learning path, eagerly expanding my knowledge
-        and honing my skills.
+        Hello there! I’m <span className="highlight">Alfred</span>, a passionate{" "}
+        <span className="underline decoration-accent/80 decoration-2 underline-offset-2">
+          software developer
+        </span>
+        , I love problem-solving and creating applications that make a real
+        difference. I’ve been on a continuous learning path, eagerly expanding
+        my knowledge and honing my skills.
       </p>
       <p className="font-light text-card-foreground lg:text-lg xl:text-xl">
         Currently, my focus is on mastering React and TypeScript, two powerful
