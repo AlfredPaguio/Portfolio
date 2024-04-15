@@ -1,4 +1,6 @@
+import ComponentBlocks from "@/components/keystatic/ComponentBlocks";
 import { fields, singleton } from "@keystatic/core";
+import { contentField } from "./fields/content";
 
 export const aboutSchema = singleton({
   label: "About",
@@ -13,14 +15,9 @@ export const aboutSchema = singleton({
       directory: "public/assets/about",
       publicPath: "/assets/about",
       validation: {
-        isRequired: true,
+        isRequired: false,
       },
     }),
-    content: fields.document({
-      label: "Content",
-      dividers: true,
-      formatting: true,
-      links: true,
-    }),
+    content: contentField,
   },
 });

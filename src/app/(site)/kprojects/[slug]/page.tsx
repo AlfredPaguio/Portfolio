@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import CustomDocumentRenderer from "@/components/renderers/CustomDocumentRenderer";
+import CustomDocumentRenderer from "@/components/keystatic/renderers/CustomDocumentRenderer";
 import {
   Breadcrumb,
   BreadcrumbItem,

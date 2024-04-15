@@ -1,4 +1,5 @@
 import { collection, fields } from "@keystatic/core";
+import { contentField } from "./fields/content";
 
 export const projectsSchema = collection({
   label: "Projects",
@@ -72,25 +73,7 @@ export const projectsSchema = collection({
       ],
       defaultValue: "active",
     }),
-    content: fields.document({
-      label: "Description",
-      layouts: [[1], [1, 1], [1, 2], [2, 1]],
-      formatting: true,
-      links: true,
-      dividers: true,
-      tables: true,
-      images: {
-        directory: "public/images/projects",
-        publicPath: "/images/projects",
-        // schema: {
-        //   title: fields.text({
-        //     label: "Caption",
-        //     description:
-        //       "The text to display under the image in a caption.",
-        //   }),
-        // },
-      },
-    }),
+    content: contentField,
     images: fields.blocks(
       {
         upload: {

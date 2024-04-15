@@ -3,6 +3,7 @@ import { component, fields } from "@keystatic/core";
 import Image from "next/image";
 import ProgressCircle from "../ProgressCircle";
 import useObjectURL from "@/hooks/use-object-url";
+// import { inline } from "@keystatic/core/content-components";
 
 function ImagePreview({ data }: { data: Uint8Array }) {
   const url = useObjectURL(data);
@@ -65,6 +66,23 @@ const ComponentBlocks = {
       code: fields.text({ label: "Code" }),
     },
   }),
+  // p: inline({
+  //   label: "Highlight",
+  //   schema: {
+  //     className: fields.select({
+  //       label: "Highlight",
+  //       options: [
+  //         { label: "highlight", value: "highlight" },
+  //         {
+  //           label: "highlight2",
+  //           value:
+  //             "underline decoration-accent/80 decoration-2 underline-offset-2",
+  //         },
+  //       ],
+  //       defaultValue: "highlight",
+  //     }),
+  //   },
+  // }),
 };
 
 export default ComponentBlocks;
