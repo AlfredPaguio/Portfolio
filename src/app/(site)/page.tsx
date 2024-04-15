@@ -2,8 +2,8 @@ import Image from "next/image";
 import ManThink from "@@/public/images/undraw_code_thinking_re_gka2.svg";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import GithubReleaseDate from "../components/GithubReleaseDate";
-import DownloadCVButtons from "../components/DownloadCVButtons";
+import GithubReleaseDate from "../../components/GithubReleaseDate";
+import DownloadCVButtons from "../../components/DownloadCVButtons";
 
 export default function Home() {
   return (
