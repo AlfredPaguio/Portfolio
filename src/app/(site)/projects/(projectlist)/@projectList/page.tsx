@@ -1,31 +1,25 @@
-"use client";
+import CompactProjectCard from "@/components/project/CompactProjectCard";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { useRouter } from "next/navigation";
-import CompactProjectCard from "../../components/CompactProjectCard";
-import { useAppSelector } from "@@/src/app/store/hooks";
+import { reader } from "@@/src/utils/reader";
+import Link from "next/link";
 
-export default function Home() {
-  const router = useRouter();
-  const currentProjects = useAppSelector(
-    (state) => state.projects.currentItems
-  );
+// 1. Create a reader
+// const reader = createReader(process.cwd(), keystaticConfig);
 
-  const handleOpenProjectDetail = (projectId: string) => {
-    if (!projectId) return;
-    router.push(`/projects/${projectId}`);
-  };
+export default async function Page() {
+  // 2. Read the "Posts" collection
+  const projects = await reader().collections.projects.all();
 
   return (
-    <ScrollArea>
-      <div className="group mb-2 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {currentProjects.map((project, index) => (
-          <CompactProjectCard
-            key={index}
-            project={project}
-            onClick={() => handleOpenProjectDetail(project.id)}
-          />
-        ))}
-      </div>
+    <ScrollArea
+      aria-orientation="horizontal"
+      className="group mb-2 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
+    >
+      {projects.map((project) => (
+        <Link href={`/projects/${project.slug}`} key={project.slug}>
+          <CompactProjectCard key={project.slug} project={project.entry} />
+        </Link>
+      ))}
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
   );

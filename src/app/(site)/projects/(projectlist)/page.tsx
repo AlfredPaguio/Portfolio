@@ -1,5 +1,5 @@
-import SearchBarAndSorter from "../components/SearchBarAndSorter";
-import FilterListBar from "../components/FilterListBar";
+import SearchBarAndSorter from "../../../../components/project/SearchBarAndSorter";
+import FilterListBar from "../../../../components/project/FilterListBar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
