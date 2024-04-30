@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import CustomDocumentRenderer from "@/components/keystatic/renderers/CustomDocumentRenderer";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,6 +14,7 @@ import { reader } from "@@/src/utils/reader";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Icons } from "@/components/Icons";
+import { processMdx } from "@/utils/mdx";
 // import Image from "next/image";
 
 export default async function Project({
@@ -25,6 +25,9 @@ export default async function Project({
   const project = await reader().collections.projects.read(params.slug);
 
   if (!project) notFound();
+  
+  const { default: ProjectContent } = await processMdx(await project.content());
+  
 
   return (
     <div className="2xl:max-w-8xl relative mx-auto max-w-7xl px-4 pt-8  sm:px-6 lg:px-8">
@@ -47,7 +50,7 @@ export default async function Project({
             {project.gitHubURL && (
               <Button key={"gitHubURL"} variant={"default"} asChild>
                 <Link href={project.gitHubURL} className="fill-accent">
-                  <Icons.gitHub className="mr-2 size-4" />
+                  <Icons.github className="mr-2 size-4" />
                   {"Github"}
                 </Link>
               </Button>
@@ -95,7 +98,8 @@ export default async function Project({
             <Separator className="w-1/3 bg-primary" />
             <div className="prose mx-auto mt-8 dark:prose-invert lg:prose-lg xl:prose-xl prose-blockquote:border-accent-foreground prose-blockquote:text-primary-foreground prose-figure:mt-0 prose-figcaption:mt-0 lg:prose-figure:mt-0 lg:prose-figcaption:mt-0 xl:prose-figure:mt-2 xl:prose-figcaption:mt-0 2xl:prose-figcaption:mt-0">
               {/* <DocumentRenderer document={await project.content()} /> */}
-              <CustomDocumentRenderer document={await project.content()} />
+              {/* <CustomDocumentRenderer document={await project.content()} /> */}
+              <ProjectContent/>
               {project.images &&
                 project.images.length > 0 &&
                 project.images.map((image, key) => {

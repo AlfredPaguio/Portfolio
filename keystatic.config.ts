@@ -2,6 +2,7 @@ import { REPOSITORIES, REPO_OWNER } from "@/data/Repositories";
 import { GitHubConfig, LocalConfig, config } from "@keystatic/core";
 import { projectsSchema } from "./schema/projects";
 import { techStackSchema } from "./schema/techStack";
+import { linksSchema } from "./schema/links";
 import { aboutSchema } from "./schema/about";
 import { siteConfig } from "@/config/site";
 
@@ -25,7 +26,7 @@ export default config({
     brand: { name: siteConfig.name },
     navigation: {
       Content: ["projects"],
-      Settings: ["about", "techStack"],
+      Settings: ["about", "techStack", "links"],
     },
   },
   collections: {
@@ -35,5 +36,6 @@ export default config({
   singletons: {
     techStack: techStackSchema,
     about: aboutSchema,
+    links: linksSchema,
   },
 });
