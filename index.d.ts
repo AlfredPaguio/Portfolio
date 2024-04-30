@@ -11,3 +11,9 @@ declare module "@karmaniverous/serify-deserify" {
   let deserify: <T>(obj: any) => T;
   let serify: <T>(obj: any) => T;
 }
+
+declare module "*.mdx" {
+  export const frontmatter: {
+    title: string;
+  };
+}

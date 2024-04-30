@@ -1,4 +1,4 @@
-import { SiGithub } from "@icons-pack/react-simple-icons";
+import { SiFacebook, SiGithub, SiLinkedin } from "@icons-pack/react-simple-icons";
 import { ExternalLink } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes, SVGProps } from "react";
 
@@ -12,6 +12,8 @@ interface IconProps extends ComponentAttributes {
 export type Icon = ForwardRefExoticComponent<IconProps>;
 
 export const Icons = {
-  gitHub: (props: IconProps) => <SiGithub {...props} />,
+  github: (props: IconProps) => <SiGithub {...props} />,
+  facebook: (props: IconProps) => <SiFacebook {...props} />,
+  linkedin: (props: IconProps) => <SiLinkedin {...props} />,
   goToWebsite: (props: IconProps) => <ExternalLink {...props} />,
 };

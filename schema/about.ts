@@ -1,10 +1,9 @@
-import ComponentBlocks from "@/components/keystatic/ComponentBlocks";
 import { fields, singleton } from "@keystatic/core";
 import { contentField } from "./fields/content";
 
 export const aboutSchema = singleton({
   label: "About",
-  path: "src/content/about",
+  path: "src/content/data/about",
   entryLayout: "content",
   format: {
     contentField: "content",
