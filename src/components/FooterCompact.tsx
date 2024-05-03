@@ -19,7 +19,7 @@ function FooterCompact() {
       <div className="mx-auto max-w-7xl">
         <div
           role="separator"
-          className="mx-auto flex h-6 w-full max-w-7xl items-center justify-center gap-2 py-2 md:px-14 md:py-4"
+          className="mx-auto flex h-6 w-full max-w-7xl items-center justify-center gap-2 py-2 md:px-2 md:py-4"
         >
           <Separator className="bg-secondary" />
         </div>
