@@ -8,18 +8,19 @@ import Link from "next/link";
 
 export default async function Page() {
   // 2. Read the "Posts" collection
-  const projects = await reader().collections.projects.all();
+  const projects = await reader().collections.projects.list();
 
   return (
     <ScrollArea
       aria-orientation="horizontal"
       className="group mb-2 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
     >
-      {projects.map((project) => (
-        <Link href={`/projects/${project.slug}`} key={project.slug}>
-          <CompactProjectCard key={project.slug} project={project.entry} />
-        </Link>
-      ))}
+      {projects &&
+        projects.map((slug) => (
+          <Link href={`/projects/${slug}`} key={slug}>
+            <CompactProjectCard key={slug} slug={slug} />
+          </Link>
+        ))}
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
   );
