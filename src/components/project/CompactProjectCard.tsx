@@ -40,7 +40,7 @@ export default async function CompactProjectCard({ slug }: CompactProjectCard) {
     <Card
       // onClick={handleCardClick}
       data-status={project.status}
-      className="group relative flex max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased data-[status=Active]:border-green-600 data-[status=Archived]:border-gray-600 data-[status=Maintenance]:border-yellow-600 md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
+      className="mb-4 group relative flex max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased data-[status=active]:border-green-600 data-[status=archived]:border-gray-600 data-[status=maintenance]:border-yellow-600 md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
     >
       {project.images && project.images.length > 0 && (
         <Image

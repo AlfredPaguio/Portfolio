@@ -19,7 +19,7 @@ export default function SearchBarAndSorter() {
     "sort",
     parseAsString
       .withDefault("date-desc")
-      .withOptions({ history: "replace", shallow: false })
+      .withOptions({ history: "replace", shallow: false }),
   );
 
   const handleSort = (value: string) => {
@@ -49,11 +49,11 @@ type SortSelectProps = GenericInputProps<string>;
 type SearchInputProps = GenericInputProps<string>;
 
 const SearchInput = ({ onChange, value }: SearchInputProps) => (
-  <div className="relative block w-full md:w-2/3 shrink-0">
+  <div className="relative block w-full shrink-0 md:w-2/3 md:me-4">
     <div className="relative">
       <span className="sr-only">Search</span>
       <Input
-        className="block pr-9 pl-2 h-12 peer group placeholder:invisible placeholder:text-[0]"
+        className="group peer block h-12 pl-2 pr-9 placeholder:invisible placeholder:text-[0]"
         variant={"outline"}
         type="text"
         onChange={(e) => onChange(e.target.value)}
@@ -64,14 +64,14 @@ const SearchInput = ({ onChange, value }: SearchInputProps) => (
       />
       <label
         htmlFor="search"
-        className={`absolute left-0 top-2 mt-2 cursor-text text-xs transition-all peer-focus:text-accent peer-focus:-top-4 peer-[&:not(:placeholder-shown)]:text-xs peer-[&:not(:placeholder-shown)]:-top-4`}
+        className={`absolute left-0 top-2 mt-2 cursor-text text-xs transition-all peer-focus:-top-4 peer-focus:text-accent peer-[&:not(:placeholder-shown)]:-top-4 peer-[&:not(:placeholder-shown)]:text-xs`}
       >
         {!value ? "Search for project..." : "Searching for:"}
       </label>
+      <span className="absolute inset-y-0 right-0 flex items-center pr-4 peer-focus:fill-accent">
+        <SearchIcon className="h-5 w-5 text-foreground " />
+      </span>
     </div>
-    <span className="absolute inset-y-0 right-0 flex items-center pr-4">
-      <SearchIcon className="h-5 w-5 text-foreground" />
-    </span>
   </div>
 );
 

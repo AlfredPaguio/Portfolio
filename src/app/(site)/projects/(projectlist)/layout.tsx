@@ -1,4 +1,4 @@
-import ProjectsHandler from "@@/src/components/ProjectsHandler";
+// import ProjectsHandler from "@/components/ProjectsHandler";
 
 export default function Layout({
   children,
@@ -9,7 +9,7 @@ export default function Layout({
 }) {
   return (
     <>
-      <ProjectsHandler />
+      {/* <ProjectsHandler /> */}
       <div className="flex flex-col items-center gap-6">
         {children}
         {projectList}
