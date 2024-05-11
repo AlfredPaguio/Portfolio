@@ -1,3 +1,4 @@
+"use client";
 import {
   Card,
   CardContent,
@@ -10,39 +11,38 @@ import {
 import { formatDate } from "@/utils/formatDate";
 import { Badge } from "@/components/ui/badge";
 import { Folder } from "lucide-react";
-// import { useRef } from "react";
-import Image from "next/image";
-import { reader } from "@/utils/reader";
-// import { Entry } from "@keystatic/core/reader";
-// import keystaticConfig from "@@/keystatic.config";
+import { useRef } from "react";
+// import Image from "next/image";
+import { Entry } from "@keystatic/core/reader";
+import keystaticConfig from "@@/keystatic.config";
 
-// export type ProjectType = Entry<(typeof keystaticConfig)["collections"]["projects"]>;
+type ProjectType = Entry<(typeof keystaticConfig)["collections"]["projects"]>;
+type ProjectTypeWithoutContent = Omit<ProjectType, "content">;
 
 type CompactProjectCard = {
-  slug: string;
+  project: ProjectTypeWithoutContent;
 };
 
-export default async function CompactProjectCard({ slug }: CompactProjectCard) {
-  // const titleRef = useRef<HTMLDivElement>(null);
+export default function CompactProjectCard({ project }: CompactProjectCard) {
+  const titleRef = useRef<HTMLDivElement>(null);
 
-  // const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
-  //   const viewTransitionNameClass = `[viewTransitionName:project-name]`;
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const viewTransitionNameClass = `[viewTransitionName:project-name]`;
 
-  //   if (titleRef.current) {
-  //     titleRef.current.classList.add(viewTransitionNameClass);
-  //   }
-  // };
+    if (titleRef.current) {
+      titleRef.current.classList.add(viewTransitionNameClass);
+    }
+  };
 
-  const project = await reader().collections.projects.read(slug);
   if (!project) return null;
 
   return (
     <Card
-      // onClick={handleCardClick}
+      onClick={handleCardClick}
       data-status={project.status}
-      className="mb-4 group relative flex max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased data-[status=active]:border-green-600 data-[status=archived]:border-gray-600 data-[status=maintenance]:border-yellow-600 md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
+      className="group relative mb-4 flex max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased data-[status=active]:border-green-600 data-[status=archived]:border-gray-600 data-[status=maintenance]:border-yellow-600 md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
     >
-      {project.images && project.images.length > 0 && (
+      {/* {project.images && project.images.length > 0 && (
         <Image
           src={project.images[0].value.image}
           fill
@@ -53,22 +53,19 @@ export default async function CompactProjectCard({ slug }: CompactProjectCard) {
           placeholder="empty"
           alt="background"
         />
-      )}
+      )} */}
 
       <div
-        className={`h-full w-full ${
-          project.images && project.images.length > 0 ? "bg-background/70" : ""
-        }`}
+        className={`h-full w-full`}
+        // className={`h-full w-full ${
+        //   project.images && project.images.length > 0 ? "bg-background/70" : ""
+        // }`}
       >
         <CardHeader>
           <div className="flex justify-between">
             <CardTitle className="flex items-center gap-1 text-pretty">
               <Folder className="shrink-0" />
-              <span
-              // ref={titleRef}
-              >
-                {project.title}
-              </span>
+              <span ref={titleRef}>{project.title}</span>
             </CardTitle>
             <Badge className="group-data-[status=active]:bg-green-600 group-data-[status=archived]:bg-gray-600 group-data-[status=maintenance]:bg-yellow-600">
               {project.status}
@@ -81,7 +78,7 @@ export default async function CompactProjectCard({ slug }: CompactProjectCard) {
         </CardHeader>
         <CardContent className="flex-1">
           <CardDescription className="whitespace-pre-line text-foreground">
-            {project.summary || "No Description"}
+            {project.summary || "No Summary"}
           </CardDescription>
         </CardContent>
         <CardFooter className="flex-wrap gap-2 p-4">
