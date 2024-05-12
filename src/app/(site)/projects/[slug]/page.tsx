@@ -140,7 +140,7 @@ export default async function Project({
       ) : (
         <div>
           No Project Found
-          <Link href={`/kprojects`}>Back to project list</Link>
+          <Link href={`/projects`}>Back to project list</Link>
         </div>
       )}
     </div>
@@ -159,7 +159,7 @@ function Breadcrumbs({ name }: { name: string }) {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="/kprojects">Projects</Link>
+            <Link href="/projects">Projects</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />

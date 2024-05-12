@@ -1,9 +1,10 @@
+"use client";
 import { parseAsString, useQueryState } from "nuqs";
 import { useAppDispatch, useAppSelector } from "../app/store/hooks";
 import { useEffect } from "react";
 import { batchAddTechnologies } from "../app/store/technology/technology-slice";
 
-export default async function ProjectsHandler() {
+export default function ProjectsHandler() {
   const selectedTechnologies = useAppSelector(
     (state) => state.technology.selectedTechnologies,
   );
