@@ -1,14 +1,9 @@
 "use client";
 import { useAppSelector } from "@/app/store/hooks";
 import CompactProjectCard from "@/components/project/CompactProjectCard";
-import keystaticConfig from "@@/keystatic.config";
-import { Entry } from "@keystatic/core/reader";
+import { ProjectTypeWithoutContent } from "@/data/fetchContent";
 import Link from "next/link";
 import { parseAsString, useQueryState } from "nuqs";
-import React from "react";
-
-type ProjectType = Entry<(typeof keystaticConfig)["collections"]["projects"]>;
-type ProjectTypeWithoutContent = Omit<ProjectType, "content">;
 
 type ProjectListProps = {
   projects: { slug: string; entry: ProjectTypeWithoutContent }[];

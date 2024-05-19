@@ -20,8 +20,13 @@ import {
   removeTechnology,
 } from "@@/src/app/store/technology/technology-slice";
 import { useAppDispatch, useAppSelector } from "@@/src/app/store/hooks";
+import { TechStackType } from "@/data/fetchContent";
 
-export default function FilterListBar() {
+type FilterListBarProps = {
+  techs: TechStackType;
+};
+
+export default function FilterListBar({ techs }: FilterListBarProps) {
   const selectedTechnologies = useAppSelector(
     (state) => state.technology.selectedTechnologies
   );
@@ -71,7 +76,7 @@ export default function FilterListBar() {
               )}
             </SheetHeader>
             <ScrollArea>
-              <FilterListMenu />
+              <FilterListMenu techs={techs}/>
             </ScrollArea>
             <SheetFooter>
               <SheetClose asChild>

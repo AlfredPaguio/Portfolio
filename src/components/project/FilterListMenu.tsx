@@ -5,10 +5,14 @@ import {
   addTechnology,
   removeTechnology,
 } from "@/app/store/technology/technology-slice";
-import { TechStackType, fetchTechStack } from "@/data/fetchContent";
-import { useCallback, useEffect, useState } from "react";
+import { TechStackType } from "@/data/fetchContent";
+import { useState } from "react";
 
-export default function FilterListMenu() {
+type FilterListMenuProps = {
+  techs: TechStackType;
+};
+
+export default function FilterListMenu({ techs }: FilterListMenuProps) {
   const selectedTechnologies = useAppSelector(
     (state) => state.technology.selectedTechnologies,
   );
@@ -28,23 +32,7 @@ export default function FilterListMenu() {
     // I had a headache thinking of this lol
   };
 
-  const fetchData = useCallback(async () => {
-    try {
-      setLoading(true);
-      const data = await fetchTechStack();
-      setStack(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  if (!stack) return null;
+  if (!techs) return null;
 
   return (
     <div className="md:text-md 3xl:text-3xl grid max-w-7xl grid-cols-2 gap-x-4 pt-4 text-sm text-foreground transition-all duration-300 md:gap-x-6 lg:text-lg xl:text-xl 2xl:text-2xl">
@@ -54,7 +42,7 @@ export default function FilterListMenu() {
             Programming Languages:
           </legend>
           <div className="flex flex-col gap-y-1 pt-1 md:gap-y-2">
-            {stack.programmingLanguages.toSorted().map((language) => (
+            {techs.programmingLanguages.toSorted().map((language) => (
               <TechCheckbox
                 key={language}
                 technology={language}
@@ -70,7 +58,7 @@ export default function FilterListMenu() {
             Libraries:
           </legend>
           <div className="flex flex-col gap-y-1 pt-1 md:gap-y-2">
-            {stack.libraries.toSorted().map((library) => (
+            {techs.libraries.toSorted().map((library) => (
               <TechCheckbox
                 key={library}
                 technology={library}
@@ -87,7 +75,7 @@ export default function FilterListMenu() {
             Frameworks:
           </legend>
           <div className="flex flex-col gap-y-1 pt-1 md:gap-y-2">
-            {stack.frameworks.toSorted().map((framework) => (
+            {techs.frameworks.toSorted().map((framework) => (
               <TechCheckbox
                 key={framework}
                 technology={framework}
@@ -103,7 +91,7 @@ export default function FilterListMenu() {
             Database Management Systems:
           </legend>
           <div className="flex flex-col gap-y-1 pt-1 md:gap-y-2">
-            {stack.databaseManagementSystems.toSorted().map((DBMS) => (
+            {techs.databaseManagementSystems.toSorted().map((DBMS) => (
               <TechCheckbox
                 key={DBMS}
                 technology={DBMS}
