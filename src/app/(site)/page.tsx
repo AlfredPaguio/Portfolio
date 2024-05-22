@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import GithubReleaseDate from "../../components/GithubReleaseDate";
 import DownloadCVButtons from "../../components/DownloadCVButtons";
+import { reader } from "@/utils/reader";
+import { Icons } from "@/components/Icons";
 
-export default function Home() {
+export default async function Home() {
+  const socialLinks = await reader().singletons.links.read();
+
   return (
     <div className="flex items-center justify-between md:py-12 lg:py-20 xl:py-36">
       <div className="flex flex-col items-center">
@@ -22,14 +26,42 @@ export default function Home() {
           </h1>
         </div>
         <p className="text-small text-balance text-center md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
-          A passionate <span className="underline decoration-accent/80 decoration-2 underline-offset-2">software developer</span>, I love problem-solving and creating
-          applications that make a real difference.
+          A passionate{" "}
+          <span className="underline decoration-accent/80 decoration-2 underline-offset-2">
+            software developer
+          </span>
+          , I love problem-solving and creating applications that make a real
+          difference.
         </p>
-        <div className="flex gap-x-2 p-4">
+        <div className="flex items-center justify-center gap-x-2 p-4">
           <DownloadCVButtons />
-          <Button variant={"outline"} asChild>
+          {/* <Button variant={"outline"} asChild>
             <Link href="/contact">Contact Me</Link>
-          </Button>
+          </Button> */}
+
+          <div className="flex gap-x-2">
+            {socialLinks &&
+              socialLinks.social.map(({ name, url }) => (
+                <Link
+                  key={name}
+                  href={url ?? "#"}
+                  className="group flex items-center rounded text-sm font-medium text-primary-foreground hover:text-accent focus-visible:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 motion-safe:transition  lg:text-lg xl:text-xl"
+                  target="_blank"
+                  rel="me"
+                >
+                  {/* pls help lol */}
+                  {name.toLowerCase() === "github" && (
+                    <Icons.github className="size-8 flex-none fill-primary-foreground transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
+                  )}
+                  {name.toLowerCase() === "facebook" && (
+                    <Icons.facebook className="size-8 flex-none fill-primary-foreground transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
+                  )}
+                  {name.toLowerCase() === "linkedin" && (
+                    <Icons.linkedin className="size-8 flex-none fill-primary-foreground transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
+                  )}
+                </Link>
+              ))}
+          </div>
         </div>
         <GithubReleaseDate />
       </div>
