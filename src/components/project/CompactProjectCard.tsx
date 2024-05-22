@@ -13,11 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Folder } from "lucide-react";
 import { useRef } from "react";
 // import Image from "next/image";
-import { Entry } from "@keystatic/core/reader";
-import keystaticConfig from "@@/keystatic.config";
-
-type ProjectType = Entry<(typeof keystaticConfig)["collections"]["projects"]>;
-type ProjectTypeWithoutContent = Omit<ProjectType, "content">;
+import { ProjectTypeWithoutContent } from "@/data/fetchContent";
 
 type CompactProjectCard = {
   project: ProjectTypeWithoutContent;

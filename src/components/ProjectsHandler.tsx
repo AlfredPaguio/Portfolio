@@ -1,5 +1,5 @@
 "use client";
-import { parseAsString, useQueryState } from "nuqs";
+import { useQueryState } from "nuqs";
 import { useAppDispatch, useAppSelector } from "../app/store/hooks";
 import { useEffect } from "react";
 import { batchAddTechnologies } from "../app/store/technology/technology-slice";
@@ -17,12 +17,6 @@ export default function ProjectsHandler() {
     history: "replace",
     shallow: false,
   });
-  const [sortQuery] = useQueryState(
-    "sort",
-    parseAsString
-      .withDefault("date-desc")
-      .withOptions({ history: "replace", shallow: false }),
-  );
 
   useEffect(() => {
     if (techQuery) {
@@ -37,7 +31,7 @@ export default function ProjectsHandler() {
       setTitleQuery(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [titleQuery]);
 
   useEffect(() => {
     //why the hell if (selectedTechnologies) is truthy even empty?
