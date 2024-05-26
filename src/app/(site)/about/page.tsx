@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/card";
 import { BadgeDollarSign, Terminal } from "lucide-react";
 import { camelCaseToTitleCase } from "@/utils/camelCaseToTitleCase";
 import TechnologyIcons from "@/components/TechnologyIcons";
+import { getIconForTechnology } from "@/data/TechIcons";
 
 export const metadata: Metadata = {
   title: "About",
@@ -46,15 +47,15 @@ export default async function Home() {
         </div>
       )}
 
-      <Card
+      <div
         className={cn(
           noto_serif.className,
-          "prose ml-12 flex-col items-center justify-center text-pretty p-12 antialiased  dark:prose-invert lg:prose-lg xl:prose-xl lg:order-first lg:row-span-2",
+          "prose lg:ml-12 h-fit flex-col items-center justify-center text-pretty lg:p-12  antialiased dark:prose-invert lg:prose-lg xl:prose-xl lg:order-first lg:row-span-2",
         )}
       >
         <AboutContent />
         {/* {about && <CustomDocumentRenderer document={await about.content()} />} */}
-      </Card>
+      </div>
 
       <div className="space-y-4 lg:pl-20">
         <ul role="list" className="space-y-4">
@@ -83,8 +84,8 @@ export default async function Home() {
               </li>
             ))}
         </ul>
-        <Card className="rounded-3xl p-6 motion-safe:transition">
-          <h2 className="font-display-safe mb-4 flex items-center text-lg font-semibold motion-safe:transition dark:text-gray-200 dark:contrast-more:text-gray-100">
+        <div className="rounded-3xl motion-safe:transition pt-4 lg:pt-0">
+          <h2 className="font-display-safe mb-4 flex items-center text-lg font-semibold motion-safe:transition">
             <Terminal
               aria-hidden="true"
               className="size-6 motion-safe:transition"
@@ -94,10 +95,13 @@ export default async function Home() {
           {techStackArray.map(({ category, items }) => (
             <ul key={category} className="w-full">
               <li className="mb-4 mt-6 flex items-center gap-4 text-sm font-medium">
-                <span className="shrink-0 motion-safe:transition dark:text-gray-300 dark:contrast-more:text-gray-200">
+                <span className="shrink-0 motion-safe:transition">
                   {category}
                 </span>
-                <span className="block h-px grow bg-gray-200 motion-safe:transition dark:bg-gray-700 dark:contrast-more:bg-gray-600"></span>
+                <span
+                  aria-hidden="true"
+                  className="block h-px grow bg-accent motion-safe:transition"
+                ></span>
               </li>
               <li>
                 <ul className="space-y-3">
@@ -107,16 +111,17 @@ export default async function Home() {
                         aria-hidden="true"
                         className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white shadow-md shadow-gray-800/5 ring-1 ring-gray-900/5 motion-safe:transition dark:border dark:border-gray-700/50 dark:border-gray-800 dark:bg-gray-800 dark:ring-0"
                       >
-                        <BadgeDollarSign className="size-4" />
+                        <IconComponent techName={item} />
+                        {/* <BadgeDollarSign className="size-4" /> */}
                       </div>
 
                       <span
                         lang="en-US"
-                        className="grow text-sm font-medium text-gray-800 motion-safe:transition dark:text-gray-200"
+                        className="grow text-sm font-medium motion-safe:transition"
                       >
                         {item}
                       </span>
-                      <span className="shrink-0 text-xs text-gray-600 motion-safe:transition dark:text-gray-400 dark:contrast-more:font-medium dark:contrast-more:text-gray-300">
+                      <span className="shrink-0 text-xs motion-safe:transition dark:contrast-more:font-medium">
                         {/* {skill level} */}
                       </span>
                     </li>
@@ -125,8 +130,13 @@ export default async function Home() {
               </li>
             </ul>
           ))}
-        </Card>
+        </div>
       </div>
     </div>
   );
+}
+
+function IconComponent({ techName }: { techName: string }) {
+  const TechIcon = getIconForTechnology(techName);
+  return <TechIcon.Icon className="size-4" />;
 }
