@@ -6,34 +6,35 @@ const iconImports = {
   "C# 5.0": () => import("@beta/devicons-react/lib/icons/CsharpPlain"),
   "Visual Basic .NET": () =>
     import("@beta/devicons-react/lib/icons/DotNetOriginalWordmark"),
-  Java: () => import("@beta/devicons-react/lib/icons/JavaOriginalWordmark"),
+  Java: () => import("@beta/devicons-react/lib/icons/JavaOriginal"),
   PHP: () => import("@beta/devicons-react/lib/icons/PhpOriginal"),
-  Python: () => import("@beta/devicons-react/lib/icons/PythonOriginalWordmark"),
+  Python: () => import("@beta/devicons-react/lib/icons/PythonOriginal"),
   TypeScript: () => import("@beta/devicons-react/lib/icons/TypescriptOriginal"),
   JavaScript: () => import("@beta/devicons-react/lib/icons/JavascriptOriginal"),
   // Frameworks
   Laravel: () =>
-    import("@beta/devicons-react/lib/icons/LaravelOriginalWordmark"),
+    import("@beta/devicons-react/lib/icons/LaravelOriginal"),
   Livewire: () =>
-    import("@beta/devicons-react/lib/icons/LivewireOriginalWordmark"),
-  Flask: () => import("@beta/devicons-react/lib/icons/FlaskOriginalWordmark"),
+    import("@beta/devicons-react/lib/icons/LivewireOriginal"),
+  Flask: () => import("@beta/devicons-react/lib/icons/FlaskOriginal"),
   Bootstrap: () =>
     import("@beta/devicons-react/lib/icons/BootstrapOriginalWordmark"),
   "Tailwind CSS": () =>
-    import("@beta/devicons-react/lib/icons/TailwindcssPlainWordmark"),
+    import("@beta/devicons-react/lib/icons/TailwindcssOriginal"),
   // Database Management Systems
   "Microsoft SQL Server": () =>
-    import("@beta/devicons-react/lib/icons/MicrosoftsqlserverPlainWordmark"),
+    import("@beta/devicons-react/lib/icons/MicrosoftsqlserverOriginal"),
   MySQL: () => import("@beta/devicons-react/lib/icons/MysqlOriginalWordmark"),
   //Developer Tools
-  Git: () => import("@beta/devicons-react/lib/icons/GitPlainWordmark"),
+  Git: () => import("@beta/devicons-react/lib/icons/GitOriginal"),
   "Visual Studio": () =>
     import("@beta/devicons-react/lib/icons/VisualstudioPlainWordmark"),
   "VS Code": () =>
-    import("@beta/devicons-react/lib/icons/VscodeOriginalWordmark"),
+    import("@beta/devicons-react/lib/icons/VscodeOriginal"),
   // Libraries
   jQuery: () => import("@beta/devicons-react/lib/icons/JqueryPlainWordmark"),
-  React: () => import("@beta/devicons-react/lib/icons/ReactOriginalWordmark"),
+  React: () => import("@beta/devicons-react/lib/icons/ReactOriginal"),
+  "Next.js": () => import("@beta/devicons-react/lib/icons/NextjsOriginal"),
 };
 
 import { CircleOffIcon } from "lucide-react";
@@ -119,6 +120,10 @@ export const iconData: IconType[] = [
   {
     name: "React",
     Icon: dynamic(() => iconImports["React"]()),
+  },
+  {
+    name: "Next.js",
+    Icon: dynamic(() => iconImports["Next.js"]()),
   },
 ];
 
