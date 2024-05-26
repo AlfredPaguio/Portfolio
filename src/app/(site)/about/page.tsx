@@ -1,6 +1,5 @@
 import Image from "next/image";
 // import myPicture from "@@/public/images/my_picture.png";
-import { noto_serif } from "@/app/layout";
 import { Icons } from "@/components/Icons";
 import { getIconForTechnology } from "@/data/TechIcons";
 import { camelCaseToTitleCase } from "@/utils/camelCaseToTitleCase";
@@ -10,6 +9,10 @@ import { reader } from "@/utils/reader";
 import { Terminal } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
+
+import { Noto_Serif } from "next/font/google";
+
+const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "About",

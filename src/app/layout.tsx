@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Noto_Serif } from "next/font/google";
 import "./globals.css";
 
-export const noto_serif = Noto_Serif({ subsets: ["latin"] });
+const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
