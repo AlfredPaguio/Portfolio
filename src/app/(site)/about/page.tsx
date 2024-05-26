@@ -1,17 +1,15 @@
 import Image from "next/image";
 // import myPicture from "@@/public/images/my_picture.png";
-import { Icons } from "@/components/Icons";
-import { reader } from "@/utils/reader";
-import { Metadata } from "next";
-import Link from "next/link";
 import { noto_serif } from "@/app/layout";
+import { Icons } from "@/components/Icons";
+import { getIconForTechnology } from "@/data/TechIcons";
+import { camelCaseToTitleCase } from "@/utils/camelCaseToTitleCase";
 import { cn } from "@/utils/cn";
 import { processMdx } from "@/utils/mdx";
-import { Card } from "@/components/ui/card";
-import { BadgeDollarSign, Terminal } from "lucide-react";
-import { camelCaseToTitleCase } from "@/utils/camelCaseToTitleCase";
-import TechnologyIcons from "@/components/TechnologyIcons";
-import { getIconForTechnology } from "@/data/TechIcons";
+import { reader } from "@/utils/reader";
+import { Terminal } from "lucide-react";
+import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About",
@@ -50,7 +48,7 @@ export default async function Home() {
       <div
         className={cn(
           noto_serif.className,
-          "prose lg:ml-12 h-fit flex-col items-center justify-center text-pretty lg:p-12 md:p-8 md:ml-8 antialiased dark:prose-invert lg:prose-lg xl:prose-xl lg:order-first lg:row-span-2",
+          "prose h-fit flex-col items-center justify-center text-pretty antialiased dark:prose-invert lg:prose-lg xl:prose-xl md:ml-8 md:p-8 lg:order-first lg:row-span-2 lg:ml-12 lg:p-12",
         )}
       >
         <AboutContent />
@@ -64,19 +62,19 @@ export default async function Home() {
               <li className="flex" key={name}>
                 <Link
                   href={url ?? "#"}
-                  className="group flex items-center rounded text-sm font-medium text-primary-foreground hover:text-accent focus-visible:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 motion-safe:transition  lg:text-lg xl:text-xl"
+                  className="group flex items-center rounded text-sm font-medium text-primary-foreground hover:text-primary focus-visible:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 motion-safe:transition  lg:text-lg xl:text-xl"
                   target="_blank"
                   rel="me"
                 >
                   {/* pls help lol */}
                   {name.toLowerCase() === "github" && (
-                    <Icons.github className="size-5 flex-none fill-primary-foreground transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
+                    <Icons.github className="size-5 flex-none fill-primary-foreground transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" />
                   )}
                   {name.toLowerCase() === "facebook" && (
-                    <Icons.facebook className="size-5 flex-none fill-primary-foreground transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
+                    <Icons.facebook className="size-5 flex-none fill-primary-foreground transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" />
                   )}
                   {name.toLowerCase() === "linkedin" && (
-                    <Icons.linkedin className="size-5 flex-none fill-primary-foreground transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
+                    <Icons.linkedin className="size-5 flex-none fill-primary-foreground transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" />
                   )}
                   {/* <SocialMedia.icon aria-hidden="true" class="h-5 w-5 flex-none fill-gray-500 transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" /> */}
                   <span className="ml-4">{`Follow me on ${name}`}</span>
@@ -84,23 +82,23 @@ export default async function Home() {
               </li>
             ))}
         </ul>
-        <div className="rounded-3xl motion-safe:transition pt-4 lg:pt-0">
-          <h2 className="font-display-safe mb-4 flex items-center text-lg font-semibold motion-safe:transition">
+        <div className="rounded-3xl pt-4 motion-safe:transition lg:pt-0">
+          <h2 className="font-display-safe flex items-center text-lg font-semibold text-accent motion-safe:transition dark:text-secondary">
             <Terminal
               aria-hidden="true"
-              className="size-6 motion-safe:transition"
+              className="size-6 fill-accent motion-safe:transition dark:fill-secondary"
             />
             <span className="ml-3">Technology Stacks</span>
           </h2>
           {techStackArray.map(({ category, items }) => (
             <ul key={category} className="w-full">
-              <li className="mb-4 mt-6 flex items-center gap-4 text-sm font-medium">
+              <li className="my-4 flex items-center gap-4 text-sm font-medium">
                 <span className="shrink-0 motion-safe:transition">
                   {category}
                 </span>
                 <span
                   aria-hidden="true"
-                  className="block h-px grow bg-accent motion-safe:transition"
+                  className="block h-px grow bg-accent motion-safe:transition dark:bg-secondary"
                 ></span>
               </li>
               <li>
