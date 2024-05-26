@@ -1,4 +1,4 @@
-import ProjectsHandler from "@@/src/components/ProjectsHandler";
+import ProjectsHandler from "@/components/ProjectsHandler";
 
 export default function Layout({
   children,

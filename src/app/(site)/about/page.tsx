@@ -1,10 +1,13 @@
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Facebook, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
-import myPicture from "@@/public/images/my_picture.png";
-import { Button } from "@/components/ui/button";
-import { Technologies } from "@/data/Technologies";
-import TechnologyIcons from "@/components/TechnologyIcons";
+// import myPicture from "@@/public/images/my_picture.png";
+import { noto_serif } from "@/app/layout";
+import { Icons } from "@/components/Icons";
+import { getIconForTechnology } from "@/data/TechIcons";
+import { camelCaseToTitleCase } from "@/utils/camelCaseToTitleCase";
+import { cn } from "@/utils/cn";
+import { processMdx } from "@/utils/mdx";
+import { reader } from "@/utils/reader";
+import { Terminal } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -12,112 +15,126 @@ export const metadata: Metadata = {
   title: "About",
 };
 
-export default function Home() {
+export default async function Home() {
+  const about = await reader().singletons.about.readOrThrow();
+  const socialLinks = await reader().singletons.links.readOrThrow();
+  const techStack = await reader().singletons.techStack.readOrThrow();
+
+  const techStackArray = Object.entries(techStack).map(([category, items]) => ({
+    category: camelCaseToTitleCase(category),
+    items,
+    //!TODO Add Tech Icons
+    // Icon: <TechnologyIcons Stacks={items} key={category}/>,
+  }));
+
+  const { default: AboutContent } = await processMdx(await about.content());
+
   return (
-    <div className="flex flex-col items-center justify-between lg:flex-row">
-      <AboutMeSection />
-      <div className="ml-6 flex flex-col items-center gap-y-4">
-        <Card className="px-4 hidden md:flex flex-col justify-center items-center">
-          <Image
-            src={myPicture}
-            alt="Picture of myself (Alfred)"
-            className="h-[35rem] object-cover "
-          />
-
-          <div className="flex items-center gap-1 p-4">
-            <CardTitle>Socials:</CardTitle>
-            <Button variant={"ghost"} className="group" asChild>
-              <Link href="https://www.facebook.com/FleetingComet/">
-                <Facebook className="h-8 text-accent group-hover:text-secondary" />
-              </Link>
-            </Button>
-
-            <Button variant={"ghost"} className="group" asChild>
-              <Link href="https://github.com/AlfredPaguio">
-                <Github className="h-8 text-accent group-hover:text-secondary" />
-              </Link>
-            </Button>
-
-            <Button variant={"ghost"} className="group" asChild>
-              <Link href="https://www.linkedin.com/in/alfredpaguio">
-                <Linkedin className="h-8 text-accent group-hover:text-secondary" />
-              </Link>
-            </Button>
+    <div className="grid grid-cols-1 gap-y-16 py-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
+      {about && about.cover && (
+        <div className="lg:pl-20">
+          <div className="relative flex max-w-xs items-center justify-center px-2 lg:max-w-none">
+            <Image
+              width={320}
+              height={320}
+              src={about.cover}
+              alt="Picture of myself (Alfred)"
+              className="aspect-square -rotate-3 rounded-2xl bg-card shadow-lg shadow-gray-900/10 ring-1 ring-gray-900/5 motion-safe:transition dark:opacity-90 dark:hover:opacity-100 2xl:size-2/4"
+            />
           </div>
-        </Card>
+        </div>
+      )}
+
+      <div
+        className={cn(
+          noto_serif.className,
+          "prose h-fit flex-col items-center justify-center text-pretty antialiased dark:prose-invert lg:prose-lg xl:prose-xl md:ml-8 md:p-8 lg:order-first lg:row-span-2 lg:ml-12 lg:p-12",
+        )}
+      >
+        <AboutContent />
+        {/* {about && <CustomDocumentRenderer document={await about.content()} />} */}
+      </div>
+
+      <div className="space-y-4 lg:pl-20">
+        <ul role="list" className="space-y-4">
+          {socialLinks &&
+            socialLinks.social.map(({ name, url }) => (
+              <li className="flex" key={name}>
+                <Link
+                  href={url ?? "#"}
+                  className="group flex items-center rounded text-sm font-medium text-primary-foreground hover:text-primary focus-visible:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 motion-safe:transition  lg:text-lg xl:text-xl"
+                  target="_blank"
+                  rel="me"
+                >
+                  {/* pls help lol */}
+                  {name.toLowerCase() === "github" && (
+                    <Icons.github className="size-5 flex-none fill-primary-foreground transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" />
+                  )}
+                  {name.toLowerCase() === "facebook" && (
+                    <Icons.facebook className="size-5 flex-none fill-primary-foreground transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" />
+                  )}
+                  {name.toLowerCase() === "linkedin" && (
+                    <Icons.linkedin className="size-5 flex-none fill-primary-foreground transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" />
+                  )}
+                  {/* <SocialMedia.icon aria-hidden="true" class="h-5 w-5 flex-none fill-gray-500 transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" /> */}
+                  <span className="ml-4">{`Follow me on ${name}`}</span>
+                </Link>
+              </li>
+            ))}
+        </ul>
+        <div className="rounded-3xl pt-4 motion-safe:transition lg:pt-0">
+          <h2 className="font-display-safe flex items-center text-lg font-semibold text-accent motion-safe:transition dark:text-secondary">
+            <Terminal
+              aria-hidden="true"
+              className="size-6 fill-accent motion-safe:transition dark:fill-secondary"
+            />
+            <span className="ml-3">Technology Stacks</span>
+          </h2>
+          {techStackArray.map(({ category, items }) => (
+            <ul key={category} className="w-full">
+              <li className="my-4 flex items-center gap-4 text-sm font-medium">
+                <span className="shrink-0 motion-safe:transition">
+                  {category}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="block h-px grow bg-accent motion-safe:transition dark:bg-secondary"
+                ></span>
+              </li>
+              <li>
+                <ul className="space-y-3">
+                  {items.map((item) => (
+                    <li key={item} className="flex w-full items-center gap-4">
+                      <div
+                        aria-hidden="true"
+                        className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white shadow-md shadow-gray-800/5 ring-1 ring-gray-900/5 motion-safe:transition dark:border dark:border-gray-700/50 dark:border-gray-800 dark:bg-gray-800 dark:ring-0"
+                      >
+                        <IconComponent techName={item} />
+                        {/* <BadgeDollarSign className="size-4" /> */}
+                      </div>
+
+                      <span
+                        lang="en-US"
+                        className="grow text-sm font-medium motion-safe:transition"
+                      >
+                        {item}
+                      </span>
+                      <span className="shrink-0 text-xs motion-safe:transition dark:contrast-more:font-medium">
+                        {/* {skill level} */}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            </ul>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-function AboutMeSection() {
-  return (
-    <Card className="relative flex h-full w-full flex-col items-left">
-      <div className="flex h-full w-full flex-col gap-y-2 p-4">
-        <p className="lg:text-lg xl:text-xl">( ^_^)／</p>
-        <p className="font-light text-card-foreground lg:text-lg xl:text-xl">
-          Hello there! I’m Alfred, a passionate software developer, I love
-          problem-solving and creating applications that make a real difference.
-          I’ve been on a continuous learning path, eagerly expanding my
-          knowledge and honing my skills.
-        </p>
-        <p className="font-light text-card-foreground lg:text-lg xl:text-xl">
-          Currently, my focus is on mastering React and TypeScript, two powerful
-          tools in modern web development. I believe that these technologies,
-          combined with my enthusiasm and dedication, will enable me to build
-          efficient, scalable, and user-friendly applications.
-        </p>
-        <p className="font-light text-card-foreground lg:text-lg xl:text-xl">
-          As a fresh graduate, I’m excited about the endless possibilities that
-          lie ahead in the software development field. I’m eager to take on new
-          challenges, learn from them, and contribute my unique perspective to
-          the tech community. I look forward to collaborating with other
-          passionate developers and creating innovative solutions that can
-          transform the digital landscape.
-        </p>
-        <p className="font-light text-card-foreground lg:text-lg xl:text-xl">
-          In my spare time, you’ll find me exploring the latest tech trends or
-          delving into a new programming language or framework. I firmly believe
-          that there’s always something new to learn in this ever-evolving
-          field, and I’m committed to being a lifelong learner.
-        </p>
-        <TechStack />
-      </div>
-    </Card>
-  );
+function IconComponent({ techName }: { techName: string }) {
+  const TechIcon = getIconForTechnology(techName);
+  return <TechIcon.Icon className="size-4" />;
 }
-
-function TechStack() {
-  return (
-    <div className="flex flex-col">
-      <TechnologySection
-        title="Programming Languages:"
-        stacks={Technologies.programmingLanguages}
-      />
-      <TechnologySection title="Libraries:" stacks={Technologies.libraries} />
-      <TechnologySection title="Frameworks:" stacks={Technologies.frameworks} />
-      <TechnologySection
-        title="Database Management Systems:"
-        stacks={Technologies.databaseManagementSystems}
-      />
-      <TechnologySection
-        title="Developer Tools:"
-        stacks={Technologies.developerTools}
-      />
-    </div>
-  );
-}
-
-type TechnologySectionProps = {
-  title: string;
-  stacks: string[];
-};
-
-const TechnologySection = ({ title, stacks }: TechnologySectionProps) => (
-  <div className="flex items-center py-2 text-xl font-medium">
-    <h3>{title}</h3>
-    <div className="flex flex-wrap gap-2 ml-4">
-      <TechnologyIcons Stacks={stacks} />
-    </div>
-  </div>
-);

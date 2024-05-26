@@ -1,5 +1,6 @@
 import { Octokit } from "@octokit/rest";
 import type { GetResponseDataTypeFromEndpointMethod } from "@octokit/types";
+import { REPOSITORIES, REPO_OWNER } from "./Repositories";
 
 const octokit = new Octokit({
   userAgent: "alfred-paguio-portfolio/v0.1.0",
@@ -15,8 +16,8 @@ export type Release = {
 
 const fetchLatestRelease = async (): Promise<Release> => {
   const { data } = await octokit.repos.getLatestRelease({
-    owner: "AlfredPaguio",
-    repo: "CVs-and-Resumes",
+    owner: REPO_OWNER,
+    repo: REPOSITORIES.CVs,
   });
 
   return {

@@ -10,6 +10,9 @@ const config = {
   ],
   prefix: "",
   theme: {
+    backgroundImage: {
+      "comet": "url('/images/animated_shape_dark.svg')",
+    },
     container: {
       center: true,
       padding: "2rem",
