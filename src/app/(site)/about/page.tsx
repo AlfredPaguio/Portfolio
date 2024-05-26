@@ -50,7 +50,7 @@ export default async function Home() {
       <div
         className={cn(
           noto_serif.className,
-          "prose lg:ml-12 h-fit flex-col items-center justify-center text-pretty lg:p-12  antialiased dark:prose-invert lg:prose-lg xl:prose-xl lg:order-first lg:row-span-2",
+          "prose lg:ml-12 h-fit flex-col items-center justify-center text-pretty lg:p-12 md:p-8 md:ml-8 antialiased dark:prose-invert lg:prose-lg xl:prose-xl lg:order-first lg:row-span-2",
         )}
       >
         <AboutContent />
