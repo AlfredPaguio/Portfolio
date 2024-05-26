@@ -1,55 +1,49 @@
+import { siteConfig } from "@/config/site";
+import { cn } from "@@/src/utils/cn";
 import type { Metadata } from "next";
 import { Noto_Serif } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Navbar } from "@/components/Navbar";
-import { Toaster } from "@/components/ui/sonner";
-import BottomComponent from "@/components/BottomComponent";
-import NavigationHandler from "@/components/NavigationHandler";
-import ReduxProvider from "./store/ReduxProvider";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const noto_serif = Noto_Serif({ subsets: ["latin"] });
+export const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
-    template: "%s | Alfred's Portfolio",
-    default: "Alfred's Portfolio",
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "Welcome to Alfred's portfolio! This portfolio showcases my skills and projects, built using TypeScript, React, and various other libraries and tools.",
-  keywords: ["Next.js", "React", "TypeScript", "Portfolio"],
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  icons: {
+    icon: "/favicon.ico",
+    // shortcut: "/favicon-16x16.png",
+    // apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    images: "/opengraph-image.png",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    type: "website",
+    siteName: siteConfig.name,
+    url: siteConfig.url,
+    locale: "en_US",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface RootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           noto_serif.className,
-          "flex h-svh min-h-svh flex-col justify-between bg-background text-foreground antialiased"
+          "min-h-screen overflow-x-hidden overflow-y-scroll antialiased",
         )}
       >
-        <ReduxProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
-            <NavigationHandler />
-            <main className="grow px-4 pb-4 md:px-16">{children}</main>
-            <BottomComponent />
-            <Toaster />
-          </ThemeProvider>
-        </ReduxProvider>
-        <SpeedInsights />
+        {children}
       </body>
     </html>
   );

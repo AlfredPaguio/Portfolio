@@ -13,8 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { ScrollArea } from "./ui/scroll-area";
-import fetchLatestRelease from "../data/fetchLatestReleaseData";
-import toTitleCase from "../lib/toTitleCase";
+import fetchLatestRelease from "@/data/fetchLatestReleaseData";
+import toTitleCase from "@/utils/toTitleCase";
 
 export default function DownloadCVButtons() {
   const [assets, setAssets] = useState<Asset[]>([]);
@@ -37,10 +37,10 @@ export default function DownloadCVButtons() {
   }, [fetchData]);
 
   return (
-    <div className="flex items-start rounded-md bg-primary text-primary-foreground hover:bg-primary/80">
-      {loading && <p className="self-center h-9 px-4 py-2">Loading...</p>}
+    <div className="flex items-start rounded-md border border-input bg-background">
+      {loading && <p className="h-9 self-center px-4 py-2">Loading...</p>}
       {assets && assets.length > 0 && (
-        <Button variant={"ghost"} className="rounded-r-none" asChild>
+        <Button variant={"outline-animated"} className="rounded-r-none border-r border-r-input" asChild>
           <Link href={assets[0].browser_download_url}>
             <DownloadIcon className="mr-2 h-4 w-4" />
             Download CV
@@ -98,12 +98,12 @@ function DownloadOptions({ assets }: DownloadOptionsProps) {
       // accumulated[groupName].push(asset);
       Array.prototype.push.apply(
         accumulated[groupName] || (accumulated[groupName] = []),
-        [asset]
+        [asset],
       );
       return accumulated;
     },
     //assert
-    {} as Record<string, Asset[]>
+    {} as Record<string, Asset[]>,
   );
 
   return (
@@ -122,7 +122,7 @@ function DownloadOptions({ assets }: DownloadOptionsProps) {
               <DropdownMenuSeparator />
             )}
           </React.Fragment>
-        )
+        ),
       )}
     </>
   );

@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { formatDate } from "../lib/formatDate";
-import fetchLatestRelease, { Release } from "../data/fetchLatestReleaseData";
+import { formatDate } from "@/utils/formatDate";
+import fetchLatestRelease, { Release } from "@/data/fetchLatestReleaseData";
 
 const GithubReleaseDate = () => {
   const [release, setRelease] = useState<Release | null>(null);
