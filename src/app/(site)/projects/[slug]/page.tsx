@@ -16,7 +16,30 @@ import { notFound } from "next/navigation";
 import { Icons } from "@/components/Icons";
 import { processMdx } from "@/utils/mdx";
 import { ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
 // import Image from "next/image";
+
+type Props = {
+  params: { slug: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const project = await reader().collections.projects.read(params.slug);
+
+  if (project == null) return {};
+  return {
+    title: project.title,
+    description: project.summary,
+  };
+}
+
+export async function generateStaticParams() {
+  const project = await reader().collections.projects.list();
+  
+  return project.map((slug) => ({
+    slug,
+  }));
+}
 
 export default async function Project({
   params,
