@@ -12,7 +12,7 @@ import { formatDate } from "@/utils/formatDate";
 import { Badge } from "@/components/ui/badge";
 import { Folder } from "lucide-react";
 import { useRef } from "react";
-// import Image from "next/image";
+import Image from "next/image";
 import { ProjectTypeWithoutContent } from "@/data/fetchContent";
 
 type CompactProjectCard = {
@@ -36,26 +36,35 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
     <Card
       onClick={handleCardClick}
       data-status={project.status}
-      className="group relative mb-4 h-full flex max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased data-[status=active]:border-green-600 data-[status=archived]:border-gray-600 data-[status=maintenance]:border-yellow-600 md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
+      className="group relative mb-4 flex h-full max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased data-[status=active]:border-green-600 data-[status=archived]:border-gray-600 data-[status=maintenance]:border-yellow-600 md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
     >
-      {/* {project.images && project.images.length > 0 && (
-        <Image
-          src={project.images[0].value.image}
-          fill
-          className="absolute -z-50 object-cover"
-          loading="lazy"
-          aria-hidden
-          quality={75}
-          placeholder="empty"
-          alt="background"
-        />
-      )} */}
+      {project.images && project.images.length > 0 ? (
+        <div className="relative h-48 w-full">
+          <Image
+            src={
+              project.images[0].discriminant === "upload"
+                ? `/${project.images[0].value.image}`
+                : project.images[0].value.image
+            }
+            layout="fill"
+            className="-z-1 absolute object-cover"
+            loading="lazy"
+            quality={75}
+            placeholder="empty"
+            alt={project.images[0].value.alt}
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        </div>
+      ) : (
+        <div className="flex h-48 w-full items-center justify-center bg-gray-200 text-muted-foreground">
+          No Image Available
+        </div>
+      )}
 
       <div
-        className={`h-full w-full`}
-        // className={`h-full w-full ${
-        //   project.images && project.images.length > 0 ? "bg-background/70" : ""
-        // }`}
+        className={`h-full w-full p-4 ${
+          project.images && project.images.length > 0 ? "bg-background/70" : ""
+        }`}
       >
         <CardHeader>
           <div className="flex justify-between">
