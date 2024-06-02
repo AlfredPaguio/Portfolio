@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
   const project = await reader().collections.projects.list();
-  
+
   return project.map((slug) => ({
     slug,
   }));
@@ -132,7 +132,11 @@ export default async function Project({
                       key={key}
                     >
                       <img
-                        src={image.value.image}
+                        src={
+                          image.discriminant === "upload"
+                            ? `/${image.value.image}`
+                            : image.value.image
+                        }
                         width={640}
                         height={480}
                         alt={image.value.alt ?? `Image ${key}`}
