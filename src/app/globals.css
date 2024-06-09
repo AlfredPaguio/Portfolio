@@ -2,51 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Shadcn/ui */
 @layer base {
   :root {
-    --background: 0 0% 95%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 95%;
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 95%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 265 40% 68%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 160 87% 62%;
-    --secondary-foreground: 0 0% 0%;
+    --background: 0 0% 96%;
+    --foreground: 0 0% 12%;
+    --card: 0 0% 96%;
+    --card-foreground: 0 0% 12%;
+    --popover: 0 0% 96%;
+    --popover-foreground: 0 0% 12%;
+    --primary: 205 100% 18%;
+    --primary-foreground: 0 0% 96%;
+    --secondary: 0 0% 72%;
+    --secondary-foreground: 0 0% 12%;
     --muted: 0 0% 20%;
     --muted-foreground: 0 0% 70%;
-    --accent: 167 51% 23%;
-    --accent-foreground: 0 0% 95%;
+    --accent: 205 91% 79%;
+    --accent-foreground: 0 0% 12%;
     --destructive: 0 85% 60%;
-    --destructive-foreground: 0 0% 0%;
+    --destructive-foreground: 0 0% 12%;
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 167 51% 40%;
-    --radius: 0.3rem;
+    --ring: 205 91% 40%;
+    --radius: 0.5rem;
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
-    --foreground: 0 0% 95%;
-    --card: 24 9.8% 10%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 346.8 77.2% 49.8%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 160 87% 38%;
-    --secondary-foreground: 0 0% 5%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 22 100% 54%;
-    --accent-foreground: 23 100% 3%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 346.8 77.2% 49.8%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 88%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 88%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 88%;
+    --primary: 205 100% 82%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 28%;
+    --secondary-foreground: 0 0% 88%;
+    --muted: 0 0% 80%;
+    --muted-foreground: 0 0% 88%;
+    --accent: 205 91% 21%;
+    --accent-foreground: 0 0% 88%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 10%;
+    --border: 0 0% 60%;
+    --input: 0 0% 80%;
+    --ring: 205 91% 60%;
   }
 }
 
