@@ -1,5 +1,7 @@
+import { Navbar } from "@/components/Navbar";
 import KeystaticApp from "./keystatic";
 import { Metadata } from "next";
+import { cookies, draftMode } from "next/headers";
 
 export const metadata = {
   title: "Keystatic Admin",
@@ -7,5 +9,21 @@ export const metadata = {
 } satisfies Metadata;
 
 export default function Layout() {
-  return <KeystaticApp />;
+  const { isEnabled } = draftMode();
+
+  return (
+    <div className="relative flex flex-col">
+      <main>
+        <KeystaticApp />
+      </main>
+      {isEnabled && (
+        <div>
+          Draft mode ({cookies().get("ks-branch")?.value}){" "}
+          <form method="POST" action="/preview/end">
+            <button>End preview</button>
+          </form>
+        </div>
+      )}
+    </div>
+  );
 }
