@@ -36,7 +36,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
     <Card
       onClick={handleCardClick}
       data-status={project.status}
-      className="group relative mb-4 flex h-full max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased data-[status=active]:border-green-600 data-[status=archived]:border-gray-600 data-[status=maintenance]:border-yellow-600 md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
+      className="border group relative mb-4 flex h-full max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
     >
       {project.images && project.images.length > 0 ? (
         <div className="relative h-48 w-full">
@@ -46,7 +46,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
                 ? `/${project.images[0].value.image}`
                 : project.images[0].value.image
             }
-            layout="fill"
+            fill
             className="-z-1 absolute object-cover"
             loading="lazy"
             quality={75}
@@ -56,7 +56,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         </div>
       ) : (
-        <div className="flex h-48 w-full items-center justify-center bg-gray-200 text-muted-foreground">
+        <div className="flex h-48 w-full items-center justify-center bg-gray-200 text-muted">
           No Image Available
         </div>
       )}
@@ -69,7 +69,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
         <CardHeader>
           <div className="flex justify-between">
             <CardTitle className="flex items-center gap-1 text-pretty">
-              <Folder className="shrink-0" />
+              {/* <Folder className="shrink-0" /> */}
               <span ref={titleRef}>{project.title}</span>
             </CardTitle>
             <Badge className="group-data-[status=active]:bg-green-600 group-data-[status=archived]:bg-gray-600 group-data-[status=maintenance]:bg-yellow-600">
