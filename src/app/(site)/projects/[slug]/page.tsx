@@ -16,20 +16,40 @@ import { notFound } from "next/navigation";
 import { Icons } from "@/components/Icons";
 import { processMdx } from "@/utils/mdx";
 import { ArrowLeft } from "lucide-react";
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 // import Image from "next/image";
 
 type Props = {
   params: { slug: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const project = await reader().collections.projects.read(params.slug);
 
+  const previousImages = (await parent).openGraph?.images || [];
+
   if (project == null) return {};
+
+  const projectImages =
+    project.images && project.images.length > 0
+      ? project.images
+          .slice(0, 2)
+          .map((image) =>
+            image.discriminant === "upload"
+              ? `/${image.value.image}`
+              : image.value.image,
+          )
+      : [];
+
   return {
     title: project.title,
     description: project.summary,
+    openGraph: {
+      images: [...projectImages, ...previousImages],
+    },
   };
 }
 

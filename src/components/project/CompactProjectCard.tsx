@@ -36,7 +36,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
     <Card
       onClick={handleCardClick}
       data-status={project.status}
-      className="border group relative mb-4 flex h-full max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
+      className="group relative mb-4 flex h-full max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden border antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
     >
       {project.images && project.images.length > 0 ? (
         <div className="relative h-48 w-full">
@@ -72,7 +72,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
               {/* <Folder className="shrink-0" /> */}
               <span ref={titleRef}>{project.title}</span>
             </CardTitle>
-            <Badge className="group-data-[status=active]:bg-green-600 group-data-[status=archived]:bg-gray-600 group-data-[status=maintenance]:bg-yellow-600">
+            <Badge className="bg-transparent group-data-[status=active]:border-green-600 group-data-[status=archived]:border-gray-600 group-data-[status=maintenance]:border-yellow-600  group-data-[status=unknown]:border-primary group-data-[status=active]:text-green-600 dark:group-data-[status=active]:text-green-400 group-data-[status=archived]:text-gray-400 group-data-[status=maintenance]:text-yellow-600 dark:group-data-[status=maintenance]:text-yellow-400 group-data-[status=unknown]:text-primary">
               {project.status}
             </Badge>
           </div>

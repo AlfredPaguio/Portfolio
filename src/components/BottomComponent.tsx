@@ -16,7 +16,7 @@ export default function BottomComponent() {
     return <Footer />;
   }
 
-  if (pathname.startsWith("/kprojects/") || pathname.startsWith("/projects/")) {
+  if (pathname.startsWith("/projects/")) {
     return <FooterCompact />;
   }
 
