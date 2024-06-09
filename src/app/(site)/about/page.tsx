@@ -10,9 +10,9 @@ import { Terminal } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 
-import { Noto_Serif } from "next/font/google";
+// import { Noto_Serif } from "next/font/google";
 
-const noto_serif = Noto_Serif({ subsets: ["latin"] });
+// const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "About",
@@ -26,8 +26,6 @@ export default async function Home() {
   const techStackArray = Object.entries(techStack).map(([category, items]) => ({
     category: camelCaseToTitleCase(category),
     items,
-    //!TODO Add Tech Icons
-    // Icon: <TechnologyIcons Stacks={items} key={category}/>,
   }));
 
   const { default: AboutContent } = await processMdx(await about.content());
@@ -50,7 +48,7 @@ export default async function Home() {
 
       <div
         className={cn(
-          noto_serif.className,
+          // noto_serif.className,
           "prose h-fit flex-col items-center justify-center text-pretty antialiased dark:prose-invert lg:prose-lg xl:prose-xl md:ml-8 md:p-8 lg:order-first lg:row-span-2 lg:ml-12 lg:p-12",
         )}
       >
@@ -65,19 +63,19 @@ export default async function Home() {
               <li className="flex" key={name}>
                 <Link
                   href={url ?? "#"}
-                  className="group flex items-center rounded text-sm font-medium text-primary-foreground hover:text-primary focus-visible:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 motion-safe:transition  lg:text-lg xl:text-xl"
+                  className="group flex items-center rounded text-sm font-medium text-primary hover:text-accent focus-visible:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 motion-safe:transition lg:text-lg xl:text-xl"
                   target="_blank"
                   rel="me"
                 >
                   {/* pls help lol */}
                   {name.toLowerCase() === "github" && (
-                    <Icons.github className="size-5 flex-none fill-primary-foreground transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" />
+                    <Icons.github className="size-5 flex-none fill-primary transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
                   )}
                   {name.toLowerCase() === "facebook" && (
-                    <Icons.facebook className="size-5 flex-none fill-primary-foreground transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" />
+                    <Icons.facebook className="size-5 flex-none fill-primary transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
                   )}
                   {name.toLowerCase() === "linkedin" && (
-                    <Icons.linkedin className="size-5 flex-none fill-primary-foreground transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" />
+                    <Icons.linkedin className="size-5 flex-none fill-primary transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
                   )}
                   {/* <SocialMedia.icon aria-hidden="true" class="h-5 w-5 flex-none fill-gray-500 transition group-hover:fill-primary group-focus-visible:fill-primary motion-safe:transition" /> */}
                   <span className="ml-4">{`Follow me on ${name}`}</span>
@@ -86,10 +84,10 @@ export default async function Home() {
             ))}
         </ul>
         <div className="rounded-3xl pt-4 motion-safe:transition lg:pt-0">
-          <h2 className="font-display-safe flex items-center text-lg font-semibold text-accent motion-safe:transition dark:text-secondary">
+          <h2 className="font-display-safe flex items-center text-lg font-semibold text-primary motion-safe:transition">
             <Terminal
               aria-hidden="true"
-              className="size-6 fill-accent motion-safe:transition dark:fill-secondary"
+              className="size-6 fill-accent motion-safe:transition"
             />
             <span className="ml-3">Technology Stacks</span>
           </h2>
@@ -101,7 +99,7 @@ export default async function Home() {
                 </span>
                 <span
                   aria-hidden="true"
-                  className="block h-px grow bg-accent motion-safe:transition dark:bg-secondary"
+                  className="block h-px grow bg-accent motion-safe:transition"
                 ></span>
               </li>
               <li>

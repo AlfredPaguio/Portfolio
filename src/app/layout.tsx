@@ -1,10 +1,10 @@
 import { siteConfig } from "@/config/site";
 import { cn } from "@@/src/utils/cn";
 import type { Metadata } from "next";
-import { Noto_Serif } from "next/font/google";
+// import { Noto_Serif } from "next/font/google";
 import "./globals.css";
 
-const noto_serif = Noto_Serif({ subsets: ["latin"] });
+// const noto_serif = Noto_Serif({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          noto_serif.className,
+          // noto_serif.className,
           "min-h-screen overflow-x-hidden overflow-y-scroll antialiased",
         )}
       >

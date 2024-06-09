@@ -45,19 +45,19 @@ export default async function Home() {
                 <Link
                   key={name}
                   href={url ?? "#"}
-                  className="group flex items-center rounded text-sm font-medium text-primary-foreground hover:text-accent focus-visible:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 motion-safe:transition  lg:text-lg xl:text-xl"
+                  className="group flex items-center rounded text-sm font-medium text-primary hover:text-accent focus-visible:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 motion-safe:transition  lg:text-lg xl:text-xl"
                   target="_blank"
                   rel="me"
                 >
                   {/* pls help lol */}
                   {name.toLowerCase() === "github" && (
-                    <Icons.github className="size-8 flex-none fill-primary-foreground transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
+                    <Icons.github className="size-8 flex-none fill-primary transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
                   )}
                   {name.toLowerCase() === "facebook" && (
-                    <Icons.facebook className="size-8 flex-none fill-primary-foreground transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
+                    <Icons.facebook className="size-8 flex-none fill-primary transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
                   )}
                   {name.toLowerCase() === "linkedin" && (
-                    <Icons.linkedin className="size-8 flex-none fill-primary-foreground transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
+                    <Icons.linkedin className="size-8 flex-none fill-primary transition group-hover:fill-accent group-focus-visible:fill-accent motion-safe:transition" />
                   )}
                 </Link>
               ))}
