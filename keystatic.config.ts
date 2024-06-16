@@ -1,5 +1,5 @@
 import { REPOSITORIES, REPO_OWNER } from "@/data/Repositories";
-import { GitHubConfig, LocalConfig, config } from "@keystatic/core";
+import { CloudConfig, GitHubConfig, LocalConfig, config } from "@keystatic/core";
 import { projectsSchema } from "./schema/projects";
 import { techStackSchema } from "./schema/techStack";
 import { linksSchema } from "./schema/links";
@@ -8,20 +8,17 @@ import { siteConfig } from "@/config/site";
 
 //https://vercel.com/docs/projects/environment-variables/system-environment-variables
 const isProd = process.env.NEXT_PUBLIC_VERCEL_ENV === "production" || false;
-const storage: LocalConfig["storage"] | GitHubConfig["storage"] = isProd
+const storage: LocalConfig["storage"] | CloudConfig["storage"] = isProd
   ? {
-      kind: "github",
-      repo: {
-        owner: process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER || REPO_OWNER,
-        name:
-          process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG ||
-          REPOSITORIES.PortfolioData,
-      },
+      kind: "cloud",
     }
   : { kind: "local" };
 
 export default config({
   storage,
+  cloud: {
+    project: 'alfred-paguio/portfolio',
+  },
   ui: {
     brand: { name: siteConfig.name },
     navigation: {

@@ -30,7 +30,7 @@ export const projectsSchema = collection({
       validation: { isRequired: false },
     }),
     websiteURL: fields.url({
-      label: "Website URL",
+      label: "Live Website URL",
       description: "Where project is deployed",
       validation: { isRequired: false },
     }),
@@ -113,6 +113,16 @@ export const projectsSchema = collection({
           }),
           itemLabel: (props) =>
             props.fields.alt?.value ?? props.fields.image?.value ?? "Image Url",
+        },
+        cloud: {
+          label: "Cloud Image",
+          schema: fields.cloudImage({
+            label: 'Project Image',
+            description: 'upload screenshots/images of the project',
+            validation: {
+              isRequired: true
+            }
+          })
         },
       },
       {
