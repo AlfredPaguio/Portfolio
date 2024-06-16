@@ -16,40 +16,22 @@ import { notFound } from "next/navigation";
 import { Icons } from "@/components/Icons";
 import { processMdx } from "@/utils/mdx";
 import { ArrowLeft } from "lucide-react";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
+import { getImageHeight, getImageSrc, getImageWidth } from "@/utils/imageHelpers";
 // import Image from "next/image";
 
 type Props = {
   params: { slug: string };
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = await reader().collections.projects.read(params.slug);
 
-  const previousImages = (await parent).openGraph?.images || [];
-
   if (project == null) return {};
-
-  const projectImages =
-    project.images && project.images.length > 0
-      ? project.images
-          .slice(0, 2)
-          .map((image) =>
-            image.discriminant === "upload"
-              ? `/${image.value.image}`
-              : image.value.image,
-          )
-      : [];
 
   return {
     title: project.title,
     description: project.summary,
-    openGraph: {
-      images: [...projectImages, ...previousImages],
-    },
   };
 }
 
@@ -152,13 +134,9 @@ export default async function Project({
                       key={key}
                     >
                       <img
-                        src={
-                          image.discriminant === "upload"
-                            ? `/${image.value.image}`
-                            : image.value.image
-                        }
-                        width={640}
-                        height={480}
+                        src={getImageSrc(image)}
+                        width={getImageWidth(image)}
+                        height={getImageHeight(image)}
                         alt={image.value.alt ?? `Image ${key}`}
                         className={"max-h-[800px] w-auto rounded-lg shadow-lg"}
                       />
