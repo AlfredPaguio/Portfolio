@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import {
   Card,
@@ -10,10 +11,10 @@ import {
 
 import { formatDate } from "@/utils/formatDate";
 import { Badge } from "@/components/ui/badge";
-import { Folder } from "lucide-react";
 import { useRef } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import { ProjectTypeWithoutContent } from "@/data/fetchContent";
+import { getImageSrc } from "@/utils/imageHelpers";
 
 type CompactProjectCard = {
   project: ProjectTypeWithoutContent;
@@ -39,24 +40,17 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
       className="group relative mb-4 flex h-full max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden border antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
     >
       {project.images && project.images.length > 0 ? (
-        <div className="relative h-48 w-full">
-          <Image
-            src={
-              project.images[0].discriminant === "upload"
-                ? `/${project.images[0].value.image}`
-                : project.images[0].value.image
-            }
-            fill
-            className="-z-1 absolute object-cover"
+        <div className="relative h-fit md:h-48 w-full">
+          <img
+            src={getImageSrc(project.images[0])}
+            className="-z-1 absolute object-cover w-full h-full"
             loading="lazy"
-            quality={75}
-            placeholder="empty"
             alt={project.images[0].value.alt}
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         </div>
       ) : (
-        <div className="flex h-48 w-full items-center justify-center bg-gray-200 text-muted">
+        <div className="flex h-fit md:h-48 w-full items-center justify-center bg-gray-200 text-muted">
           No Image Available
         </div>
       )}
@@ -72,7 +66,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
               {/* <Folder className="shrink-0" /> */}
               <span ref={titleRef}>{project.title}</span>
             </CardTitle>
-            <Badge className="bg-transparent group-data-[status=active]:border-green-600 group-data-[status=archived]:border-gray-600 group-data-[status=maintenance]:border-yellow-600  group-data-[status=unknown]:border-primary group-data-[status=active]:text-green-600 dark:group-data-[status=active]:text-green-400 group-data-[status=archived]:text-gray-400 group-data-[status=maintenance]:text-yellow-600 dark:group-data-[status=maintenance]:text-yellow-400 group-data-[status=unknown]:text-primary">
+            <Badge className="bg-transparent group-data-[status=active]:border-green-600 group-data-[status=archived]:border-gray-600 group-data-[status=maintenance]:border-yellow-600  group-data-[status=unknown]:border-primary group-data-[status=active]:text-green-600 group-data-[status=archived]:text-gray-400 group-data-[status=maintenance]:text-yellow-600 group-data-[status=unknown]:text-primary dark:group-data-[status=active]:text-green-400 dark:group-data-[status=maintenance]:text-yellow-400">
               {project.status}
             </Badge>
           </div>
