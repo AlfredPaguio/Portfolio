@@ -43,7 +43,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
         <div className="relative h-fit md:h-48 w-full">
           <img
             src={getImageSrc(project.images[0])}
-            className="-z-1 absolute object-cover w-full h-full"
+            className="-z-1 absolute object-cover w-full h-full sm:hidden"
             loading="lazy"
             alt={project.images[0].value.alt}
           />
