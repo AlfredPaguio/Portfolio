@@ -43,7 +43,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
         <div className="relative h-fit md:h-48 w-full">
           <img
             src={getImageSrc(project.images[0])}
-            className="-z-1 absolute object-cover w-full h-full sm:hidden"
+            className="-z-1 absolute object-cover w-full h-full"
             loading="lazy"
             alt={project.images[0].value.alt}
           />
@@ -56,9 +56,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
       )}
 
       <div
-        className={`h-full w-full p-4 ${
-          project.images && project.images.length > 0 ? "bg-background/70" : ""
-        }`}
+        className={`h-full w-full p-4`}
       >
         <CardHeader>
           <div className="flex justify-between">
