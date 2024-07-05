@@ -5,7 +5,7 @@ import { fetchProjectContent } from "@/data/fetchContent";
 export default async function Page() {
   const processedProjects = await fetchProjectContent();
   return (
-    <div className="group mb-2 grid grid-cols-1 gap-4 overflow-x-scroll md:grid-cols-2 lg:grid-cols-3">
+    <div className="w-full group mb-2 grid grid-cols-[repeat(auto-fit,_minmax(350px,_1fr))] gap-4">
       {processedProjects && (
         <ProjectList projects={processedProjects.projects} />
       )}

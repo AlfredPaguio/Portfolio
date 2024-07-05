@@ -36,14 +36,16 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          // noto_serif.className,
-          "min-h-screen overflow-x-hidden overflow-y-scroll antialiased",
-        )}
-      >
-        {children}
+    <html lang="en" className="overflow-x-hidden" suppressHydrationWarning>
+      <body className="min-w-full">
+        <div
+          className={cn(
+            // noto_serif.className,
+            "min-h-screen antialiased",
+          )}
+        >
+          {children}
+        </div>
       </body>
     </html>
   );
