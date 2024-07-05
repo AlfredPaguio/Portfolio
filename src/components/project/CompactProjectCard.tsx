@@ -55,9 +55,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
       )}
 
       <div
-        className={`h-full w-full p-2 ${
-          project.images && project.images.length > 0 ? "bg-background/70" : ""
-        }`}
+        className={`h-full w-full p-4`}
       >
         <CardHeader className="p-2">
           <div className="flex justify-between">
