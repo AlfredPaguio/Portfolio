@@ -37,20 +37,19 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
     <Card
       onClick={handleCardClick}
       data-status={project.status}
-      className="group relative mb-4 flex h-full max-w-sm grid-cols-subgrid flex-col flex-wrap overflow-hidden border antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased md:max-w-md md:flex-nowrap lg:max-w-lg group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
+      className="group relative row-span-3 w-full grid h-full grid-cols-subgrid overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
     >
       {project.images && project.images.length > 0 ? (
-        <div className="relative h-fit md:h-48 w-full">
+        <div className="relative w-full md:h-48">
           <img
             src={getImageSrc(project.images[0])}
-            className="-z-1 absolute object-cover w-full h-full"
+            className="-z-1 absolute h-full w-full object-cover"
             loading="lazy"
             alt={project.images[0].value.alt}
           />
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         </div>
       ) : (
-        <div className="flex h-fit md:h-48 w-full items-center justify-center bg-gray-200 text-muted">
+        <div className="flex h-12 w-full items-center justify-center bg-primary text-primary-foreground md:h-48">
           No Image Available
         </div>
       )}
@@ -58,7 +57,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
       <div
         className={`h-full w-full p-4`}
       >
-        <CardHeader>
+        <CardHeader className="p-2">
           <div className="flex justify-between">
             <CardTitle className="flex items-center gap-1 text-pretty">
               {/* <Folder className="shrink-0" /> */}
@@ -73,8 +72,8 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
             {formatDate(project.date)}
           </Badge>
         </CardHeader>
-        <CardContent className="flex-1">
-          <CardDescription className="whitespace-pre-line text-foreground">
+        <CardContent className="h-16 p-2 overflow-y-auto">
+          <CardDescription className="text-ellipsis overflow-hidden">
             {project.summary || "No Summary"}
           </CardDescription>
         </CardContent>

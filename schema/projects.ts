@@ -117,18 +117,28 @@ export const projectsSchema = collection({
         cloud: {
           label: "Cloud Image",
           schema: fields.cloudImage({
-            label: 'Project Image',
-            description: 'upload screenshots/images of the project',
+            label: "Project Image",
+            description: "upload screenshots/images of the project",
             validation: {
-              isRequired: true
-            }
-          })
+              isRequired: true,
+            },
+          }),
         },
       },
       {
         label: "Images",
         description:
           "Collection of images showcasing various aspects of the project.",
+      },
+    ),
+    videos: fields.array(
+      fields.url({
+        label: "Video URL",
+        description: "The video URL",
+      }),
+      {
+        label: "Video Link",
+        itemLabel: (props) => props.value ?? "Add video link",
       },
     ),
   },

@@ -17,7 +17,11 @@ import { Icons } from "@/components/Icons";
 import { processMdx } from "@/utils/mdx";
 import { ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
-import { getImageHeight, getImageSrc, getImageWidth } from "@/utils/imageHelpers";
+import {
+  getImageHeight,
+  getImageSrc,
+  getImageWidth,
+} from "@/utils/imageHelpers";
 // import Image from "next/image";
 
 type Props = {
@@ -121,10 +125,22 @@ export default async function Project({
           )}
           <div className="mt-4">
             <Separator className="w-1/3 bg-primary" />
-            <div className="prose mx-auto mt-8 dark:prose-invert lg:prose-lg xl:prose-xl prose-blockquote:border-accent-foreground prose-blockquote:text-primary-foreground prose-figure:mt-0 prose-figcaption:mt-0 lg:prose-figure:mt-0 lg:prose-figcaption:mt-0 xl:prose-figure:mt-2 xl:prose-figcaption:mt-0 2xl:prose-figcaption:mt-0">
+            <div className="prose mx-auto mt-8 flex flex-col items-center gap-4 dark:prose-invert lg:prose-lg xl:prose-xl prose-blockquote:border-accent-foreground prose-blockquote:text-primary-foreground prose-figure:mt-0 prose-figcaption:mt-0 lg:prose-figure:mt-0 lg:prose-figcaption:mt-0 xl:prose-figure:mt-2 xl:prose-figcaption:mt-0 2xl:prose-figcaption:mt-0">
               {/* <DocumentRenderer document={await project.content()} /> */}
               {/* <CustomDocumentRenderer document={await project.content()} /> */}
               <ProjectContent />
+              {project.videos &&
+                project.videos.map((videoLink) => {
+                  return (
+                    <iframe
+                      key={videoLink}
+                      src={videoLink ?? undefined}
+                      width="1280"
+                      height="720"
+                      allow="autoplay"
+                    ></iframe>
+                  );
+                })}
               {project.images &&
                 project.images.length > 0 &&
                 project.images.map((image, key) => {
@@ -153,7 +169,8 @@ export default async function Project({
           </div>
           <Button
             variant={"secondary"}
-            className="items-left flex w-1/4 justify-center gap-2"
+            size={"sm"}
+            className="items-left flex justify-center gap-2"
             asChild
           >
             <Link href={`/projects`}>
@@ -163,10 +180,15 @@ export default async function Project({
           </Button>
         </div>
       ) : (
-        <div>
+        <Button
+          variant={"secondary"}
+          size={"sm"}
+          className="items-left flex justify-center gap-2"
+          asChild
+        >
           No Project Found
           <Link href={`/projects`}>Back to project list</Link>
-        </div>
+        </Button>
       )}
     </div>
   );
