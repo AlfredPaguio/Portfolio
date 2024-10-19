@@ -21,6 +21,7 @@ import {
 } from "@@/src/app/store/technology/technology-slice";
 import { useAppDispatch, useAppSelector } from "@@/src/app/store/hooks";
 import { TechStackType } from "@/data/fetchContent";
+import { Badge } from "../ui/badge";
 
 type FilterListBarProps = {
   techs: TechStackType;
@@ -28,7 +29,7 @@ type FilterListBarProps = {
 
 export default function FilterListBar({ techs }: FilterListBarProps) {
   const selectedTechnologies = useAppSelector(
-    (state) => state.technology.selectedTechnologies
+    (state) => state.technology.selectedTechnologies,
   );
   const dispatch = useAppDispatch();
 
@@ -45,7 +46,7 @@ export default function FilterListBar({ techs }: FilterListBarProps) {
   };
 
   return (
-    <div className="md:text-md 3xl:text-3xl flex w-full text-sm flex-col md:flex-row md:items-center lg:text-lg xl:text-xl 2xl:text-2xl">
+    <div className="md:text-md 3xl:text-3xl flex w-full flex-col text-sm md:flex-row md:items-center lg:text-lg xl:text-xl 2xl:text-2xl">
       <div className={`order-1`}>
         <Sheet>
           <SheetTrigger asChild>
@@ -55,7 +56,7 @@ export default function FilterListBar({ techs }: FilterListBarProps) {
               className={`order-1 inline-flex shrink-0 items-center p-2`}
             >
               <FilterIcon className="mr-2 h-6 w-6" />
-              <span>Filters {selectedTechnologies.length}</span>
+              <span>Filter</span>
             </Button>
           </SheetTrigger>
           <SheetContent side={"bottom"}>
@@ -76,7 +77,7 @@ export default function FilterListBar({ techs }: FilterListBarProps) {
               )}
             </SheetHeader>
             <ScrollArea>
-              <FilterListMenu techs={techs}/>
+              <FilterListMenu techs={techs} />
             </ScrollArea>
             <SheetFooter>
               <SheetClose asChild>
@@ -105,20 +106,26 @@ export default function FilterListBar({ techs }: FilterListBarProps) {
         orientation="vertical"
         className="order-3 hidden h-8 w-0.5 bg-accent md:order-2 md:mx-4 md:block"
       />
-      <div className="order-4 mt-2 flex flex-1 flex-wrap items-center gap-1 md:order-3 md:mt-0">
+      <div className="order-4 mt-2 flex flex-1 flex-wrap items-center gap-2 md:order-3 md:mt-0">
         {!selectedTechnologies.length && (
           <span className="pl-3 pr-2 text-sm font-medium lg:text-lg xl:text-xl 2xl:text-2xl">
             None
           </span>
         )}
-        {selectedTechnologies.map((tech: string) => (
-          <TechPillButton
-            key={tech + " Pill"}
-            isSelected={selectedTechnologies.includes(tech)}
-            technology={tech}
-            onClickTechnology={() => handleRemoveTechnology(tech)}
-          />
-        ))}
+        {selectedTechnologies.length > 3 ? (
+          <Badge variant="secondary" className="text-lg font-normal">
+            {selectedTechnologies.length} selected
+          </Badge>
+        ) : (
+          selectedTechnologies.map((tech: string) => (
+            <TechPillButton
+              key={tech + " Pill"}
+              isSelected={selectedTechnologies.includes(tech)}
+              technology={tech}
+              onClickTechnology={() => handleRemoveTechnology(tech)}
+            />
+          ))
+        )}
       </div>
     </div>
   );

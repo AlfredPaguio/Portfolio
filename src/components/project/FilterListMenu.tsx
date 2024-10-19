@@ -5,8 +5,9 @@ import {
   addTechnology,
   removeTechnology,
 } from "@/app/store/technology/technology-slice";
-import { TechStackType } from "@/data/fetchContent";
 import { useState } from "react";
+import { TechFieldset } from "./TechFieldset";
+import { TechStackType } from "@/data/fetchContent";
 
 type FilterListMenuProps = {
   techs: TechStackType;
@@ -37,71 +38,42 @@ export default function FilterListMenu({ techs }: FilterListMenuProps) {
   return (
     <div className="md:text-md 3xl:text-3xl grid max-w-7xl grid-cols-2 gap-x-4 pt-4 text-sm text-foreground transition-all duration-300 md:gap-x-6 lg:text-lg xl:text-xl 2xl:text-2xl">
       <div className="grid auto-rows-min grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-6">
-        <fieldset>
-          <legend className="block pb-2 text-sm font-medium leading-none text-foreground">
-            Programming Languages:
-          </legend>
-          <div className="flex flex-col gap-y-1 pt-1 md:gap-y-2">
-            {techs.programmingLanguages.toSorted().map((language) => (
-              <TechCheckbox
-                key={language}
-                technology={language}
-                isSelected={selectedTechnologies.includes(language)}
-                onChangeTechnology={() => toggleTechnology(language)}
-              />
-            ))}
-          </div>
-        </fieldset>
+        <TechFieldset
+          title="Programming Languages"
+          techs={Array.from(techs.programmingLanguages)}
+          selectedTechnologies={selectedTechnologies}
+          toggleTechnology={toggleTechnology}
+        />
 
-        <fieldset>
-          <legend className="block pb-2 text-sm font-medium leading-none text-foreground">
-            Libraries:
-          </legend>
-          <div className="flex flex-col gap-y-1 pt-1 md:gap-y-2">
-            {techs.libraries.toSorted().map((library) => (
-              <TechCheckbox
-                key={library}
-                technology={library}
-                isSelected={selectedTechnologies.includes(library)}
-                onChangeTechnology={() => toggleTechnology(library)}
-              />
-            ))}
-          </div>
-        </fieldset>
+        <TechFieldset
+          title="Libraries"
+          techs={Array.from(techs.libraries)}
+          selectedTechnologies={selectedTechnologies}
+          toggleTechnology={toggleTechnology}
+        />
       </div>
       <div className="grid auto-rows-min grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-6">
-        <fieldset>
-          <legend className="block pb-2 text-sm font-medium leading-none text-foreground">
-            Frameworks:
-          </legend>
-          <div className="flex flex-col gap-y-1 pt-1 md:gap-y-2">
-            {techs.frameworks.toSorted().map((framework) => (
-              <TechCheckbox
-                key={framework}
-                technology={framework}
-                isSelected={selectedTechnologies.includes(framework)}
-                onChangeTechnology={() => toggleTechnology(framework)}
-              />
-            ))}
-          </div>
-        </fieldset>
+        <TechFieldset
+          title="Frameworks"
+          techs={Array.from(techs.frameworks)}
+          selectedTechnologies={selectedTechnologies}
+          toggleTechnology={toggleTechnology}
+        />
 
-        <fieldset>
-          <legend className="block pb-2 text-sm font-medium leading-none text-foreground">
-            Database Management Systems:
-          </legend>
-          <div className="flex flex-col gap-y-1 pt-1 md:gap-y-2">
-            {techs.databaseManagementSystems.toSorted().map((DBMS) => (
-              <TechCheckbox
-                key={DBMS}
-                technology={DBMS}
-                isSelected={selectedTechnologies.includes(DBMS)}
-                onChangeTechnology={() => toggleTechnology(DBMS)}
-              />
-            ))}
-          </div>
-        </fieldset>
+        <TechFieldset
+          title="Database Management Systems"
+          techs={Array.from(techs.databaseManagementSystems)}
+          selectedTechnologies={selectedTechnologies}
+          toggleTechnology={toggleTechnology}
+        />
       </div>
+      {process.env.NODE_ENV === "development" && (
+        <pre className="whitespace-pre-wrap bg-slate-950">
+          <code className="text-foreground">
+            {JSON.stringify(techs, undefined, 2)}
+          </code>
+        </pre>
+      )}
     </div>
   );
 }
