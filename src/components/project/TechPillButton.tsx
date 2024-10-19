@@ -19,7 +19,7 @@ export default function TechPillButton({
   return (
     <Button
       onClick={onClickTechnology}
-      className={cn(badgeVariants({ variant: "default" }), `shrink-0`)}
+      className={cn(badgeVariants({ variant: "default" }), `shrink-0 text-foreground`)}
     >
       {/* <Button
       onClick={onClickTechnology}
