@@ -57,13 +57,13 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
       <div
         className={`h-full w-full p-4`}
       >
-        <CardHeader className="p-2">
+        <CardHeader>
           <div className="flex justify-between">
             <CardTitle className="flex items-center gap-1 text-pretty">
               {/* <Folder className="shrink-0" /> */}
               <span ref={titleRef}>{project.title}</span>
             </CardTitle>
-            <Badge className="bg-transparent group-data-[status=active]:border-green-600 group-data-[status=archived]:border-gray-600 group-data-[status=maintenance]:border-yellow-600  group-data-[status=unknown]:border-primary group-data-[status=active]:text-green-600 group-data-[status=archived]:text-gray-400 group-data-[status=maintenance]:text-yellow-600 group-data-[status=unknown]:text-primary dark:group-data-[status=active]:text-green-400 dark:group-data-[status=maintenance]:text-yellow-400">
+            <Badge className="bg-accent/40 group-data-[status=active]:border-l-green-600 group-data-[status=archived]:border-l-gray-600 group-data-[status=maintenance]:border-l-yellow-600  group-data-[status=unknown]:border-l-primary group-data-[status=active]:text-green-600 group-data-[status=archived]:text-gray-400 group-data-[status=maintenance]:text-yellow-600 group-data-[status=unknown]:text-primary dark:group-data-[status=active]:text-green-400 dark:group-data-[status=maintenance]:text-yellow-400">
               {project.status}
             </Badge>
           </div>
@@ -72,12 +72,12 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
             {formatDate(project.date)}
           </Badge>
         </CardHeader>
-        <CardContent className="h-16 p-2 overflow-y-auto">
+        <CardContent className="h-16 p-0 pt-4 overflow-y-auto">
           <CardDescription className="text-ellipsis overflow-hidden">
             {project.summary || "No Summary"}
           </CardDescription>
         </CardContent>
-        <CardFooter className="flex-wrap gap-2 p-4">
+        <CardFooter className="flex-wrap mt-4 gap-1 p-0 items-end">
           {project.stack.map((tech, index) => (
             <Badge variant={"accent"} key={index}>
               {tech}
