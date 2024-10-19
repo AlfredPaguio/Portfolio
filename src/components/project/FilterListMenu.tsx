@@ -35,45 +35,24 @@ export default function FilterListMenu({ techs }: FilterListMenuProps) {
 
   if (!techs) return null;
 
+  const techCategories = {
+    programmingLanguages: "Programming Languages",
+    libraries: "Libraries",
+    frameworks: "Frameworks",
+    databaseManagementSystems: "Database Management Systems",
+  };
+
   return (
-    <div className="md:text-md 3xl:text-3xl grid max-w-7xl grid-cols-2 gap-x-4 pt-4 text-sm text-foreground transition-all duration-300 md:gap-x-6 lg:text-lg xl:text-xl 2xl:text-2xl">
-      <div className="grid auto-rows-min grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-6">
+    <div className="grid auto-rows-min grid-cols-1 gap-y-4 md:gap-y-10 md:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
+      {Object.entries(techCategories).map(([key, title]) => (
         <TechFieldset
-          title="Programming Languages"
-          techs={Array.from(techs.programmingLanguages)}
+          key={key}
+          title={title}
+          techs={techs[key as keyof typeof techs] || []}
           selectedTechnologies={selectedTechnologies}
           toggleTechnology={toggleTechnology}
         />
-
-        <TechFieldset
-          title="Libraries"
-          techs={Array.from(techs.libraries)}
-          selectedTechnologies={selectedTechnologies}
-          toggleTechnology={toggleTechnology}
-        />
-      </div>
-      <div className="grid auto-rows-min grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-6">
-        <TechFieldset
-          title="Frameworks"
-          techs={Array.from(techs.frameworks)}
-          selectedTechnologies={selectedTechnologies}
-          toggleTechnology={toggleTechnology}
-        />
-
-        <TechFieldset
-          title="Database Management Systems"
-          techs={Array.from(techs.databaseManagementSystems)}
-          selectedTechnologies={selectedTechnologies}
-          toggleTechnology={toggleTechnology}
-        />
-      </div>
-      {process.env.NODE_ENV === "development" && (
-        <pre className="whitespace-pre-wrap bg-slate-950">
-          <code className="text-foreground">
-            {JSON.stringify(techs, undefined, 2)}
-          </code>
-        </pre>
-      )}
+      ))}
     </div>
   );
 }

@@ -2,7 +2,7 @@ import TechCheckbox from "./TechCheckBox";
 
 interface TechFieldsetProps {
   title: string;
-  techs: string[];
+  techs: readonly string[];
   selectedTechnologies: string[];
   toggleTechnology: (tech: string) => void;
 }
@@ -13,6 +13,10 @@ export const TechFieldset: React.FC<TechFieldsetProps> = ({
   selectedTechnologies,
   toggleTechnology,
 }) => {
+  if (!techs.length) {
+    return null; // Skip rendering if no techs are available
+  }
+
   return (
     <fieldset>
       <legend className="block pb-2 text-sm font-medium leading-none text-foreground">
