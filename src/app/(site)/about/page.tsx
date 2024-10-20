@@ -9,6 +9,7 @@ import { reader } from "@/utils/reader";
 import { Terminal } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
+import { IconComponent } from "@/components/IconComponent";
 
 // import { Noto_Serif } from "next/font/google";
 
@@ -133,9 +134,4 @@ export default async function Home() {
       </div>
     </div>
   );
-}
-
-function IconComponent({ techName }: { techName: string }) {
-  const TechIcon = getIconForTechnology(techName);
-  return <TechIcon.Icon className="size-4" />;
 }
