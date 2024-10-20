@@ -13,11 +13,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
   return (
     <Providers>
-      <div className="relative flex min-h-svh flex-col">
-        <Navbar />
-        <main className="flex-1 px-4 md:px-16">{children}</main>
-        <BottomComponent />
-      </div>
+      <Navbar />
+      <main className="mb-auto pt-20">{children}</main>
+      <BottomComponent />
       <Toaster />
       {isEnabled && (
         <div>
