@@ -32,8 +32,12 @@ export default function NavigationHandler() {
 
     // console.log("is Carousel Opened?: ",isBodyPointerEventsNone)
 
+    // fix for light box
+    const isBodyNoScroll = document.body.classList.contains("yarl__no_scroll");
+
     return (
       isBodyPointerEventsNone ||
+      isBodyNoScroll ||
       focusedElement &&
       (focusedElement.tagName === "INPUT" ||
         focusedElement.tagName === "TEXTAREA" ||
