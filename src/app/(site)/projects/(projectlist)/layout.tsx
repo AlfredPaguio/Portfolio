@@ -10,7 +10,7 @@ export default function Layout({
   return (
     <>
       <ProjectsHandler />
-      <div className="flex flex-col items-center gap-6">
+      <div className="flex flex-col items-center gap-6 pt-8">
         {children}
         {projectList}
       </div>

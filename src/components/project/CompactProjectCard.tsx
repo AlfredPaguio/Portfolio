@@ -49,7 +49,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
           />
         </div>
       ) : (
-        <div className="flex h-12 w-full items-center justify-center bg-primary text-primary-foreground md:h-48">
+        <div className="hidden md:flex h-12 w-full items-center justify-center bg-primary text-primary-foreground md:h-48">
           No Image Available
         </div>
       )}

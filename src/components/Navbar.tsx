@@ -44,7 +44,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "header-md:mx-auto header-md:max-w-[768px] header-md:px-8 header-lg:max-w-[1168px] fixed inset-x-0 left-[calc(100vw-100%)] top-4 z-40 mx-8 flex h-[60px] items-center justify-between rounded-3xl border border-border bg-card px-4 shadow-sm saturate-100 backdrop-blur-[4px] transition-all duration-200",
+        "fixed inset-x-0 left-[calc(100vw-100%)] top-4 z-40 mx-8 flex h-[60px] items-center justify-between rounded-3xl border border-border bg-card px-4 shadow-sm saturate-100 backdrop-blur-[4px] transition-all duration-200 md:mx-auto md:max-w-[768px] md:px-8 lg:max-w-[1168px]",
         isScrolled && "border-transparent bg-background/80",
       )}
     >
