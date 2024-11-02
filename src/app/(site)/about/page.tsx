@@ -10,6 +10,7 @@ import { Terminal } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { IconComponent } from "@/components/IconComponent";
+import { getProficiencyLabel } from "@/constant/proficiencyOptions";
 
 // import { Noto_Serif } from "next/font/google";
 
@@ -106,12 +107,12 @@ export default async function Home() {
               <li>
                 <ul className="space-y-3">
                   {items.map((item) => (
-                    <li key={item} className="flex w-full items-center gap-4">
+                    <li key={item.name} className="flex w-full items-center gap-4">
                       <div
                         aria-hidden="true"
                         className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white shadow-md shadow-gray-800/5 ring-1 ring-gray-900/5 motion-safe:transition dark:border dark:border-gray-700/50 dark:border-gray-800 dark:bg-gray-800 dark:ring-0"
                       >
-                        <IconComponent techName={item} />
+                        <IconComponent techName={item.name} />
                         {/* <BadgeDollarSign className="size-4" /> */}
                       </div>
 
@@ -119,10 +120,10 @@ export default async function Home() {
                         lang="en-US"
                         className="grow text-sm font-medium motion-safe:transition"
                       >
-                        {item}
+                        {item.name}
                       </span>
                       <span className="shrink-0 text-xs motion-safe:transition dark:contrast-more:font-medium">
-                        {/* {skill level} */}
+                        {getProficiencyLabel(Number(item.proficiency))}
                       </span>
                     </li>
                   ))}
