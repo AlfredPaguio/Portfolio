@@ -11,6 +11,9 @@ import { Separator } from "@/components/ui/separator";
 import ProgressCircle from "@/components/ProgressCircle";
 import { Suspense } from "react";
 import Technologies from "./partials/Technologies";
+import FeaturedProjects from "./partials/FeaturedProjects";
+import { CodeIcon, DatabaseIcon } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export default async function Home() {
   const socialLinks = await reader().singletons.links.read();
@@ -93,12 +96,48 @@ export default async function Home() {
       </SectionContainer>
 
       <SectionContainer>
-        <Separator />
-        <Technologies techStack={techStack}/>
+        <h2 className="mb-6 text-center text-2xl font-bold">What I Do</h2>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <CodeIcon className="mr-2 size-6" />
+                Web Development
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="pl-2">
+                Creating responsive and performant web applications using modern
+                frameworks and best practices.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <DatabaseIcon className="mr-2 size-6" />
+                Backend Development
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="pl-2">
+                Designing and implementing robust server-side solutions and APIs
+                to power applications.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </SectionContainer>
+
+      <SectionContainer>
+        <Technologies techStack={techStack} />
+      </SectionContainer>
+
+      <SectionContainer>
+        <FeaturedProjects />
       </SectionContainer>
 
       <SectionContainer size={"2xl"}>
-        <Separator className="px-10" />
         <Suspense
           fallback={
             <ProgressCircle className="mx-auto my-10 h-4 w-4 animate-spin" />

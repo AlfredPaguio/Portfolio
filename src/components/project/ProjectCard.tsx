@@ -16,11 +16,11 @@ import { useRef } from "react";
 import { ProjectTypeWithoutContent } from "@/data/fetchContent";
 import { getImageSrc } from "@/utils/imageHelpers";
 
-type CompactProjectCard = {
+type ProjectCard = {
   project: ProjectTypeWithoutContent;
 };
 
-export default function CompactProjectCard({ project }: CompactProjectCard) {
+export default function ProjectCard({ project }: ProjectCard) {
   const titleRef = useRef<HTMLDivElement>(null);
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -37,7 +37,7 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
     <Card
       onClick={handleCardClick}
       data-status={project.status}
-      className="group relative row-span-3 w-full grid h-full grid-cols-subgrid overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
+      className="group relative row-span-3 grid h-full w-full grid-cols-subgrid overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
     >
       {project.images && project.images.length > 0 ? (
         <div className="relative w-full md:h-48">
@@ -49,14 +49,12 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
           />
         </div>
       ) : (
-        <div className="hidden md:flex h-12 w-full items-center justify-center bg-primary text-primary-foreground md:h-48">
+        <div className="hidden h-12 w-full items-center justify-center bg-primary text-primary-foreground md:flex md:h-48">
           No Image Available
         </div>
       )}
 
-      <div
-        className={`h-full w-full p-4`}
-      >
+      <div className={`h-full w-full p-4`}>
         <CardHeader>
           <div className="flex justify-between">
             <CardTitle className="flex items-center gap-1 text-pretty">
@@ -72,12 +70,12 @@ export default function CompactProjectCard({ project }: CompactProjectCard) {
             {formatDate(project.date)}
           </Badge>
         </CardHeader>
-        <CardContent className="h-16 p-0 pt-4 overflow-y-auto">
-          <CardDescription className="text-ellipsis overflow-hidden">
+        <CardContent className="h-16 overflow-y-auto p-0 pt-4">
+          <CardDescription className="overflow-hidden text-ellipsis">
             {project.summary || "No Summary"}
           </CardDescription>
         </CardContent>
-        <CardFooter className="flex-wrap mt-4 gap-1 p-0 items-end">
+        <CardFooter className="mt-4 flex-wrap items-end gap-1 p-0">
           {project.stack.map((tech, index) => (
             <Badge variant={"accent"} key={index}>
               {tech}
