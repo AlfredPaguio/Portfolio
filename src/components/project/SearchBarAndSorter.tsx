@@ -54,7 +54,6 @@ const SearchInput = ({ onChange, value }: SearchInputProps) => (
       <span className="sr-only">Search</span>
       <Input
         className="group peer block h-12 pl-2 pr-9 placeholder:invisible placeholder:text-[0]"
-        variant={"outline"}
         type="text"
         onChange={(e) => onChange(e.target.value)}
         value={value ?? undefined}

@@ -1,10 +1,10 @@
 import { siteConfig } from "@/config/site";
 import { cn } from "@@/src/utils/cn";
 import type { Metadata } from "next";
-// import { Noto_Serif } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-// const noto_serif = Noto_Serif({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -36,12 +36,12 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className="overflow-x-hidden scroll-smooth scrollbar-thin scrollbar-track-slate-400 scrollbar-thumb-slate-700" suppressHydrationWarning>
+    <html lang="en" className="overflow-x-hidden bg-gradient-light dark:bg-gradient-dark scroll-smooth scrollbar-thin scrollbar-track-slate-400 scrollbar-thumb-slate-700" suppressHydrationWarning>
       <body className="min-w-full">
         <div
           className={cn(
-            // noto_serif.className,
-            "min-h-screen bg-background font-sans antialiased",
+            inter.className,
+            "min-h-screen font-sans antialiased",
           )}
         >
           {children}

@@ -59,7 +59,7 @@
   }
 
   body {
-    @apply scroll-smooth bg-background text-foreground antialiased;
+    @apply scroll-smooth text-foreground antialiased;
     font-feature-settings:
       "rlig" 1,
       "calt" 1;

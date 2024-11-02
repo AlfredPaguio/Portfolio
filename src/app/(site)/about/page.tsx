@@ -1,7 +1,6 @@
 import Image from "next/image";
 // import myPicture from "@@/public/images/my_picture.png";
 import { Icons } from "@/components/Icons";
-import { getIconForTechnology } from "@/data/TechIcons";
 import { camelCaseToTitleCase } from "@/utils/camelCaseToTitleCase";
 import { cn } from "@/utils/cn";
 import { processMdx } from "@/utils/mdx";
@@ -12,25 +11,17 @@ import Link from "next/link";
 import { IconComponent } from "@/components/IconComponent";
 import { getProficiencyLabel } from "@/constant/proficiencyOptions";
 
-// import { Noto_Serif } from "next/font/google";
-
-// const noto_serif = Noto_Serif({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
   title: "About",
 };
 
 export default async function Home() {
-  const about = await reader().singletons.about.readOrThrow();
-  const socialLinks = await reader().singletons.links.readOrThrow();
-  const techStack = await reader().singletons.techStack.readOrThrow();
+  const { about, socialLinks, techStack } = await getCMSData();
 
   const techStackArray = Object.entries(techStack).map(([category, items]) => ({
     category: camelCaseToTitleCase(category),
     items,
   }));
-
-  const { default: AboutContent } = await processMdx(await about.content());
 
   return (
     <div className="grid grid-cols-1 gap-y-16 py-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
@@ -54,7 +45,7 @@ export default async function Home() {
           "prose h-fit flex-col items-center justify-center text-pretty antialiased dark:prose-invert lg:prose-lg xl:prose-xl md:ml-8 md:p-8 lg:order-first lg:row-span-2 lg:ml-12 lg:p-12",
         )}
       >
-        <AboutContent />
+        <about.content />
         {/* {about && <CustomDocumentRenderer document={await about.content()} />} */}
       </div>
 
@@ -107,7 +98,10 @@ export default async function Home() {
               <li>
                 <ul className="space-y-3">
                   {items.map((item) => (
-                    <li key={item.name} className="flex w-full items-center gap-4">
+                    <li
+                      key={item.name}
+                      className="flex w-full items-center gap-4"
+                    >
                       <div
                         aria-hidden="true"
                         className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white shadow-md shadow-gray-800/5 ring-1 ring-gray-900/5 motion-safe:transition dark:border dark:border-gray-700/50 dark:border-gray-800 dark:bg-gray-800 dark:ring-0"
@@ -135,4 +129,21 @@ export default async function Home() {
       </div>
     </div>
   );
+}
+
+async function getCMSData() {
+  const about = await reader().singletons.about.readOrThrow();
+  const socialLinks = await reader().singletons.links.readOrThrow();
+  const techStack = await reader().singletons.techStack.readOrThrow();
+
+  const { default: AboutContent } = await processMdx(await about.content());
+
+  return {
+    about: {
+      ...about,
+      content: AboutContent,
+    },
+    socialLinks,
+    techStack,
+  };
 }

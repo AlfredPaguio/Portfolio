@@ -26,21 +26,21 @@ export default async function Home() {
         size={"2xl"}
       >
         <div className="flex flex-col items-center">
-          <h2 className="mb-2 text-start text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
+          <h2 className="mb-2 text-start text-lg font-light md:text-xl lg:text-2xl xl:text-3xl">
             <span className="highlight-secondary">
               Hi, nice to meet you! 👋🏻
             </span>
             {/* I&apos;m */}
           </h2>
           <div className="flex items-end justify-start gap-2">
-            <h2 className="mb-2 text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl">
+            <h2 className="mb-2 text-lg font-light md:text-xl lg:text-2xl xl:text-3xl">
               I&apos;m
             </h2>
-            <h1 className="highlight mb-2 text-balance text-4xl font-bold md:text-5xl lg:text-6xl xl:text-7xl">
+            <h1 className="highlight mb-2 text-balance text-4xl font-medium md:text-5xl lg:text-6xl xl:text-7xl">
               <span className="[viewTransitionName:brand-name]">Alfred</span>
             </h1>
           </div>
-          <p className="text-small text-balance text-center md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+          <p className="text-small text-balance font-light text-center md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
             A passionate{" "}
             <span className="underline decoration-accent/80 decoration-2 underline-offset-2">
               software developer
@@ -137,7 +137,7 @@ export default async function Home() {
         <FeaturedProjects />
       </SectionContainer>
 
-      <SectionContainer size={"2xl"}>
+      <SectionContainer>
         <Suspense
           fallback={
             <ProgressCircle className="mx-auto my-10 h-4 w-4 animate-spin" />

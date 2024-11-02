@@ -44,8 +44,8 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 left-[calc(100vw-100%)] top-4 z-40 mx-8 flex h-[60px] items-center justify-between rounded-3xl border border-border bg-card px-4 shadow-sm saturate-100 backdrop-blur-[4px] transition-all duration-200 md:mx-auto md:max-w-[768px] md:px-8 lg:max-w-[1168px]",
-        isScrolled && "border-transparent bg-background/80",
+        "fixed inset-x-0 left-[calc(100vw-100%)] top-4 z-40 mx-8 flex h-[60px] items-center justify-between rounded-3xl border border-transparent bg-transparent  px-4 shadow-sm saturate-100 backdrop-blur-[4px] transition-all duration-200 md:mx-auto md:max-w-[768px] md:px-8 lg:max-w-[1168px]",
+        isScrolled && "border-border",
       )}
     >
       {/* Container */}
@@ -56,10 +56,10 @@ export function Navbar() {
           <Button variant="ghost" aria-label="Home" asChild>
             <Link
               href="/"
-              className="flex items-center gap-2 font-semibold"
+              className="flex items-center gap-2"
               prefetch={false}
             >
-              <h1 className="text-center text-2xl font-bold [viewTransitionName:brand-name]">
+              <h1 className="text-center text-2xl font-light [viewTransitionName:brand-name]">
                 Alfred
               </h1>
             </Link>
