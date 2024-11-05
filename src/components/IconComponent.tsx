@@ -1,5 +1,5 @@
-import { getIconForTechnology, IconType } from "@/data/TechIcons";
 import { cn } from "@/utils/cn";
+import { getTechIcon } from "./Icons";
 
 function IconComponent({
   techName,
@@ -8,8 +8,9 @@ function IconComponent({
   techName: string;
   className?: string;
 }) {
-  const TechIcon: IconType = getIconForTechnology(techName);
-  return <TechIcon.Icon className={cn(`size-4`, className)} />;
+  // const TechIcon: IconType = getIconForTechnology(techName);
+  const TechIcon = getTechIcon(techName);
+  return <TechIcon className={cn(`size-4`, className)} />;
 }
 
 export { IconComponent };

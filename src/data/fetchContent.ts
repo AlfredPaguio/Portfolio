@@ -32,4 +32,4 @@ const fetchTechStack = async (): Promise<TechStackType> => {
 };
 
 export { fetchProjectContent, fetchTechStack };
-export type { ProjectProps, TechStackType, ProjectTypeWithoutContent };
+export type { ProjectProps, TechStackType, ProjectType, ProjectTypeWithoutContent };

@@ -1,7 +1,7 @@
 import { ElementType } from "react";
 import dynamic from 'next/dynamic'
 
-const iconImports = {
+export const iconImports = {
   // Programming Languages
   "C# 5.0": () => import("@beta/devicons-react/lib/icons/CsharpPlain"),
   "Visual Basic .NET": () =>
@@ -14,17 +14,21 @@ const iconImports = {
   // Frameworks
   Laravel: () =>
     import("@beta/devicons-react/lib/icons/LaravelOriginal"),
-  Livewire: () =>
+  "Laravel Livewire": () =>
     import("@beta/devicons-react/lib/icons/LivewireOriginal"),
   Flask: () => import("@beta/devicons-react/lib/icons/FlaskOriginal"),
+  "Vue.js": () => import("@beta/devicons-react/lib/icons/VuejsOriginal"),
   Bootstrap: () =>
     import("@beta/devicons-react/lib/icons/BootstrapOriginalWordmark"),
   "Tailwind CSS": () =>
     import("@beta/devicons-react/lib/icons/TailwindcssOriginal"),
+  "Express.js": () => import("@beta/devicons-react/lib/icons/ExpressOriginal"),
   // Database Management Systems
   "Microsoft SQL Server": () =>
     import("@beta/devicons-react/lib/icons/MicrosoftsqlserverOriginal"),
   MySQL: () => import("@beta/devicons-react/lib/icons/MysqlOriginalWordmark"),
+  SQLite: () => import("@beta/devicons-react/lib/icons/SqliteOriginal"),
+  PostgreSQL: () => import("@beta/devicons-react/lib/icons/PostgresqlOriginal"),
   //Developer Tools
   Git: () => import("@beta/devicons-react/lib/icons/GitOriginal"),
   "Visual Studio": () =>
@@ -79,7 +83,7 @@ export const iconData: IconType[] = [
   },
   {
     name: "Laravel Livewire",
-    Icon: dynamic(() => iconImports["Livewire"]()),
+    Icon: dynamic(() => iconImports["Laravel Livewire"]()),
   },
   {
     name: "Flask",
