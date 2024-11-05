@@ -41,7 +41,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <div
           className={cn(
             inter.className,
-            "min-h-screen font-sans antialiased",
+            "min-h-screen antialiased font-light",
           )}
         >
           {children}

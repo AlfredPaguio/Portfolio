@@ -5,11 +5,9 @@ import { camelCaseToTitleCase } from "@/utils/camelCaseToTitleCase";
 import { cn } from "@/utils/cn";
 import { processMdx } from "@/utils/mdx";
 import { reader } from "@/utils/reader";
-import { Terminal } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { IconComponent } from "@/components/IconComponent";
-import { getProficiencyLabel } from "@/constant/proficiencyOptions";
+import TechStacks from "./partials/TechStacks";
 
 export const metadata: Metadata = {
   title: "About",
@@ -18,15 +16,10 @@ export const metadata: Metadata = {
 export default async function Home() {
   const { about, socialLinks, techStack } = await getCMSData();
 
-  const techStackArray = Object.entries(techStack).map(([category, items]) => ({
-    category: camelCaseToTitleCase(category),
-    items,
-  }));
-
   return (
     <div className="grid grid-cols-1 gap-y-16 py-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
       {about && about.cover && (
-        <div className="lg:pl-20">
+        <div className="pl-10 lg:pl-20">
           <div className="relative flex max-w-xs items-center justify-center px-2 lg:max-w-none">
             <Image
               width={320}
@@ -76,56 +69,7 @@ export default async function Home() {
               </li>
             ))}
         </ul>
-        <div className="rounded-3xl pt-4 motion-safe:transition lg:pt-0">
-          <h2 className="font-display-safe flex items-center text-lg font-semibold text-primary motion-safe:transition">
-            <Terminal
-              aria-hidden="true"
-              className="size-6 fill-accent motion-safe:transition"
-            />
-            <span className="ml-3">Technology Stacks</span>
-          </h2>
-          {techStackArray.map(({ category, items }) => (
-            <ul key={category} className="w-full">
-              <li className="my-4 flex items-center gap-4 text-sm font-medium">
-                <span className="shrink-0 motion-safe:transition">
-                  {category}
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="block h-px grow bg-accent motion-safe:transition"
-                ></span>
-              </li>
-              <li>
-                <ul className="space-y-3">
-                  {items.map((item) => (
-                    <li
-                      key={item.name}
-                      className="flex w-full items-center gap-4"
-                    >
-                      <div
-                        aria-hidden="true"
-                        className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white shadow-md shadow-gray-800/5 ring-1 ring-gray-900/5 motion-safe:transition dark:border dark:border-gray-700/50 dark:border-gray-800 dark:bg-gray-800 dark:ring-0"
-                      >
-                        <IconComponent techName={item.name} />
-                        {/* <BadgeDollarSign className="size-4" /> */}
-                      </div>
-
-                      <span
-                        lang="en-US"
-                        className="grow text-sm font-medium motion-safe:transition"
-                      >
-                        {item.name}
-                      </span>
-                      <span className="shrink-0 text-xs motion-safe:transition dark:contrast-more:font-medium">
-                        {getProficiencyLabel(Number(item.proficiency))}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            </ul>
-          ))}
-        </div>
+        <TechStacks techStack={techStack} />
       </div>
     </div>
   );

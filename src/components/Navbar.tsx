@@ -1,19 +1,11 @@
 "use client";
-import { Menu } from "lucide-react";
-import React, { ElementType, useEffect, useState } from "react";
+import { ElementType, useEffect, useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import Link from "next/link";
-import { Button, buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 import { PageInformationType, pageInformation } from "@/config/pageInformation";
-import { usePathname, useRouter } from "next/navigation";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip";
+import { usePathname } from "next/navigation";
 import { cn } from "@/utils/cn";
-import { checkURLPath } from "@/utils/checkURLPath";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -45,14 +37,14 @@ export function Navbar() {
     <header
       className={cn(
         "fixed inset-x-0 left-[calc(100vw-100%)] top-4 z-40 mx-8 flex h-[60px] items-center justify-between rounded-3xl border border-transparent bg-transparent  px-4 shadow-sm saturate-100 backdrop-blur-[4px] transition-all duration-200 md:mx-auto md:max-w-[768px] md:px-8 lg:max-w-[1168px]",
-        isScrolled && "border-border",
+        isScrolled && "border-border/40 shadow-lg",
       )}
     >
       {/* Container */}
 
       <div className="mx-auto flex h-[60px] w-full items-center justify-between">
         <div className="flex h-14 items-center p-2 lg:h-[60px]">
-          {/* {pathname != "/" && ( */}
+          {pathname != "/" && (
           <Button variant="ghost" aria-label="Home" asChild>
             <Link
               href="/"
@@ -64,7 +56,7 @@ export function Navbar() {
               </h1>
             </Link>
           </Button>
-          {/* )} */}
+          )}
         </div>
 
         <div className="flex items-center md:space-x-3">

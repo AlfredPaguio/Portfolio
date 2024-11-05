@@ -25,7 +25,8 @@ type Skill = {
 function Technologies({ techStack }: TechnologiesProps) {
   const filteredTechStack = useMemo(() => {
     return Object.fromEntries(
-      Object.entries(techStack).filter((entry) => entry[0] != "developerTools")
+      Object.entries(techStack)
+        .filter((entry) => entry[0] != "developerTools")
         .map(([category, skills]) => {
           const filteredSkills = skills
             .filter(
@@ -63,9 +64,7 @@ function Technologies({ techStack }: TechnologiesProps) {
                       <TooltipTrigger asChild>
                         <Badge
                           variant={
-                            skill.status === "learning"
-                              ? "accent"
-                              : "default"
+                            skill.status === "learning" ? "accent" : "secondary"
                           }
                           className="h-10 p-2"
                         >
