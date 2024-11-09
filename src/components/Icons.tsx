@@ -54,7 +54,7 @@ export function getTechIcon(name: string) {
   if (typeof externalIcon === "string") {
     // Return an <img> element for URL-based icons
     return () => (
-      <img src={externalIcon} alt={`${name} icon`} className="size-4" />
+      <img src={externalIcon} alt={`${name} icon`} className="size-4 pl-1" />
     );
   } else if (externalIcon) {
     // Return the SVG element directly if it’s JSX

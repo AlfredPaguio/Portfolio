@@ -1,4 +1,3 @@
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import ProjectList from "./ProjectList";
 import { fetchProjectContent } from "@/data/fetchContent";
 

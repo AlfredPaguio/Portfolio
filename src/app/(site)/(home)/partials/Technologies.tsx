@@ -1,16 +1,8 @@
 "use client";
-import { IconComponent } from "@/components/IconComponent";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { TechStackType } from "@/data/fetchContent";
 import { camelCaseToTitleCase } from "@/utils/camelCaseToTitleCase";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
+import TechCard from "../components/TechCard";
 
 type TechnologiesProps = {
   techStack: TechStackType;
@@ -48,47 +40,28 @@ function Technologies({ techStack }: TechnologiesProps) {
   const categories = Object.keys(filteredTechStack);
 
   return (
-    <div className="my-10 w-full">
-      <h2 className="mb-6 text-center text-3xl font-bold">My Tech Stack</h2>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className="container relative z-10 py-16 sm:py-24">
+      <div className="mb-10 space-y-4">
+        <h1 className="text-pretty text-3xl font-bold min-[430px]:text-4xl md:text-5xl">
+          Current technologies
+        </h1>
+        <p className="text-pretty text-sm text-foreground/70 min-[430px]:text-base md:max-w-3xl">
+          I&apos;m currently working with a variety of modern technologies that
+          enhance my ability to create functional solutions. Here are some of
+          the main tools I&apos;m actively using and/or learning.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 items-center justify-between gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {categories.map((category) => (
-          <Card key={category} className="overflow-hidden">
-            <CardHeader>
-              <CardTitle>{camelCaseToTitleCase(category)}</CardTitle>
-            </CardHeader>
-            <CardContent className="p-4">
-              <TooltipProvider>
-                <div className="flex flex-wrap gap-2">
-                  {filteredTechStack[category].map((skill: Skill) => (
-                    <Tooltip key={skill.name}>
-                      <TooltipTrigger asChild>
-                        <Badge
-                          variant={
-                            skill.status === "learning" ? "accent" : "secondary"
-                          }
-                          className="h-10 p-2"
-                        >
-                          <IconComponent
-                            techName={skill.name}
-                            className="mr-2 size-6"
-                          />
-                          {/* <span className="sr-only">{skill.name}</span> */}
-                          <span className="text-foreground">{skill.name}</span>
-                        </Badge>
-                      </TooltipTrigger>
-                      <TooltipContent side="bottom">
-                        <p className="font-semibold">{skill.name}</p>
-                        <p className="text-sm capitalize">{skill.status}</p>
-                        <p className="text-sm">
-                          Proficiency: {skill.proficiency}/5
-                        </p>
-                      </TooltipContent>
-                    </Tooltip>
-                  ))}
-                </div>
-              </TooltipProvider>
-            </CardContent>
-          </Card>
+          <>
+            {filteredTechStack[category].map((skill: Skill) => (
+              <TechCard
+                key={skill.name}
+                description={camelCaseToTitleCase(skill.status)}
+                name={skill.name}
+              />
+            ))}
+          </>
         ))}
       </div>
     </div>
