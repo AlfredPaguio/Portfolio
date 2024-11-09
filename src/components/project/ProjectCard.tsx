@@ -37,53 +37,50 @@ export default function ProjectCard({ project }: ProjectCard) {
     <Card
       onClick={handleCardClick}
       data-status={project.status}
-      className="group relative row-span-3 grid h-full w-full grid-cols-subgrid overflow-hidden antialiased transition-all duration-300 hover:cursor-pointer hover:subpixel-antialiased group-has-[:hover]:[&:not(:hover)]:scale-90 group-has-[:hover]:[&:not(:hover)]:opacity-50"
+      className="h-full overflow-hidden transition-shadow hover:shadow-lg"
     >
       {project.images && project.images.length > 0 ? (
-        <div className="relative w-full md:h-48">
+        <div className="relative h-48 w-full overflow-hidden">
           <img
             src={getImageSrc(project.images[0])}
-            className="-z-1 absolute h-full w-full object-cover"
+            className="absolute h-full w-full object-cover transition-transform duration-300 hover:scale-110"
             loading="lazy"
             alt={project.images[0].value.alt}
           />
         </div>
       ) : (
-        <div className="hidden h-12 w-full items-center justify-center bg-primary text-primary-foreground md:flex md:h-48">
+        <div className="bg-gradient-to-r flex h-48 w-full items-center justify-center from-primary to-secondary text-primary-foreground">
           No Image Available
         </div>
       )}
 
-      <div className={`h-full w-full p-4`}>
-        <CardHeader>
-          <div className="flex justify-between">
-            <CardTitle className="flex items-center gap-1 text-pretty">
-              {/* <Folder className="shrink-0" /> */}
-              <span ref={titleRef}>{project.title}</span>
-            </CardTitle>
-            <Badge className="bg-accent/40 group-data-[status=active]:border-l-green-600 group-data-[status=archived]:border-l-gray-600 group-data-[status=maintenance]:border-l-yellow-600  group-data-[status=unknown]:border-l-primary group-data-[status=active]:text-green-600 group-data-[status=archived]:text-gray-400 group-data-[status=maintenance]:text-yellow-600 group-data-[status=unknown]:text-primary dark:group-data-[status=active]:text-green-400 dark:group-data-[status=maintenance]:text-yellow-400">
-              {project.status}
-            </Badge>
-          </div>
-
-          <Badge variant={"ghost"} className="p-0">
-            {formatDate(project.date)}
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-pretty text-xl">
+            {/* <Folder className="shrink-0" /> */}
+            <span ref={titleRef}>{project.title}</span>
+          </CardTitle>
+          <Badge
+            variant={project.status === "active" ? "default" : "secondary"}
+          >
+            {project.status}
           </Badge>
-        </CardHeader>
-        <CardContent className="h-16 overflow-y-auto p-0 pt-4">
-          <CardDescription className="overflow-hidden text-ellipsis">
-            {project.summary || "No Summary"}
-          </CardDescription>
-        </CardContent>
-        <CardFooter className="mt-4 flex-wrap items-end gap-1 p-0">
-          {project.stack.map((tech, index) => (
-            <Badge variant={"accent"} key={index}>
-              {tech}
-            </Badge>
-          ))}
-          {/* <TechnologyIcons Stacks={project.stack} /> */}
-        </CardFooter>
-      </div>
+        </div>
+        <CardDescription>{formatDate(project.date)}</CardDescription>
+      </CardHeader>
+
+      <CardContent>
+        <p className="line-clamp-3">{project.summary || "No Summary"}</p>
+      </CardContent>
+
+      <CardFooter className="flex flex-wrap gap-2">
+        {project.stack.map((tech, index) => (
+          <Badge variant={"outline"} key={index}>
+            {tech}
+          </Badge>
+        ))}
+        {/* <TechnologyIcons Stacks={project.stack} /> */}
+      </CardFooter>
     </Card>
   );
 }
