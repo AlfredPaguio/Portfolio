@@ -49,7 +49,7 @@ export default function ProjectCard({ project }: ProjectCard) {
           />
         </div>
       ) : (
-        <div className="bg-gradient-to-r flex h-48 w-full items-center justify-center from-primary to-secondary text-primary-foreground">
+        <div className="bg-gradient-to-r flex h-48 w-full items-center justify-center from-primary to-secondary text-foreground">
           No Image Available
         </div>
       )}
