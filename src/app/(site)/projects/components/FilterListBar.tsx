@@ -60,32 +60,35 @@ export default function FilterListBar({ projects }: FilterListBarProps) {
             </Button>
           </SheetTrigger>
           <SheetContent side={"bottom"}>
-            <SheetHeader>
-              <SheetTitle>Filter by Technologies Used</SheetTitle>
-              <SheetDescription>
-                Find projects based on the technologies used.
-              </SheetDescription>
-              {!!selectedTechnologies.length && (
-                <Button
-                  type="button"
-                  className="mt-4"
-                  variant={"link"}
-                  onClick={() => handleRemoveAllFilters()}
-                >
-                  <XIcon className="h-6 w-6" /> Clear current filters
-                </Button>
-              )}
-            </SheetHeader>
-            <ScrollArea>
+            {/* https://github.com/shadcn-ui/ui/issues/542#issuecomment-2015755497 */}
+            <ScrollArea className="[&>[data-radix-scroll-area-viewport]]:max-h-[300px]">
+              <SheetHeader>
+                <SheetTitle>Filter by Technologies Used</SheetTitle>
+                <SheetDescription>
+                  Find projects based on the technologies used.
+                </SheetDescription>
+                {!!selectedTechnologies.length && (
+                  <Button
+                    type="button"
+                    className="mt-4"
+                    variant={"link"}
+                    onClick={() => handleRemoveAllFilters()}
+                  >
+                    <XIcon className="h-6 w-6" /> Clear current filters
+                  </Button>
+                )}
+              </SheetHeader>
+
               <FilterListMenu projects={projects} />
+
+              <SheetFooter>
+                <SheetClose asChild>
+                  <Button type="button" className="mt-4">
+                    Close
+                  </Button>
+                </SheetClose>
+              </SheetFooter>
             </ScrollArea>
-            <SheetFooter>
-              <SheetClose asChild>
-                <Button type="button" className="mt-4">
-                  Close
-                </Button>
-              </SheetClose>
-            </SheetFooter>
           </SheetContent>
         </Sheet>
 
