@@ -13,21 +13,21 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import FilterListMenu from "./FilterListMenu";
-import TechPillButton from "./TechPillButton";
 import {
   removeAllTechnology,
   removeTechnology,
 } from "@@/src/app/store/technology/technology-slice";
 import { useAppDispatch, useAppSelector } from "@@/src/app/store/hooks";
-import { TechStackType } from "@/data/fetchContent";
-import { Badge } from "../ui/badge";
+import { ProjectTypeWithoutContent } from "@/data/fetchContent";
+import FilterListMenu from "./FilterListMenu";
+import { Badge } from "@/components/ui/badge";
+import TechPillButton from "./TechPillButton";
 
 type FilterListBarProps = {
-  techs: TechStackType;
+  projects: ProjectTypeWithoutContent[];
 };
 
-export default function FilterListBar({ techs }: FilterListBarProps) {
+export default function FilterListBar({ projects }: FilterListBarProps) {
   const selectedTechnologies = useAppSelector(
     (state) => state.technology.selectedTechnologies,
   );
@@ -77,7 +77,7 @@ export default function FilterListBar({ techs }: FilterListBarProps) {
               )}
             </SheetHeader>
             <ScrollArea>
-              <FilterListMenu techs={techs} />
+              <FilterListMenu projects={projects} />
             </ScrollArea>
             <SheetFooter>
               <SheetClose asChild>

@@ -1,9 +1,9 @@
 "use client";
 import { useAppSelector } from "@/app/store/hooks";
-import ProjectCard from "@/components/project/ProjectCard";
 import { ProjectTypeWithoutContent } from "@/data/fetchContent";
 import Link from "next/link";
 import { parseAsString, useQueryState } from "nuqs";
+import ProjectCard from "../../components/ProjectCard";
 
 type ProjectListProps = {
   projects: { slug: string; entry: ProjectTypeWithoutContent }[];
