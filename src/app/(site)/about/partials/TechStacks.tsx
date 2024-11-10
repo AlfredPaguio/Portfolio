@@ -20,12 +20,12 @@ export default function TechStacks({ techStack }: TechStackCategory) {
 
   return (
     <div className="rounded-3xl">
-      <h2 className="mb-6 flex items-center text-lg font-semibold">
-        <Terminal className="size-6 text-accent" aria-hidden="true" />
-        <span className="ml-3 text-sm text-accent">Technology Stacks</span>
+      <h2 className="md:mb-6 items-center text-lg font-semibold hidden lg:flex">
+        <Terminal className="size-6 text-foreground" aria-hidden="true" />
+        <span className="ml-3 text-md text-foreground">Technology Stacks</span>
       </h2>
 
-      <Tabs defaultValue={techStackArray[0]?.category} className="w-full">
+      <Tabs defaultValue={techStackArray[0]?.category} className="w-full px-4 lg:px-0">
         <ScrollArea className="whitespace-nowrap">
           <TabsList className="mb-4 w-full justify-start gap-2 bg-transparent p-0">
             {categories.map((category) => (
