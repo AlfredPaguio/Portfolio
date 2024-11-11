@@ -25,7 +25,7 @@ export default function TechStacks({ techStack }: TechStackCategory) {
         <span className="ml-3 text-md text-foreground">Technology Stacks</span>
       </h2>
 
-      <Tabs defaultValue={techStackArray[0]?.category} className="w-full px-4 lg:px-0">
+      <Tabs defaultValue={techStackArray[0]?.category} className="w-full px-4 lg:pl-0">
         <ScrollArea className="whitespace-nowrap">
           <TabsList className="mb-4 w-full justify-start gap-2 bg-transparent p-0">
             {categories.map((category) => (
