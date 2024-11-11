@@ -15,7 +15,7 @@ export default function Providers({ children }: { children: ReactNode }) {
         // disableTransitionOnChange
       >
         {children}
-        <NavigationHandler /> 
+        {/* <NavigationHandler />  */}
       </ThemeProvider>
     </ReduxProvider>
   );

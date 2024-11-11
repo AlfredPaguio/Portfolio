@@ -12,13 +12,14 @@ export default function BottomComponent() {
 
   const pathname = usePathname();
 
-  if (pathname === "/projects") {
-    return <Footer />;
-  }
+  // if (pathname === "/projects") {
+  //   return <Footer />;
+  // }
 
   if (pathname.startsWith("/projects/")) {
     return <FooterCompact />;
   }
 
-  return <ScrollMoreIndicator />;
+  // return <ScrollMoreIndicator />;
+  return <Footer />;
 }
