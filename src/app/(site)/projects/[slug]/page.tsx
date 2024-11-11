@@ -22,6 +22,9 @@ import {
   getImageSrc,
   getImageWidth,
 } from "@/utils/imageHelpers";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { ProjectTypeWithoutContent } from "@/data/fetchContent";
+import ProjectImages from "../components/ProjectImages";
 // import Image from "next/image";
 
 type Props = {
@@ -59,138 +62,44 @@ export default async function Project({
   const { default: ProjectContent } = await processMdx(await project.content());
 
   return (
-    <div className="2xl:max-w-8xl relative mx-auto max-w-7xl px-4 pt-8  sm:px-6 lg:px-8">
-      <Breadcrumbs name={project ? project.title : "Unknown Project"} />
-      {project ? (
-        <div className="mx-auto text-pretty pt-4 text-foreground lg:prose-lg xl:prose-xl lg:pt-12 lg:prose-figure:mt-0 lg:prose-figcaption:mt-0 xl:prose-figure:mt-2 xl:prose-figcaption:mt-0 2xl:prose-figcaption:mt-0">
-          {process.env.NODE_ENV === "development" && (
-            <pre className="whitespace-pre-wrap bg-slate-950">
-              <code className="text-foreground">
-                {JSON.stringify(project, undefined, 2)}
-              </code>
-            </pre>
-          )}
-          <h1>{project.title}</h1>
-          <p className="text-xs text-muted-foreground md:text-sm lg:text-base">
-            {formatDate(project.date)}
-          </p>
-          <div className="mt-4 text-sm xl:text-2xl">{project.summary}</div>
-          <div className="flex gap-2 py-2">
-            {project.gitHubURL && (
-              <Button key={"gitHubURL"} variant={"default"} asChild>
-                <Link href={project.gitHubURL} className="fill-accent">
-                  <Icons.github className="mr-2 size-4" />
-                  {"Github"}
-                </Link>
-              </Button>
-            )}
-
-            {project.websiteURL && (
-              <Button key={"websiteURL"} variant={"secondary"} asChild>
-                <Link href={project.websiteURL} className="fill-accent">
-                  <Icons.goToWebsite className="mr-2 size-4" />
-                  {"Go to website"}
-                </Link>
-              </Button>
-            )}
-
-            {/* {project.externalLinks.discriminant
-              ? project.externalLinks.value.map(({ name, url }) => {
-                  return (
-                    <Button key={name} variant={"outline"} asChild>
-                      <Link href={url}>{name}</Link>
-                    </Button>
-                  );
-                })
-              : "No External Links Available"} */}
-          </div>
-
-          {project.externalLinks.discriminant ? (
-            <div className="flex flex-col">
-              <p className="text-xs text-muted-foreground md:text-sm lg:text-base">
-                External Links:
-              </p>
-              <div className="flex gap-2">
-                {project.externalLinks.value.map(({ name, url }) => {
-                  return (
-                    <Button key={name} variant={"outline"} asChild>
-                      <Link href={url}>{name}</Link>
-                    </Button>
-                  );
-                })}
-              </div>
-            </div>
-          ) : (
-            "No External Links Available"
-          )}
-          <div className="mt-4">
-            <Separator className="w-1/3 bg-primary" />
-            <div className="prose mx-auto mt-8 flex flex-col items-center gap-4 dark:prose-invert lg:prose-lg xl:prose-xl prose-blockquote:border-accent-foreground prose-blockquote:text-primary-foreground prose-figure:mt-0 prose-figcaption:mt-0 lg:prose-figure:mt-0 lg:prose-figcaption:mt-0 xl:prose-figure:mt-2 xl:prose-figcaption:mt-0 2xl:prose-figcaption:mt-0">
-              {/* <DocumentRenderer document={await project.content()} /> */}
-              {/* <CustomDocumentRenderer document={await project.content()} /> */}
-              <ProjectContent />
-              {project.videos &&
-                project.videos.map((videoLink) => {
-                  return (
-                    <iframe
-                      key={videoLink}
-                      src={videoLink ?? undefined}
-                      width="1280"
-                      height="720"
-                      allow="autoplay"
-                    ></iframe>
-                  );
-                })}
-              {project.images &&
-                project.images.length > 0 &&
-                project.images.map((image, key) => {
-                  return (
-                    <figure
-                      className="flex flex-col items-center justify-center"
-                      key={key}
-                    >
-                      <img
-                        src={getImageSrc(image)}
-                        width={getImageWidth(image)}
-                        height={getImageHeight(image)}
-                        alt={image.value.alt ?? `Image ${key}`}
-                        className={"max-h-[800px] w-auto rounded-lg shadow-lg"}
-                      />
-
-                      {image.value.alt && (
-                        <figcaption className="!mt-3">
-                          {image.value.alt}
-                        </figcaption>
-                      )}
-                    </figure>
-                  );
-                })}
-            </div>
-          </div>
-          <Button
-            variant={"secondary"}
-            size={"sm"}
-            className="items-left flex justify-center gap-2"
-            asChild
-          >
-            <Link href={`/projects`}>
-              <ArrowLeft />
-              Back to project list
-            </Link>
-          </Button>
+    <article className="2xl:max-w-8xl mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+      <Breadcrumbs name={project.title} />
+      <div className="mx-auto pt-4 text-foreground lg:prose-lg xl:prose-xl lg:pt-12">
+        {process.env.NODE_ENV === "development" && (
+          <pre className="whitespace-pre-wrap bg-slate-950">
+            <code className="text-foreground">
+              {JSON.stringify(project, null, 2)}
+            </code>
+          </pre>
+        )}
+        <h1 className="mb-2">{project.title}</h1>
+        <time
+          dateTime={formatDate(project.date)}
+          className="text-xs text-muted-foreground md:text-sm lg:text-base"
+        >
+          {formatDate(project.date)}
+        </time>
+        <p className="mt-4 text-sm xl:text-2xl">{project.summary}</p>
+        <ProjectLinks project={project} />
+        <Separator className="my-8 w-1/3 bg-primary" />
+        <div className="prose mx-auto mt-8 flex flex-col items-center gap-4 dark:prose-invert lg:prose-lg xl:prose-xl">
+          <ProjectContent />
+          <ProjectVideos videos={project.videos} />
+          <ProjectImages images={project.images} />
         </div>
-      ) : (
         <Button
-          variant={"secondary"}
-          size={"sm"}
-          className="items-left flex justify-center gap-2"
+          variant="secondary"
+          size="sm"
+          className="mt-8 flex items-center gap-2"
           asChild
         >
-          No Project Found
-          <Link href={`/projects`}>Back to project list</Link>
+          <Link href="/projects">
+            <ArrowLeft className="h-4 w-4" />
+            Back to project list
+          </Link>
         </Button>
-      )}
-    </div>
+      </div>
+    </article>
   );
 }
 
@@ -215,5 +124,71 @@ function Breadcrumbs({ name }: { name: string }) {
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
+  );
+}
+
+function ProjectLinks({ project }: { project: ProjectTypeWithoutContent }) {
+  return (
+    <>
+      <div className="mt-4 flex flex-wrap gap-4">
+        {project.gitHubURL && (
+          <Button variant="default" asChild>
+            <Link href={project.gitHubURL}>
+              <Icons.github className="mr-2 h-4 w-4" />
+              GitHub
+            </Link>
+          </Button>
+        )}
+        {project.websiteURL && (
+          <Button variant="secondary" asChild>
+            <Link href={project.websiteURL}>
+              <Icons.goToWebsite className="mr-2 h-4 w-4" />
+              Go to website
+            </Link>
+          </Button>
+        )}
+      </div>
+      {project.externalLinks.discriminant && (
+        <div className="flex flex-col">
+          <p className="text-xs text-muted-foreground md:text-sm lg:text-base">
+            External Links:
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {project.externalLinks.value.map(({ name, url }) => (
+              <Button key={name} variant="outline" asChild>
+                <Link href={url}>{name}</Link>
+              </Button>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+function ProjectVideos({
+  videos,
+}: {
+  videos: ProjectTypeWithoutContent["videos"];
+}) {
+  if (!videos || videos.length === 0) return null;
+  return (
+    <>
+      {videos.map((videoLink) => (
+        <div key={videoLink} className="w-full">
+          <AspectRatio ratio={16 / 9} className="bg-muted">
+            <iframe
+              src={videoLink!}
+              width="1280"
+              height="720"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="Project video"
+              className="h-full w-full"
+            />
+          </AspectRatio>
+        </div>
+      ))}
+    </>
   );
 }

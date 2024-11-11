@@ -14,8 +14,7 @@ export function formatDate(date: number | Date | null | string | undefined) {
 
   if (typeof date === "string") {
     return new Intl.DateTimeFormat(undefined, {
-      dateStyle: "full",
-      timeStyle: "long",
+      dateStyle: "long",
     }).format(new Date(date));
   }
 

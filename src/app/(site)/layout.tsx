@@ -13,20 +13,22 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
   return (
     <Providers>
-      <div className="relative flex min-h-svh flex-col">
+      <div className="flex min-h-screen flex-col">
         <Navbar />
-        <main className="flex-1 px-4 md:px-16">{children}</main>
+        <main className="flex-grow px-4 pb-12 pt-16 sm:px-6 lg:px-8">
+          {children}
+        </main>
         <BottomComponent />
+        <Toaster />
+        {isEnabled && (
+          <div className="fixed bottom-4 right-4 rounded-md bg-yellow-100 p-2 text-yellow-800 shadow-md">
+            Draft mode ({cookies().get("ks-branch")?.value}){" "}
+            <form method="POST" action="/preview/end">
+              <button className="underline">End preview</button>
+            </form>
+          </div>
+        )}
       </div>
-      <Toaster />
-      {isEnabled && (
-        <div>
-          Draft mode ({cookies().get("ks-branch")?.value}){" "}
-          <form method="POST" action="/preview/end">
-            <button>End preview</button>
-          </form>
-        </div>
-      )}
     </Providers>
   );
 }

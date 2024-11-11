@@ -1,9 +1,9 @@
 "use client";
 import { useAppSelector } from "@/app/store/hooks";
-import CompactProjectCard from "@/components/project/CompactProjectCard";
 import { ProjectTypeWithoutContent } from "@/data/fetchContent";
 import Link from "next/link";
 import { parseAsString, useQueryState } from "nuqs";
+import ProjectCard from "../../components/ProjectCard";
 
 type ProjectListProps = {
   projects: { slug: string; entry: ProjectTypeWithoutContent }[];
@@ -77,7 +77,7 @@ export default function ProjectList({ projects }: ProjectListProps) {
     <>
       {filteredProjects.map((project) => (
         <Link href={`/projects/${project?.slug}`} key={project?.slug}>
-          <CompactProjectCard key={project?.slug} project={project.entry} />
+          <ProjectCard key={project?.slug} project={project.entry} />
         </Link>
       ))}
     </>

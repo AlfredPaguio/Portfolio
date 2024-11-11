@@ -37,12 +37,11 @@ export default function DownloadCVButtons() {
   }, [fetchData]);
 
   return (
-    <div className="flex items-start gap-x-1 rounded-md bg-background">
+    <div className="flex items-start rounded-md">
       {loading && <p className="h-9 self-center px-4 py-2">Loading...</p>}
       {assets && assets.length > 0 && (
         <Button
-          variant={"outline-animated"}
-          className="transition-colors delay-200 duration-300 hover:bg-accent"
+          className="transition-colors hover:bg-accent rounded-r-none"
           asChild
         >
           <Link href={assets[0].browser_download_url}>
@@ -55,8 +54,7 @@ export default function DownloadCVButtons() {
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
-            variant={"outline-animated"}
-            className="px-2 transition-colors delay-200 duration-300 hover:bg-accent"
+            className="px-2 transition-colors hover:bg-accent rounded-l-none"
           >
             <ChevronDownIcon className="h-4 w-4" />
           </Button>

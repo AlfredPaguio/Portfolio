@@ -12,7 +12,7 @@ export default function NavigationHandler() {
   //need to update when the location updates
   useEffect(() => {
     const matchedRoute = pageInformation.findIndex(
-      (page) => page.path === pathname
+      (page) => page.path === pathname,
     );
     if (matchedRoute !== -1) {
       setCurrentIndex(matchedRoute);
@@ -23,7 +23,21 @@ export default function NavigationHandler() {
     const focusedElement = document.activeElement;
     // console.log(focusedElement?.getAttribute("role"));
     // Need to check the role to avoid switching page when dialog or menu is opened
+
+    //fix for carousel and others:
+    const isBodyPointerEventsNone =
+      window
+        .getComputedStyle(document.body)
+        .getPropertyValue("pointer-events") === "none";
+
+    // console.log("is Carousel Opened?: ",isBodyPointerEventsNone)
+
+    // fix for light box
+    const isBodyNoScroll = document.body.classList.contains("yarl__no_scroll");
+
     return (
+      isBodyPointerEventsNone ||
+      isBodyNoScroll ||
       focusedElement &&
       (focusedElement.tagName === "INPUT" ||
         focusedElement.tagName === "TEXTAREA" ||
