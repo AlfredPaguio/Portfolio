@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { iconImports } from "@/data/TechIcons";
 import {
   SiFacebook,
