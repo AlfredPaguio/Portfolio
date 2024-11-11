@@ -8,7 +8,13 @@ import { reader } from "@/utils/reader";
 import { Metadata } from "next";
 import Link from "next/link";
 import TechStacks from "./partials/TechStacks";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import MapBox from "../contact/components/MapBox";
 
 export const metadata: Metadata = {
@@ -20,9 +26,9 @@ export default async function Home() {
 
   return (
     <>
-      <Card className="grid grid-cols-1 gap-y-8 py-4 m-4 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
+      <Card className="m-4 grid grid-cols-1 gap-y-8 py-4 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
         {about && about.cover && (
-          <div className="px-10 lg:pl-20 mt-8">
+          <div className="mt-8 px-10 lg:pl-20">
             <div className="relative flex max-w-xs items-center justify-center px-2 lg:max-w-none">
               <Image
                 width={320}
@@ -46,7 +52,7 @@ export default async function Home() {
         </div>
 
         <div className="space-y-4 lg:pl-20">
-          <ul role="list" className="space-y-2 hidden lg:block">
+          <ul role="list" className="hidden space-y-2 lg:block">
             {socialLinks &&
               socialLinks.social.map(({ name, url }) => (
                 <li className="flex" key={name}>
@@ -76,8 +82,11 @@ export default async function Home() {
         </div>
       </Card>
       <Card className="m-4">
-        <CardHeader>
-          <CardTitle>My Address</CardTitle>
+        <CardHeader className="pb-0">
+          <CardTitle className="text-xl">My Address</CardTitle>
+          <CardDescription className="text-lg text-foreground">
+            #618 Tuazon St., Población, Muntinlupa City
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex items-center justify-center pt-6">
           <MapBox />

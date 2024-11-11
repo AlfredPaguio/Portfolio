@@ -114,7 +114,7 @@ export default function FilterListMenu({ projects }: FilterListMenuProps) {
                  isSelected={selectedTechnologies.includes(tech)}
                  technology={tech}
                  onClickTechnology={() => handleTechnologyToggle(tech)}
-                 className="bg-primary/10 text-primary-foreground hover:bg-primary/20"
+                 className="bg-primary/10 text-foreground hover:bg-primary/20"
                  hasCloseIcon
                />
              ))}
