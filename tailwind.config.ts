@@ -11,7 +11,7 @@ const config = {
   prefix: "",
   theme: {
     backgroundImage: {
-      "comet": "url('/images/animated_shape_dark.svg')",
+      comet: "url('/images/animated_shape_dark.svg')",
     },
     container: {
       center: true,
@@ -86,6 +86,13 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         scrollToRightInfinite: "scrollToRight 3s ease-in-out infinite",
         fadeInFadeOutInfinite: "fadeInFadeOut 3s ease-in-out infinite",
+      },
+      backgroundImage: {
+        //from https://bg.ibelick.com/
+        "gradient-light":
+          "radial-gradient(ellipse 80% 80% at 50% -20%,rgba(120,119,198,0.3),rgba(255,255,255,0))",
+        "gradient-dark":
+          "radial-gradient(ellipse 80% 80% at 50% -20%,rgba(120,119,198,0.3),rgba(255,255,255,0))",
       },
     },
   },

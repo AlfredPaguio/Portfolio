@@ -1,10 +1,25 @@
 import { siteConfig } from "@/config/site";
 import { cn } from "@@/src/utils/cn";
 import type { Metadata } from "next";
-// import { Noto_Serif } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-// const noto_serif = Noto_Serif({ subsets: ["latin"] });
+//favicons
+import iconLight from "@@/public/favicon/light/favicon.ico";
+import iconLight16 from "@@/public/favicon/light/favicon-16x16.png";
+import iconLight32 from "@@/public/favicon/light/favicon-32x32.png";
+import iconLight192 from "@@/public/favicon/light/android-chrome-192x192.png";
+import iconLight512 from "@@/public/favicon/light/android-chrome-512x512.png";
+import iconLightApple from "@@/public/favicon/light/apple-touch-icon.png";
+
+import iconDark from "@@/public/favicon/dark/favicon.ico";
+import iconDark16 from "@@/public/favicon/dark/favicon-16x16.png";
+import iconDark32 from "@@/public/favicon/dark/favicon-32x32.png";
+import iconDark192 from "@@/public/favicon/dark/android-chrome-192x192.png";
+import iconDark512 from "@@/public/favicon/dark/android-chrome-192x192.png";
+import iconDarkApple from "@@/public/favicon/dark/apple-touch-icon.png";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -15,9 +30,78 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      {
+        url: iconLight.src,
+        type: "image/x-icon",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: iconDark.src,
+        type: "image/x-icon",
+      },
+      {
+        url: iconLight32.src,
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: iconDark32.src,
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        url: iconLight16.src,
+        sizes: "16x16",
+        type: "image/png",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: iconDark16.src,
+        sizes: "16x16",
+        type: "image/png",
+      },
+
+      //192
+      {
+        url: iconLight192.src,
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: iconDark192.src,
+        sizes: "192x192",
+        type: "image/png",
+      },
+
+      //512
+      {
+        url: iconLight512.src,
+        sizes: "512x512",
+        type: "image/png",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: iconDark512.src,
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
+
+    apple: [
+      {
+        url: iconLightApple.src,
+        type: "image/png",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: iconDarkApple.src,
+        type: "image/png",
+      },
+    ],
     // shortcut: "/favicon-16x16.png",
-    // apple: "/apple-touch-icon.png",
   },
   openGraph: {
     images: "/opengraph-image.png",
@@ -36,13 +120,14 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className="overflow-x-hidden" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="scrollbar-thin scrollbar-track-slate-400 scrollbar-thumb-slate-700 overflow-x-hidden scroll-smooth bg-gradient-light dark:bg-gradient-dark"
+      suppressHydrationWarning
+    >
       <body className="min-w-full">
         <div
-          className={cn(
-            // noto_serif.className,
-            "min-h-screen antialiased",
-          )}
+          className={cn(inter.className, "min-h-screen font-light antialiased")}
         >
           {children}
         </div>

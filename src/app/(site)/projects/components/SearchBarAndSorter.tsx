@@ -54,7 +54,6 @@ const SearchInput = ({ onChange, value }: SearchInputProps) => (
       <span className="sr-only">Search</span>
       <Input
         className="group peer block h-12 pl-2 pr-9 placeholder:invisible placeholder:text-[0]"
-        variant={"outline"}
         type="text"
         onChange={(e) => onChange(e.target.value)}
         value={value ?? undefined}
@@ -64,7 +63,7 @@ const SearchInput = ({ onChange, value }: SearchInputProps) => (
       />
       <label
         htmlFor="search"
-        className={`absolute left-0 top-2 mt-2 cursor-text text-xs transition-all peer-focus:-top-4 peer-focus:text-accent peer-[&:not(:placeholder-shown)]:-top-4 peer-[&:not(:placeholder-shown)]:text-xs`}
+        className={`absolute left-2 top-2 mt-2 cursor-text text-sm transition-all peer-focus:-top-10 peer-focus:text-accent peer-[&:not(:placeholder-shown)]:-top-4 peer-[&:not(:placeholder-shown)]:text-xs`}
       >
         {!value ? "Search for project..." : "Searching for:"}
       </label>

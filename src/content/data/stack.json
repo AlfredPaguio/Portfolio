@@ -1,22 +1,137 @@
 {
   "programmingLanguages": [
-    "C# 5.0",
-    "Visual Basic .NET",
-    "Java",
-    "PHP",
-    "Python",
-    "JavaScript",
-    "TypeScript"
+    {
+      "name": "C# 5.0",
+      "status": "interested",
+      "proficiency": "1"
+    },
+    {
+      "name": "Visual Basic .NET",
+      "status": "interested",
+      "proficiency": "1"
+    },
+    {
+      "name": "Java",
+      "status": "interested",
+      "proficiency": "2"
+    },
+    {
+      "name": "PHP",
+      "status": "learning",
+      "proficiency": "1"
+    },
+    {
+      "name": "Python",
+      "status": "exploring",
+      "proficiency": "3"
+    },
+    {
+      "name": "JavaScript",
+      "status": "using",
+      "proficiency": "4"
+    },
+    {
+      "name": "TypeScript",
+      "status": "using",
+      "proficiency": "3"
+    }
   ],
   "frameworks": [
-    "Laravel",
-    "Laravel Livewire",
-    "Flask",
-    "Bootstrap",
-    "TailwindCSS",
-    "Next.js"
+    {
+      "name": "Laravel",
+      "status": "using",
+      "proficiency": "3"
+    },
+    {
+      "name": "Laravel Livewire",
+      "status": "interested",
+      "proficiency": "2"
+    },
+    {
+      "name": "Flask",
+      "status": "interested",
+      "proficiency": "2"
+    },
+    {
+      "name": "Bootstrap",
+      "status": "exploring",
+      "proficiency": "4"
+    },
+    {
+      "name": "Tailwind CSS",
+      "status": "using",
+      "proficiency": "3"
+    },
+    {
+      "name": "Next.js",
+      "status": "using",
+      "proficiency": "3"
+    },
+    {
+      "name": "ElysiaJS",
+      "status": "learning",
+      "proficiency": "2"
+    },
+    {
+      "name": "Express.js",
+      "status": "interested",
+      "proficiency": "2"
+    },
+    {
+      "name": "Vue.js",
+      "status": "exploring",
+      "proficiency": "2"
+    }
   ],
-  "databaseManagementSystems": ["Microsoft SQL Server", "MySQL"],
-  "developerTools": ["Git", "Visual Studio Code"],
-  "libraries": ["React"]
+  "databaseManagementSystems": [
+    {
+      "name": "Microsoft SQL Server",
+      "status": "interested",
+      "proficiency": "3"
+    },
+    {
+      "name": "MySQL",
+      "status": "interested",
+      "proficiency": "3"
+    },
+    {
+      "name": "SQLite",
+      "status": "interested",
+      "proficiency": "2"
+    },
+    {
+      "name": "PostgreSQL",
+      "status": "interested",
+      "proficiency": "2"
+    }
+  ],
+  "developerTools": [
+    {
+      "name": "Git",
+      "status": "learning",
+      "proficiency": "3"
+    },
+    {
+      "name": "VS Code",
+      "status": "exploring",
+      "proficiency": "3"
+    }
+  ],
+  "libraries": [
+    {
+      "name": "React",
+      "status": "using",
+      "proficiency": "3"
+    },
+    {
+      "name": "jQuery",
+      "status": "interested",
+      "proficiency": "2"
+    },
+    {
+      "name": " Beautiful Soup",
+      "status": "interested",
+      "proficiency": "2"
+    }
+  ]
 }

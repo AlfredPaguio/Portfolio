@@ -13,21 +13,21 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import FilterListMenu from "./FilterListMenu";
-import TechPillButton from "./TechPillButton";
 import {
   removeAllTechnology,
   removeTechnology,
 } from "@@/src/app/store/technology/technology-slice";
 import { useAppDispatch, useAppSelector } from "@@/src/app/store/hooks";
-import { TechStackType } from "@/data/fetchContent";
-import { Badge } from "../ui/badge";
+import { ProjectTypeWithoutContent } from "@/data/fetchContent";
+import FilterListMenu from "./FilterListMenu";
+import { Badge } from "@/components/ui/badge";
+import TechPillButton from "./TechPillButton";
 
 type FilterListBarProps = {
-  techs: TechStackType;
+  projects: ProjectTypeWithoutContent[];
 };
 
-export default function FilterListBar({ techs }: FilterListBarProps) {
+export default function FilterListBar({ projects }: FilterListBarProps) {
   const selectedTechnologies = useAppSelector(
     (state) => state.technology.selectedTechnologies,
   );
@@ -60,32 +60,35 @@ export default function FilterListBar({ techs }: FilterListBarProps) {
             </Button>
           </SheetTrigger>
           <SheetContent side={"bottom"}>
-            <SheetHeader>
-              <SheetTitle>Filter by Technologies Used</SheetTitle>
-              <SheetDescription>
-                Find projects based on the technologies used.
-              </SheetDescription>
-              {!!selectedTechnologies.length && (
-                <Button
-                  type="button"
-                  className="mt-4"
-                  variant={"link"}
-                  onClick={() => handleRemoveAllFilters()}
-                >
-                  <XIcon className="h-6 w-6" /> Clear current filters
-                </Button>
-              )}
-            </SheetHeader>
-            <ScrollArea>
-              <FilterListMenu techs={techs} />
+            {/* https://github.com/shadcn-ui/ui/issues/542#issuecomment-2015755497 */}
+            <ScrollArea className="[&>[data-radix-scroll-area-viewport]]:max-h-[300px]">
+              <SheetHeader>
+                <SheetTitle>Filter by Technologies Used</SheetTitle>
+                <SheetDescription>
+                  Find projects based on the technologies used.
+                </SheetDescription>
+                {!!selectedTechnologies.length && (
+                  <Button
+                    type="button"
+                    className="mt-4"
+                    variant={"link"}
+                    onClick={() => handleRemoveAllFilters()}
+                  >
+                    <XIcon className="h-6 w-6" /> Clear current filters
+                  </Button>
+                )}
+              </SheetHeader>
+
+              <FilterListMenu projects={projects} />
+
+              <SheetFooter>
+                <SheetClose asChild>
+                  <Button type="button" className="mt-4">
+                    Close
+                  </Button>
+                </SheetClose>
+              </SheetFooter>
             </ScrollArea>
-            <SheetFooter>
-              <SheetClose asChild>
-                <Button type="button" className="mt-4">
-                  Close
-                </Button>
-              </SheetClose>
-            </SheetFooter>
           </SheetContent>
         </Sheet>
 

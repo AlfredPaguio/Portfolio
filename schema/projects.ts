@@ -12,13 +12,21 @@ export const projectsSchema = collection({
     title: fields.slug({
       name: { label: "Name", validation: { isRequired: true } },
     }),
-    stack: fields.array(fields.text({ label: "Stack" }), {
-      label: "Stack",
+    featured: fields.checkbox({
+      label: "Featured Project",
+      description: "Check this to display the project in the Featured Projects section",
+      defaultValue: false,
+    }),
+    stack: fields.array(fields.text({ label: "Technology" }), {
+      label: "Tech Stack",
       itemLabel: (props) => props.value,
+      description: "Technologies used in this project",
     }),
     summary: fields.text({
       label: "Summary",
+      description: "A brief description of the project (used in project cards)",
       validation: { isRequired: false },
+      multiline: true,
     }),
     date: fields.date({
       label: "Project Date",
@@ -26,7 +34,7 @@ export const projectsSchema = collection({
     }),
     gitHubURL: fields.url({
       label: "Repository URL",
-      description: "Github URL of repo",
+      description: "GitHub URL of the repository",
       validation: { isRequired: false },
     }),
     websiteURL: fields.url({
@@ -134,7 +142,7 @@ export const projectsSchema = collection({
     videos: fields.array(
       fields.url({
         label: "Video URL",
-        description: "The video URL",
+        description: "URL of a video showcasing the project",
       }),
       {
         label: "Video Link",
