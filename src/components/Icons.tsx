@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { iconImports } from "@/data/TechIcons";
 import {
   SiFacebook,
@@ -58,18 +57,31 @@ export function getTechIcon(name: string) {
   const importFunc =
     (iconImports as any)[name] || (iconImports as any)[lowerCaseName];
   if (importFunc) {
-    return dynamic(importFunc);
+    const DynamicIcon = dynamic(importFunc);
+    DynamicIcon.displayName = `${name}Icon`;
+    return DynamicIcon;
+    // return dynamic(importFunc);
   }
 
   const externalIcon = externalIcons[lowerCaseName];
   if (typeof externalIcon === "string") {
-    // Return an <img> element for URL-based icons
-    return () => (
+
+    const ImageIcon = () => (
       <img src={externalIcon} alt={`${name} icon`} className="size-4 pl-1" />
     );
+    ImageIcon.displayName = `${name}ImageIcon`;
+    return ImageIcon;
+
+    // Return an <img> element for URL-based icons
+    // return () => (
+    //   <img src={externalIcon} alt={`${name} icon`} className="size-4 pl-1" />
+    // );
   } else if (externalIcon) {
+    const SVGIcon = () => externalIcon;
+    SVGIcon.displayName = `${name}SVGIcon`;
+    return SVGIcon;
     // Return the SVG element directly if it’s JSX
-    return () => externalIcon;
+    // return () => externalIcon;
   }
 
   console.warn(`Icon not found for: ${name}`);
