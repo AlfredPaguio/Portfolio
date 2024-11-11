@@ -16,6 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import MapBox from "../contact/components/MapBox";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "About",
@@ -90,6 +91,28 @@ export default async function Home() {
         </CardHeader>
         <CardContent className="flex items-center justify-center pt-6">
           <MapBox />
+        </CardContent>
+      </Card>
+
+      <Card className="m-4">
+        <CardHeader className="pb-0">
+          <CardTitle className="text-xl">Feedback Form</CardTitle>
+          <CardDescription className="text-lg text-foreground">
+            I welcome contributions and feedback for this site. If you'd like to
+            contribute or send feedback, please contact me or fill up the form.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col items-center justify-center pt-6">
+          <Button asChild>
+            <a href="https://forms.gle/fVDDAtKcX6oi46vX7">
+              Go to Feedback Form (Google Forms)
+            </a>
+          </Button>
+          <Button variant={"link"} asChild>
+            <a href="https://forms.gle/fVDDAtKcX6oi46vX7">
+              https://forms.gle/fVDDAtKcX6oi46vX7
+            </a>
+          </Button>
         </CardContent>
       </Card>
     </>
