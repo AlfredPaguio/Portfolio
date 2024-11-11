@@ -1,7 +1,7 @@
 "use client";
 import { TechStackType } from "@/data/fetchContent";
 import { camelCaseToTitleCase } from "@/utils/camelCaseToTitleCase";
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import TechCard from "../components/TechCard";
 
 type TechnologiesProps = {
@@ -53,7 +53,7 @@ function Technologies({ techStack }: TechnologiesProps) {
       </div>
       <div className="grid grid-cols-1 items-center justify-between gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {categories.map((category) => (
-          <>
+          <Fragment key={category}>
             {filteredTechStack[category].map((skill: Skill) => (
               <TechCard
                 key={skill.name}
@@ -61,7 +61,7 @@ function Technologies({ techStack }: TechnologiesProps) {
                 name={skill.name}
               />
             ))}
-          </>
+          </Fragment>
         ))}
       </div>
     </div>
