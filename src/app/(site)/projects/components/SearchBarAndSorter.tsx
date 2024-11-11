@@ -63,7 +63,7 @@ const SearchInput = ({ onChange, value }: SearchInputProps) => (
       />
       <label
         htmlFor="search"
-        className={`absolute left-0 top-2 mt-2 cursor-text text-xs transition-all peer-focus:-top-4 peer-focus:text-accent peer-[&:not(:placeholder-shown)]:-top-4 peer-[&:not(:placeholder-shown)]:text-xs`}
+        className={`absolute left-2 top-2 mt-2 cursor-text text-sm transition-all peer-focus:-top-10 peer-focus:text-accent peer-[&:not(:placeholder-shown)]:-top-4 peer-[&:not(:placeholder-shown)]:text-xs`}
       >
         {!value ? "Search for project..." : "Searching for:"}
       </label>

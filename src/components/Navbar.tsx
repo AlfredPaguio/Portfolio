@@ -13,7 +13,10 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
-import MobileNavigation from "./MobileNavigation";
+// import MobileNavigation from "./MobileNavigation";
+
+import logoLight from "@@/public/assets/logoLight.svg";
+import logoDark from "@@/public/assets/logoDark.svg";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -36,7 +39,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 bottom-4 z-40 mx-8 flex h-14 items-center justify-between rounded-3xl border border-border bg-transparent px-4  shadow-sm saturate-100 backdrop-blur-sm transition-all duration-200 md:top-4 md:max-w-full md:px-8 md:mx-8",
+        "fixed inset-x-0 bottom-4 z-40 mx-8 flex h-14 items-center justify-between rounded-3xl border border-border bg-transparent px-4  shadow-sm saturate-100 backdrop-blur-sm transition-all duration-200 md:top-4 md:mx-8 md:max-w-full md:px-8",
         isScrolled &&
           " bottom-0 mx-0 rounded-none border-border/40 px-4 shadow-lg md:top-0 md:mx-0 md:max-w-full md:px-4 lg:max-w-full",
       )}
@@ -45,19 +48,22 @@ export function Navbar() {
 
       <div className="mx-auto flex h-14 w-full items-center justify-between">
         <div className="flex h-14 items-center p-2">
-          {pathname != "/" && (
-            <Button variant="ghost" aria-label="Home" asChild>
-              <Link
-                href="/"
-                className="flex items-center gap-2"
-                prefetch={false}
-              >
-                <h1 className="text-center text-2xl font-light [viewTransitionName:brand-name]">
-                  Alfred
-                </h1>
-              </Link>
-            </Button>
-          )}
+          <Button variant="ghost" aria-label="Home" asChild>
+            <Link href="/" className="flex items-center gap-2" prefetch={false}>
+              <div aria-hidden="true" className="h-14 w-auto">
+                <img
+                  src={logoDark.src}
+                  alt="Brand Logo"
+                  className="hidden h-14 w-auto dark:block"
+                />
+                <img
+                  src={logoLight.src}
+                  alt="Brand Logo"
+                  className="block h-14 w-auto dark:hidden"
+                />
+              </div>
+            </Link>
+          </Button>
         </div>
 
         <div className="flex items-center md:space-x-3">

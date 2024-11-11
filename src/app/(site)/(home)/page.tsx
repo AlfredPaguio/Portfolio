@@ -1,19 +1,10 @@
-import Image from "next/image";
-import ManThink from "@@/public/images/undraw_code_thinking_re_gka2.svg";
-import Link from "next/link";
 import { reader } from "@/utils/reader";
-import { Icons } from "@/components/Icons";
-import DownloadCVButtons from "@/components/DownloadCVButtons";
-import GithubReleaseDate from "@/components/GithubReleaseDate";
 import SectionContainer from "@/components/SectionContainer";
 import { GithubCommitCalendar } from "@/components/GithubCommitCalendar";
-import { Separator } from "@/components/ui/separator";
 import ProgressCircle from "@/components/ProgressCircle";
 import { Suspense } from "react";
 import Technologies from "./partials/Technologies";
 import FeaturedProjects from "./partials/FeaturedProjects";
-import { CodeIcon, DatabaseIcon } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Services from "./partials/Services";
 import HeroSection from "./partials/HeroSection";
 

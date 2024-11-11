@@ -3,6 +3,7 @@ import GitHubCalendar from "react-github-calendar";
 import { useTheme } from "next-themes";
 import { REPO_OWNER } from "@/data/Repositories";
 import { useEffect, useState } from "react";
+import { Button } from "./ui/button";
 
 const MOBILE_CALENDAR_SIZE = 12;
 const LAPTOP_CALENDAR_SIZE = 12;
@@ -31,9 +32,16 @@ export function GithubCommitCalendar() {
 
   return (
     <div className="my-10 w-full">
-      <h3 className="md:leading-14 text-center text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl">
-        A cool chart
-      </h3>
+      <div className="mb-10 space-y-4">
+        <h3 className="text-pretty text-3xl font-bold min-[430px]:text-4xl md:text-5xl">
+          A cool chart
+        </h3>
+        <Button variant={"link"} asChild>
+          <a href="https://github.com/AlfredPaguio" className="text-pretty text-sm text-foreground/70 min-[430px]:text-base md:max-w-3xl">
+            https://github.com/AlfredPaguio
+          </a>
+        </Button>
+      </div>
       <div className="mt-5 flex items-center justify-center">
         <GitHubCalendar
           colorScheme={colorScheme}
