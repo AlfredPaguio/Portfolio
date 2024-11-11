@@ -98,7 +98,7 @@ export default async function Home() {
         <CardHeader className="pb-0">
           <CardTitle className="text-xl">Feedback Form</CardTitle>
           <CardDescription className="text-lg text-foreground">
-            I welcome contributions and feedback for this site. If you'd like to
+            I welcome contributions and feedback for this site. If you&apos;d like to
             contribute or send feedback, please contact me or fill up the form.
           </CardDescription>
         </CardHeader>
