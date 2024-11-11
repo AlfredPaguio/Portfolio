@@ -40,7 +40,7 @@ export default function ScrollMoreIndicator() {
   };
 
   return (
-    <footer className="flex w-full flex-none items-center justify-between">
+    <footer className="flex w-full flex-none items-center justify-between mb-10 md:mb-0">
       <div className="invisible relative flex w-96 animate-fadeInFadeOutInfinite overflow-hidden px-16 py-1 before:absolute before:left-48 before:block before:content-['Press_arrow_keys_to_navigate'] hover:animate-none md:visible md:space-y-0 ">
         <ArrowLeftSquare
           className="size-14 hover:cursor-pointer hover:text-accent"

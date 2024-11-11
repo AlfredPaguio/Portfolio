@@ -15,7 +15,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <Providers>
       <div className="flex min-h-screen flex-col">
         <Navbar />
-        <main className="flex-grow px-4 pb-12 pt-16 sm:px-6 lg:px-8">
+        <main className="flex-grow px-4 md:pb-12 md:pt-16 lg:px-8">
           {children}
         </main>
         <BottomComponent />
