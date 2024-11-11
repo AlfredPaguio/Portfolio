@@ -13,6 +13,11 @@ export function GithubCommitCalendar() {
   const { theme } = useTheme();
   const [windowWidth, setWindowWidth] = useState<number>(0);
 
+  const myTheme = {
+    light: ['hsl(210, 30%, 40%)', 'hsl(45, 85%, 60%)'],
+    dark: ['hsl(0, 0%, 10%)', 'hsl(0, 100%, 60%)'],
+  };
+
   //from https://github.com/grubersjoe/react-github-calendar/issues/102
   useEffect(() => {
     const handleResize = () => {
@@ -50,6 +55,7 @@ export function GithubCommitCalendar() {
           blockMargin={4}
           blockRadius={2}
           fontSize={14}
+          theme={myTheme}
           style={{ fontWeight: "bold" }}
           showWeekdayLabels={true}
         />
