@@ -15,6 +15,8 @@ import {
 import { ScrollArea } from "./ui/scroll-area";
 import fetchLatestRelease from "@/data/fetchLatestReleaseData";
 import toTitleCase from "@/utils/toTitleCase";
+import { REPO_OWNER } from "@/data/Repositories";
+import { camelCaseToTitleCase } from "@/utils/camelCaseToTitleCase";
 
 export default function DownloadCVButtons() {
   const [assets, setAssets] = useState<Asset[]>([]);
@@ -41,7 +43,7 @@ export default function DownloadCVButtons() {
       {loading && <p className="h-9 self-center px-4 py-2">Loading...</p>}
       {assets && assets.length > 0 && (
         <Button
-          className="transition-colors hover:bg-accent rounded-r-none"
+          className="rounded-r-none transition-colors hover:bg-accent"
           asChild
         >
           <Link href={assets[0].browser_download_url}>
@@ -53,9 +55,7 @@ export default function DownloadCVButtons() {
       <Separator orientation="vertical" className="h-full" />
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <Button
-            className="px-2 transition-colors hover:bg-accent rounded-l-none"
-          >
+          <Button className="rounded-l-none px-2 transition-colors hover:bg-accent">
             <ChevronDownIcon className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
@@ -93,10 +93,14 @@ interface DownloadOptionsProps {
 function DownloadOptions({ assets }: DownloadOptionsProps) {
   const groupedAssets: Record<string, Asset[]> = assets.reduce(
     (accumulated, asset) => {
-      const nameParts = asset.name.split("_CV_");
-      // Use the part following _CV_ as the group name or an empty string
-      const groupName =
-        nameParts.length === 2 ? toTitleCase(nameParts[1].split(".")[0]) : "";
+      //split
+      const nameParts = asset.name.split("_");
+      // category (e.g., "WebDev", "SoftwareEngineer")
+      // Use the first part as the group name
+      // const groupName = toTitleCase(nameParts[0]);
+      const groupName = camelCaseToTitleCase(nameParts[0]);
+      console.log("name", groupName)
+
       // if (!accumulated[groupName]) {
       //   accumulated[groupName] = [];
       // }
@@ -142,7 +146,7 @@ function DownloadButton({ asset }: DownloadButtonProps) {
 
   return (
     <DropdownMenuItem asChild>
-      <Link href={browser_download_url} download={name}>
+      <Link href={browser_download_url} download={`${REPO_OWNER}_${name}`}>
         <DownloadIcon className="mr-2 h-4 w-4" />
         Download {name}
       </Link>
