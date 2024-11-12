@@ -63,12 +63,11 @@ function Services() {
     <section className="py-16 sm:py-24">
       <div className="container space-y-4">
         <h2 className="text-pretty text-3xl font-bold min-[430px]:text-4xl md:text-5xl">
-          What I can do for you
+          What I do
         </h2>
         <p className="text-pretty text-sm text-foreground/70 min-[430px]:text-base md:max-w-3xl">
-          I create efficient, responsive web solutions. From building web apps
-          to managing databases, I&apos;m here to help bring your vision to
-          life.
+          I build efficient, responsive web solutions, from dynamic apps
+          to robust database management, bringing your vision to life.
         </p>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (

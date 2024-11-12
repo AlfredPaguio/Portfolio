@@ -32,8 +32,8 @@ function HeroSection({ socialLinks }: HeroSectionProps) {
           <span className="underline decoration-accent/80 decoration-2 underline-offset-2">
             software developer
           </span>
-          , I love problem-solving and creating applications that make a real
-          difference.
+          , I love tackling challenges and crafting solutions that make a real
+          impact.
         </p>
         <div className="flex items-center justify-center gap-x-2 p-4">
           <DownloadCVButtons />
