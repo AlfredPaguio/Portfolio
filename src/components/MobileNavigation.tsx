@@ -19,40 +19,48 @@ function MobileNavigation() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="pr-0">
-        <MobileLinkHelper
-          href="/"
-          className="flex items-center"
-          onOpenChange={setOpen}
-        >
-          <div aria-hidden="true" className="h-14 w-auto">
-            <img
-              src={logoDark.src}
-              alt="Brand Logo"
-              className="hidden h-14 w-auto dark:block"
-            />
-            <img
-              src={logoLight.src}
-              alt="Brand Logo"
-              className="block h-14 w-auto dark:hidden"
-            />
-          </div>
-        </MobileLinkHelper>
-        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
-          <div className="flex flex-col space-y-3">
-            {pageInformation
-              .filter((route: PageInformationType) => route.path !== "*")
-              .map((item) => (
-                <MobileLinkHelper
-                  key={item.path}
-                  href={item.path}
-                  onOpenChange={setOpen}
-                >
-                  {item.title}
-                </MobileLinkHelper>
-              ))}
-          </div>
-        </ScrollArea>
+      <SheetContent side="left" className="pt-4 p-0">
+        <div className="flex flex-col gap-2 border-b">
+          <MobileLinkHelper
+            href="/"
+            className="flex items-center"
+            onOpenChange={setOpen}
+          >
+            <div aria-hidden="true" className="h-14 w-auto">
+              <img
+                src={logoDark.src}
+                alt="Brand Logo"
+                className="hidden h-14 w-auto dark:block"
+              />
+              <img
+                src={logoLight.src}
+                alt="Brand Logo"
+                className="block h-14 w-auto dark:hidden"
+              />
+            </div>
+          </MobileLinkHelper>
+        </div>
+        <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-auto">
+          <ScrollArea className="h-[calc(100vh-8rem)]">
+            <ul className="flex w-full min-w-0 flex-col gap-1 list-none">
+              {pageInformation
+                .filter((route: PageInformationType) => route.path !== "*")
+                .map((item) => (
+                  <li key={item.path} className={"group/menu-item relative"}>
+                    <Button variant={"ghost"} className="w-full" asChild>
+                      <MobileLinkHelper
+                        key={item.path}
+                        href={item.path}
+                        onOpenChange={setOpen}
+                      >
+                        {item.title}
+                      </MobileLinkHelper>
+                    </Button>
+                  </li>
+                ))}
+            </ul>
+          </ScrollArea>
+        </div>
       </SheetContent>
     </Sheet>
   );

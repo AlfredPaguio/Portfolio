@@ -49,9 +49,9 @@ export default function TechStacks({ techStack }: TechStackCategory) {
                     <IconComponent techName={item.name} />
                   </div>
                   <span className="grow text-sm font-medium">{item.name}</span>
-                  <span className="shrink-0 text-xs text-muted-foreground">
+                  {/* <span className="shrink-0 text-xs text-muted-foreground">
                     {getProficiencyLabel(Number(item.proficiency))}
-                  </span>
+                  </span> */}
                 </li>
               ))}
             </ul>

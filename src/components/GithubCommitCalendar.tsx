@@ -1,37 +1,39 @@
 "use client";
-import GitHubCalendar from "react-github-calendar";
+import GitHubCalendar, { Activity } from "react-github-calendar";
 import { useTheme } from "next-themes";
 import { REPO_OWNER } from "@/data/Repositories";
-import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { ThemeInput } from "react-activity-calendar";
 
-const MOBILE_CALENDAR_SIZE = 12;
-const LAPTOP_CALENDAR_SIZE = 12;
-const MOBILE_BREAKPOINT = 768;
+const selectLastHalfYear = (contributions: Activity[]) => {
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+  const shownMonths = 6;
+
+  return contributions.filter((activity) => {
+    const date = new Date(activity.date);
+    const monthOfDay = date.getMonth();
+
+    return (
+      date.getFullYear() === currentYear &&
+      monthOfDay > currentMonth - shownMonths &&
+      monthOfDay <= currentMonth
+    );
+  });
+};
 
 export function GithubCommitCalendar() {
   const { theme } = useTheme();
-  const [windowWidth, setWindowWidth] = useState<number>(0);
 
-  const myTheme = {
-    light: ['hsl(210, 30%, 40%)', 'hsl(45, 85%, 60%)'],
-    dark: ['hsl(0, 0%, 10%)', 'hsl(0, 100%, 60%)'],
+  const myTheme: ThemeInput = {
+    light: ["hsl(210, 30%, 40%)", "hsl(45, 85%, 60%)"],
+    dark: ["hsl(0, 0%, 10%)", "hsl(0, 100%, 60%)"],
   };
 
   //from https://github.com/grubersjoe/react-github-calendar/issues/102
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
 
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Set initial window width
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const isMobile = windowWidth <= MOBILE_BREAKPOINT;
+  const isMobile = useIsMobile();
 
   const colorScheme = theme === "dark" ? "dark" : "light";
 
@@ -42,7 +44,10 @@ export function GithubCommitCalendar() {
           A cool chart
         </h3>
         <Button variant={"link"} asChild>
-          <a href="https://github.com/AlfredPaguio" className="text-pretty text-sm text-foreground/70 min-[430px]:text-base md:max-w-3xl">
+          <a
+            href="https://github.com/AlfredPaguio"
+            className="text-pretty text-sm text-foreground/70 min-[430px]:text-base md:max-w-3xl"
+          >
             https://github.com/AlfredPaguio
           </a>
         </Button>
@@ -51,13 +56,10 @@ export function GithubCommitCalendar() {
         <GitHubCalendar
           colorScheme={colorScheme}
           username={REPO_OWNER}
-          blockSize={isMobile ? MOBILE_CALENDAR_SIZE : LAPTOP_CALENDAR_SIZE}
-          blockMargin={4}
-          blockRadius={2}
-          fontSize={14}
           theme={myTheme}
           style={{ fontWeight: "bold" }}
           showWeekdayLabels={true}
+          {...(isMobile && { transformData: selectLastHalfYear })}
         />
       </div>
     </div>
