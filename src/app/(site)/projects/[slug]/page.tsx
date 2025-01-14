@@ -1,4 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
+import { Icons } from "@/components/Icons";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,23 +10,17 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { ProjectTypeWithoutContent } from "@/data/fetchContent";
+import { REPO_OWNER } from "@/data/Repositories";
 import { formatDate } from "@/utils/formatDate";
-import { reader } from "@@/src/utils/reader";
+import { processMdx } from "@/utils/mdx";
+import { reader } from "@/utils/reader";
+import { ArrowLeft, Calendar } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Icons } from "@/components/Icons";
-import { processMdx } from "@/utils/mdx";
-import { ArrowLeft } from "lucide-react";
-import { Metadata } from "next";
-import {
-  getImageHeight,
-  getImageSrc,
-  getImageWidth,
-} from "@/utils/imageHelpers";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { ProjectTypeWithoutContent } from "@/data/fetchContent";
 import ProjectImages from "../components/ProjectImages";
-// import Image from "next/image";
+import ProjectTags from "../components/ProjectTags";
 
 type Props = {
   params: { slug: string };
@@ -39,6 +34,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: project.title,
     description: project.summary,
+    openGraph: {
+      title: project.title,
+      description: project.summary,
+      type: "article",
+      publishedTime: project.date ?? undefined,
+      authors: REPO_OWNER,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.summary,
+    },
   };
 }
 
@@ -50,11 +57,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Project({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function Project({ params }: Props) {
   const project = await reader().collections.projects.read(params.slug);
 
   if (!project) notFound();
@@ -62,33 +65,39 @@ export default async function Project({
   const { default: ProjectContent } = await processMdx(await project.content());
 
   return (
-    <article className="2xl:max-w-8xl mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+    <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       <Breadcrumbs name={project.title} />
-      <div className="mx-auto pt-4 text-foreground lg:prose-lg xl:prose-xl lg:pt-12">
-        {process.env.NODE_ENV === "development" && (
-          <pre className="whitespace-pre-wrap bg-slate-950">
-            <code className="text-foreground">
-              {JSON.stringify(project, null, 2)}
-            </code>
-          </pre>
-        )}
-        <h1 className="mb-2">{project.title}</h1>
-        <time
-          dateTime={formatDate(project.date)}
-          className="text-xs text-muted-foreground md:text-sm lg:text-base"
-        >
-          {formatDate(project.date)}
-        </time>
-        <p className="mt-4 text-sm xl:text-2xl">{project.summary}</p>
-        <ProjectLinks project={project} />
-        <Separator className="my-8 w-1/3 bg-primary" />
-        <div className="prose mx-auto mt-8 flex flex-col items-center gap-4 dark:prose-invert lg:prose-lg xl:prose-xl">
-          <ProjectContent />
-          <ProjectVideos videos={project.videos} />
-          <ProjectImages images={project.images} />
+      {process.env.NODE_ENV === "development" && (
+        <pre className="mt-8 whitespace-pre-wrap rounded-lg bg-card p-6 shadow-lg">
+          <code className="text-card-foreground">
+            {JSON.stringify(project, null, 2)}
+          </code>
+        </pre>
+      )}
+      <div className="mt-8 rounded-lg bg-card p-6 shadow-lg">
+        <h1 className="mb-4 text-3xl font-bold text-primary lg:text-4xl">
+          {project.title}
+        </h1>
+        <div className="mb-6 flex items-center space-x-4 text-sm text-muted-foreground">
+          <time
+            dateTime={formatDate(project.date)}
+            className="flex items-center"
+          >
+            <Calendar className="mr-2 h-4 w-4" />
+            {formatDate(project.date)}
+          </time>
+          <ProjectTags tags={project.stack} />
         </div>
+        <p className="mb-6 text-lg text-card-foreground">{project.summary}</p>
+        <ProjectLinks project={project} />
+        <Separator className="my-8 bg-border" />
+        <div className="prose max-w-none dark:prose-invert">
+          <ProjectContent />
+        </div>
+        <ProjectVideos videos={project.videos} />
+        <ProjectImages images={project.images} />
         <Button
-          variant="secondary"
+          variant="outline"
           size="sm"
           className="mt-8 flex items-center gap-2"
           asChild

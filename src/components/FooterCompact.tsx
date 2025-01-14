@@ -14,7 +14,7 @@ import { Separator } from "./ui/separator";
 function FooterCompact() {
   const pathname = usePathname();
   return (
-    <footer className="px-4 pt-6 mb-14 md:py-10 flex-none">
+    <footer className="px-4 pt-6 mb-14 md:mb-0 md:py-10 flex-none">
       <h2 className="sr-only">Footer</h2>
       <div className="mx-auto max-w-7xl">
         <div

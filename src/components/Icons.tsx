@@ -53,11 +53,14 @@ const externalIcons: Record<string, string | JSX.Element> = {
 
 //test
 export function getTechIcon(name: string) {
-  const lowerCaseName = name.toLowerCase();
+  const lowerCaseName = name.trim().toLowerCase();
   const importFunc =
     (iconImports as any)[name] || (iconImports as any)[lowerCaseName];
   if (importFunc) {
-    const DynamicIcon = dynamic(importFunc);
+    const DynamicIcon = dynamic(importFunc, {
+      loading: () => <CircleOff />,
+      ssr: false,
+    });
     DynamicIcon.displayName = `${name}Icon`;
     return DynamicIcon;
     // return dynamic(importFunc);
@@ -65,7 +68,6 @@ export function getTechIcon(name: string) {
 
   const externalIcon = externalIcons[lowerCaseName];
   if (typeof externalIcon === "string") {
-
     const ImageIcon = () => (
       <img src={externalIcon} alt={`${name} icon`} className="size-4 pl-1" />
     );
