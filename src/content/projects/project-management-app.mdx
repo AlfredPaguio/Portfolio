@@ -6,8 +6,10 @@ stack:
   - Inertia.js
   - React
   - TypeScript
+  - Tailwind CSS
+  - PHP
 summary: >-
-  A project management tool with task tracking, user assignment, and project
+  A project management web app with task tracking, user assignment, and project
   overviews.
 date: 2024-06-12
 gitHubURL: https://github.com/AlfredPaguio/Project-Management-App
@@ -19,17 +21,36 @@ videos: []
 ---
 ### Project Management App
 
-#### Features:
+## Tech Stack
 
-* **Registration & Login**: Secure user authentication system to manage project access.
-* **Projects CRUD**: Create, read, update, and delete projects with sorting, filtering, and pagination options for efficient project management.
-* **Tasks CRUD**: Manage tasks with full CRUD functionality, including sorting, filtering, and pagination for easy task tracking.
-* **Task Creation Inside Projects**: Add new tasks directly within specific projects for better task organization.
-* **Task Views**: Option to display all tasks across projects or filter tasks for a specific project.
-* **User Assignment to Tasks**: Assign team members to tasks, enhancing collaboration and responsibility tracking.
-* **Personal Task View**: Users can view tasks specifically assigned to them, improving individual task management.
+* **Back-end**: [Laravel 11 (PHP)](https://laravel.com)
+* **Middle-end 🤔?**: [Inertia.js v2](https://inertiajs.com/)
+* **Front-end**: [React 18](https://18.react.dev/), [TypeScript](https://www.typescriptlang.org/)
+  * **UI**: [TailwindCSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/)
+  * **shadcn/ui** included those:
+    * [Recharts](https://recharts.org/) for data visualization
+    * [@tanstack/react-table](https://tanstack.com/table/latest/docs/introduction) for table management
+    * [React Hook Form](https://react-hook-form.com/) for form handling
+    * [Zod](https://zod.dev/) for schema validation
+  * **Icons**: [Lucide](https://lucide.dev/guide/packages/lucide-react)
+* **Database**: [SQLite](https://www.sqlite.org/) for the database
+* **Authentication**: [Laravel Breeze](https://github.com/laravel/breeze) for authentication, [spatie/laravel-permission](https://spatie.be/docs/laravel-permission/v6/introduction) for role/permission-based access control.
+* **Development Tools**:
+  * [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar) (for debugging during development)
+* **Image Provider**: [Picsum](https://picsum.photos/)
+
+## Features:
+
+* **Project Management**: Create, read, update, and delete projects with sorting, filtering, and pagination options for efficient project management.
+* **Task Management**: Manage tasks with full CRUD functionality, including sorting, filtering, and pagination for easy task tracking.
+  * **Task Creation Inside Projects**: Add new tasks directly within specific projects for better task organization.
+  * **User Assignment to Tasks**: Assign team members to tasks, enhancing collaboration and responsibility tracking.
+  * **Personal Task View**: Users can view tasks specifically assigned to them, improving individual task management.
+* **User Management**: Create and manage users, edit profile information, assign roles, and control permissions.
+* **Role and Permission Based Access Control**: Different roles and permissions with different access levels to manage tasks and projects.
+* **Search and Filter**: Search and filter projects, tasks, roles, and permissions based on various criteria.
 * **Dashboard Overview**: A centralized dashboard showing key project and task metrics, providing an at-a-glance view of progress and status.
 
-#### Purpose:
+## Purpose:
 
 This project management app is designed to streamline task and project workflows, offering robust tools for creating, managing, and tracking projects and tasks. The app supports team collaboration through user assignment and provides an intuitive dashboard for real-time insights.
