@@ -3,5 +3,17 @@
   "tailwindCSS.experimental.classRegex": [
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-  ]
+  ],
+  "workbench.sideBar.location": "right",
+  "workbench.colorTheme": "One Dark Darker",
+  "editor.minimap.enabled": false,
+  "editor.fontFamily": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.fontLigatures": true,
+  // "editor.fontVariations": false,
+  "editor.letterSpacing": 0.4,
+  "editor.smoothScrolling": true,
+  "editor.lineHeight": 1.7,
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+  "terminal.integrated.fontLigatures": true
 }

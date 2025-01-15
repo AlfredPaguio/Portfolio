@@ -9,9 +9,11 @@ import { MenuIcon, XIcon } from "lucide-react";
 import logoLight from "@@/public/assets/logoLight.svg";
 import logoDark from "@@/public/assets/logoDark.svg";
 import { cn } from "@/utils/cn";
+import { usePathname } from "next/navigation";
 
 function MobileNavigation() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -21,7 +23,11 @@ function MobileNavigation() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="flex flex-col p-0" hideCloseButton>
+      <SheetContent
+        side="right"
+        className="flex flex-col-reverse p-0 md:flex-col"
+        hideCloseButton
+      >
         <div className="flex items-center justify-between border-b p-4">
           <MobileLinkHelper
             href="/"
@@ -49,24 +55,27 @@ function MobileNavigation() {
         </div>
         {/* <ScrollArea className="h-[calc(100vh-8rem)]"> */}
 
-        <ScrollArea className="flex-grow">
-        <nav className="p-4">
-          <ul className="space-y-2">
+        <nav className="flex flex-grow p-4">
+          <ul className="my-auto w-full space-y-2 md:my-0">
             {pageInformation
               .filter((route: PageInformationType) => route.path !== "*")
               .map((item) => {
                 return (
                   <li key={item.path} className={"group/menu-item relative"}>
-                    <Button variant={"ghost"} className="w-full" asChild>
+                    <Button
+                      variant={"ghost"}
+                      className={cn(
+                        "block w-full rounded-md px-4 py-2 text-center transition-colors",
+                        (pathname.startsWith(item.path) && item.path !== "/") ||
+                          pathname === item.path
+                          ? "bg-primary text-primary-foreground"
+                          : "hover:bg-accent",
+                      )}
+                      asChild
+                    >
                       <MobileLinkHelper
                         key={item.path}
                         href={item.path}
-                        // className={cn(
-                        //   "block py-2 px-4 rounded-md transition-colors",
-                        //   router.pathname === item.path
-                        //     ? "bg-primary text-primary-foreground"
-                        //     : "hover:bg-accent"
-                        // )}
                         onOpenChange={setOpen}
                       >
                         {item.title}
@@ -76,8 +85,7 @@ function MobileNavigation() {
                 );
               })}
           </ul>
-          </nav>
-        </ScrollArea>
+        </nav>
       </SheetContent>
     </Sheet>
   );
