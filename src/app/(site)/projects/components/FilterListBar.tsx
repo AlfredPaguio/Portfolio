@@ -22,6 +22,7 @@ import { ProjectTypeWithoutContent } from "@/data/fetchContent";
 import FilterListMenu from "./FilterListMenu";
 import { Badge } from "@/components/ui/badge";
 import TechPillButton from "./TechPillButton";
+import { IconComponent } from "@/components/IconComponent";
 
 type FilterListBarProps = {
   projects: ProjectTypeWithoutContent[];
@@ -46,22 +47,21 @@ export default function FilterListBar({ projects }: FilterListBarProps) {
   };
 
   return (
-    <div className="md:text-md 3xl:text-3xl flex w-full flex-col text-sm md:flex-row md:items-center lg:text-lg xl:text-xl 2xl:text-2xl">
-      <div className={`order-1`}>
+    <div className="flex flex-col gap-4 md:flex-row md:items-center">
+      <div className="flex items-center gap-2">
         <Sheet>
           <SheetTrigger asChild>
             <Button
               variant={"secondary"}
               type="button"
-              className={`order-1 inline-flex shrink-0 items-center p-2`}
+              className="flex items-center gap-2"
             >
-              <FilterIcon className="mr-2 h-6 w-6" />
+              <FilterIcon className="size-4" />
               <span>Filter</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side={"bottom"}>
-            {/* https://github.com/shadcn-ui/ui/issues/542#issuecomment-2015755497 */}
-            <ScrollArea className="[&>[data-radix-scroll-area-viewport]]:max-h-[300px]">
+          <SheetContent side={"right"} className="w-[300px] sm:w-[540px]">
+            <ScrollArea className="h-full">
               <SheetHeader>
                 <SheetTitle>Filter by Technologies Used</SheetTitle>
                 <SheetDescription>
@@ -98,25 +98,22 @@ export default function FilterListBar({ projects }: FilterListBarProps) {
             type="button"
             onClick={() => handleRemoveAllFilters()}
             size={"icon"}
-            className="order-2 ml-2 inline-flex shrink-0 items-center p-2 md:order-4"
+            className="flex items-center gap-2"
           >
             <XIcon />
           </Button>
         )}
       </div>
 
-      <Separator
-        orientation="vertical"
-        className="order-3 hidden h-8 w-0.5 bg-accent md:order-2 md:mx-4 md:block"
-      />
-      <div className="order-4 mt-2 flex flex-1 flex-wrap items-center gap-2 md:order-3 md:mt-0">
+      <Separator orientation="vertical" className="hidden h-8 md:block" />
+      <div className="flex flex-wrap items-center gap-2">
         {!selectedTechnologies.length && (
-          <span className="pl-3 pr-2 text-sm font-medium lg:text-lg xl:text-xl 2xl:text-2xl">
-            None
+          <span className="text-sm text-muted-foreground">
+            No filters applied
           </span>
         )}
-        {selectedTechnologies.length > 3 ? (
-          <Badge variant="secondary" className="text-lg font-normal">
+        {selectedTechnologies.length > 5 ? (
+          <Badge variant="secondary" className="text-sm font-normal">
             {selectedTechnologies.length} selected
           </Badge>
         ) : (
@@ -124,9 +121,12 @@ export default function FilterListBar({ projects }: FilterListBarProps) {
             <TechPillButton
               key={tech + " Pill"}
               isSelected={selectedTechnologies.includes(tech)}
-              technology={tech}
               onClickTechnology={() => handleRemoveTechnology(tech)}
-            />
+              hasCloseIcon
+            >
+              <IconComponent techName={tech} key={tech} />
+              {tech}
+            </TechPillButton>
           ))
         )}
       </div>

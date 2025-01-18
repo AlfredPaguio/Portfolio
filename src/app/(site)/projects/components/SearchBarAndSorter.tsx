@@ -11,15 +11,25 @@ import { SearchIcon } from "lucide-react";
 import { parseAsString, useQueryState } from "nuqs";
 
 export default function SearchBarAndSorter() {
-  const [titleQuery, setTitleQuery] = useQueryState("title", {
-    history: "replace",
-    shallow: false,
-  });
+  const [titleQuery, setTitleQuery] = useQueryState(
+    "title",
+    parseAsString
+      .withOptions({
+        history: "replace",
+        throttleMs: 300,
+        // shallow: false,
+      })
+      .withDefault(""),
+  );
+
   const [sortQuery, setSortQuery] = useQueryState(
     "sort",
     parseAsString
-      .withDefault("date-desc")
-      .withOptions({ history: "replace", shallow: false }),
+      .withOptions({
+        history: "replace",
+        //  shallow: false
+      })
+      .withDefault("date-desc"),
   );
 
   const handleSort = (value: string) => {
@@ -33,7 +43,7 @@ export default function SearchBarAndSorter() {
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-start gap-y-2 md:flex-row md:gap-y-0">
+    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <SearchInput onChange={handleSearch} value={titleQuery} />
       <SortSelect onChange={handleSort} value={sortQuery} />
     </div>
@@ -45,41 +55,31 @@ type GenericInputProps<T> = {
   value: T | null;
 };
 
-type SortSelectProps = GenericInputProps<string>;
-type SearchInputProps = GenericInputProps<string>;
+type InputProps = GenericInputProps<string>;
 
-const SearchInput = ({ onChange, value }: SearchInputProps) => (
-  <div className="relative block w-full shrink-0 md:w-2/3 md:me-4">
-    <div className="relative">
-      <span className="sr-only">Search</span>
-      <Input
-        className="group peer block h-12 pl-2 pr-9 placeholder:invisible placeholder:text-[0]"
-        type="text"
-        onChange={(e) => onChange(e.target.value)}
-        value={value ?? undefined}
-        name="search"
-        placeholder="Search for project..."
-        id="search"
-      />
-      <label
-        htmlFor="search"
-        className={`absolute left-2 top-2 mt-2 cursor-text text-sm transition-all peer-focus:-top-10 peer-focus:text-accent peer-[&:not(:placeholder-shown)]:-top-4 peer-[&:not(:placeholder-shown)]:text-xs`}
-      >
-        {!value ? "Search for project..." : "Searching for:"}
-      </label>
-      <span className="absolute inset-y-0 right-0 flex items-center pr-4 peer-focus:fill-accent">
-        <SearchIcon className="h-5 w-5 text-foreground " />
-      </span>
-    </div>
+const SearchInput = ({ onChange, value }: InputProps) => (
+  <div className="relative w-full sm:max-w-md md:max-w-full">
+    <label htmlFor="search" className="sr-only">
+      Search projects
+    </label>
+    <Input
+      id="search"
+      type="search"
+      placeholder="Search projects..."
+      value={value ?? undefined}
+      onChange={(e) => onChange(e.target.value)}
+      className="h-10 pl-10 pr-4"
+    />
+    <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
   </div>
 );
 
-const SortSelect = ({ onChange, value }: SortSelectProps) => (
+const SortSelect = ({ onChange, value }: InputProps) => (
   <Select
     onValueChange={(value) => onChange(value)}
     value={value || "date-desc"}
   >
-    <SelectTrigger className="h-12 w-full md:w-fit lg:ml-2">
+    <SelectTrigger className="w-full sm:w-[200px]">
       <SelectValue placeholder="Sort By..." />
     </SelectTrigger>
     <SelectContent>

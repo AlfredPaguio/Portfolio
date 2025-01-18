@@ -1,11 +1,10 @@
 import { badgeVariants } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@@/src/utils/cn";
-import { XCircle } from "lucide-react";
+import { XIcon } from "lucide-react";
 import { ReactNode } from "react";
 
 type TechButtonProps = {
-  technology: string;
   isSelected?: boolean;
   hasCloseIcon?: boolean;
   onClickTechnology: () => void;
@@ -14,7 +13,6 @@ type TechButtonProps = {
 };
 
 export default function TechPillButton({
-  technology,
   isSelected = false,
   hasCloseIcon = false,
   children = null,
@@ -25,18 +23,15 @@ export default function TechPillButton({
     <Button
       onClick={onClickTechnology}
       className={cn(
-        badgeVariants({ variant: "default" }),
-        `shrink-0 ${
-          isSelected
-            ? "bg-accent hover:bg-primary focus:outline-none"
-            : "bg-secondary hover:bg-accent"
-        }`,
+        `flex h-auto shrink-0 px-2 py-1 text-xs transition-colors`,
+        isSelected
+          ? badgeVariants({ variant: "accent" })
+          : badgeVariants({ variant: "secondary" }),
         className,
       )}
     >
-      {technology}
       {children}
-      {hasCloseIcon && <XCircle className="shrink-0 pl-1" />}
+      {hasCloseIcon && <XIcon className="shrink-0 pl-1" />}
     </Button>
   );
 }
