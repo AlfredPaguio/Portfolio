@@ -17,16 +17,16 @@ const ServiceCard = ({
   <Card
     className={cn(
       "group relative overflow-hidden transition-all duration-300 hover:shadow-lg",
-      "before:bg-gradient-to-r before:absolute before:inset-0 before:-translate-x-full before:translate-y-full before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-700 hover:before:-translate-y-full hover:before:translate-x-full",
+      "before:bg-gradient-to-r before:absolute before:inset-0 before:-translate-x-full before:translate-y-full before:from-transparent before:via-black/20 before:to-transparent before:transition-transform before:duration-700 hover:before:-translate-y-full hover:before:translate-x-full before:dark:via-white/20",
       className,
     )}
   >
     <CardHeader className="relative z-10">
       <div className="mb-2 flex items-center space-x-4">
-        <div className="rounded-lg bg-primary/10 p-2 transition-colors duration-300 group-hover:bg-accent/20">
-          <Icon className="h-6 w-6 text-primary-foreground transition-colors duration-300 group-hover:text-accent" />
+        <div className="rounded-lg bg-primary p-2 transition-colors duration-300 group-hover:bg-accent group-hover:text-accent-foreground">
+          <Icon className="h-6 w-6 text-primary-foreground transition-colors duration-300  group-hover:bg-accent group-hover:text-accent-foreground" />
         </div>
-        <CardTitle className="text-xl font-semibold transition-colors duration-300 group-hover:text-accent">
+        <CardTitle className="text-xl font-semibold transition-colors duration-300 group-hover:text-accent-foreground">
           {title}
         </CardTitle>
       </div>
@@ -62,12 +62,12 @@ function Services() {
   return (
     <section className="py-16 sm:py-24">
       <div className="container space-y-4">
-        <h2 className="text-pretty text-3xl font-bold min-[430px]:text-4xl md:text-5xl">
+        <h2 className="font-regular max-w-xl text-pretty text-left text-3xl tracking-tighter md:text-5xl">
           What I do
         </h2>
-        <p className="text-pretty text-sm text-foreground/70 min-[430px]:text-base md:max-w-3xl">
-          I build efficient, responsive web solutions, from dynamic apps
-          to robust database management, bringing your vision to life.
+        <p className="max-w-xl text-pretty text-left text-lg leading-relaxed tracking-tight text-muted-foreground lg:max-w-lg">
+          I build efficient, responsive web solutions, from dynamic apps to
+          robust database management, bringing your vision to life.
         </p>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (

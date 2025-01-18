@@ -1,10 +1,10 @@
 "use client";
-import GitHubCalendar, { Activity } from "react-github-calendar";
-import { useTheme } from "next-themes";
 import { REPO_OWNER } from "@/data/Repositories";
-import { Button } from "./ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useTheme } from "next-themes";
 import { ThemeInput } from "react-activity-calendar";
+import GitHubCalendar, { Activity } from "react-github-calendar";
+import { Button } from "./ui/button";
 
 const selectLastHalfYear = (contributions: Activity[]) => {
   const currentYear = new Date().getFullYear();
@@ -40,7 +40,7 @@ export function GithubCommitCalendar() {
   return (
     <div className="my-10 w-full">
       <div className="mb-10 space-y-4">
-        <h3 className="text-pretty text-3xl font-bold min-[430px]:text-4xl md:text-5xl">
+        <h3 className="font-regular max-w-xl text-pretty text-left text-3xl tracking-tighter md:text-5xl">
           A cool chart
         </h3>
         <Button variant={"link"} asChild>
