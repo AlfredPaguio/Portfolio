@@ -9,8 +9,6 @@ interface ProjectTagsProps {
 export default function ProjectTags({ tags }: ProjectTagsProps) {
   if (!tags || tags.length === 0) return null;
 
-  const invertedTags = ["express.js", "flask", "next.js", "inertia.js"];
-
   return (
     <div className="flex flex-wrap items-center space-x-2 space-y-2">
       <Tag className="size-4" />
@@ -20,10 +18,7 @@ export default function ProjectTags({ tags }: ProjectTagsProps) {
           variant="secondary"
           className="flex flex-wrap gap-x-2 text-xs"
         >
-          <IconComponent
-            techName={tag}
-            className={`${invertedTags.includes(tag.toLowerCase()) ? "dark:invert" : ""}`}
-          />
+          <IconComponent techName={tag} />
           {tag}
         </Badge>
       ))}
