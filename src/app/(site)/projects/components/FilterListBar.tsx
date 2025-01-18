@@ -1,6 +1,8 @@
 "use client";
-import { FilterIcon, XIcon } from "lucide-react";
+import { IconComponent } from "@/components/IconComponent";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
@@ -12,17 +14,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ProjectTypeWithoutContent } from "@/data/fetchContent";
+import { useAppDispatch, useAppSelector } from "@@/src/app/store/hooks";
 import {
   removeAllTechnology,
   removeTechnology,
 } from "@@/src/app/store/technology/technology-slice";
-import { useAppDispatch, useAppSelector } from "@@/src/app/store/hooks";
-import { ProjectTypeWithoutContent } from "@/data/fetchContent";
+import { FilterIcon, XIcon } from "lucide-react";
 import FilterListMenu from "./FilterListMenu";
-import { Badge } from "@/components/ui/badge";
 import TechPillButton from "./TechPillButton";
-import { IconComponent } from "@/components/IconComponent";
 
 type FilterListBarProps = {
   projects: ProjectTypeWithoutContent[];
@@ -67,16 +67,6 @@ export default function FilterListBar({ projects }: FilterListBarProps) {
                 <SheetDescription>
                   Find projects based on the technologies used.
                 </SheetDescription>
-                {!!selectedTechnologies.length && (
-                  <Button
-                    type="button"
-                    className="mt-4"
-                    variant={"link"}
-                    onClick={() => handleRemoveAllFilters()}
-                  >
-                    <XIcon className="h-6 w-6" /> Clear current filters
-                  </Button>
-                )}
               </SheetHeader>
 
               <FilterListMenu projects={projects} />

@@ -2,11 +2,24 @@
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import {
   addTechnology,
+  removeAllTechnology,
   removeTechnology,
 } from "@/app/store/technology/technology-slice";
-import { ProjectTypeWithoutContent } from "@/data/fetchContent";
-import TechPillButton from "./TechPillButton";
+import { IconComponent } from "@/components/IconComponent";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ProjectTypeWithoutContent } from "@/data/fetchContent";
+import { XIcon } from "lucide-react";
+import { useState } from "react";
+import TechPillButton from "./TechPillButton";
 
 type TechCategory =
   | "programmingLanguage"
@@ -33,12 +46,13 @@ type FilterListMenuProps = {
 };
 
 export default function FilterListMenu({ projects }: FilterListMenuProps) {
+  if (!projects?.length) return null;
+
+  const [searchQuery, setSearchQuery] = useState("");
   const selectedTechnologies = useAppSelector(
     (state) => state.technology.selectedTechnologies,
   );
   const dispatch = useAppDispatch();
-
-  if (!projects?.length) return null;
 
   //Please work pls help
   const techStats = projects.reduce(
@@ -76,52 +90,123 @@ export default function FilterListMenu({ projects }: FilterListMenuProps) {
     );
   };
 
-  // Sort technologies by usage frequency
-  const sortedTechnologies = Object.entries(techStats).sort(
-    ([, a], [, b]) => b.projectCount - a.projectCount,
-  );
+  const handleRemoveAllFilters = () => {
+    dispatch(removeAllTechnology());
+  };
+
+  // Filter by search and Sort technologies by usage frequency
+  const filteredTechnologies = Object.entries(techStats)
+    .filter(([tech]) => tech.toLowerCase().includes(searchQuery.toLowerCase()))
+    .sort(([, a], [, b]) => b.projectCount - a.projectCount);
 
   return (
-    <div className="space-y-6 p-4">
-      <div className="flex flex-wrap gap-3">
-        {sortedTechnologies.map(([tech, stats]) => (
-          <TechPillButton
-            key={tech + " Pill"}
-            isSelected={selectedTechnologies.includes(tech)}
-            technology={tech}
-            onClickTechnology={() => handleTechnologyToggle(tech)}
-          >
-            <span className="text-xs text-secondary-foreground">
-              ({stats.projectCount})
-            </span>
-          </TechPillButton>
-        ))}
+    <div className="space-y-4 p-4">
+      <div className="flex items-center space-x-2">
+        <Input
+          type="search"
+          placeholder="Search technologies..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="flex-grow"
+        />
+        <Button size="icon" onClick={() => setSearchQuery("")}>
+          <XIcon className="size-4" />
+          <span className="sr-only">Clear Search</span>
+        </Button>
       </div>
-
       {/* Selected technologies summary */}
       {selectedTechnologies.length > 0 && (
-         <Card className="border shadow-sm">
-         <CardHeader>
-           <CardTitle className="text-lg font-semibold">
-             Selected Technologies ({selectedTechnologies.length})
-           </CardTitle>
-         </CardHeader>
-         <CardContent>
-           <div className="flex flex-wrap gap-2">
-             {selectedTechnologies.map((tech) => (
-               <TechPillButton
-                 key={tech + " Pill"}
-                 isSelected={selectedTechnologies.includes(tech)}
-                 technology={tech}
-                 onClickTechnology={() => handleTechnologyToggle(tech)}
-                 className="bg-primary/10 text-foreground hover:bg-primary/20"
-                 hasCloseIcon
-               />
-             ))}
-           </div>
-         </CardContent>
-       </Card>
+        <Card className="mt-2 border shadow-sm">
+          <CardHeader className="py-2">
+            {!!selectedTechnologies.length && (
+              <Button
+                type="button"
+                variant={"destructive"}
+                onClick={() => handleRemoveAllFilters()}
+              >
+                <XIcon className="h-6 w-6" /> Clear current filters
+              </Button>
+            )}
+            <CardTitle className="pt-0 text-lg font-semibold">
+              Selected Technologies ({selectedTechnologies.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ScrollArea className="h-fit [&>[data-radix-scroll-area-viewport]]:max-h-[100px] md:[&>[data-radix-scroll-area-viewport]]:max-h-[150px]">
+              <div className="flex flex-wrap gap-2">
+                {selectedTechnologies.map((tech) => (
+                  <TechPillButton
+                    key={tech + " Pill"}
+                    isSelected={selectedTechnologies.includes(tech)}
+                    onClickTechnology={() => handleTechnologyToggle(tech)}
+                    hasCloseIcon
+                  >
+                    <IconComponent techName={tech} key={tech} />
+                    <span className="text-xs text-muted-foreground">
+                      {tech} ({techStats[tech]?.projectCount || 0})
+                    </span>
+                  </TechPillButton>
+                ))}
+              </div>
+            </ScrollArea>
+          </CardContent>
+        </Card>
       )}
+      {/* https://github.com/shadcn-ui/ui/issues/542#issuecomment-2015755497 */}
+      <ScrollArea className="h-fit pr-4 [&>[data-radix-scroll-area-viewport]]:max-h-[300px]">
+        <Accordion
+          type="single"
+          collapsible
+          className="w-full"
+          value={searchQuery ? "all" : undefined}
+          defaultValue="popular"
+        >
+          {!searchQuery && (
+            <AccordionItem value="popular">
+              <AccordionTrigger>
+                Most Used Technologies (Top 10)
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="flex flex-wrap gap-3">
+                  {filteredTechnologies.slice(0, 10).map(([tech, stats]) => (
+                    <TechPillButton
+                      key={tech}
+                      isSelected={selectedTechnologies.includes(tech)}
+                      onClickTechnology={() => handleTechnologyToggle(tech)}
+                    >
+                      <IconComponent techName={tech} key={tech} />
+                      <span className="text-xs text-muted-foreground">
+                        {tech} ({stats.projectCount})
+                      </span>
+                    </TechPillButton>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          )}
+          <AccordionItem value="all">
+            <AccordionTrigger>
+              All Technologies ({filteredTechnologies.length})
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="flex flex-wrap gap-3">
+                {filteredTechnologies.map(([tech, stats]) => (
+                  <TechPillButton
+                    key={tech}
+                    isSelected={selectedTechnologies.includes(tech)}
+                    onClickTechnology={() => handleTechnologyToggle(tech)}
+                  >
+                    <IconComponent techName={tech} key={tech} />
+                    <span className="text-xs text-muted-foreground">
+                      {tech} ({stats.projectCount})
+                    </span>
+                  </TechPillButton>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </ScrollArea>
     </div>
   );
 }
