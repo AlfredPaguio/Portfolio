@@ -9,8 +9,8 @@ interface ProjectTagsProps {
 export default function ProjectTags({ tags }: ProjectTagsProps) {
   if (!tags || tags.length === 0) return null;
 
-  const invertedTags = ["express.js", "flask", "next.js"];
-  
+  const invertedTags = ["express.js", "flask", "next.js", "inertia.js"];
+
   return (
     <div className="flex flex-wrap items-center space-x-2 space-y-2">
       <Tag className="size-4" />

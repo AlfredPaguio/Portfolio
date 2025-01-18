@@ -1,4 +1,5 @@
 import { iconImports } from "@/data/TechIcons";
+import { cn } from "@/utils/cn";
 import {
   SiFacebook,
   SiGithub,
@@ -7,6 +8,7 @@ import {
 import { CircleOff, ExternalLink } from "lucide-react";
 import dynamic from "next/dynamic";
 import { ForwardRefExoticComponent, RefAttributes, SVGProps } from "react";
+import * as React from "react";
 
 type SVGAttributes = Partial<SVGProps<SVGSVGElement>>;
 type ComponentAttributes = RefAttributes<SVGSVGElement> & SVGAttributes;
@@ -51,9 +53,16 @@ const externalIcons: Record<string, string | JSX.Element> = {
   "beautiful soup": "https://www.crummy.com/software/BeautifulSoup/10.1.jpg",
 };
 
+// Cache for dynamic imports
+const iconCache = new Map();
+
 //test
 export function getTechIcon(name: string) {
   const lowerCaseName = name.trim().toLowerCase();
+
+  if (iconCache.has(lowerCaseName)) {
+    return iconCache.get(lowerCaseName);
+  }
 
   // I need to lowercase the key of the object so I did this
   const normalizedImports = Object.fromEntries(
@@ -70,29 +79,34 @@ export function getTechIcon(name: string) {
       loading: () => <CircleOff />,
       ssr: false,
     });
-    DynamicIcon.displayName = `${name}Icon`;
+    DynamicIcon.displayName = `${name} Icon`;
+    iconCache.set(lowerCaseName, DynamicIcon);
     return DynamicIcon;
     // return dynamic(importFunc);
   }
 
   const externalIcon = externalIcons[lowerCaseName];
   if (typeof externalIcon === "string") {
-    const ImageIcon = () => (
-      <img src={externalIcon} alt={`${name} icon`} className="size-4 pl-1" />
+    const ImageIcon: React.FC<IconProps> = (props) => (
+      <img
+        src={externalIcon}
+        alt={`${name} icon`}
+        className={cn("size-4 pl-1", props.className)}
+      />
     );
-    ImageIcon.displayName = `${name}ImageIcon`;
+    ImageIcon.displayName = `${name} ImageIcon`;
+    iconCache.set(lowerCaseName, ImageIcon);
     return ImageIcon;
 
     // Return an <img> element for URL-based icons
-    // return () => (
-    //   <img src={externalIcon} alt={`${name} icon`} className="size-4 pl-1" />
-    // );
   } else if (externalIcon) {
-    const SVGIcon = () => externalIcon;
-    SVGIcon.displayName = `${name}SVGIcon`;
+    const SVGIcon: Icon = React.forwardRef((props, ref) =>
+      React.cloneElement(externalIcon as React.ReactElement, { ...props, ref }),
+    );
+    SVGIcon.displayName = `${name} SVGIcon`;
+    iconCache.set(lowerCaseName, SVGIcon);
     return SVGIcon;
     // Return the SVG element directly if it’s JSX
-    // return () => externalIcon;
   }
 
   console.warn(`Icon not found for: ${name}`);
