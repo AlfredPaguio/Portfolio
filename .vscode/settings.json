@@ -15,5 +15,6 @@
   "editor.smoothScrolling": true,
   "editor.lineHeight": 1.7,
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
-  "terminal.integrated.fontLigatures": true
+  "terminal.integrated.fontLigatures": true,
+  "workbench.editor.enablePreview": false
 }

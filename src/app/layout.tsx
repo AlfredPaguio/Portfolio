@@ -122,7 +122,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="en"
-      className="scrollbar-thin scrollbar-track-slate-400 scrollbar-thumb-slate-700 overflow-x-hidden scroll-smooth bg-gradient-light dark:bg-gradient-dark"
+      className="scrollbar-thin scrollbar-track-slate-400 scrollbar-thumb-slate-700 overflow-x-hidden scroll-smooth bg-ibelick-gradient-light dark:bg-ibelick-gradient-dark"
       suppressHydrationWarning
     >
       <body className="min-w-full">
