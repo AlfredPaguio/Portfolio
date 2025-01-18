@@ -54,8 +54,17 @@ const externalIcons: Record<string, string | JSX.Element> = {
 //test
 export function getTechIcon(name: string) {
   const lowerCaseName = name.trim().toLowerCase();
-  const importFunc =
-    (iconImports as any)[name] || (iconImports as any)[lowerCaseName];
+
+  // I need to lowercase the key of the object so I did this
+  const normalizedImports = Object.fromEntries(
+    Object.entries(iconImports).map(([key, value]) => [
+      key.toLowerCase(),
+      value,
+    ]),
+  );
+
+  const importFunc = normalizedImports[lowerCaseName];
+
   if (importFunc) {
     const DynamicIcon = dynamic(importFunc, {
       loading: () => <CircleOff />,

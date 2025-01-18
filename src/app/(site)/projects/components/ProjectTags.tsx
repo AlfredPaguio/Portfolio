@@ -9,8 +9,10 @@ interface ProjectTagsProps {
 export default function ProjectTags({ tags }: ProjectTagsProps) {
   if (!tags || tags.length === 0) return null;
 
+  const invertedTags = ["express.js", "flask", "next.js"];
+  
   return (
-    <div className="flex flex-wrap items-center space-x-2">
+    <div className="flex flex-wrap items-center space-x-2 space-y-2">
       <Tag className="size-4" />
       {tags.map((tag) => (
         <Badge
@@ -20,7 +22,7 @@ export default function ProjectTags({ tags }: ProjectTagsProps) {
         >
           <IconComponent
             techName={tag}
-            className={`size-16 ${tag.toLowerCase() == "express.js" ? "dark:invert" : ""}`}
+            className={`${invertedTags.includes(tag.toLowerCase()) ? "dark:invert" : ""}`}
           />
           {tag}
         </Badge>
