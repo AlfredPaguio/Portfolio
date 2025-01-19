@@ -46,13 +46,13 @@ type FilterListMenuProps = {
 };
 
 export default function FilterListMenu({ projects }: FilterListMenuProps) {
-  if (!projects?.length) return null;
-
   const [searchQuery, setSearchQuery] = useState("");
   const selectedTechnologies = useAppSelector(
     (state) => state.technology.selectedTechnologies,
   );
   const dispatch = useAppDispatch();
+
+  if (!projects?.length) return null;
 
   //Please work pls help
   const techStats = projects.reduce(

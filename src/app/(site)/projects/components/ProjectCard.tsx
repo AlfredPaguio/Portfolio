@@ -21,9 +21,8 @@ type ProjectCard = {
 };
 
 export default function ProjectCard({ project }: ProjectCard) {
-  if (!project) return null;
-
   const titleRef = useRef<HTMLDivElement>(null);
+  if (!project) return null;
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const viewTransitionNameClass = `[viewTransitionName:project-name]`;
@@ -48,7 +47,7 @@ export default function ProjectCard({ project }: ProjectCard) {
             loading="lazy"
           />
         ) : (
-          <div className="bg-gradient-to-r flex h-full w-full items-center justify-center from-primary to-secondary text-foreground">
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-r from-primary to-secondary text-foreground">
             No Image Available
           </div>
         )}
