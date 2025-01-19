@@ -70,7 +70,7 @@ function HeroSection({ socialLinks }: HeroSectionProps) {
       <div className="hidden flex-col md:flex">
         <figure className="max-h-min drop-shadow-lg">
           <Image
-            priority={false}
+            priority={true}
             className="h-96 fill-accent object-scale-down"
             src={ManThink}
             alt="An illustration of a man thinking sitting beside their laptop"

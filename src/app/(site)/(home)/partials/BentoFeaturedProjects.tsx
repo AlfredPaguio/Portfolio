@@ -53,11 +53,12 @@ export function BentoFeaturedProjects({
                   <img
                     src={getImageSrc(project.entry.images[0])}
                     alt={project.entry.title}
-                    className="h-[192px] w-[342px] rounded object-cover"
+                    // className="h-[192px] w-[342px] rounded object-cover"
+                    className="h-[192px] w-full rounded object-cover"
                   />
                   <Badge
                     variant="secondary"
-                    className="absolute right-0 top-0 opacity-70"
+                    className="absolute right-2 top-4 capitalize opacity-70"
                   >
                     {project.entry.status}
                   </Badge>
