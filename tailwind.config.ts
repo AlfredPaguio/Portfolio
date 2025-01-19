@@ -10,9 +10,6 @@ const config = {
   ],
   prefix: "",
   theme: {
-    backgroundImage: {
-      comet: "url('/images/animated_shape_dark.svg')",
-    },
     container: {
       center: true,
       padding: "2rem",
@@ -89,10 +86,11 @@ const config = {
       },
       backgroundImage: {
         //from https://bg.ibelick.com/
-        "gradient-light":
+        "ibelick-gradient-light":
           "radial-gradient(ellipse 80% 80% at 50% -20%,rgba(120,119,198,0.3),rgba(255,255,255,0))",
-        "gradient-dark":
+        "ibelick-gradient-dark":
           "radial-gradient(ellipse 80% 80% at 50% -20%,rgba(120,119,198,0.3),rgba(255,255,255,0))",
+        comet: "url('/images/animated_shape_dark.svg')",
       },
     },
   },

@@ -42,10 +42,10 @@ function Technologies({ techStack }: TechnologiesProps) {
   return (
     <div className="container relative z-10 py-16 sm:py-24">
       <div className="mb-10 space-y-4">
-        <h1 className="text-pretty text-3xl font-bold min-[430px]:text-4xl md:text-5xl">
+        <h1 className="font-regular max-w-xl text-pretty text-left text-3xl tracking-tighter md:text-5xl">
           Current technologies
         </h1>
-        <p className="text-pretty text-sm text-foreground/70 min-[430px]:text-base md:max-w-3xl">
+        <p className="max-w-xl text-pretty text-left text-lg leading-relaxed tracking-tight text-muted-foreground lg:max-w-lg">
           I&apos;m currently working with a variety of modern technologies that
           enhance my ability to create functional solutions. Here are some of
           the main tools I&apos;m actively using and/or learning.

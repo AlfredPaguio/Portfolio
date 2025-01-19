@@ -5,8 +5,16 @@ type ProjectType = Entry<(typeof keystaticConfig)["collections"]["projects"]>;
 type ProjectImagesType = Pick<ProjectType, "images">;
 type ImageType = ProjectImagesType["images"][number];
 
-export const getImageSrc = (image: ImageType): string | undefined => {
-  switch (image.discriminant) {
+export const getImageSrc = (image: ImageType): string => {
+  // from fakeimg.pl
+  // return "https://fakeimg.pl/342x192?text=No+Image";
+  // from https://placehold.co/
+  const placeholder = "https://placehold.co/342x192?text=No+Image";
+  if (!image) {
+    return placeholder;
+  }
+
+  switch (image?.discriminant) {
     case "upload":
       return `/${image.value.image}`;
     case "url":
@@ -14,7 +22,7 @@ export const getImageSrc = (image: ImageType): string | undefined => {
     case "cloud":
       return image.value.src;
     default:
-      return undefined;
+      return placeholder;
   }
 };
 

@@ -3,10 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardContent,
   CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { ProjectTypeWithoutContent } from "@/data/fetchContent";
 import { getImageSrc } from "@/utils/imageHelpers";
@@ -21,12 +21,7 @@ function CompactProjectCard({ project }: CompactProjectCardProps) {
     <Card key={project.slug} className="flex flex-col overflow-hidden">
       <CardHeader className="p-0">
         <img
-          src={
-            project.entry.images && project.entry.images.length > 0
-              ? getImageSrc(project.entry.images[0])
-              : "https://fakeimg.pl/342x192?text=No+Image"
-          }
-          // src={"https://fakeimg.pl/342x192?text=No+Image"}
+          src={getImageSrc(project.entry.images[0])}
           alt={project.entry.title}
           width={400}
           height={200}

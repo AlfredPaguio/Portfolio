@@ -1,8 +1,10 @@
 import SearchBarAndSorter from "@/app/(site)/projects/components/SearchBarAndSorter";
 import { fetchProjectContent } from "@/data/fetchContent";
 import { Metadata } from "next";
-import ProjectList from "./partials/ProjectList";
+import { Suspense } from "react";
 import FilterListBar from "../components/FilterListBar";
+import { ProjectsSkeleton } from "../components/ProjectsSkeleton";
+import ProjectList from "./partials/ProjectList";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -14,17 +16,16 @@ export default async function Home() {
   const { projects } = await fetchProjectContent();
   // const techs = await fetchTechStack();
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="mb-8 text-center text-4xl font-bold">Projects</h1>
-      <div className="space-y-6">
-        <SearchBarAndSorter />
-        <FilterListBar projects={projects.map(project => project.entry)} />
-        {/* <PleaseWork projects={projects.map((project) => project.entry)} /> */}
+    <div className="container mx-auto space-y-8 px-4 py-8">
+      <h1 className="text-center text-4xl font-bold">My Projects</h1>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects && <ProjectList projects={projects} />}
-        </div>
-      </div>
+      <SearchBarAndSorter />
+      <FilterListBar projects={projects.map((project) => project.entry)} />
+      {/* <PleaseWork projects={projects.map((project) => project.entry)} /> */}
+
+      <Suspense fallback={<ProjectsSkeleton />}>
+        <ProjectList projects={projects} />
+      </Suspense>
     </div>
   );
 }

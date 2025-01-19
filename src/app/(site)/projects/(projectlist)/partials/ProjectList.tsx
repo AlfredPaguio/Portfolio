@@ -14,15 +14,26 @@ export default function ProjectList({ projects }: ProjectListProps) {
     (state) => state.technology.selectedTechnologies,
   );
 
-  const [titleQuery, setTitleQuery] = useQueryState("title", {
-    history: "replace",
-    shallow: false,
-  });
+  const [titleQuery] = useQueryState(
+    "title",
+    parseAsString
+      .withOptions({
+        history: "replace",
+        // throttleMs: 300,
+        // shallow: false,
+      })
+      .withDefault(""),
+  );
+
   const [sortQuery] = useQueryState(
     "sort",
     parseAsString
-      .withDefault("date-desc")
-      .withOptions({ history: "replace", shallow: false }),
+      .withOptions({
+        history: "replace",
+        // throttleMs: 300,
+        // shallow: false
+      })
+      .withDefault("date-desc"),
   );
 
   const projectArray = Object.values(projects);
@@ -74,12 +85,18 @@ export default function ProjectList({ projects }: ProjectListProps) {
   }
 
   return (
-    <>
-      {filteredProjects.map((project) => (
-        <Link href={`/projects/${project?.slug}`} key={project?.slug}>
-          <ProjectCard key={project?.slug} project={project.entry} />
-        </Link>
-      ))}
-    </>
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {filteredProjects.map(
+        (project: { slug: string; entry: ProjectTypeWithoutContent }) => (
+          <Link
+            href={`/projects/${project?.slug}`}
+            key={project?.slug}
+            className="transition-transform hover:scale-105"
+          >
+            <ProjectCard key={project?.slug} project={project.entry} />
+          </Link>
+        ),
+      )}
+    </div>
   );
 }

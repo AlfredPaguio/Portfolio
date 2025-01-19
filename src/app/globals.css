@@ -3,53 +3,52 @@
 @tailwind utilities;
 
 @layer base {
-  /* Himari Akeboshi */
-  /* soft lavender white and navy blue with elegant golden accents  */
+  /* Himari Akeboshi inspired Light Theme */
   :root {
-    --background: 240 20% 94%; /* Lavender White */
-    --foreground: 210 30% 20%; /* Navy Blue */
-    --card: 240 20% 95%; /* Lavender White */
-    --card-foreground: 210 30% 15%; /* Navy Blue */
-    --popover: 240 20% 94%; /* Lavender White */
-    --popover-foreground: 210 30% 20%; /* Navy Blue */
-    --primary: 210 30% 30%; /* Navy Blue */
-    --primary-foreground: 240 20% 94%; /* Lavender White */
-    --secondary: 210 20% 60%; /* Soft Navy or Cool Gray */
-    --secondary-foreground: 240 20% 94%; /* Lavender White */
-    --muted: 210 10% 70%; /* Soft Navy */
-    --muted-foreground: 240 20% 80%; /* Light Lavender */
-    --accent: 45 85% 50%; /* Golden Yellow */
-    --accent-foreground: 0 0% 100%; /* White */
-    --destructive: 0 100% 50%; /* Soft Red */
-    --destructive-foreground: 0 0% 20%; /* Darker Red */
-    --border: 210 10% 80%; /* Soft Navy Border */
-    --input: 240 20% 85%; /* Light Lavender Input */
-    --ring: 45 85% 40%; /* Golden Ring */
+    --background: 230 30% 99%;
+    --foreground: 225 40% 25%;
+    --card: 0 0% 100%;
+    --card-foreground: 225 40% 25%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 225 40% 25%;
+    --primary: 230 60% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 225 20% 92%;
+    --secondary-foreground: 225 40% 25%;
+    --muted: 225 20% 92%;
+    --muted-foreground: 225 30% 40%;
+    --accent: 230 60% 90%;
+    --accent-foreground: 225 40% 25%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 225 20% 85%;
+    --input: 225 20% 85%;
+    --ring: 230 60% 60%;
     --radius: 0.5rem;
   }
 
-  /* Rio Tsukatsuki */
-  /* stark black, red accents, and white highlights */
+  /* Rio Tsukatsuki inspired Dark Theme */
   .dark {
-    --background: 0 0% 5%; /* Darker Black */
-    --foreground: 0 0% 90%; /* Lighter White */
-    --card: 0 0% 8%; /* Darker Black */
-    --card-foreground: 0 0% 90%; /* Lighter White */
-    --popover: 0 0% 5%; /* Darker Black */
-    --popover-foreground: 0 0% 90%; /* Lighter White */
-    --primary: 0 70% 40%; /* Deep Red */
-    --primary-foreground: 0 0% 100%; /* White */
-    --secondary: 0 0% 10%; /* Dark Gray */
-    --secondary-foreground: 0 0% 90%; /* Lighter White */
-    --muted: 0 0% 25%; /* Dark Gray */
-    --muted-foreground: 0 0% 90%; /* Lighter White */
-    --accent: 0 100% 60%; /* Bright Red */
-    --accent-foreground: 0 0% 100%; /* White */
-    --destructive: 0 100% 50%; /* Soft Red */
-    --destructive-foreground: 0 0% 20%; /* Darker Red */
-    --border: 0 0% 45%; /* Medium Gray Border */
-    --input: 0 0% 35%; /* Darker Input */
-    --ring: 0 100% 55%; /* Red Ring */
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 75% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 13%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 13%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 0 0% 13%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 13%;
+    --input: 0 0% 13%;
+    --ring: 0 75% 50%;
+    --radius: 0.5rem;
   }
 }
 
@@ -94,12 +93,12 @@
 
 @layer components {
   .highlight {
-    @apply underline decoration-primary/80
+    @apply underline decoration-primary
       decoration-[3px] underline-offset-2
       dark:decoration-2 dark:underline-offset-[3px];
   }
 
   .highlight-secondary {
-    @apply underline decoration-secondary/80;
+    @apply underline decoration-accent;
   }
 }
