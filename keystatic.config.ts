@@ -1,7 +1,7 @@
 import { siteConfig } from "@/config/site";
 import { REPOSITORIES, REPO_OWNER } from "@/data/Repositories";
 import {
-  CloudConfig,
+  // CloudConfig,
   GitHubConfig,
   LocalConfig,
   config,
@@ -12,14 +12,15 @@ import { projectsSchema } from "./schema/projects";
 import { techStackSchema } from "./schema/techStack";
 
 //https://vercel.com/docs/projects/environment-variables/system-environment-variables
-// const isProd = process.env.NEXT_PUBLIC_VERCEL_ENV === "production" || false;
-// const storage: LocalConfig["storage"] | CloudConfig["storage"] = isProd
-//   ? {
-//       kind: "cloud",
-//     }
-//   : { kind: "local" };
+const isProd = process.env.NEXT_PUBLIC_VERCEL_ENV === "production" || false;
+const storage: LocalConfig["storage"] | GitHubConfig["storage"] = isProd
+  ? {
+      kind: "github",
+      repo: `${REPO_OWNER}/${REPOSITORIES.Portfolio}`,
+    }
+  : { kind: "local" };
 
-const storage: LocalConfig["storage"] = { kind: "local" };
+// const storage: LocalConfig["storage"] = { kind: "local" };
 
 export default config({
   storage,
