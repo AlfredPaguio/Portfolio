@@ -1,5 +1,6 @@
 import { collection, fields } from "@keystatic/core";
 import { contentField } from "./fields/content";
+import techStackData from "@/content/data/stack.json";
 
 export const projectsSchema = collection({
   label: "Projects",
@@ -14,14 +15,65 @@ export const projectsSchema = collection({
     }),
     featured: fields.checkbox({
       label: "Featured Project",
-      description: "Check this to display the project in the Featured Projects section",
+      description:
+        "Check this to display the project in the Featured Projects section",
       defaultValue: false,
     }),
-    stack: fields.array(fields.text({ label: "Technology" }), {
-      label: "Tech Stack",
-      itemLabel: (props) => props.value,
-      description: "Technologies used in this project",
-    }),
+    stack: fields.array(
+      fields.select({
+        label: "Select Technology",
+        options: [
+          ...techStackData.programmingLanguages.map((tech) => ({
+            label: tech.name,
+            value: tech.name,
+            key: tech.name,
+          })),
+          ...techStackData.frameworks.map((tech) => ({
+            label: tech.name,
+            value: tech.name,
+            key: tech.name,
+          })),
+          ...techStackData.databaseManagementSystems.map((tech) => ({
+            label: tech.name,
+            value: tech.name,
+            key: tech.name,
+          })),
+          ...techStackData.developerTools.map((tech) => ({
+            label: tech.name,
+            value: tech.name,
+            key: tech.name,
+          })),
+          ...techStackData.libraries.map((tech) => ({
+            label: tech.name,
+            value: tech.name,
+            key: tech.name,
+          })),
+        ],
+        defaultValue:
+          techStackData.programmingLanguages[0]?.name ||
+          techStackData.frameworks[0]?.name ||
+          techStackData.libraries[0]?.name ||
+          techStackData.databaseManagementSystems[0]?.name ||
+          techStackData.developerTools[0]?.name,
+      }),
+      {
+        label: "Tech Stack",
+        itemLabel: (props) => props.value || "",
+        description: "Technologies from your tech stack used in this project",
+      },
+    ),
+    otherStack: fields.array(
+      fields.text({
+        label: "Add Technology",
+      }),
+      {
+        label: "Other Technologies",
+        itemLabel: (props) => props.value,
+
+        description:
+          "Additional technologies used in this project (not in your tech stack)",
+      },
+    ),
     summary: fields.text({
       label: "Summary",
       description: "A brief description of the project (used in project cards)",
@@ -32,42 +84,34 @@ export const projectsSchema = collection({
       label: "Project Date",
       description: "The date of the project's first/last commit",
     }),
-    gitHubURL: fields.url({
-      label: "Repository URL",
-      description: "GitHub URL of the repository",
-      validation: { isRequired: false },
-    }),
-    websiteURL: fields.url({
-      label: "Live Website URL",
-      description: "Where project is deployed",
-      validation: { isRequired: false },
-    }),
-    externalLinks: fields.conditional(
-      fields.checkbox({
-        label: "External Links?",
-        defaultValue: false,
-        description: "(e.g., GitLab, Facebook, X, etc.)",
+    links: fields.array(
+      fields.object({
+        name: fields.text({ label: "Website Name" }),
+        category: fields.select({
+          label: "Link Type",
+          options: [
+            { label: "Source Code", value: "source" },
+            { label: "Live Demo", value: "demo" },
+            { label: "Documentation", value: "docs" },
+            { label: "Social Media", value: "social" },
+            { label: "Other", value: "other" },
+          ],
+          defaultValue: "other",
+        }),
+        url: fields.url({
+          label: "URL",
+          description: "The website URL",
+          validation: {
+            isRequired: true,
+          },
+        }),
       }),
       {
-        true: fields.array(
-          fields.object({
-            name: fields.text({ label: "Website Name" }),
-            url: fields.url({
-              label: "URL",
-              description:
-                "The website URL associated with the project. This could be either the deployed website of the project, the repository where the project's source code is hosted, or any relevant social media links pertaining to the project.",
-              validation: {
-                isRequired: true,
-              },
-            }),
-          }),
-          {
-            label: "External Links",
-            itemLabel: (props) =>
-              props.fields.name.value ?? props.fields.url.value,
-          },
-        ),
-        false: fields.empty(),
+        label: "External Links",
+        itemLabel: (props) =>
+          props.fields.name.value
+            ? `${props.fields.name.value} (${props.fields.category.value})`
+            : `${props.fields.category.value}`,
       },
     ),
     status: fields.select({

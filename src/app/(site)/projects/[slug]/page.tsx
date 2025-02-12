@@ -65,7 +65,7 @@ export default async function Project({ params }: Props) {
   const { default: ProjectContent } = await processMdx(await project.content());
 
   return (
-    <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+    <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:max-w-6xl lg:px-8">
       <Breadcrumbs name={project.title} />
       {process.env.NODE_ENV === "development" && (
         <pre className="mt-8 whitespace-pre-wrap rounded-lg bg-card p-6 shadow-lg">
@@ -86,7 +86,7 @@ export default async function Project({ params }: Props) {
             <Calendar className="mr-2 h-4 w-4" />
             {formatDate(project.date)}
           </time>
-          <ProjectTags tags={project.stack} />
+          <ProjectTags tags={project.stack} otherTags={project.otherStack} />
         </div>
         <p className="mb-6 text-lg text-card-foreground">{project.summary}</p>
         <ProjectLinks project={project} />
@@ -140,37 +140,50 @@ function ProjectLinks({ project }: { project: ProjectTypeWithoutContent }) {
   return (
     <>
       <div className="mt-4 flex flex-wrap gap-4">
-        {project.gitHubURL && (
-          <Button variant="default" asChild>
-            <Link href={project.gitHubURL}>
-              <Icons.github className="mr-2 h-4 w-4" />
-              GitHub
-            </Link>
-          </Button>
-        )}
-        {project.websiteURL && (
-          <Button variant="secondary" asChild>
-            <Link href={project.websiteURL}>
-              <Icons.goToWebsite className="mr-2 h-4 w-4" />
-              Go to website
-            </Link>
-          </Button>
+        {project.links.map(({ name, url, category }) => {
+          if (category === "source") {
+            return (
+              <Button key={name} variant="default" asChild>
+                <Link href={url}>
+                  <Icons.github className="mr-2 h-4 w-4" />
+                  {name}
+                </Link>
+              </Button>
+            );
+          }
+          if (category === "demo") {
+            return (
+              <Button key={name} variant="secondary" asChild>
+                <Link href={url}>
+                  <Icons.goToWebsite className="mr-2 h-4 w-4" />
+                  {name}
+                </Link>
+              </Button>
+            );
+          }
+          return null;
+        })}
+      </div>
+      <div className="mt-4 flex flex-col">
+        {project.links.some(
+          (link) => !["source", "demo"].includes(link.category),
+        ) && (
+          <>
+            <p className="text-xs text-muted-foreground md:text-sm lg:text-base">
+              External Links:
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {project.links
+                .filter((link) => !["source", "demo"].includes(link.category))
+                .map(({ name, url }) => (
+                  <Button key={name} variant="outline" asChild>
+                    <Link href={url}>{name}</Link>
+                  </Button>
+                ))}
+            </div>
+          </>
         )}
       </div>
-      {project.externalLinks.discriminant && (
-        <div className="flex flex-col">
-          <p className="text-xs text-muted-foreground md:text-sm lg:text-base">
-            External Links:
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {project.externalLinks.value.map(({ name, url }) => (
-              <Button key={name} variant="outline" asChild>
-                <Link href={url}>{name}</Link>
-              </Button>
-            ))}
-          </div>
-        </div>
-      )}
     </>
   );
 }
