@@ -32,6 +32,14 @@ export default function ProjectCard({ project }: ProjectCard) {
     }
   };
 
+  // Combine and limit total technologies shown
+  const MAX_VISIBLE_TECHS = 4;
+  const mainTechs = project.stack.slice(0, MAX_VISIBLE_TECHS);
+  const remainingMainTechs = project.stack.length - MAX_VISIBLE_TECHS;
+
+  const otherTechs = project.otherStack || [];
+  const totalRemainingTechs = remainingMainTechs + otherTechs.length;
+
   return (
     <Card
       onClick={handleCardClick}
@@ -43,7 +51,7 @@ export default function ProjectCard({ project }: ProjectCard) {
           <img
             src={getImageSrc(project.images[0])}
             alt={project.images[0].value.alt || project.title}
-            className="object-cover transition-transform duration-300 hover:scale-110"
+            className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
             loading="lazy"
           />
         ) : (
@@ -51,6 +59,12 @@ export default function ProjectCard({ project }: ProjectCard) {
             No Image Available
           </div>
         )}
+        <Badge
+          variant={project.status === "active" ? "default" : "secondary"}
+          className="absolute right-2 top-2 shadow-lg"
+        >
+          {project.status}
+        </Badge>
       </div>
 
       <CardHeader>
@@ -58,28 +72,37 @@ export default function ProjectCard({ project }: ProjectCard) {
           <CardTitle className="line-clamp-1 text-xl">
             <span ref={titleRef}>{project.title}</span>
           </CardTitle>
-          <Badge
-            variant={project.status === "active" ? "default" : "secondary"}
-          >
-            {project.status}
-          </Badge>
+          <CardDescription>{formatDate(project.date)}</CardDescription>
         </div>
-        <CardDescription>{formatDate(project.date)}</CardDescription>
       </CardHeader>
 
       <CardContent className="flex-grow">
-        <p className="line-clamp-3">{project.summary || "No Summary"}</p>
+        <p className="line-clamp-3 text-sm text-muted-foreground">
+          {project.summary || "No Summary"}
+        </p>
       </CardContent>
 
       <CardFooter className="flex flex-wrap gap-2">
-        {project.stack.slice(0, 5).map((tech, index) => (
-          <Badge variant="outline" key={index} className="gap-x-1">
+        {/* Hacky solution but it works lol */}
+        {/* Main tech stack */}
+        {mainTechs.map((tech) => (
+          <Badge variant="secondary" key={tech} className="gap-x-1">
             <IconComponent techName={tech} />
             {tech}
           </Badge>
         ))}
-        {project.stack.length > 5 && (
-          <Badge variant="outline">+{project.stack.length - 5} more</Badge>
+
+        {/* Other tech stack (if any and if space permits) */}
+        {otherTechs.length > 0 && mainTechs.length < MAX_VISIBLE_TECHS && (
+          <Badge variant="secondary" className="gap-x-1">
+            <IconComponent techName={otherTechs[0]} />
+            {otherTechs[0]}
+          </Badge>
+        )}
+
+        {/* Show remaining count if any */}
+        {totalRemainingTechs > 0 && (
+          <Badge variant="outline">+{totalRemainingTechs} more</Badge>
         )}
       </CardFooter>
     </Card>
