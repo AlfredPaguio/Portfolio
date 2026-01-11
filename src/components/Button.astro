@@ -1,0 +1,43 @@
+---
+const { href, as = "button" } = Astro.props;
+
+let type;
+
+if (as === "div" && !href) {
+  type = "div";
+} else if (as === "a" || href) {
+  type = "a";
+} else {
+  type = "button";
+}
+---
+
+{
+  type === "div" && (
+    <div class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground">
+      <slot />
+    </div>
+  )
+}
+
+{
+  type === "a" && (
+    <a
+      href={href}
+      class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary underline-offset-4 hover:underline"
+    >
+      <slot />
+    </a>
+  )
+}
+
+{
+  type === "button" && (
+    <button
+      class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90"
+      type="button"
+    >
+      <slot />
+    </button>
+  )
+}

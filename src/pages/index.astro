@@ -1,16 +1,37 @@
 ---
+import { fetchLatestResumes } from "@/data/Resumes";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
+import { getCollection } from "astro:content";
+const projects = await getCollection("projects");
+console.log(projects.length);
+
+console.log(projects);
+
+if (!projects) return null;
+
+const resumes = await fetchLatestResumes();
+const webDevResume =
+  resumes.find((a) => a.name.includes("WebDev"))?.browser_download_url || "#";
+const softwareEngResume =
+  resumes.find((a) => a.name.includes("SoftwareEngineer"))
+    ?.browser_download_url || "#";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <h1>resume test</h1>
+  <a href={webDevResume}>Web Dev</a>
+  <a href={softwareEngResume}>Web Dev</a>
+
+  <h1>Project test</h1>
+
+  <ul>
+    {
+      projects.map((project) => (
+        <li>
+          <a href={`/projects/${project.id}/`}>{project.data.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

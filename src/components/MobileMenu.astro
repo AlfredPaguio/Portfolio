@@ -1,0 +1,59 @@
+---
+
+---
+
+<div aria-expanded="false" aria-controls="main-menu" class="menu group/menu">
+  <button class="menu-button md:hidden">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="lucide lucide-menu-icon lucide-menu"
+      ><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"
+      ></path></svg
+    >
+  </button>
+
+  <nav
+    class="hidden
+    group-aria-expanded/menu:flex
+    absolute
+    -top-37
+    right-0
+    mt-2
+    w-56
+    flex-col
+    gap-1
+    rounded-2xl
+    border
+    border-border
+    bg-background/95
+    p-2
+    shadow-lg
+    backdrop-blur-md
+    animate-in
+    fade-in
+    slide-in-from-top-2
+    duration-200"
+  >
+    <a
+      href="/"
+      class="rounded-xl px-4 py-2 text-sm font-medium transition hover:bg-muted"
+    >
+      Home
+    </a>
+    
+    <a
+      href="/now"
+      class="rounded-xl px-4 py-2 text-sm font-medium transition hover:bg-muted"
+    >
+      Now
+    </a>
+  </nav>
+</div>

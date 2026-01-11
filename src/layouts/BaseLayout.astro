@@ -1,0 +1,30 @@
+---
+import "@/assets/styles/global.css";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+
+const { _title, description, ...props } = Astro.props;
+
+const title = `${_title} | Alfred U. Paguio`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="relative">
+    <Header />
+    <main class="grow px-4 md:pb-13 md:pt-17 lg:px-9">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import "../scripts/menu.js";
+    </script>
+  </body>
+</html>
