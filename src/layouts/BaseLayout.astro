@@ -16,12 +16,18 @@ const title = `${_title} | Alfred U. Paguio`;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="relative">
-    <Header />
-    <main class="grow px-4 md:pb-13 md:pt-17 lg:px-9">
+  <body class="relative min-h-screen">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only absolute top-4 left-4 bg-primary text-primary-foreground p-2 rounded-md z-50"
+    >
+      Skip to content
+    </a>
+    <main id="main" class="max-w-3xl mx-auto px-6 py-20">
+      <Header />
       <slot />
+      <Footer />
     </main>
-    <Footer />
 
     <script>
       import "../scripts/menu.js";

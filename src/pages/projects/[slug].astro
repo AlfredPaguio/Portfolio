@@ -15,5 +15,14 @@ const { Content } = await render(project);
 ---
 
 <MarkdownLayout frontmatter={project.data}>
+  <div class="tags">
+    {
+      project.data.stack?.map((tag: string) => (
+        <p class="tag">
+          <a href={`/tags/${tag}`}>{tag}</a>
+        </p>
+      ))
+    }
+  </div>
   <Content />
 </MarkdownLayout>

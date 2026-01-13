@@ -1,0 +1,28 @@
+---
+import { getEntry, render } from "astro:content";
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+const tech = await getEntry("techs", id);
+if (!tech) return null;
+const { name, href, version } = tech.data;
+const { Content } = await render(tech);
+---
+<a
+  {href}
+  target="_blank"
+  class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-muted/50 text-foreground hover:bg-accent hover:text-accent-foreground transition-colors select-none"
+>
+  <span class="size-3.5 flex items-center justify-center [&>svg]:size-full">
+    <Content />
+  </span>
+  <span class="text-xs font-bold leading-none">
+    {name}
+    {
+      version && (
+        <span class="ml-1 font-normal opacity-60 text-[10px]">{version}</span>
+      )
+    }
+  </span>
+</a>

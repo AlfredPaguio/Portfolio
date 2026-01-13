@@ -14,5 +14,8 @@
     "astro": "^5.16.8",
     "octokit": "^5.0.5",
     "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19"
   }
 }

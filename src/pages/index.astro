@@ -1,29 +1,73 @@
 ---
-import { fetchLatestResumes } from "@/data/Resumes";
+// import { fetchLatestResumes } from "@/data/Resumes";
+import Section from "@/components/Section.astro";
+import TechPill from "@/components/TechPill.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 import { getCollection } from "astro:content";
 const projects = await getCollection("projects");
-console.log(projects.length);
-
-console.log(projects);
+// console.log("Project Count: ", projects.length);
 
 if (!projects) return null;
 
-const resumes = await fetchLatestResumes();
-const webDevResume =
-  resumes.find((a) => a.name.includes("WebDev"))?.browser_download_url || "#";
-const softwareEngResume =
-  resumes.find((a) => a.name.includes("SoftwareEngineer"))
-    ?.browser_download_url || "#";
+// let webDevResume;
+// let softwareEngResume;
+// try {
+//   const resumes = await fetchLatestResumes();
+//   webDevResume =
+//     resumes.find((a) => a.name.includes("WebDev"))?.browser_download_url || "#";
+//   softwareEngResume =
+//     resumes.find((a) => a.name.includes("SoftwareEngineer"))
+//       ?.browser_download_url || "#";
+// } catch (error) {
+//   webDevResume = null;
+//   softwareEngResume = null;
+// }
 ---
 
 <BaseLayout>
   <h1>resume test</h1>
-  <a href={webDevResume}>Web Dev</a>
-  <a href={softwareEngResume}>Web Dev</a>
+  <!-- <a href={webDevResume}>Web Dev</a>
+  <a href={softwareEngResume}>Web Dev</a> -->
+  <!-- will use static to avoid github rate limit -->
+  <header class="space-y-6">
+    <h1 class="text-4xl font-extrabold tracking-tighter sm:text-5xl">
+      Alfred U. Paguio
+    </h1>
+    <p class="text-xl text-muted-foreground leading-relaxed">
+      Junior Software Developer focusing on <span
+        class="text-foreground font-medium">application logic</span
+      > and the <span class="text-foreground font-medium">refactoring</span> of systems. I build with Laravel and React.
+    </p>
 
-  <h1>Project test</h1>
+    <!-- TODO: get the content frontmatter of the resumes.md -->
+    <div class="flex flex-wrap gap-4 pt-4">
+      <a
+        href="/resumes/software-engineer.pdf"
+        class="px-5 py-2.5 bg-primary text-primary-foreground font-bold rounded-lg hover:opacity-90 transition-opacity"
+      >
+        Software Engineer CV
+      </a>
+      <a
+        href="/resumes/web-developer.pdf"
+        class="px-5 py-2.5 border border-border font-bold rounded-lg hover:bg-muted transition-colors"
+      >
+        Web Developer CV
+      </a>
+    </div>
+  </header>
+
+  <Section title="Expertise" id="skills">
+    <div class="flex flex-wrap gap-2">
+      <TechPill id="astro" />
+      <TechPill id="github" />
+      <TechPill id="laravel" />
+      <TechPill id="react" />
+      <TechPill id="typescript" />
+      <TechPill id="tailwind" />
+      <TechPill id="postgresql" />
+    </div>
+  </Section>
 
   <ul>
     {
