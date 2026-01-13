@@ -1,3 +1,4 @@
+// UNUSED IDEA BECAUSE OF GITHUB RATE LIMIT
 import {
   createMarkdownProcessor,
   parseFrontmatter,
@@ -67,7 +68,7 @@ export function myGithubLoader(options: GitHubLoaderOptions): Loader {
       });
 
       // Prepare Markdown Processor
-      const processor = await createMarkdownProcessor(config.markdown);
+      const processor = await createMarkdownProcessor({ ...config.markdown });
       const baseRawUrl = `https://raw.githubusercontent.com/${username}/${repository}/${branch}`;
       logger.info(`Processing ${filteredFiles.length} files...`);
 
@@ -85,9 +86,26 @@ export function myGithubLoader(options: GitHubLoaderOptions): Loader {
             // Parse frontmatter and body
             const { frontmatter, content: markdownBody } =
               parseFrontmatter(text);
+
+
+            frontmatter.images = frontmatter.images.map(
+              (img: any) => ({
+                // idk anymore
+                ...img,
+                pleasewoaaaarrrkaaaa: "test",
+                src: img.src.startsWith("http")
+                  ? img.src
+                  : `${baseRawUrl}/${img.src}`,
+              })
+            );
+
             // Render markdown
             const result = await processor.render(markdownBody);
-            const digest = generateDigest(result.code);
+            const digest = generateDigest(
+              JSON.stringify(frontmatter) + result.code
+            );
+
+            logger.info(JSON.stringify(frontmatter.images, null, 2));
 
             // Generate a clean ID (e.g. "projects/my-app" -> "my-app")
             const id =
@@ -98,17 +116,17 @@ export function myGithubLoader(options: GitHubLoaderOptions): Loader {
             store.set({
               id,
               data: {
-                title: frontmatter.title
-                  ? frontmatter.title
-                  : id.replace(/-/g, " "), // Fallback title logic
+                // ts-ignore
+                title: frontmatter?.title ?? id.replace(/-/g, " "), // Fallback title logic
                 path: file.path,
                 url: rawUrl,
-                ...frontmatter,
+                ...(frontmatter as object),
               },
               rendered: {
                 html: result.code,
                 metadata: {
-                  frontmatter: { ...frontmatter },
+                  ...result.metadata,
+                  frontmatter: { ...(frontmatter as object) },
                 },
               },
               digest,
