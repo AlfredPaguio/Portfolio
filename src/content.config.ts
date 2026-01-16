@@ -21,7 +21,7 @@ const projects = defineCollection({
           type: z
             .enum(["source", "demo", "docs", "social", "other"])
             .default("other"),
-          url: z.string().url(),
+          url: z.url(),
         })
       )
       .default([]),
@@ -33,7 +33,7 @@ const projects = defineCollection({
         })
       )
       .default([]),
-    videos: z.array(z.string().url()).default([]),
+    videos: z.array(z.url()).default([]),
   }),
 });
 
@@ -41,7 +41,7 @@ const techs = defineCollection({
   loader: glob({ pattern: "**/[^_]*.mdx", base: "./src/content/techs" }),
   schema: z.object({
     name: z.string(),
-    href: z.string().url(),
+    href: z.url(),
     version: z.string().or(z.number()).optional(),
   }),
 });
