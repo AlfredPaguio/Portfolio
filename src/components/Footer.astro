@@ -1,12 +1,24 @@
 ---
+import TechPill from "./TechPill.astro";
 
+const year = new Date().getFullYear();
 ---
 
-<footer
-  class="pt-12 border-t border-border text-sm text-muted-foreground flex justify-between"
->
-  <a href="/now" class="hover:text-foreground underline underline-offset-4"
-    >/now</a
+<footer class="max-w-3xl mx-auto px-6 py-12 border-t border-border">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      <p class="space-y-2 text-sm font-medium">© {year} Alfred U. Paguio</p>
+    </div>
+  </div>
+
+  <div
+    class="mt-4 flex justify-between items-center text-[10px] tracking-tighter text-muted-foreground/50"
   >
-  <span>© 2026 Alfred Paguio</span>
+    <p></p>
+    <div class="md:text-right">
+      <p class="text-sm text-muted-foreground">
+        Built with <TechPill id="astro" /> &amp; <TechPill id="tailwindcss" />
+      </p>
+    </div>
+  </div>
 </footer>

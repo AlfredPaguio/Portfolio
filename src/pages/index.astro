@@ -3,9 +3,10 @@
 import Section from "@/components/Section.astro";
 import TechPill from "@/components/TechPill.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { frontmatter as resumeData } from "@/content/resumes.md"
+import { frontmatter as resumeData } from "@/content/resumes.md";
 
 import { getCollection } from "astro:content";
+import Button from "@/components/ui/Button.astro";
 const projects = await getCollection("projects");
 // console.log("Project Count: ", projects.length);
 
@@ -27,7 +28,6 @@ if (!projects) return null;
 ---
 
 <BaseLayout>
-  <h1>resume test</h1>
   <!-- <a href={webDevResume}>Web Dev</a>
   <a href={softwareEngResume}>Web Dev</a> -->
   <!-- will use static to avoid github rate limit -->
@@ -38,23 +38,15 @@ if (!projects) return null;
     <p class="text-xl text-muted-foreground leading-relaxed">
       Junior Software Developer focusing on <span
         class="text-foreground font-medium">application logic</span
-      > and the <span class="text-foreground font-medium">refactoring</span> of systems. I build with Laravel and React.
+      > and the <span class="text-foreground font-medium">refactoring</span> of systems.
+      I build with Laravel and React.
     </p>
 
-    <!-- TODO: get the content frontmatter of the resumes.md -->
     <div class="flex flex-wrap gap-4 pt-4">
-      <a
-        href={resumeData.software_engineer || "#"}
-        class="px-5 py-2.5 bg-primary text-primary-foreground font-bold rounded-lg hover:opacity-90 transition-opacity"
-      >
+      <Button href={resumeData.software_engineer || "#"}>
         Software Engineer CV
-      </a>
-      <a
-        href={resumeData.webdev || "#"}
-        class="px-5 py-2.5 border border-border font-bold rounded-lg hover:bg-muted transition-colors"
-      >
-        Web Developer CV
-      </a>
+      </Button>
+      <Button href={resumeData.webdev || "#"} variant={"outline"}> Web Developer CV </Button>
     </div>
   </header>
 
@@ -65,7 +57,7 @@ if (!projects) return null;
       <TechPill id="laravel" />
       <TechPill id="react" />
       <TechPill id="typescript" />
-      <TechPill id="tailwind" />
+      <TechPill id="tailwindcss" />
       <TechPill id="postgresql" />
     </div>
   </Section>

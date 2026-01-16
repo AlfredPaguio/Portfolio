@@ -4,13 +4,31 @@ import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout _title={frontmatter.title}>
-  <nav class="mb-8">
-    <a href="/" class="text-sm text-foreground"> &larr; Back to Portfolio </a>
-  </nav>
+<BaseLayout title={frontmatter.title}>
+  <header class="mb-12">
+    <nav class="mb-8">
+      <a
+        href="/"
+        class="group inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <span class="mr-2 transition-transform group-hover:-translate-x-1"
+          >&larr;</span
+        > Back to Portfolio
+      </a>
+    </nav>
+
+    <h1 class="text-4xl font-extrabold tracking-tighter sm:text-5xl mb-4">
+      {frontmatter.title}
+    </h1>
+    {
+      frontmatter.summary && (
+        <p class="text-xl text-muted-foreground leading-relaxed">
+          {frontmatter.summary}
+        </p>
+      )
+    }
+  </header>
   <Section className="prose prose-neutral dark:prose-invert max-w-none">
     <slot />
   </Section>
 </BaseLayout>
-
-<style></style>

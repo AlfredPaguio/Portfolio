@@ -3,9 +3,14 @@ import "@/assets/styles/global.css";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 
-const { _title, description, ...props } = Astro.props;
+interface Props {
+  title?: string | null;
+  description?: string | null;
+}
 
-const title = `${_title} | Alfred U. Paguio`;
+const { title: _title, description, ...props } = Astro.props;
+
+const title = _title ? `${_title} | Alfred's Portfolio` : "Alfred's Portfolio";
 ---
 
 <html lang="en">
@@ -23,14 +28,13 @@ const title = `${_title} | Alfred U. Paguio`;
     >
       Skip to content
     </a>
-    <main id="main" class="max-w-3xl mx-auto px-6 py-20">
-      <Header />
+    <Header />
+    <main
+      id="main"
+      class="max-w-3xl mx-auto px-6 pt-32 pb-20 min-h-[calc(100vh-80px)]"
+    >
       <slot />
-      <Footer />
     </main>
-
-    <script>
-      import "../scripts/menu.js";
-    </script>
+    <Footer />
   </body>
 </html>

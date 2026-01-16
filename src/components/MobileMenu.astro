@@ -1,59 +1,96 @@
 ---
+import { navItems } from "@/data/nav";
 
+const currentPath = Astro.url.pathname;
 ---
 
-<div aria-expanded="false" aria-controls="main-menu" class="menu group/menu">
-  <button class="menu-button md:hidden">
+<div class="md:hidden flex items-center">
+  <button
+    id="menu-button"
+    class="p-2 -mr-2 text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+    aria-label="Toggle menu"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      class="lucide lucide-menu-icon lucide-menu"
-      ><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"
-      ></path></svg
+      class="menu-icon"
     >
+      <line
+        x1="4"
+        x2="20"
+        y1="12"
+        y2="12"
+        class="line-top transition-transform duration-300"></line>
+      <line
+        x1="4"
+        x2="20"
+        y1="6"
+        y2="6"
+        class="line-mid transition-all duration-300"></line>
+      <line
+        x1="4"
+        x2="20"
+        y1="18"
+        y2="18"
+        class="line-bottom transition-transform duration-300"></line>
+    </svg>
   </button>
 
-  <nav
-    class="hidden
-    group-aria-expanded/menu:flex
-    absolute
-    -top-37
-    right-0
-    mt-2
-    w-56
-    flex-col
-    gap-1
-    rounded-2xl
-    border
-    border-border
-    bg-background/95
-    p-2
-    shadow-lg
-    backdrop-blur-md
-    animate-in
-    fade-in
-    slide-in-from-top-2
-    duration-200"
+  <div
+    id="mobile-menu"
+    class="fixed inset-x-6 top-16 z-50 data-[state=close]:hidden opacity-0 translate-y-4 data-[state=open]:flex data-[state=open]:opacity-100 data-[state=open]:translate-y-0 flex-col gap-2 p-2 rounded-2xl border border-border bg-background/95 backdrop-blur-md shadow-2xl transition-all duration-300"
   >
-    <a
-      href="/"
-      class="rounded-xl px-4 py-2 text-sm font-medium transition hover:bg-muted"
-    >
-      Home
-    </a>
-    
-    <a
-      href="/now"
-      class="rounded-xl px-4 py-2 text-sm font-medium transition hover:bg-muted"
-    >
-      Now
-    </a>
-  </nav>
+    {
+      navItems.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "px-4 py-3 rounded-xl text-sm font-bold transition-colors",
+            currentPath === item.href
+              ? "bg-primary text-primary-foreground"
+              : "hover:bg-muted",
+          ]}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </div>
 </div>
+
+<script is:inline>
+  const button = document.getElementById("menu-button");
+  const menu = document.getElementById("mobile-menu");
+
+  const toggleMenu = () => {
+    const isExpanded = button?.getAttribute("aria-expanded") === "true";
+    button?.setAttribute("aria-expanded", !isExpanded ? "true" : "false");
+    menu?.setAttribute("data-state", !isExpanded ? "open" : "closed");
+    menu?.classList.toggle("hidden", isExpanded);
+  };
+
+  button?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    console.log("button clicked");
+    toggleMenu();
+  });
+
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (
+      button?.getAttribute("aria-expanded") === "true" &&
+      !menu?.contains(e.target)
+    ) {
+      toggleMenu();
+    }
+  });
+</script>

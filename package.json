@@ -12,7 +12,9 @@
     "@astrojs/mdx": "^5.0.0-beta.1",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^6.0.0-beta.1",
+    "class-variance-authority": "^0.7.1",
     "octokit": "^5.0.5",
+    "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
