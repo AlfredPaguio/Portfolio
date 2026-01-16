@@ -1,6 +1,8 @@
 ---
 import MarkdownLayout from "@/layouts/MarkdownLayout.astro";
 import { getCollection, render } from "astro:content";
+import { components } from "@/components/mdx";
+
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -24,5 +26,5 @@ const { Content } = await render(project);
       ))
     }
   </div>
-  <Content />
+  <Content {components}/>
 </MarkdownLayout>

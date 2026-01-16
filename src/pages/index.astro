@@ -3,6 +3,7 @@
 import Section from "@/components/Section.astro";
 import TechPill from "@/components/TechPill.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { frontmatter as resumeData } from "@/content/resumes.md"
 
 import { getCollection } from "astro:content";
 const projects = await getCollection("projects");
@@ -43,13 +44,13 @@ if (!projects) return null;
     <!-- TODO: get the content frontmatter of the resumes.md -->
     <div class="flex flex-wrap gap-4 pt-4">
       <a
-        href="/resumes/software-engineer.pdf"
+        href={resumeData.software_engineer || "#"}
         class="px-5 py-2.5 bg-primary text-primary-foreground font-bold rounded-lg hover:opacity-90 transition-opacity"
       >
         Software Engineer CV
       </a>
       <a
-        href="/resumes/web-developer.pdf"
+        href={resumeData.webdev || "#"}
         class="px-5 py-2.5 border border-border font-bold rounded-lg hover:bg-muted transition-colors"
       >
         Web Developer CV
