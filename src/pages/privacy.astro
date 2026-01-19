@@ -1,0 +1,10 @@
+---
+import { components } from "@/components/mdx";
+
+import { Content, frontmatter } from "@/content/privacy.mdx";
+import MarkdownLayout from "@/layouts/MarkdownLayout.astro";
+---
+
+<MarkdownLayout frontmatter={frontmatter}>
+  <Content {components} />
+</MarkdownLayout>
