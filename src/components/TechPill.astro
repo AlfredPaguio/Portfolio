@@ -1,13 +1,17 @@
 ---
+import { cn } from "@/lib/utils/cn";
 import { normalizeId } from "@/lib/utils/normalizeId";
 import { getCollection, render } from "astro:content";
 interface Props {
+  class?: string;
   id: string;
 }
-const { id } = Astro.props;
+const { id, class: className } = Astro.props;
 const techs = await getCollection("techs");
 
-const tech = techs.find((t) => normalizeId(id).includes(normalizeId(t.id)));
+const tech = techs.find(
+  (t) => t.id === id || normalizeId(id).includes(normalizeId(t.id))
+);
 
 const hasEntry = !!tech;
 let Content: any;
@@ -18,22 +22,26 @@ if (hasEntry) {
 ---
 
 <div
-  class="inline-flex items-center px-3 py-1 rounded-full border border-border bg-muted/30 text-foreground text-xs font-bold select-none"
+  class={cn(
+    "inline-flex items-center rounded-full border border-border bg-muted/30 text-foreground text-xs font-bold select-none transition-colors hover:border-foreground/20",
+    className
+  )}
 >
   {
     hasEntry ? (
       <a
         href={tech.data.href}
         target="_blank"
-        class="inline-flex items-center gap-2 no-underline"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-3 py-1 no-underline hover:text-primary"
       >
         {tech?.data.hasIcon && Content && (
           <span class="size-3.5 flex items-center justify-center [&>svg]:size-full">
             <Content />
           </span>
         )}
-        <span class="text-xs font-bold leading-none">
-          {tech.data.name}{" "}
+        <span>
+          {tech.data.name}
           {tech.data.version && (
             <span class="ml-1 font-normal opacity-60 text-[10px]">
               {tech.data.version}

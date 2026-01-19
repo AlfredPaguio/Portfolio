@@ -1,92 +1,104 @@
 ---
-// import { fetchLatestResumes } from "@/data/Resumes";
 import Section from "@/components/Section.astro";
 import TechPill from "@/components/TechPill.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { frontmatter as resumeData } from "@/content/resumes.md";
+import { Image } from "astro:assets";
+import myImage from "@/assets/images/profile.png";
 
 import { getCollection } from "astro:content";
 import Button from "@/components/ui/Button.astro";
-const projects = await getCollection("projects");
+import ProjectCard from "@/components/ProjectCard.astro";
+const allProjects = await getCollection("projects");
+const featuredProjects = allProjects.filter((p) => p.data.featured).slice(0, 3);
 
-const techs = await getCollection("techs");
-
-// console.log("Project Count: ", projects.length);
-
-if (!projects) return null;
-
-// let webDevResume;
-// let softwareEngResume;
-// try {
-//   const resumes = await fetchLatestResumes();
-//   webDevResume =
-//     resumes.find((a) => a.name.includes("WebDev"))?.browser_download_url || "#";
-//   softwareEngResume =
-//     resumes.find((a) => a.name.includes("SoftwareEngineer"))
-//       ?.browser_download_url || "#";
-// } catch (error) {
-//   webDevResume = null;
-//   softwareEngResume = null;
-// }
+const coreStack = [
+  { id: "laravel", years: "1 Year" },
+  { id: "react", years: "1 Year" },
+  { id: "typescript", years: "1 Year" },
+];
 ---
 
 <BaseLayout>
   <!-- <a href={webDevResume}>Web Dev</a>
   <a href={softwareEngResume}>Web Dev</a> -->
   <!-- will use static to avoid github rate limit -->
-  <header class="space-y-6">
-    <h1 class="text-4xl font-extrabold tracking-tighter sm:text-5xl">
-      Alfred U. Paguio
-    </h1>
-    <p class="text-xl text-muted-foreground leading-relaxed">
-      Junior Software Developer focusing on <span
-        class="text-foreground font-medium">application logic</span
-      > and the <span class="text-foreground font-medium">refactoring</span> of systems.
-      I build with Laravel and React.
-    </p>
+  <header
+    class="flex flex-col-reverse md:flex-row gap-8 items-start justify-between mb-24"
+  >
+    <div class="flex-1 space-y-6">
+      <h1 class="text-4xl font-extrabold tracking-tighter sm:text-5xl">
+        Alfred U. Paguio
+      </h1>
+      <p class="text-xl text-muted-foreground leading-relaxed">
+        Junior Software Developer focusing on <span
+          class="text-foreground font-medium">application logic</span
+        > and the <span class="text-foreground font-medium">refactoring</span> of
+        systems. I build with Laravel and React.
+      </p>
 
-    <div class="flex flex-wrap gap-4 pt-4">
-      <Button href={resumeData.software_engineer || "#"}>
-        Software Engineer CV
-      </Button>
-      <Button href={resumeData.webdev || "#"} variant={"outline"}>
-        Web Developer CV
-      </Button>
+      <div class="flex flex-wrap gap-4 pt-4">
+        <Button href={resumeData.software_engineer || "#"}>
+          Software Engineer CV
+        </Button>
+        <Button href={resumeData.webdev || "#"} variant={"outline"}>
+          Web Developer CV
+        </Button>
+      </div>
+    </div>
+    <div class="relative group">
+      <div
+        class="absolute -inset-1 bg-linear-to-r from-border to-muted rounded-2xl blur-sm opacity-25 group-hover:opacity-50 transition duration-1000"
+      >
+      </div>
+      <Image
+        src={myImage}
+        alt="Alfred U. Paguio"
+        class="relative size-32 md:size-40 rounded-2xl object-cover transition-all duration-500 border border-border"
+      />
     </div>
   </header>
-  <Section title="test" id="skills">
-    {
-      techs.map((tech) => (
-        <TechPill id={tech.data.name.replaceAll(" ", "").toLowerCase()} />
-      ))
-    }
-  </Section>
 
   <Section title="Expertise" id="skills">
-    <div class="flex flex-wrap gap-2">
-      <TechPill id="astro" />
-      <TechPill id="github" />
-      <TechPill id="laravel" />
-      <TechPill id="react" />
-      <TechPill id="typescript" />
-      <TechPill id="tailwindcss" />
-      <TechPill id="postgresql" />
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {
+        coreStack.map((skill) => (
+          <div class="flex items-center justify-between p-4 rounded-xl border border-border bg-card">
+            <TechPill
+              id={skill.id}
+              class="rounded-none border-0 border-transparent bg-transparent"
+            />
+            <span class="text-xs font-mono text-muted-foreground">
+              {skill.years}
+            </span>
+          </div>
+        ))
+      }
     </div>
   </Section>
 
-  <ul>
-    {
-      projects.map((project) => (
-        <li>
-          <a href={`/projects/${project.id}/`}>{project.data.title}</a>
-          {project.data.stack.map((tech) => (
-            <div class="inline-flex gap-2">
-              {/* <span>{tech}</span> */}
-              <TechPill id={tech.replaceAll(" ", "").toLowerCase()} />
-            </div>
-          ))}
-        </li>
-      ))
-    }
-  </ul>
+  <!-- Featured Projects -->
+  <Section title="Featured projects" id="featured">
+    <div class="grid grid-cols-1 gap-6">
+      {featuredProjects.map((project) => <ProjectCard project={project} />)}
+    </div>
+
+    <div class="mt-12 text-center">
+      <a
+        href="/projects/"
+        class="text-sm font-bold underline underline-offset-8 decoration-border hover:decoration-foreground transition-all"
+      >
+        View Project Archive &rarr;
+      </a>
+    </div>
+  </Section>
+
+  <Section title="About me" id="about">
+    <p class="text-muted-foreground leading-relaxed">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium est
+      aspernatur iste quae aliquam enim officiis, maxime vero voluptatem magnam
+      ducimus doloremque, voluptate, exercitationem autem praesentium et labore
+      totam impedit!
+    </p>
+  </Section>
 </BaseLayout>

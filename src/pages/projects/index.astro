@@ -1,0 +1,53 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/Section.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+// Sort by date or status
+const sortedProjects = projects.sort((a, b) => {
+  if (a.data.status === "active") return -1;
+  return 1;
+});
+---
+
+<BaseLayout
+  title="Projects"
+  description="Full list of software projects and technical experiments."
+>
+  <header class="mb-16">
+    <h1 class="text-4xl font-extrabold tracking-tighter mb-4">
+      Project Archive
+    </h1>
+    <p class="text-muted-foreground leading-relaxed max-w-2xl">
+      A comprehensive collection of my work, ranging from full-stack
+      applications to internal system refactors.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {sortedProjects.map((project) => <ProjectCard project={project} />)}
+  </div>
+
+  <Section
+    title="Collaboration"
+    id="contact"
+    className="mt-24 border-t border-border pt-12"
+  >
+    <p class="text-lg mb-6">
+      Have a system that needs refactoring or a new feature logic?
+    </p>
+    <span
+      class="text-2xl font-bold underline underline-offset-8 hover:text-primary transition-colors"
+    >
+      Let's collaborate &rarr;
+    </span>
+    <!-- <a
+      href="mailto:"
+      class="text-2xl font-bold underline underline-offset-8 hover:text-primary transition-colors"
+    >
+      Let's collaborate &rarr;
+    </a> -->
+  </Section>
+</BaseLayout>

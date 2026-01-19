@@ -1,0 +1,43 @@
+---
+import { normalizeId } from "@/lib/utils/normalizeId";
+import TechPill from "./TechPill.astro";
+const { project } = Astro.props;
+const { title, summary, stack, status } = project.data;
+---
+
+<div
+  class="group relative flex flex-col p-6 rounded-2xl border border-border bg-card hover:bg-muted/50 transition-all duration-300 shadow-sm hover:shadow-md"
+>
+  <div class="flex justify-between items-start mb-4">
+    <h3 class="text-xl font-bold tracking-tight">
+      <a
+        href={`/projects/${project.id}/`}
+        class="hover:text-primary transition-colors focus:outline-none"
+      >
+        <!-- Stretched link trick: this covers the card -->
+        <span class="absolute inset-0 z-0" aria-hidden="true"></span>
+        {title}
+      </a>
+    </h3>
+    {
+      status === "active" && (
+        <span class="relative z-10 size-2 rounded-full bg-green-500 shadow-[0_0_8px_oklch(62.71%_0.221_149.21)]" />
+      )
+    }
+  </div>
+
+  <p class="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-2">
+    {summary}
+  </p>
+
+  <div class="relative z-10 flex flex-wrap gap-2 md:justify-end">
+    {stack.slice(0, 2).map((techId: string) => <TechPill id={techId} />)}
+    {
+      stack.length > 2 && (
+        <span class="text-[10px] font-mono text-muted-foreground self-center px-1">
+          +{stack.length - 2}
+        </span>
+      )
+    }
+  </div>
+</div>
