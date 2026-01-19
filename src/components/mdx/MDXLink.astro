@@ -1,0 +1,9 @@
+---
+import Button from "../ui/Button.astro";
+
+const { href, ...rest } = Astro.props;
+---
+
+<Button as="a" href={href} variant="link" class="px-0" {...rest}>
+  <slot />
+</Button>

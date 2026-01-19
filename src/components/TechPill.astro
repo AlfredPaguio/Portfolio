@@ -1,10 +1,14 @@
 ---
-import { getEntry, render } from "astro:content";
+import { normalizeId } from "@/lib/utils/normalizeId";
+import { getCollection, render } from "astro:content";
 interface Props {
   id: string;
 }
 const { id } = Astro.props;
-const tech = await getEntry("techs", id);
+const techs = await getCollection("techs");
+
+const tech = techs.find((t) => normalizeId(id).includes(normalizeId(t.id)));
+
 const hasEntry = !!tech;
 let Content: any;
 if (hasEntry) {
@@ -21,11 +25,13 @@ if (hasEntry) {
       <a
         href={tech.data.href}
         target="_blank"
-        class="inline-flex items-center gap-2"
+        class="inline-flex items-center gap-2 no-underline"
       >
-        <span class="size-3.5 flex items-center justify-center [&>svg]:size-full">
-          <Content />
-        </span>
+        {tech?.data.hasIcon && Content && (
+          <span class="size-3.5 flex items-center justify-center [&>svg]:size-full">
+            <Content />
+          </span>
+        )}
         <span class="text-xs font-bold leading-none">
           {tech.data.name}{" "}
           {tech.data.version && (
@@ -37,7 +43,11 @@ if (hasEntry) {
       </a>
     ) : (
       // Fallback
-      <span class="capitalize">{id.replace(/-/g, " ")}</span>
+      <div class="inline-flex items-center gap-2 no-underline">
+        <span class="text-xs font-bold leading-none">
+          {id.replace(/-/g, " ")}
+        </span>
+      </div>
     )
   }
 </div>

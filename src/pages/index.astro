@@ -8,6 +8,9 @@ import { frontmatter as resumeData } from "@/content/resumes.md";
 import { getCollection } from "astro:content";
 import Button from "@/components/ui/Button.astro";
 const projects = await getCollection("projects");
+
+const techs = await getCollection("techs");
+
 // console.log("Project Count: ", projects.length);
 
 if (!projects) return null;
@@ -46,9 +49,18 @@ if (!projects) return null;
       <Button href={resumeData.software_engineer || "#"}>
         Software Engineer CV
       </Button>
-      <Button href={resumeData.webdev || "#"} variant={"outline"}> Web Developer CV </Button>
+      <Button href={resumeData.webdev || "#"} variant={"outline"}>
+        Web Developer CV
+      </Button>
     </div>
   </header>
+  <Section title="test" id="skills">
+    {
+      techs.map((tech) => (
+        <TechPill id={tech.data.name.replaceAll(" ", "").toLowerCase()} />
+      ))
+    }
+  </Section>
 
   <Section title="Expertise" id="skills">
     <div class="flex flex-wrap gap-2">
@@ -67,6 +79,12 @@ if (!projects) return null;
       projects.map((project) => (
         <li>
           <a href={`/projects/${project.id}/`}>{project.data.title}</a>
+          {project.data.stack.map((tech) => (
+            <div class="inline-flex gap-2">
+              {/* <span>{tech}</span> */}
+              <TechPill id={tech.replaceAll(" ", "").toLowerCase()} />
+            </div>
+          ))}
         </li>
       ))
     }

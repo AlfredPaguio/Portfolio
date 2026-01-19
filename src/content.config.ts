@@ -41,7 +41,8 @@ const techs = defineCollection({
   loader: glob({ pattern: "**/[^_]*.mdx", base: "./src/content/techs" }),
   schema: z.object({
     name: z.string(),
-    href: z.url(),
+    href: z.url().optional(),
+    hasIcon: z.boolean().default(true),
     version: z.string().or(z.number()).optional(),
   }),
 });
