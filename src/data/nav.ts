@@ -1,7 +1,7 @@
 export const navItems: navItemsProps[] = [
   { label: "Home", href: "/" },
-  { label: "Now", href: "/now" },
   { label: "Projects", href: "/projects" },
+  { label: "Now", href: "/now" },
 ];
 
 type navItemsProps = {

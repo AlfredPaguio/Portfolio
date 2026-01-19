@@ -5,7 +5,7 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout title={frontmatter.title}>
-  <header class="mb-12">
+  <header>
     <nav class="mb-8">
       <a
         href="/"
@@ -19,6 +19,14 @@ const { frontmatter } = Astro.props;
 
     <h1 class="text-4xl font-extrabold tracking-tighter sm:text-5xl mb-4">
       {frontmatter.title}
+      {
+        frontmatter.last_updated && (
+          <div class="flex items-center gap-2 text-xs font-mono text-muted-foreground uppercase tracking-widest mt-4">
+            <span class="size-1.5 rounded-full bg-primary/50" />
+            Last Updated: {frontmatter.last_updated}
+          </div>
+        )
+      }
     </h1>
     {
       frontmatter.summary && (
@@ -31,4 +39,14 @@ const { frontmatter } = Astro.props;
   <Section className="prose prose-neutral dark:prose-invert max-w-none">
     <slot />
   </Section>
+  <nav class="mb-8 border-border border-t-2 pt-4">
+    <a
+      href="/"
+      class="group inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+    >
+      <span class="mr-2 transition-transform group-hover:-translate-x-1"
+        >&larr;</span
+      > Back to Portfolio
+    </a>
+  </nav>
 </BaseLayout>
