@@ -7,10 +7,10 @@ const currentPath = Astro.url.pathname;
 <div class="md:hidden flex items-center">
   <button
     id="menu-button"
-    class="p-2 -mr-2 text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
+    class="p-2 -mr-2 text-muted-foreground hover:text-foreground transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md"
     aria-expanded="false"
     aria-controls="mobile-menu"
-    aria-label="Toggle menu"
+    aria-label="Toggle navigation menu"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -48,13 +48,16 @@ const currentPath = Astro.url.pathname;
   <div
     id="mobile-menu"
     class="fixed inset-x-6 top-16 z-50 data-[state=close]:hidden opacity-0 translate-y-4 data-[state=open]:flex data-[state=open]:opacity-100 data-[state=open]:translate-y-0 flex-col gap-2 p-2 rounded-2xl border border-border bg-background/95 backdrop-blur-md shadow-2xl transition-all duration-300"
+    role="menu"
+    aria-labelledby="menu-button"
   >
     {
       navItems.map((item) => (
         <a
           href={item.href}
+          role="menuitem"
           class:list={[
-            "px-4 py-3 rounded-xl text-sm font-bold transition-colors",
+            "px-4 py-3 rounded-xl text-sm font-bold transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2",
             currentPath === item.href
               ? "bg-primary text-primary-foreground"
               : "hover:bg-muted",
@@ -80,7 +83,6 @@ const currentPath = Astro.url.pathname;
 
   button?.addEventListener("click", (e) => {
     e.stopPropagation();
-    console.log("button clicked");
     toggleMenu();
   });
 
@@ -91,6 +93,15 @@ const currentPath = Astro.url.pathname;
       !menu?.contains(e.target)
     ) {
       toggleMenu();
+    }
+  });
+  document.addEventListener("keydown", (e) => {
+    if (
+      e.key === "Escape" &&
+      button?.getAttribute("aria-expanded") === "true"
+    ) {
+      toggleMenu();
+      button.focus();
     }
   });
 </script>

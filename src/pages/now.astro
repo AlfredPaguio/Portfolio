@@ -1,7 +1,9 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import { Content } from "@/content/now.mdx";
+import { Content, frontmatter } from "@/content/now.mdx";
 import { components } from "@/components/mdx";
+import MarkdownLayout from "@/layouts/MarkdownLayout.astro";
 ---
 
-<BaseLayout title={"Now"}> <Content {components} /></BaseLayout>
+<MarkdownLayout frontmatter={frontmatter}>
+  <Content {components} />
+</MarkdownLayout>
