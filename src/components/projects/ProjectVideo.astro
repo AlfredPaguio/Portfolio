@@ -1,0 +1,28 @@
+---
+interface Props {
+  src: string;
+  title?: string;
+}
+const { src, title = "Project Demo" } = Astro.props;
+
+// Convert standard YouTube links to embed links if necessary
+const getEmbedUrl = (url: string) => {
+  if (url.includes("youtube.com/watch?v=")) {
+    return url.replace("watch?v=", "embed/");
+  }
+  return url;
+};
+---
+
+<div
+  class="aspect-video w-full rounded-xl overflow-hidden border border-border bg-black"
+>
+  <iframe
+    src={getEmbedUrl(src)}
+    width="1280"
+    height="720"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    title={title}
+    class="h-full w-full"></iframe>
+</div>

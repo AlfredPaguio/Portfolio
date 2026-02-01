@@ -1,0 +1,63 @@
+---
+import { cn } from "@/lib/utils/cn";
+
+interface Props {
+  status: "active" | "maintenance" | "archived" | "unknown";
+  class?: string;
+}
+
+const { status, class: className } = Astro.props;
+
+// I'm tired to make this into class variance authority
+const statusStyles = {
+  active: {
+    label: "Active",
+    color: "text-green-600 dark:text-green-400",
+    dot: "bg-green-500",
+    bg: "bg-green-50 dark:bg-green-900/20",
+    border: "border-green-200 dark:border-green-800/50",
+  },
+  maintenance: {
+    label: "Maintenance",
+    color: "text-amber-600 dark:text-amber-400",
+    dot: "bg-amber-500",
+    bg: "bg-amber-50 dark:bg-amber-900/20",
+    border: "border-amber-200 dark:border-amber-800/50",
+  },
+  archived: {
+    label: "Archived",
+    color: "text-muted-foreground",
+    dot: "bg-neutral-400",
+    bg: "bg-muted",
+    border: "border-border",
+  },
+  unknown: {
+    label: "Unknown",
+    color: "text-muted-foreground",
+    dot: "bg-border",
+    bg: "bg-muted",
+    border: "border-border",
+  },
+};
+
+const config = statusStyles[status] || statusStyles.unknown;
+---
+
+<div
+  class={cn(
+    "inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full border text-[10px] font-bold uppercase tracking-wider",
+    config.bg,
+    config.border,
+    config.color,
+    className,
+  )}
+>
+  <span
+    aria-hidden="true"
+    class={cn(
+      "size-1.5 rounded-full",
+      config.dot,
+      status === "active" && "animate-pulse",
+    )}></span>
+  {config.label}
+</div>
