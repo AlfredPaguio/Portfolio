@@ -1,0 +1,20 @@
+---
+const links = [
+  { label: "Privacy", href: "/privacy" },
+  { label: "Now", href: "/now" },
+  { label: "Top ↑", href: "#main" },
+];
+---
+
+<nav class="flex gap-6" aria-label="Footer navigation">
+  {
+    links.map((link) => (
+      <a
+        href={link.href}
+        class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 hover:text-primary transition-colors underline-offset-4 hover:underline"
+      >
+        {link.label}
+      </a>
+    ))
+  }
+</nav>

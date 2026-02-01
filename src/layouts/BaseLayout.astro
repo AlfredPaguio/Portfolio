@@ -1,6 +1,6 @@
 ---
 import "@/assets/styles/global.css";
-import Footer from "@/components/Footer.astro";
+import Footer from "@/components/footer/Footer.astro";
 import Header from "@/components/Header.astro";
 
 interface Props {
@@ -13,7 +13,7 @@ const { title: _title, description, ...props } = Astro.props;
 const title = _title ? `${_title} | Alfred's Portfolio` : "Alfred's Portfolio";
 ---
 
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -31,7 +31,7 @@ const title = _title ? `${_title} | Alfred's Portfolio` : "Alfred's Portfolio";
     <Header />
     <main
       id="main"
-      class="max-w-3xl mx-auto px-6 pt-32 pb-20 min-h-[calc(100vh-80px)]"
+      class="max-w-3xl mx-auto px-6 pt-32 pb-8 min-h-[calc(100vh-80px)]"
     >
       <slot />
     </main>

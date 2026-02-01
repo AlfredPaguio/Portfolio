@@ -1,0 +1,60 @@
+---
+import ExternalLink from "../ExternalLink.astro";
+import Quote from "../Quote.astro";
+import TechPill from "../TechPill.astro";
+import FooterNav from "./FooterNav.astro";
+
+
+const year = new Date().getFullYear();
+const repoLink = "https://github.com/AlfredPaguio/portfolio";
+---
+
+<footer class="w-full border-t border-border bg-card/30">
+  <div class="max-w-3xl mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
+      <div class="space-y-4">
+        <p class="text-sm tracking-tight font-medium">
+          © {year} Alfred U. Paguio
+        </p>
+
+        <Quote
+          quote="No-one knows what the future holds. That's why its potential is infinite."
+          author="Okabe Rintarō"
+          source="Steins;Gate"
+        />
+
+        <ExternalLink
+          href={repoLink}
+          class="text-xs font-mono text-muted-foreground"
+        >
+          Repository
+        </ExternalLink>
+      </div>
+
+      <div class="flex flex-col items-start md:items-end gap-8">
+        <div class="flex flex-col md:items-end gap-3">
+          <span
+            class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50"
+          >
+            Built with:
+          </span>
+          <div
+            class="flex items-center gap-1 bg-muted/40 p-1.5 rounded-xl border border-border"
+          >
+            <TechPill
+              id="astro"
+              class="scale-90 border-none bg-transparent px-1"
+            />
+            <span class="font-mono opacity-20">&</span>
+            <TechPill
+              id="tailwindcss"
+              class="scale-90 border-none bg-transparent px-1"
+            />
+          </div>
+        </div>
+
+        <FooterNav />
+      </div>
+    </div>
+  </div>
+</footer>

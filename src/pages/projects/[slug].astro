@@ -3,6 +3,10 @@ import MarkdownLayout from "@/layouts/MarkdownLayout.astro";
 import { getCollection, render } from "astro:content";
 import { components } from "@/components/mdx";
 import TechPill from "@/components/TechPill.astro";
+import ExternalLink from "@/components/ExternalLink.astro";
+import ProjectStatus from "@/components/projects/ProjectStatus.astro";
+import FolderGit from "@lucide/astro/icons/folder-git";
+import Globe from "@lucide/astro/icons/globe";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -14,43 +18,34 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const statusColors = {
-  active: "text-green-600 bg-green-50 dark:bg-green-900/20 border-green-200",
-  maintenance:
-    "text-amber-600 bg-amber-50 dark:bg-amber-900/20 border-amber-200",
-  archived:
-    "text-neutral-500 bg-neutral-50 dark:bg-neutral-900/20 border-neutral-200",
-  unknown: "text-muted-foreground bg-muted border-border",
-};
+
+const dateStr = project.data.date
+  ? new Intl.DateTimeFormat("en-US", {
+      month: "long",
+      year: "numeric",
+    }).format(new Date(project.data.date))
+  : "Ongoing";
 ---
 
 <MarkdownLayout frontmatter={project.data}>
-  <!-- <div class="tags">
-    {
-      project.data.stack?.map((tag: string) => (
-        <p class="tag">
-          <a href={`/tags/${tag}`}>{tag}</a>
-        </p>
-      ))
-    }
-  </div> -->
-  <div
-    class="flex flex-wrap items-center gap-4 mb-10 pb-8 border-b border-border"
-  >
+  <div slot="metadata" class="flex flex-wrap items-center gap-4">
     {
       project.data.status && (
-        <span
-          class:list={[
-            "text-[10px] uppercase font-bold px-2 py-1 rounded border",
-            statusColors[project.data.status],
-          ]}
-        >
-          {project.data.status}
-        </span>
+        <Fragment>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+            Project Status:
+          </span>
+          <ProjectStatus status={project.data.status} />
+          <span class="text-xs font-mono text-muted-foreground">{dateStr}</span>
+        </Fragment>
       )
     }
 
     <div class="flex flex-wrap gap-2">
+      <span
+        class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60"
+        >Tech Used:</span
+      >
       {
         project.data.stack.map((techId: string) => (
           // TechPill handles the lookup/icon. techId should match filenames in content/techs
@@ -58,25 +53,24 @@ const statusColors = {
         ))
       }
     </div>
-  </div>
 
-  {
-    project.data.links.length > 0 && (
-      <div class="flex flex-wrap gap-3 mb-12">
-        {project.data.links.map((link) => (
-          <a
-            href={link.url}
-            target="_blank"
-            class="inline-flex items-center px-4 py-2 rounded-xl border border-border bg-background hover:bg-muted text-sm font-bold transition-colors"
-          >
-            {/* {link.type === "source" && <span class="mr-2">GitHub</span>}
-            {link.type === "demo" && <span class="mr-2">Live</span>} */}
-            {link.label}
-          </a>
-        ))}
-      </div>
-    )
-  }
+    {
+      project.data.links.length > 0 && (
+        <div class="flex flex-wrap gap-3">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+            Link(s):
+          </span>
+          {project.data.links.map((link) => (
+            <ExternalLink href={link.url} class="text-xs">
+              {link.type === "source" && <FolderGit class="opacity-50" />}
+              {link.type === "demo" && <Globe class="opacity-50" />}
+              {link.label}
+            </ExternalLink>
+          ))}
+        </div>
+      )
+    }
+  </div>
 
   <Content {components} />
 </MarkdownLayout>

@@ -13,6 +13,8 @@ const tech = techs.find(
   (t) => t.id === id || normalizeId(id).includes(normalizeId(t.id)),
 );
 
+//or normalizeId(t.id) === normalizeId(id) needs more investigation
+
 const hasEntry = !!tech;
 let Content: any;
 if (hasEntry) {

@@ -1,52 +1,56 @@
 ---
 import Section from "@/components/Section.astro";
 import BaseLayout from "./BaseLayout.astro";
+import Button from "@/components/ui/Button.astro";
+import MoveLeft from "@lucide/astro/icons/move-left";
+
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout title={frontmatter.title}>
-  <header>
-    <nav class="mb-8">
-      <a
-        href="/"
-        class="group inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <span class="mr-2 transition-transform group-hover:-translate-x-1"
-          >&larr;</span
-        > Back to Portfolio
-      </a>
-    </nav>
+<BaseLayout title={frontmatter.title} description={frontmatter.summary}>
+  <div class="space-y-8">
+    <header>
+      <nav class="mb-4">
+        <Button
+          href="/projects"
+          variant="ghost"
+          size="sm"
+          class="-ml-3 text-muted-foreground hover:text-foreground"
+        >
+          <MoveLeft class="mr-2" /> Back to Project list
+        </Button>
+      </nav>
 
-    <h1 class="text-4xl font-extrabold tracking-tighter sm:text-5xl mb-4">
-      {frontmatter.title}
-      {
-        frontmatter.last_updated && (
-          <div class="flex items-center gap-2 text-xs font-mono text-muted-foreground uppercase tracking-widest mt-4">
-            <span class="size-1.5 rounded-full bg-primary/50" />
-            Last Updated: {frontmatter.last_updated}
-          </div>
-        )
-      }
-    </h1>
-    {
-      frontmatter.summary && (
-        <p class="text-xl text-muted-foreground leading-relaxed">
-          {frontmatter.summary}
-        </p>
-      )
-    }
-  </header>
-  <Section className="prose dark:prose-invert max-w-none">
-    <slot />
-  </Section>
-  <nav class="mb-8 border-border border-t-2 pt-4">
-    <a
-      href="/"
-      class="group inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-    >
-      <span class="mr-2 transition-transform group-hover:-translate-x-1"
-        >&larr;</span
-      > Back to Portfolio
-    </a>
-  </nav>
+      <div class="space-y-4">
+        <h1 class="text-4xl font-extrabold tracking-tighter sm:text-6xl">
+          {frontmatter.title}
+        </h1>
+        {
+          frontmatter.summary && (
+            <p class="text-xl text-muted-foreground leading-relaxed max-w-2xl">
+              {frontmatter.summary}
+            </p>
+          )
+        }
+      </div>
+    </header>
+
+    <!-- This is where the [slug].astro logic will inject the metadata grid -->
+    <slot name="metadata" />
+
+    <Section className="prose dark:prose-invert border-t border-border pt-4! py-0 max-w-none">
+      <slot />
+    </Section>
+
+    <nav class="mt-4">
+      <Button
+        href="/projects"
+        variant="ghost"
+        size="sm"
+        class="-ml-3 text-muted-foreground hover:text-foreground"
+      >
+        <MoveLeft class="mr-2" /> Back to Project list
+      </Button>
+    </nav>
+  </div>
 </BaseLayout>
