@@ -1,0 +1,214 @@
+---
+import ProjectVideo from "./ProjectVideo.astro";
+import X from "@lucide/astro/icons/x";
+
+interface Props {
+  images?: { src: string; alt?: string }[];
+  videos?: string[];
+}
+
+const { images = [], videos = [] } = Astro.props;
+const allMedia = [
+  ...videos.map((v) => ({ type: "video", src: v, alt: "Video Demo" })),
+  ...images.map((i) => ({ type: "image", src: i.src, alt: i.alt })),
+];
+
+if (allMedia.length === 0) return null;
+---
+
+<div class="space-y-4 my-12">
+  <!-- Main Stage -->
+  <div
+    id="main-stage"
+    class="relative min-h-[50vh] w-full transition-all duration-300 group"
+  >
+    {
+      allMedia.map((media, index) => (
+        <div
+          id={`stage-${index}`}
+          class:list={["media-content", index === 0 ? "block" : "hidden"]}
+        >
+          {media.type === "video" ? (
+            <ProjectVideo src={media.src} title={media.alt} />
+          ) : (
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden cursor-zoom-in relative">
+              <img
+                src={media.src}
+                alt={media.alt}
+                class="w-full h-auto object-cover max-h-[75vh] hover:scale-[1.01] transition-transform duration-500"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none bg-black/10">
+                <span class="bg-black/70 text-white px-3 py-1 rounded-full text-xs backdrop-blur-sm">
+                  Click to Expand
+                </span>
+              </div>
+            </div>
+          )}
+
+          <p class="mt-3 text-[10px] font-mono text-muted-foreground uppercase tracking-widest px-1">
+            <span class="text-primary font-bold">ALT:</span> {media.alt}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Thumbnail Switcher -->
+  {
+    allMedia.length > 1 && (
+      <div
+        class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide"
+        role="tablist"
+      >
+        {allMedia.map((media, index) => (
+          <button
+            role="tab"
+            aria-selected={index === 0 ? "true" : "false"}
+            data-index={index}
+            class="cursor-pointer media-thumb shrink-0 size-16 rounded-lg border-2 border-border overflow-hidden opacity-50 hover:opacity-100 aria-selected:opacity-100 aria-selected:border-primary transition-all"
+          >
+            {media.type === "video" ? (
+              <div class="size-full bg-black flex items-center justify-center text-white">
+                <span class="text-[8px] font-bold">Video</span>
+              </div>
+            ) : (
+              <img
+                src={media.src}
+                class="object-center"
+                alt=""
+                loading="lazy"
+              />
+            )}
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  <dialog
+    id="lightbox"
+    class="bg-transparent p-0 w-full h-full max-w-full max-h-full backdrop:bg-black/90 backdrop:backdrop-blur-sm open:animate-in open:fade-in open:zoom-in-95 duration-200"
+  >
+    <div class="relative w-full h-full flex items-center justify-center p-4">
+      <img
+        id="lightbox-img"
+        src=""
+        alt=""
+        class="max-w-full max-h-full object-contain rounded-lg shadow-2xl cursor-alias"
+      />
+
+      <button
+        id="close-lightbox"
+        class="absolute top-4 right-4 text-white/70 hover:text-white bg-black/50 hover:bg-black/80 rounded-full p-2 transition-colors"
+      >
+        <X />
+      </button>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  const thumbs = document.querySelectorAll(".media-thumb");
+  const stages = document.querySelectorAll(".media-content");
+
+  thumbs.forEach((thumb) => {
+    thumb.addEventListener("click", () => {
+      const index = (thumb as HTMLElement).dataset.index;
+
+      thumbs.forEach((t) => t.setAttribute("aria-selected", "false"));
+      thumb.setAttribute("aria-selected", "true");
+
+      stages.forEach((s) => s.classList.add("hidden"));
+      const activeStage = document.getElementById(`stage-${index}`);
+      if (activeStage) {
+        activeStage.classList.remove("hidden");
+        // Force focus to the stage for accessibility
+        activeStage.focus();
+      }
+    });
+  });
+
+  // Lightbox Logic
+  const lightbox = document.getElementById("lightbox") as HTMLDialogElement;
+  const lightboxImg = document.getElementById(
+    "lightbox-img",
+  ) as HTMLImageElement;
+  const closeBtn = document.getElementById("close-lightbox");
+  const mainStage = document.getElementById("main-stage");
+
+  // Open Lightbox when clicking an image in the main stage
+  mainStage?.addEventListener("click", (e) => {
+    const target = e.target as HTMLImageElement;
+    // Only trigger if an IMG was clicked (not text or container)
+    if (target.tagName === "IMG" && target.closest("#main-stage")) {
+      lightboxImg.src = target.src;
+      lightboxImg.alt = target.alt;
+      lightbox.showModal();
+    }
+  });
+
+  lightboxImg?.addEventListener("click", () => {
+    // Opens the current source of the lightbox image in a new tab
+    window.open(lightboxImg.src, "_blank", "noopener,noreferrer");
+  });
+
+  const closeLightbox = () => {
+    lightbox.close();
+    // Clear src after closing so it doesn't show the old image next time briefly
+    setTimeout(() => {
+      lightboxImg.src = "";
+    }, 200);
+  };
+
+  closeBtn?.addEventListener("click", closeLightbox);
+
+  // Close when clicking the backdrop (outside the image)
+  lightbox?.addEventListener("click", (e) => {
+    const rect = lightboxImg.getBoundingClientRect();
+    // Check if click is outside the image rect
+    if (
+      e.clientX < rect.left ||
+      e.clientX > rect.right ||
+      e.clientY < rect.top ||
+      e.clientY > rect.bottom
+    ) {
+      closeLightbox();
+    }
+  });
+</script>
+
+<style>
+  /* Scrollbar hide utility */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Ensure dialog sits on top of everything */
+  dialog {
+    z-index: 50;
+  }
+
+  /* Fix for some browsers where dialog adds margin */
+  dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  /* Slight fade animation for the modal opening */
+  dialog[open] {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
