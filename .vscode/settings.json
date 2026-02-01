@@ -5,7 +5,7 @@
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
   "workbench.sideBar.location": "right",
-  "workbench.colorTheme": "One Dark Darker",
+  "workbench.colorTheme": "One Dark Pro Night Flat",
   "editor.minimap.enabled": false,
   "editor.fontFamily": "'JetBrains Mono', Consolas, 'Courier New', monospace",
   "editor.fontSize": 14,
