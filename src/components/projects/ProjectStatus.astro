@@ -12,17 +12,17 @@ const { status, class: className } = Astro.props;
 const statusStyles = {
   active: {
     label: "Active",
-    color: "text-green-600 dark:text-green-400",
+    color: "text-emerald-500 dark:text-green-400",
     dot: "bg-green-500",
-    bg: "bg-green-50 dark:bg-green-900/20",
-    border: "border-green-200 dark:border-green-800/50",
+    bg: "bg-emerald-500/10 dark:bg-green-900/20",
+    border: "border-emerald-500/20 dark:border-green-800/50",
   },
   maintenance: {
-    label: "Maintenance",
-    color: "text-amber-600 dark:text-amber-400",
+    label: "In maintenance",
+    color: "text-amber-500 dark:text-amber-400",
     dot: "bg-amber-500",
-    bg: "bg-amber-50 dark:bg-amber-900/20",
-    border: "border-amber-200 dark:border-amber-800/50",
+    bg: "bg-amber-500/10 dark:bg-amber-900/20",
+    border: "border-amber-500/20 dark:border-amber-800/50",
   },
   archived: {
     label: "Archived",
