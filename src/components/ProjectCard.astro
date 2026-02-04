@@ -3,6 +3,10 @@ import TechPill from "./TechPill.astro";
 import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
 import { cn } from "@/lib/utils/cn";
 import ProjectStatus from "./projects/ProjectStatus.astro";
+import type { CollectionEntry } from "astro:content";
+interface Props {
+  project: CollectionEntry<"projects">;
+}
 
 const { project } = Astro.props;
 const { title, summary, stack, status, images, featured } = project.data;
@@ -12,13 +16,11 @@ const cover = images?.[0];
 const dateOptions: object = {
   year: "numeric",
   month: "long",
-  day: "numeric",
 };
 
-const formattedDate = new Date(project.data.date).toLocaleDateString(
-  "en-PH",
-  dateOptions,
-);
+const formattedDate = project.data.date
+  ? new Date(project.data.date).toLocaleDateString("en-PH", dateOptions)
+  : null;
 ---
 
 <div
