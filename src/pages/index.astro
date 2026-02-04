@@ -15,6 +15,7 @@ import { Content as LinkedInIcon } from "@/content/icons/linkedin.mdx";
 import { Content as GithubIcon } from "@/content/techs/github.mdx";
 
 import { siteConfig } from "@/data/site";
+import Hand from "@lucide/astro/icons/hand";
 
 const allProjects = await getCollection("projects");
 const featuredProjects = allProjects.filter((p) => p.data.featured).slice(0, 3);
@@ -161,12 +162,32 @@ const coreStack = [
         soon as possible.
       </p>
 
-      <a
-        href={`mailto:${siteConfig.email}`}
-        class="mt-6 inline-flex items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-      >
-        Say Hello
-      </a>
+      <div class="flex items-center gap-4">
+        <a
+          href={`mailto:${siteConfig.email}`}
+          class="mt-6 inline-flex items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 has-[>svg]:px-3"
+        >
+          Say Hello
+          <Hand slot="right-icon" />
+        </a>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          class="mt-6"
+          href={siteConfig.links.socials.linkedin}
+        >
+          <LinkedInIcon /> LinkedIn
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          class="mt-6"
+          href={siteConfig.links.socials.github}
+        >
+          <GithubIcon /> Github
+        </Button>
+      </div>
     </div>
   </Section>
 </BaseLayout>

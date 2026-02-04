@@ -3,64 +3,79 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Section from "@/components/Section.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import { getCollection } from "astro:content";
+import Rss from "@lucide/astro/icons/rss";
+import { siteConfig } from "@/data/site";
 import Button from "@/components/ui/Button.astro";
 import MoveLeft from "@lucide/astro/icons/move-left";
-import { siteConfig } from "@/data/site";
 
 const projects = await getCollection("projects");
 
-// Sort by date
-const sortedDateProjects = projects.sort((a, b) => {
-  const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
-  const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
-  return dateB - dateA;
-});
-// Sort by status
-const sortedProjects = sortedDateProjects.sort((a, b) => {
-  if (a.data.status === "active") return -1;
-  return 1;
-});
+// Prioritize the most important work (Featured first)
+const featuredProjects = projects
+  .filter((p) => p.data.featured)
+  .sort(
+    (a, b) => (b.data.date?.getTime() || 0) - (a.data.date?.getTime() || 0),
+  );
+const otherProjects = projects
+  .filter((p) => !p.data.featured)
+  .sort(
+    (a, b) => (b.data.date?.getTime() || 0) - (a.data.date?.getTime() || 0),
+  );
 ---
 
 <BaseLayout
   title="Projects"
   description="Full list of software projects and technical experiments."
 >
-  <header class="mb-16">
-    <h1 class="text-4xl font-extrabold tracking-tighter mb-4">
-      Project Archive
-    </h1>
-    <p class="text-muted-foreground leading-relaxed max-w-2xl">
-      A comprehensive collection of my work, ranging from full-stack
-      applications to internal system refactors.
-    </p>
-  </header>
+  <Section className="mb-12">
+    <header class="flex items-end justify-between">
+      <div>
+        <h1 class="text-4xl font-bold tracking-tight mb-2">Projects</h1>
+        <p class="text-muted-foreground text-lg">
+          A collection of systems, tools, and experiments.
+        </p>
+      </div>
+      <a
+        href="/rss.xml"
+        class="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors pb-1"
+      >
+        <Rss class="size-4" /> RSS Feed
+      </a>
+    </header>
+  </Section>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    {sortedProjects.map((project) => <ProjectCard project={project} />)}
-  </div>
+  {
+    featuredProjects.length > 0 && (
+      <Section title="Featured Work(s)" className="mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {featuredProjects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      </Section>
+    )
+  }
+
+  <Section title="All Projects">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {otherProjects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </Section>
 
   <Section
-    title="Collaboration"
-    id="contact"
-    className="mt-24 border-t border-border pt-12"
+    title="Ready to build?"
+    className="mt-20 border-t border-border pt-12 text-center"
   >
-    <p class="text-lg mb-6">
+    <p class="text-lg mb-6 text-neutral-500">
       Have a system that needs refactoring or a new feature logic?
     </p>
-    <!-- <span
-      class="text-2xl font-bold underline underline-offset-8 hover:text-primary transition-colors"
-    >
-      Let's collaborate &rarr;
-    </span> -->
     <a
       href={`mailto:${siteConfig.email}`}
-      class="text-2xl font-bold underline underline-offset-8 hover:text-primary transition-colors"
+      class="text-3xl font-bold underline underline-offset-8 hover:text-primary transition-colors"
     >
       Let's collaborate &rarr;
     </a>
   </Section>
-
   <nav class="mt-4 flex justify-end-safe items-center-safe w-full">
     <Button
       href="/"
