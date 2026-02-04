@@ -2,9 +2,11 @@
 import { components } from "@/components/mdx";
 
 import { Content, frontmatter } from "@/content/privacy.mdx";
+import { siteConfig } from "@/data/site";
 import MarkdownLayout from "@/layouts/MarkdownLayout.astro";
+
 ---
 
 <MarkdownLayout frontmatter={frontmatter}>
-  <Content {components} />
+  <Content {components} repository={siteConfig.links.repository} />
 </MarkdownLayout>

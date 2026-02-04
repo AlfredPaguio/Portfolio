@@ -1,4 +1,5 @@
 ---
+import { siteConfig } from "@/data/site";
 import ExternalLink from "../ExternalLink.astro";
 import Quote from "../Quote.astro";
 import TechPill from "../TechPill.astro";
@@ -6,7 +7,6 @@ import FooterNav from "./FooterNav.astro";
 
 
 const year = new Date().getFullYear();
-const repoLink = "https://github.com/AlfredPaguio/portfolio";
 ---
 
 <footer class="w-full border-t border-border bg-card/30">
@@ -24,7 +24,7 @@ const repoLink = "https://github.com/AlfredPaguio/portfolio";
         />
 
         <ExternalLink
-          href={repoLink}
+          href={siteConfig.links.repository}
           class="text-xs font-mono text-muted-foreground"
         >
           Repository

@@ -3,10 +3,20 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Section from "@/components/Section.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import { getCollection } from "astro:content";
+import Button from "@/components/ui/Button.astro";
+import MoveLeft from "@lucide/astro/icons/move-left";
+import { siteConfig } from "@/data/site";
 
 const projects = await getCollection("projects");
-// Sort by date or status
-const sortedProjects = projects.sort((a, b) => {
+
+// Sort by date
+const sortedDateProjects = projects.sort((a, b) => {
+  const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+  const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+  return dateB - dateA;
+});
+// Sort by status
+const sortedProjects = sortedDateProjects.sort((a, b) => {
   if (a.data.status === "active") return -1;
   return 1;
 });
@@ -38,16 +48,27 @@ const sortedProjects = projects.sort((a, b) => {
     <p class="text-lg mb-6">
       Have a system that needs refactoring or a new feature logic?
     </p>
-    <span
+    <!-- <span
       class="text-2xl font-bold underline underline-offset-8 hover:text-primary transition-colors"
     >
       Let's collaborate &rarr;
-    </span>
-    <!-- <a
-      href="mailto:"
+    </span> -->
+    <a
+      href={`mailto:${siteConfig.email}`}
       class="text-2xl font-bold underline underline-offset-8 hover:text-primary transition-colors"
     >
       Let's collaborate &rarr;
-    </a> -->
+    </a>
   </Section>
+
+  <nav class="mt-4 flex justify-end-safe items-center-safe w-full">
+    <Button
+      href="/"
+      variant="ghost"
+      size="sm"
+      class="-ml-3 text-muted-foreground hover:text-foreground"
+    >
+      <MoveLeft class="mr-2" /> Back to Home
+    </Button>
+  </nav>
 </BaseLayout>
