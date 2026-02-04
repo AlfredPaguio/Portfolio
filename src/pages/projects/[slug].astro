@@ -3,7 +3,7 @@ import MarkdownLayout from "@/layouts/MarkdownLayout.astro";
 import { getCollection, render } from "astro:content";
 import { components } from "@/components/mdx";
 import TechPill from "@/components/TechPill.astro";
-import ExternalLink from "@/components/ExternalLink.astro";
+import AnchorExternalLink from "@/components/AnchorExternalLink.astro";
 import ProjectStatus from "@/components/projects/ProjectStatus.astro";
 import FolderGit from "@lucide/astro/icons/folder-git";
 import Globe from "@lucide/astro/icons/globe";
@@ -62,11 +62,11 @@ const dateStr = project.data.date
             Link(s):
           </span>
           {project.data.links.map((link) => (
-            <ExternalLink href={link.url} class="text-xs">
+            <AnchorExternalLink href={link.url} class="text-xs">
               {link.type === "source" && <FolderGit class="opacity-50" />}
               {link.type === "demo" && <Globe class="opacity-50" />}
               {link.label}
-            </ExternalLink>
+            </AnchorExternalLink>
           ))}
         </div>
       )

@@ -1,5 +1,5 @@
 ---
-import MoveUpRight from "@lucide/astro/icons/move-up-right";
+import ExternalLink from "@lucide/astro/icons/external-link";
 import { cn } from "@/lib/utils/cn";
 import type { HTMLAttributes } from "astro/types";
 
@@ -21,7 +21,7 @@ const { href, class: className } = Astro.props;
   )}
 >
   <slot />
-  <MoveUpRight
+  <ExternalLink
     class="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 opacity-50"
   />
 </a>

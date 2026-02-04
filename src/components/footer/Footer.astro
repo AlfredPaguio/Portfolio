@@ -1,6 +1,6 @@
 ---
 import { siteConfig } from "@/data/site";
-import ExternalLink from "../ExternalLink.astro";
+import AnchorExternalLink from "../AnchorExternalLink.astro";
 import Quote from "../Quote.astro";
 import TechPill from "../TechPill.astro";
 import FooterNav from "./FooterNav.astro";
@@ -23,12 +23,12 @@ const year = new Date().getFullYear();
           source="Steins;Gate"
         />
 
-        <ExternalLink
+        <AnchorExternalLink
           href={siteConfig.links.repository}
           class="text-xs font-mono text-muted-foreground"
         >
           Repository
-        </ExternalLink>
+        </AnchorExternalLink>
       </div>
 
       <div class="flex flex-col items-start md:items-end gap-8">
