@@ -23,6 +23,8 @@ const allMedia = [
   })),
 ];
 
+const mediaSerialized = JSON.stringify(allMedia);
+
 const padIndex = (i: number) => String(i + 1).padStart(2, "0");
 ---
 
@@ -47,12 +49,14 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
           data-index={index}
         >
           {item.type === "video" ? (
-            <ProjectVideo src={item.src} title={item.alt} />
-            <div class="absolute inset-0 flex flex-col items-center justify-center bg-muted/20">
-              <div class="flex size-9 items-center justify-center rounded-full bg-background shadow-sm ring-1 ring-border">
-                <Play class="ml-0.5 size-4 text-primary" />
+            <Fragment>
+              <ProjectVideo src={item.src} title={item.alt} />
+              <div class="absolute inset-0 flex flex-col items-center justify-center bg-muted/20">
+                <div class="flex size-9 items-center justify-center rounded-full bg-background shadow-sm ring-1 ring-border">
+                  <Play class="ml-0.5 size-4 text-primary" />
+                </div>
               </div>
-            </div>
+            </Fragment>
           ) : (
             <img
               src={item.src}
@@ -62,13 +66,14 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
             />
           )}
 
-         <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Maximize class="text-foreground size-5" stroke-width={1.5} />
+          <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <Maximize class="text-white size-5" stroke-width={2} />
           </div>
 
-          <div class="absolute bottom-1.5 left-1.5 rounded bg-background/80 px-1 py-0.5 backdrop-blur-sm border border-border/50">
-            <span class="text-[7px] font-mono font-bold uppercase opacity-70">
-              {item.type === "video" ? "vid" : "img"}-{padIndex(index)}
+          <div class="absolute bottom-1.5 left-1.5 rounded bg-background/80 px-1 py-0.5 backdrop-blur-sm border border-border/50 flex items-center justify-center">
+            <span class="text-[9px] font-mono font-bold uppercase opacity-70">
+              {/* {item.type === "video" ? "vid" : "img"}-{padIndex(index)} */}
+              {item.alt}
             </span>
           </div>
         </button>
@@ -77,8 +82,10 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
   </div>
 </div>
 
+<!-- borrowing laravel's snapshot idea for the data-gallery -->
 <dialog
   id="gallery-dialog"
+  data-gallery={mediaSerialized}
   class="m-auto w-full h-full max-h-dvh sm:h-auto overflow-hidden sm:rounded-2xl border-none sm:border border-border bg-background p-0 shadow-2xl backdrop:bg-background/95 backdrop:backdrop-blur-xl outline-none"
 >
   <div class="flex flex-col h-full outline-none">
@@ -120,7 +127,7 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
         >
         <form method="dialog">
           <button
-            class="flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground active:bg-destructive active:text-white cursor-pointer"
+            class="flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground hover:bg-destructive/70 active:bg-destructive active:text-white cursor-pointer"
           >
             <X class="size-5" />
           </button>
@@ -143,8 +150,20 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
         class="flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-tight"
       >
         <span class="rounded border border-border bg-background px-1 py-0.5"
-          >Arrows</span
-        > Navigate
+          >Arrows
+          <span class="inline-flex items-center gap-1">
+            <kbd class="border-none shadow-none rounded-none">
+              <kbd
+                class="rounded border border-border bg-muted shadow-none inline-flex items-center justify-center h-5 min-w-5 px-1.5 font-mono text-[10px] font-medium text-muted-foreground select-none"
+                >←</kbd
+              >
+              <kbd
+                class="rounded border border-border bg-muted shadow-none inline-flex items-center justify-center h-5 min-w-5 px-1.5 font-mono text-[10px] font-medium text-muted-foreground select-none"
+                >→</kbd
+              >
+            </kbd>
+          </span>
+        </span> Navigate
       </div>
       <div
         class="flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-tight"
@@ -157,14 +176,16 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
         class="flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-tight"
       >
         <span class="rounded border border-border bg-background px-1 py-0.5"
-          >2x Tap</span
+          >2x Click/Tap</span
         > Reset
       </div>
     </div>
   </div>
 </dialog>
 
-<script define:vars={{ allMedia }}>
+<script type="module">
+  import { onDoubleTap } from "/src/lib/utils/onDoubleTap";
+
   const dialog = document.getElementById("gallery-dialog");
   const viewport = document.getElementById("modal-viewport");
   const counter = document.getElementById("modal-counter");
@@ -174,6 +195,10 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
   const nextBtn = document.getElementById("next-btn");
   const triggers = document.querySelectorAll(".media-trigger");
 
+  // Read the data from the attribute and parse it
+  const rawData = dialog.dataset.gallery;
+  const allMedia = JSON.parse(rawData);
+
   let currentIndex = 0;
   let scale = 1,
     translateX = 0,
@@ -182,6 +207,11 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
     startX,
     startY;
   let initialPinchDistance = 0;
+  // swipe
+
+  let touchStartX = 0;
+  let isSwiping = false;
+  const swipeThreshold = 50;
 
   const getEmbedUrl = (url) =>
     url.includes("youtube.com/watch?v=")
@@ -207,13 +237,14 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
     translateY = 0;
 
     if (item.type === "video") {
-      viewport.innerHTML = `<iframe src="${getEmbedUrl(item.src)}" class="h-full w-full border-0 select-none" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+      viewport.innerHTML = `<iframe src="${getEmbedUrl(item.src)}"  loading="lazy" class="h-full w-full border-0 select-none" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
     } else {
-      viewport.innerHTML = `<img src="${item.src}" class="max-h-full max-w-full object-contain cursor-grab active:cursor-grabbing transition-transform duration-200 select-none" draggable="false" />`;
+      viewport.innerHTML = `<img src="${item.src}" class="max-h-full max-w-full object-contain cursor-grab active:cursor-grabbing transition-transform duration-200 select-none" draggable="false"  loading="lazy" />`;
       initAdvancedControls(viewport.querySelector("img"));
     }
   };
 
+  /** @param {HTMLImageElement} img */
   function initAdvancedControls(img) {
     // 1. Desktop Wheel Zoom
     viewport.onwheel = (e) => {
@@ -235,6 +266,17 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
       applyTransform(img);
     };
 
+    const handleDoubleTap = onDoubleTap({
+      callback: (e) => {
+        scale = scale > 1 ? 1 : 2.5;
+        translateX = 0;
+        translateY = 0;
+        applyTransform(img);
+      },
+      delay: 300,
+      tolerance: 25,
+    });
+
     // 3. Mouse Drag
     img.onmousedown = (e) => {
       if (scale === 1) return;
@@ -250,10 +292,18 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
           e.touches[0].pageX - e.touches[1].pageX,
           e.touches[0].pageY - e.touches[1].pageY,
         );
-      } else if (e.touches.length === 1 && scale > 1) {
-        isDragging = true;
-        startX = e.touches[0].clientX - translateX;
-        startY = e.touches[0].clientY - translateY;
+      } else if (e.touches.length === 1) {
+        if (scale <= 1) {
+          isSwiping = true;
+          touchStartX = e.touches[0].clientX;
+          img.style.transition = "none";
+        }
+
+        if (scale > 1) {
+          isDragging = true;
+          startX = e.touches[0].clientX - translateX;
+          startY = e.touches[0].clientY - translateY;
+        }
       }
     };
 
@@ -272,10 +322,52 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
         translateX = e.touches[0].clientX - startX;
         translateY = e.touches[0].clientY - startY;
         applyTransform(img);
+      } else if (isSwiping && scale === 1) {
+        const currentX = e.touches[0].clientX;
+        translateX = currentX - touchStartX;
+        applyTransform(img);
       }
     };
 
-    img.ontouchend = () => (isDragging = false);
+    // img.ontouchend = () => (isDragging = false);
+
+    img.ontouchend = (e) => {
+      // We only handle swipe/doubletap if it was a single finger interaction
+      if (e.changedTouches.length === 1 || isSwiping) {
+        isSwiping = false;
+        img.style.transition = "transform 0.3s cubic-bezier(0.2, 1, 0.3, 1)";
+        const touchEndX = e.changedTouches[0].clientX;
+        const deltaX = touchEndX - touchStartX;
+
+        // SWIPE: Only swipe if we are NOT zoomed in
+        if (scale === 1 && Math.abs(deltaX) > swipeThreshold) {
+          const direction = translateX > 0 ? "prev" : "next";
+
+          translateX = translateX > 0 ? window.innerWidth : -window.innerWidth;
+          applyTransform(img);
+
+          // Wait for exit animation, then load next
+          setTimeout(() => {
+            updateModal(
+              direction === "prev"
+                ? (currentIndex - 1 + allMedia.length) % allMedia.length
+                : (currentIndex + 1) % allMedia.length,
+              direction,
+            );
+          }, 200);
+        } else {
+          // Snap Back
+          translateX = 0;
+          applyTransform(img);
+        }
+      }
+
+      isDragging = false;
+      // 2x tap
+      if (e.touches.length === 0) {
+        handleDoubleTap(e);
+      }
+    };
   }
 
   window.onmousemove = (e) => {
@@ -347,7 +439,7 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
   body:has(dialog[open]) {
     overflow: hidden !important;
     /* Prevents the "jumping" effect when scrollbar disappears */
-    padding-right: var(--scrollbar-gutter, 0px); 
+    padding-right: var(--scrollbar-gutter, 0px);
   }
 
   /* Strip default dialog scrollbars */
@@ -366,5 +458,11 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  #modal-viewport img {
+    transition:
+      transform 0.2s ease-out,
+      opacity 0.2s ease-in-out;
   }
 </style>
