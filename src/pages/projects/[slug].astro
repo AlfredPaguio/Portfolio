@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { Content } = await render(project);
+const { Content, remarkPluginFrontmatter } = await render(project);
 
 const dateStr = project.data.date
   ? new Intl.DateTimeFormat("en-US", {
@@ -30,6 +30,7 @@ const dateStr = project.data.date
 
 <MarkdownLayout frontmatter={project.data}>
   <div slot="metadata" class="flex flex-wrap items-center gap-4">
+    <p>{remarkPluginFrontmatter.minutesRead}</p>
     {
       project.data.status && (
         <Fragment>
