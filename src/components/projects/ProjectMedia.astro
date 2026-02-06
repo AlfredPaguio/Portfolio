@@ -196,22 +196,22 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
   const triggers = document.querySelectorAll(".media-trigger");
 
   // Read the data from the attribute and parse it
-  const rawData = dialog.dataset.gallery;
-  const allMedia = JSON.parse(rawData);
+  const allMedia = JSON.parse(dialog.dataset.gallery);
 
   let currentIndex = 0;
   let scale = 1,
     translateX = 0,
     translateY = 0;
   let isDragging = false,
-    startX,
-    startY;
-  let initialPinchDistance = 0;
-  // swipe
-
-  let touchStartX = 0;
-  let isSwiping = false;
+    isSwiping = false;
+  let startX,
+    startY,
+    touchStartX,
+    initialPinchDistance = 0;
   const swipeThreshold = 50;
+
+  // Controller to clear listeners when modal closes
+  let modalAbortController = null;
 
   const getEmbedUrl = (url) =>
     url.includes("youtube.com/watch?v=")
@@ -220,13 +220,15 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
 
   const applyTransform = (el) => {
     if (!el) return;
-    el.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    el.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`;
   };
 
-  const updateModal = (index) => {
+  const updateModal = (index, direction = "next") => {
     viewport.innerHTML = "";
     currentIndex = index;
     const item = allMedia[currentIndex];
+
+    // UI Updates (Counter/Title)
     counter.innerText = `${index + 1} / ${allMedia.length}`;
     title.innerText = item.alt ? item.alt : null;
     downloadBtn.href = item.src;
@@ -238,36 +240,41 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
 
     if (item.type === "video") {
       viewport.innerHTML = `<iframe src="${getEmbedUrl(item.src)}"  loading="lazy" class="h-full w-full border-0 select-none" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-    } else {
-      viewport.innerHTML = `<img src="${item.src}" class="max-h-full max-w-full object-contain cursor-grab active:cursor-grabbing transition-transform duration-200 select-none" draggable="false"  loading="lazy" />`;
-      initAdvancedControls(viewport.querySelector("img"));
+      return;
     }
+
+    const img = document.createElement("img");
+    img.src = item.src;
+    img.draggable = false;
+    img.loading = "lazy";
+    img.className =
+      "max-h-full max-w-full object-contain cursor-grab active:cursor-grabbing transition-transform duration-200 select-none";
+
+    // Initial entrance state
+    const startOffset = direction === "next" ? 50 : -50;
+    img.style.transform = `translate3d(${startOffset}px, 0, 0) scale(0.95)`;
+    img.style.opacity = "0";
+
+    viewport.appendChild(img);
+
+    requestAnimationFrame(() => {
+      img.style.transition =
+        "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s";
+      img.style.transform = "translate3d(0, 0, 0) scale(1)";
+      img.style.opacity = "1";
+      initAdvancedControls(img);
+    });
   };
 
   /** @param {HTMLImageElement} img */
   function initAdvancedControls(img) {
-    // 1. Desktop Wheel Zoom
-    viewport.onwheel = (e) => {
-      e.preventDefault();
-      const delta = e.deltaY > 0 ? -0.3 : 0.3;
-      scale = Math.min(Math.max(1, scale + delta), 5);
-      if (scale === 1) {
-        translateX = 0;
-        translateY = 0;
-      }
-      applyTransform(img);
-    };
-
-    // 2. Double Tap / Double Click Reset
-    img.ondblclick = () => {
-      scale = scale > 1 ? 1 : 2.5;
-      translateX = 0;
-      translateY = 0;
-      applyTransform(img);
-    };
+    // Reset/Cleanup previous listeners if any
+    modalAbortController?.abort();
+    modalAbortController = new AbortController();
+    const { signal } = modalAbortController;
 
     const handleDoubleTap = onDoubleTap({
-      callback: (e) => {
+      callback: () => {
         scale = scale > 1 ? 1 : 2.5;
         translateX = 0;
         translateY = 0;
@@ -276,6 +283,34 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
       delay: 300,
       tolerance: 25,
     });
+
+    // 1. Desktop Wheel Zoom
+    viewport.addEventListener(
+      "wheel",
+      (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.3 : 0.3;
+        scale = Math.min(Math.max(1, scale + delta), 5);
+        if (scale === 1) {
+          translateX = 0;
+          translateY = 0;
+        }
+        applyTransform(img);
+      },
+      { signal, passive: false },
+    );
+
+    // 2. Double Tap / Double Click Reset
+    img.addEventListener(
+      "dblclick",
+      () => {
+        scale = scale > 1 ? 1 : 2.5;
+        translateX = 0;
+        translateY = 0;
+        applyTransform(img);
+      },
+      { signal },
+    );
 
     // 3. Mouse Drag
     img.onmousedown = (e) => {
@@ -286,126 +321,153 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
     };
 
     // 4. Mobile Touch (Pinch & Pan)
-    img.ontouchstart = (e) => {
-      if (e.touches.length === 2) {
-        initialPinchDistance = Math.hypot(
-          e.touches[0].pageX - e.touches[1].pageX,
-          e.touches[0].pageY - e.touches[1].pageY,
-        );
-      } else if (e.touches.length === 1) {
+    img.addEventListener(
+      "touchstart",
+      (e) => {
+        if (e.touches.length === 2) {
+          initialPinchDistance = Math.hypot(
+            e.touches[0].pageX - e.touches[1].pageX,
+            e.touches[0].pageY - e.touches[1].pageY,
+          );
+          return;
+        }
+
+        if (e.touches.length !== 1) return;
+
         if (scale <= 1) {
           isSwiping = true;
           touchStartX = e.touches[0].clientX;
           img.style.transition = "none";
-        }
-
-        if (scale > 1) {
+        } else {
           isDragging = true;
           startX = e.touches[0].clientX - translateX;
           startY = e.touches[0].clientY - translateY;
         }
-      }
-    };
+      },
+      { signal },
+    );
 
-    img.ontouchmove = (e) => {
-      if (e.touches.length === 2) {
-        e.preventDefault();
-        const dist = Math.hypot(
-          e.touches[0].pageX - e.touches[1].pageX,
-          e.touches[0].pageY - e.touches[1].pageY,
-        );
-        const delta = dist / initialPinchDistance;
-        scale = Math.min(Math.max(1, scale * delta), 5);
-        initialPinchDistance = dist;
-        applyTransform(img);
-      } else if (isDragging && e.touches.length === 1) {
-        translateX = e.touches[0].clientX - startX;
-        translateY = e.touches[0].clientY - startY;
-        applyTransform(img);
-      } else if (isSwiping && scale === 1) {
-        const currentX = e.touches[0].clientX;
-        translateX = currentX - touchStartX;
-        applyTransform(img);
-      }
-    };
+    img.addEventListener(
+      "touchmove",
+      (e) => {
+        if (e.touches.length === 2) {
+          e.preventDefault();
+          const dist = Math.hypot(
+            e.touches[0].pageX - e.touches[1].pageX,
+            e.touches[0].pageY - e.touches[1].pageY,
+          );
+          scale = Math.min(
+            Math.max(1, (dist / initialPinchDistance) * scale),
+            5,
+          );
+          initialPinchDistance = dist;
+          applyTransform(img);
+          return;
+        }
+
+        if (isDragging) {
+          translateX = e.touches[0].clientX - startX;
+          translateY = e.touches[0].clientY - startY;
+          applyTransform(img);
+        } else if (isSwiping) {
+          translateX = e.touches[0].clientX - touchStartX;
+          applyTransform(img);
+        }
+      },
+      { signal, passive: false },
+    );
 
     // img.ontouchend = () => (isDragging = false);
 
-    img.ontouchend = (e) => {
-      // We only handle swipe/doubletap if it was a single finger interaction
-      if (e.changedTouches.length === 1 || isSwiping) {
-        isSwiping = false;
-        img.style.transition = "transform 0.3s cubic-bezier(0.2, 1, 0.3, 1)";
-        const touchEndX = e.changedTouches[0].clientX;
-        const deltaX = touchEndX - touchStartX;
+    img.addEventListener(
+      "touchend",
+      (e) => {
+        // We only handle swipe/doubletap if it was a single finger interaction (see above)
+        if (isSwiping) {
+          isSwiping = false;
+          img.style.transition = "transform 0.3s cubic-bezier(0.2, 1, 0.3, 1)";
+          const deltaX = e.changedTouches[0].clientX - touchStartX;
 
-        // SWIPE: Only swipe if we are NOT zoomed in
-        if (scale === 1 && Math.abs(deltaX) > swipeThreshold) {
-          const direction = translateX > 0 ? "prev" : "next";
+          // SWIPE: Only swipe if we are NOT zoomed in
+          if (scale === 1 && Math.abs(deltaX) > swipeThreshold) {
+            const direction = deltaX > 0 ? "prev" : "next";
 
-          translateX = translateX > 0 ? window.innerWidth : -window.innerWidth;
-          applyTransform(img);
+            translateX = deltaX > 0 ? window.innerWidth : -window.innerWidth;
+            applyTransform(img);
 
-          // Wait for exit animation, then load next
-          setTimeout(() => {
-            updateModal(
-              direction === "prev"
-                ? (currentIndex - 1 + allMedia.length) % allMedia.length
-                : (currentIndex + 1) % allMedia.length,
-              direction,
-            );
-          }, 200);
-        } else {
-          // Snap Back
-          translateX = 0;
-          applyTransform(img);
+            // Wait for exit animation, then load next
+            setTimeout(() => {
+              updateModal(
+                direction === "prev"
+                  ? (currentIndex - 1 + allMedia.length) % allMedia.length
+                  : (currentIndex + 1) % allMedia.length,
+                direction,
+              );
+            }, 200);
+          } else {
+            // Snap Back
+            translateX = 0;
+            applyTransform(img);
+          }
         }
-      }
 
-      isDragging = false;
-      // 2x tap
-      if (e.touches.length === 0) {
-        handleDoubleTap(e);
-      }
-    };
+        handleDragEnd();
+        // 2x tap
+        if (e.touches.length === 0) {
+          handleDoubleTap(e);
+        }
+      },
+      { signal },
+    );
   }
 
-  window.onmousemove = (e) => {
+  const handleDragEnd = () => {
+    isDragging = false;
+  };
+
+  window.addEventListener("mousemove", (e) => {
     if (!isDragging) return;
     translateX = e.clientX - startX;
     translateY = e.clientY - startY;
     applyTransform(viewport.querySelector("img"));
-  };
+  });
 
-  window.onmouseup = () => (isDragging = false);
+  window.addEventListener("mouseup", handleDragEnd);
 
   window.addEventListener("keydown", (e) => {
     if (!dialog.open) return;
     if (e.key === "ArrowLeft")
-      updateModal((currentIndex - 1 + allMedia.length) % allMedia.length);
+      updateModal(
+        (currentIndex - 1 + allMedia.length) % allMedia.length,
+        "prev",
+      );
     if (e.key === "ArrowRight")
       updateModal((currentIndex + 1) % allMedia.length);
   });
 
-  const stopMedia = () => {
-    viewport.innerHTML = "";
+  const openModal = (index) => {
+    updateModal(index);
+    dialog.showModal();
   };
 
-  dialog.addEventListener("close", stopMedia);
+  const closeModal = () => {
+    modalAbortController?.abort();
+    viewport.innerHTML = "";
+    dialog.close();
+  };
 
   triggers.forEach((t) =>
-    t.addEventListener("click", () => {
-      updateModal(parseInt(t.dataset.index));
-      dialog.showModal();
-    }),
+    t.addEventListener("click", () => openModal(parseInt(t.dataset.index))),
   );
 
-  prevBtn.onclick = () =>
-    updateModal((currentIndex - 1 + allMedia.length) % allMedia.length);
-  nextBtn.onclick = () => updateModal((currentIndex + 1) % allMedia.length);
-  dialog.onclick = (e) => {
-    if (e.target === dialog) dialog.close();
-  };
+  prevBtn.addEventListener("click", () =>
+    updateModal((currentIndex - 1 + allMedia.length) % allMedia.length, "prev"),
+  );
+  nextBtn.addEventListener("click", () =>
+    updateModal((currentIndex + 1) % allMedia.length, "next"),
+  );
+  dialog.addEventListener("click", (e) => e.target === dialog && closeModal());
+  dialog.addEventListener("close", closeModal);
 </script>
 
 <style is:global>
@@ -461,8 +523,6 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
   }
 
   #modal-viewport img {
-    transition:
-      transform 0.2s ease-out,
-      opacity 0.2s ease-in-out;
+    will-change: transform, opacity;
   }
 </style>
