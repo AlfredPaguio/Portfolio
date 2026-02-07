@@ -6,8 +6,6 @@ import ChevronLeft from "@lucide/astro/icons/chevron-left";
 import ChevronRight from "@lucide/astro/icons/chevron-right";
 import Download from "@lucide/astro/icons/download";
 import ProjectVideo from "./ProjectVideo.astro";
-import { GalleryManager } from "@/lib/gallery-manager";
-import { onDoubleTap } from "@/lib/utils/onDoubleTap";
 
 interface Props {
   images?: { src: string; alt?: string }[];
@@ -186,6 +184,8 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
 </dialog>
 
 <script type="module">
+  import { GalleryManager } from "/src/lib/gallery-manager.js";
+  import { onDoubleTap } from "/src/lib/utils/onDoubleTap.ts";
   const dialog = document.getElementById("gallery-dialog");
 
   // Initialize the manager
