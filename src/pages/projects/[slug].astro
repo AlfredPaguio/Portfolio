@@ -29,8 +29,12 @@ const dateStr = project.data.date
 ---
 
 <MarkdownLayout frontmatter={project.data}>
+  <span
+    class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60"
+    >Read Time: {remarkPluginFrontmatter.minutesRead}</span
+  >
+
   <div slot="metadata" class="flex flex-wrap items-center gap-4">
-    <p>{remarkPluginFrontmatter.minutesRead}</p>
     {
       project.data.status && (
         <Fragment>
