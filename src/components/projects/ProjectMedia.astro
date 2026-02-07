@@ -183,9 +183,9 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
   </div>
 </dialog>
 
-<script type="module">
-  import { GalleryManager } from "/src/lib/gallery-manager.js";
-  import { onDoubleTap } from "/src/lib/utils/onDoubleTap.ts";
+<script>
+  import { GalleryManager } from "@/lib/gallery-manager";
+  import { onDoubleTap } from "@/lib/utils/onDoubleTap";
   const dialog = document.getElementById("gallery-dialog");
 
   // Initialize the manager
