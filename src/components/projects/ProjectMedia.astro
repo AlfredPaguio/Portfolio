@@ -184,33 +184,56 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
 </dialog>
 
 <script>
-  import { GalleryManager } from "@/lib/gallery-manager";
-  import { onDoubleTap } from "@/lib/utils/onDoubleTap";
-  const dialog = document.getElementById("gallery-dialog");
+  import { GalleryManager, type MediaItem } from "@/lib/gallery-manager";
 
-  // Initialize the manager
-  const manager = new GalleryManager({
-    onDoubleTap,
-    allMedia: JSON.parse(dialog.dataset.gallery),
-    elements: {
-      viewport: document.getElementById("modal-viewport"),
-      counter: document.getElementById("modal-counter"),
-      title: document.getElementById("modal-title"),
-      downloadBtn: document.getElementById("download-btn"),
-    },
-  });
+  const dialog = document.getElementById(
+    "gallery-dialog",
+  ) as HTMLDialogElement | null;
+  const viewport = document.getElementById("modal-viewport");
+  const counter = document.getElementById("modal-counter");
+  const title = document.getElementById("modal-title");
+  const downloadBtn = document.getElementById(
+    "download-btn",
+  ) as HTMLAnchorElement | null;
 
-  // UI Setup
-  document.querySelectorAll(".media-trigger").forEach((t) =>
-    t.addEventListener("click", () => {
-      manager.update(parseInt(t.dataset.index));
-      dialog.showModal();
-    }),
-  );
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+  // Top-level return cannot be used inside an ECMAScript module so we do this
 
-  document
-    .getElementById("prev-btn")
-    .addEventListener("click", () =>
+  if (
+    dialog &&
+    viewport &&
+    counter &&
+    title &&
+    downloadBtn &&
+    prevBtn &&
+    nextBtn
+  ) {
+    const galleryData: MediaItem[] = dialog.dataset.gallery
+      ? JSON.parse(dialog.dataset.gallery)
+      : [];
+
+    // Initialize the manager
+    const manager = new GalleryManager({
+      allMedia: galleryData,
+      elements: {
+        viewport,
+        counter,
+        title,
+        downloadBtn,
+      },
+    });
+
+    // UI Setup
+    document.querySelectorAll<HTMLElement>(".media-trigger").forEach((t) =>
+      t.addEventListener("click", () => {
+        const index = parseInt(t.dataset.index || "0", 10);
+        manager.update(index);
+        dialog.showModal();
+      }),
+    );
+
+    prevBtn.addEventListener("click", () =>
       manager.update(
         (manager.currentIndex - 1 + manager.allMedia.length) %
           manager.allMedia.length,
@@ -218,26 +241,25 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
       ),
     );
 
-  document
-    .getElementById("next-btn")
-    .addEventListener("click", () =>
+    nextBtn.addEventListener("click", () =>
       manager.update(
         (manager.currentIndex + 1) % manager.allMedia.length,
         "next",
       ),
     );
 
-  window.addEventListener("keydown", (e) => {
-    if (!dialog.open) return;
-    if (e.key === "ArrowLeft") document.getElementById("prev-btn").click();
-    if (e.key === "ArrowRight") document.getElementById("next-btn").click();
-  });
+    window.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (!dialog.open) return;
+      if (e.key === "ArrowLeft") prevBtn.click();
+      if (e.key === "ArrowRight") nextBtn.click();
+    });
 
-  dialog.addEventListener("close", () => manager.cleanup());
-  dialog.addEventListener(
-    "click",
-    (e) => e.target === dialog && dialog.close(),
-  );
+    dialog.addEventListener("close", () => manager.cleanup());
+    dialog.addEventListener("click", (e: MouseEvent) => {
+      // Only close if the backdrop (the dialog itself) is clicked
+      if (e.target === dialog) dialog.close();
+    });
+  }
 </script>
 
 <style is:global>
