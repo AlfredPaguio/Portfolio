@@ -5,7 +5,12 @@ import type { APIRoute } from "astro";
 
 export const GET: APIRoute = async (context) => {
   // Meta Data
-  const avatarUrl = new URL(myImage.src, context.url.origin).href;
+  // const avatarUrl = new URL(myImage.src, context.url.origin).href;
+  const avatarUrl = await fetch(
+    new new URL(myImage.src, context.url.origin)
+  ).then((res) => res.arrayBuffer());
+
+  const avatarBase64 = `data:image/png;base64,${avatarUrl.toString("base64")}`;
   //   const siteUrl = context.url.origin;
   const siteUrl = siteConfig.url;
 
@@ -80,7 +85,7 @@ export const GET: APIRoute = async (context) => {
                       {
                         type: "img",
                         props: {
-                          src: avatarUrl,
+                          src: avatarBase64,
                           tw: "w-12 h-12 rounded-full border border-white/20",
                         },
                       },
