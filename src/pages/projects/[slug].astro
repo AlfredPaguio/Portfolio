@@ -33,8 +33,8 @@ const dateStr = project.data.date
     }).format(new Date(project.data.date))
   : null;
 
-// const ogImageUrl = `${Astro.url.origin}/projects/${project.id}.png` || null;
-const ogImageUrl = `${siteConfig.url}/projects/${project.id}.png` || null;
+const ogImageUrl = `${Astro.url.origin}/projects/${project.id}.png` || null;
+// const ogImageUrl = `${siteConfig.url}/projects/${project.id}.png` || null;
 ---
 
 <MarkdownLayout frontmatter={project.data} openGraphImage={ogImageUrl} openGraphType="project">
