@@ -33,7 +33,7 @@ export const GET: APIRoute = async (context) => {
     new URL(myImage.src, context.url.origin)
   ).then((res) => res.arrayBuffer());
 
-  const avatarUrl = `data:image/png;base64,${avatarUrl.toString("base64")}`;
+  const avatarUrl = `data:image/png;base64,${avatarBuffer.toString("base64")}`;
   // const avatarUrl = new URL(myImage.src, context.url.origin).href;
   //   const siteUrl = context.url.origin;
   const siteUrl = siteConfig.url;
