@@ -7,7 +7,7 @@ export const GET: APIRoute = async (context) => {
   // Meta Data
   // const avatarUrl = new URL(myImage.src, context.url.origin).href;
   const avatarUrl = await fetch(
-    new new URL(myImage.src, context.url.origin)
+    new URL(myImage.src, context.url.origin)
   ).then((res) => res.arrayBuffer());
 
   const avatarBase64 = `data:image/png;base64,${avatarUrl.toString("base64")}`;
