@@ -6,7 +6,7 @@ const domain = process.env.APP_URL
 
 /* #__PURE__ */
 const protocol =
-  domain === "localhost" || domain.startsWith("127.") ? "http" : "https";
+  domain.includes("localhost") || domain.startsWith("127.") ? "http" : "https";
 
 /* #__PURE__ */
 const url = `${protocol}://${domain}`;

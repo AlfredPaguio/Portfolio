@@ -4,10 +4,15 @@ import BaseLayout from "./BaseLayout.astro";
 import Button from "@/components/ui/Button.astro";
 import MoveLeft from "@lucide/astro/icons/move-left";
 
-const { frontmatter } = Astro.props;
+const { frontmatter, openGraphImage, ...props } = Astro.props;
 ---
 
-<BaseLayout title={frontmatter.title} description={frontmatter.summary}>
+<BaseLayout
+  title={frontmatter.title}
+  description={frontmatter.summary}
+  openGraphImage={openGraphImage || null}
+  {...props}
+>
   <div class="space-y-8">
     <header>
       <nav class="mb-4">
@@ -38,7 +43,9 @@ const { frontmatter } = Astro.props;
     <!-- This is where the [slug].astro logic will inject the metadata grid -->
     <slot name="metadata" />
 
-    <Section className="prose dark:prose-invert border-t border-border pt-4! py-0 max-w-none">
+    <Section
+      className="prose dark:prose-invert border-t border-border pt-4! py-0 max-w-none"
+    >
       <slot />
     </Section>
 

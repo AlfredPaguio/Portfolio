@@ -1,6 +1,7 @@
 ---
+import type { GetStaticPaths } from "astro";
 import MarkdownLayout from "@/layouts/MarkdownLayout.astro";
-import { getCollection, render } from "astro:content";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 import { components } from "@/components/mdx";
 import TechPill from "@/components/TechPill.astro";
 import AnchorExternalLink from "@/components/AnchorExternalLink.astro";
@@ -8,13 +9,18 @@ import ProjectStatus from "@/components/projects/ProjectStatus.astro";
 import ProjectMedia from "@/components/projects/ProjectMedia.astro";
 import { linkIcons } from "./_components/linkIcons";
 import ExternalLink from "@lucide/astro/icons/external-link";
+import { siteConfig } from "@/data/site";
 
-export async function getStaticPaths() {
+export const getStaticPaths = (async () => {
   const projects = await getCollection("projects");
   return projects.map((project) => ({
     params: { slug: project.id },
     props: { project },
   }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  project: CollectionEntry<"projects">;
 }
 
 const { project } = Astro.props;
@@ -26,9 +32,12 @@ const dateStr = project.data.date
       year: "numeric",
     }).format(new Date(project.data.date))
   : null;
+
+// const ogImageUrl = `${Astro.url.origin}/projects/${project.id}.png` || null;
+const ogImageUrl = `${siteConfig.url}/projects/${project.id}.png` || null;
 ---
 
-<MarkdownLayout frontmatter={project.data}>
+<MarkdownLayout frontmatter={project.data} openGraphImage={ogImageUrl} openGraphType="project">
   <div slot="metadata" class="w-full space-y-6">
     <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
       {
@@ -51,57 +60,60 @@ const dateStr = project.data.date
 
         {
           dateStr && (
-            <span class="text-[10px] font-mono font-medium text-muted-foreground/40 uppercase tracking-tight">
+            <time
+              class="text-[10px] font-mono font-medium text-muted-foreground/40 uppercase tracking-tight"
+              datetime={project.data.date?.toISOString()}
+            >
               {project.data.status === "archived" ? "Archived" : "Last updated"}
               : {dateStr}
-            </span>
+            </time>
           )
         }
       </div>
-    </div>
 
-    <div
-      class="grid grid-cols-1 md:grid-cols-[1fr_auto] items-start gap-6 pt-4 border-t border-border/40"
-    >
-      <div class="space-y-3">
-        <span
-          class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 block"
-        >
-          Engineered With
-        </span>
-        <div class="flex flex-wrap gap-2">
-          {
-            project.data.stack.map((techId: string) => (
-              // TechPill handles the lookup/icon. techId should match filenames in content/techs
-              <TechPill id={techId.toLowerCase()} />
-            ))
-          }
-        </div>
-      </div>
-
-      {
-        project.data.links.length > 0 && (
-          <div class="space-y-3">
-            <span class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 block">
-              Access
-            </span>
-            <div class="flex flex-wrap gap-3">
-              {project.data.links.map((link) => {
-                const Icon = linkIcons[link.type] ?? ExternalLink;
-                return (
-                  <AnchorExternalLink
-                    href={link.url}
-                    class="flex items-center gap-2 rounded-lg bg-muted/30 px-3 py-1.5 text-xs font-medium transition-colors hover:bg-muted"
-                  >
-                    <Icon class="size-3.5 opacity-60" />
-                    {link.label}
-                  </AnchorExternalLink>
-                );
-              })}
-            </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-[1fr_auto] items-start gap-6 pt-4 border-t border-border/40"
+      >
+        <div class="space-y-3">
+          <span
+            class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 block"
+          >
+            Engineered With
+          </span>
+          <div class="flex flex-wrap gap-2">
+            {
+              project.data.stack.map((techId: string) => (
+                // TechPill handles the lookup/icon. techId should match filenames in content/techs
+                <TechPill id={techId.toLowerCase()} />
+              ))
+            }
           </div>
-        )
-      }
+        </div>
+
+        {
+          project.data.links.length > 0 && (
+            <div class="space-y-3">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 block">
+                Access
+              </span>
+              <div class="flex flex-wrap gap-3">
+                {project.data.links.map((link) => {
+                  const Icon = linkIcons[link.type] ?? ExternalLink;
+                  return (
+                    <AnchorExternalLink
+                      href={link.url}
+                      class="flex items-center gap-2 rounded-lg bg-muted/30 px-3 py-1.5 text-xs font-medium transition-colors hover:bg-muted"
+                    >
+                      <Icon class="size-3.5 opacity-60" />
+                      {link.label}
+                    </AnchorExternalLink>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </div>
     </div>
   </div>
   <Content {components} />

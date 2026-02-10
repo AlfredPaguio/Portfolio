@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
 import mdx from "@astrojs/mdx";
@@ -18,5 +18,27 @@ export default defineConfig({
     remarkPlugins: [remarkReadingTime],
   },
 
-  integrations: [mdx()],
+  integrations: [
+    mdx({
+      remarkPlugins: [remarkReadingTime],
+    }),
+  ],
+
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: "Geist",
+      cssVariable: "--font-geist-sans",
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: "Geist Mono",
+      cssVariable: "--font-geist-mono",
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: "Noto Sans Symbols 2",
+      cssVariable: "--font-noto-sans-symbols",
+    },
+  ],
 });

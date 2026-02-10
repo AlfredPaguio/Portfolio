@@ -1,31 +1,33 @@
 ---
 import "@/assets/styles/global.css";
 import Footer from "@/components/footer/Footer.astro";
+import Head from "@/components/Head.astro";
 import Header from "@/components/Header.astro";
-import { siteConfig } from "@/data/site";
 
 interface Props {
   title?: string | null;
   description?: string | null;
+  openGraphImage?: string | null;
+  openGraphType?: string | null;
 }
 
-const { title: _title, description, ...props } = Astro.props;
+const {
+  title: _title,
+  description,
+  openGraphImage: _openGraphImage,
+  openGraphType,
+  ...props
+} = Astro.props;
+
+const openGraphImage = _openGraphImage ? _openGraphImage : null;
 
 const title = _title ? `${_title} | Alfred's Portfolio` : "Alfred's Portfolio";
 ---
+
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title={siteConfig.name}
-      href={new URL("rss.xml", Astro.site)}
-    />
+    <Head {title} {description} {openGraphImage} {openGraphType} />
     <title>{title}</title>
   </head>
   <body class="relative min-h-screen">
