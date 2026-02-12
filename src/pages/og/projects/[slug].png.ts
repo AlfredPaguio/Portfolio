@@ -70,6 +70,7 @@ const openGraphComponent = (
       tw: "flex flex-row w-full h-full bg-[#050505] text-white p-16 items-stretch justify-between relative overflow-hidden",
       style: { fontFamily: "Geist" },
       children: [
+        // Background Decor
         {
           type: "div",
           props: {
@@ -81,7 +82,7 @@ const openGraphComponent = (
         {
           type: "div",
           props: {
-            tw: "flex flex-col justify-between w-[60%] z-10",
+            tw: "flex flex-col justify-between w-[58%] h-full z-10",
             children: [
               // Top: Status & Branding
               {
@@ -113,17 +114,15 @@ const openGraphComponent = (
                     featured && {
                       type: "div",
                       props: {
-                        tw: "flex items-center justify-items-center gap-1.5 text-amber-500 text-sm font-normal uppercase tracking-widest fill-amber-500 leading-none",
+                        tw: "flex flex-row items-center gap-2 text-amber-500 text-sm font-bold uppercase tracking-widest",
                         children: [
-                          // svg
                           {
                             type: "svg",
                             props: {
                               width: 16,
                               height: 16,
-                              viewBox: "0 1 24 24",
+                              viewBox: "0 0 24 24",
                               fill: "#f59e0b",
-                              xmlns: "http://www.w3.org/2000/svg",
                               children: [
                                 {
                                   type: "path",
@@ -134,17 +133,11 @@ const openGraphComponent = (
                               ],
                             },
                           },
-                          // span
-                          {
-                            type: "span",
-                            props: {
-                              children: "Featured",
-                            },
-                          },
+                          { type: "span", props: { children: "Featured" } },
                         ],
                       },
                     },
-                  ],
+                  ].filter(Boolean),
                 },
               },
 
@@ -152,19 +145,19 @@ const openGraphComponent = (
               {
                 type: "div",
                 props: {
-                  tw: "flex flex-col gap-4",
+                  tw: "flex flex-col gap-4 flex-1 justify-center",
                   children: [
                     {
                       type: "h1",
                       props: {
-                        tw: "text-[80px] font-black leading-[1.1] m-0 tracking-tighter",
+                        tw: "text-[75px] font-black leading-[1.1] m-0 tracking-tighter",
                         children: title,
                       },
                     },
                     summary && {
                       type: "p",
                       props: {
-                        tw: "text-2xl text-zinc-400 leading-snug line-clamp-3",
+                        tw: "text-2xl text-zinc-400 leading-snug line-clamp-2",
                         children: summary,
                       },
                     },
@@ -176,7 +169,7 @@ const openGraphComponent = (
               {
                 type: "div",
                 props: {
-                  tw: "flex items-center gap-4",
+                  tw: "flex items-center gap-4 flex-shrink-0 mt-auto",
                   children: [
                     {
                       type: "img",
@@ -193,14 +186,14 @@ const openGraphComponent = (
                           {
                             type: "span",
                             props: {
-                              tw: "text-xl font-bold",
+                              tw: "text-xl font-bold leading-none",
                               children: "Alfred",
                             },
                           },
                           {
                             type: "span",
                             props: {
-                              tw: "text-sm text-zinc-500",
+                              tw: "text-sm text-zinc-500 mt-1 leading-none",
                               children: siteUrl,
                             },
                           },
@@ -218,13 +211,13 @@ const openGraphComponent = (
         {
           type: "div",
           props: {
-            tw: "flex flex-col justify-between w-[35%] z-10",
+            tw: "flex flex-col justify-between w-[38%] h-full z-10",
             children: [
               // Project Image Preview Box
               {
                 type: "div",
                 props: {
-                  tw: "flex bg-white/5 border border-white/10 rounded-3xl p-2 rotate-2 shadow-2xl",
+                  tw: "flex bg-white/5 border border-white/10 rounded-3xl p-2 rotate-2 shadow-2xl flex-shrink-0",
                   children: [
                     projectImage
                       ? {
@@ -242,7 +235,7 @@ const openGraphComponent = (
                               {
                                 type: "span",
                                 props: {
-                                  tw: "text-zinc-700 font-mono",
+                                  tw: "text-zinc-700 text-4xl font-mono",
                                   children: "</>",
                                 },
                               },
@@ -257,11 +250,11 @@ const openGraphComponent = (
               {
                 type: "div",
                 props: {
-                  tw: "flex flex-wrap gap-2 justify-end",
-                  children: stack.slice(0, 5).map((tech) => ({
+                  tw: "flex flex-wrap gap-2 justify-end items-end mt-auto",
+                  children: stack.slice(0, 5).map((tech: string) => ({
                     type: "span",
                     props: {
-                      tw: "bg-zinc-900 text-zinc-300 border border-white/5 px-3 py-1 rounded-md text-sm font-mono",
+                      tw: "bg-white/5 text-zinc-300 border border-white/10 px-3 py-1 rounded-md text-xs font-mono",
                       children: tech,
                     },
                   })),
