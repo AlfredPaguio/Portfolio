@@ -1,4 +1,5 @@
 import myImage from "@/assets/images/profile.png?url&inline";
+import { siteConfig } from "@/data/site";
 import dataUrlToArrayBuffer from "@/lib/utils/dataUrlToArrayBuffer";
 import type { Font, ImageSource } from "@takumi-rs/core";
 import ImageResponse from "@takumi-rs/image-response";
@@ -34,7 +35,7 @@ export const GET: APIRoute = async (context) => {
   ];
 
   return new ImageResponse(
-    openGraphComponent(projectData, context.url.origin),
+    openGraphComponent(projectData, context.url.origin, siteConfig.url),
     {
       width: 1200,
       height: 630,
@@ -46,12 +47,13 @@ export const GET: APIRoute = async (context) => {
 
 const openGraphComponent = (
   projectData: CollectionEntry<"projects">,
+  contextSiteUrl: string,
   siteUrl: string,
 ) => {
   // Meta Data
   const { title, status, stack, images, summary, featured } = projectData.data;
   const projectImage = images[0]?.src
-    ? new URL(images[0].src, siteUrl).href
+    ? new URL(images[0].src, contextSiteUrl).href
     : null;
 
   // Status color mapping
@@ -109,14 +111,37 @@ const openGraphComponent = (
                       },
                     },
                     featured && {
-                      type: "span",
+                      type: "div",
                       props: {
-                        tw: "text-amber-500 text-sm font-normal uppercase tracking-widest",
-                        // style: {
-                        //   fontFamily: "Geist, noto-sans-jp",
-                        // },
-                        // children: "\u2605 ★ Featured",
-                        children: "[Featured]",
+                        tw: "flex items-center justify-items-center gap-1.5 text-amber-500 text-sm font-normal uppercase tracking-widest fill-amber-500 leading-none",
+                        children: [
+                          // svg
+                          {
+                            type: "svg",
+                            props: {
+                              width: 16,
+                              height: 16,
+                              viewBox: "0 1 24 24",
+                              fill: "#f59e0b",
+                              xmlns: "http://www.w3.org/2000/svg",
+                              children: [
+                                {
+                                  type: "path",
+                                  props: {
+                                    d: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                          // span
+                          {
+                            type: "span",
+                            props: {
+                              children: "Featured",
+                            },
+                          },
+                        ],
                       },
                     },
                   ],

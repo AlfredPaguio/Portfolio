@@ -7,7 +7,8 @@ import dataUrlToArrayBuffer from "@/lib/utils/dataUrlToArrayBuffer";
 
 export const GET: APIRoute = async (context) => {
   // Meta Data
-  const siteUrl = siteConfig.url;
+  // const siteUrl = siteConfig.url;
+  const siteUrl = context.url.origin;
 
   const persistentImages: ImageSource[] = [
     {
