@@ -9,7 +9,6 @@ import ProjectStatus from "@/components/projects/ProjectStatus.astro";
 import ProjectMedia from "@/components/projects/ProjectMedia.astro";
 import { linkIcons } from "./_components/linkIcons";
 import ExternalLink from "@lucide/astro/icons/external-link";
-import { siteConfig } from "@/data/site";
 
 export const getStaticPaths = (async () => {
   const projects = await getCollection("projects");
@@ -33,8 +32,7 @@ const dateStr = project.data.date
     }).format(new Date(project.data.date))
   : null;
 
-const ogImageUrl = `${Astro.url.origin}/projects/${project.id}.png` || null;
-// const ogImageUrl = `${siteConfig.url}/projects/${project.id}.png` || null;
+const ogImageUrl = `${Astro.url.origin}/og/projects/${project.id}.png` || null;
 ---
 
 <MarkdownLayout frontmatter={project.data} openGraphImage={ogImageUrl} openGraphType="project">
