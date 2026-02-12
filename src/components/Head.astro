@@ -2,7 +2,21 @@
 import { siteConfig } from "@/data/site";
 import { Font } from "astro:assets";
 
-const { title, description, openGraphImage, openGraphType } = Astro.props;
+const {
+  title: _title,
+  description: _openGraphDescription,
+  openGraphImage: _openGraphImage,
+  openGraphType,
+  ...props
+} = Astro.props;
+
+const title = _title ? `${_title} | Alfred's Portfolio` : "Alfred's Portfolio";
+const openGraphImage = _openGraphImage
+  ? _openGraphImage
+  : new URL("/og/main.png", Astro.url.origin).href;
+const description = _openGraphDescription
+  ? _openGraphDescription
+  : siteConfig.description;
 ---
 
 <meta charset="utf-8" />
@@ -19,13 +33,12 @@ const { title, description, openGraphImage, openGraphType } = Astro.props;
 
 <Font cssVariable="--font-geist-sans" preload />
 <Font cssVariable="--font-geist-mono" preload />
-<Font cssVariable="--font-noto-sans-symbols" preload />
+<Font cssVariable="--font-noto-sans-jp" preload />
 
 {description ? <meta name="description" content={description} /> : null}
 {description ? <meta property="og:description" content={description} /> : null}
 
 <meta property="og:title" content={title} />
-{openGraphType ? <meta property="og:type" content={openGraphType} /> : null }
-{openGraphImage? <meta property="og:image" content={openGraphImage} /> : null}
+{openGraphType ? <meta property="og:type" content={openGraphType} /> : null}
+{openGraphImage ? <meta property="og:image" content={openGraphImage} /> : null}
 <meta property="og:url" content={Astro.url.href} />
-

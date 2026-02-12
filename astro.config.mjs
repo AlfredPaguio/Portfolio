@@ -37,8 +37,8 @@ export default defineConfig({
     },
     {
       provider: fontProviders.fontsource(),
-      name: "Noto Sans Symbols 2",
-      cssVariable: "--font-noto-sans-symbols",
+      name: "Noto Sans JP",
+      cssVariable: "--font-noto-sans-jp",
     },
   ],
 });

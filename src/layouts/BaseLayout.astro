@@ -11,23 +11,14 @@ interface Props {
   openGraphType?: string | null;
 }
 
-const {
-  title: _title,
-  description,
-  openGraphImage: _openGraphImage,
-  openGraphType,
-  ...props
-} = Astro.props;
-
-const openGraphImage = _openGraphImage ? _openGraphImage : null;
-
-const title = _title ? `${_title} | Alfred's Portfolio` : "Alfred's Portfolio";
+const { title, description, openGraphImage, openGraphType, ...props } =
+  Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <Head {title} {description} {openGraphImage} {openGraphType} />
+    <Head {title} {description} {openGraphImage} {openGraphType} {...props} />
     <title>{title}</title>
   </head>
   <body class="relative min-h-screen">
