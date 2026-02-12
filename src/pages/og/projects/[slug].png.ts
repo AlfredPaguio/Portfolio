@@ -12,20 +12,19 @@ export const GET: APIRoute = async (context) => {
     context.props;
 
   // Load Font
-  const data = fontData["--font-noto-sans-jp"];
-  const fontLoader = await fetch(
-    new URL(data[0].src[0].url, context.url.origin),
-  ).then((res) => res.arrayBuffer());
+  // const data = fontData["--font-noto-sans-jp"];
+  // const fontLoader = await fetch(
+  //   new URL(data[0].src[0].url, context.url.origin),
+  // ).then((res) => res.arrayBuffer());
 
-
-  const fonts: Font[] = [
-    {
-      name: "noto-sans-jp",
-      data: fontLoader,
-      weight: 400,
-      style: "normal",
-    },
-  ];
+  // const fonts: Font[] = [
+  //   {
+  //     name: "noto-sans-jp",
+  //     data: fontLoader,
+  //     weight: 400,
+  //     style: "normal",
+  //   },
+  // ];
 
   const persistentImages: ImageSource[] = [
     {
@@ -34,18 +33,12 @@ export const GET: APIRoute = async (context) => {
     },
   ];
 
-  // console.log("can you load font? ", fonts)
-  // console.log("what url are you? ", data[0].src[0].url)
-  // console.log("what url are you? ", data[0].src[0].url)
-  // console.log("what completed url are you? ", new URL(data[0].src[0].url, context.url.origin))
-  // console.log("your arraybuffer? ", interBuffer)
-
   return new ImageResponse(
     openGraphComponent(projectData, context.url.origin),
     {
       width: 1200,
       height: 630,
-      fonts: fonts,
+      // fonts: fonts,
       persistentImages,
     },
   );
@@ -119,12 +112,11 @@ const openGraphComponent = (
                       type: "span",
                       props: {
                         tw: "text-amber-500 text-sm font-normal uppercase tracking-widest",
-                        style: {
-                          fontFamily: "noto-sans-jp",
-                        },
-                        
-                        children: "\u2605 ★ Featured",
-                        // children: "[Featured]",
+                        // style: {
+                        //   fontFamily: "Geist, noto-sans-jp",
+                        // },
+                        // children: "\u2605 ★ Featured",
+                        children: "[Featured]",
                       },
                     },
                   ],
