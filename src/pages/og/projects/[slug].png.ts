@@ -1,10 +1,8 @@
 import myImage from "@/assets/images/profile.png?url&inline";
-import { siteConfig } from "@/data/site";
 import dataUrlToArrayBuffer from "@/lib/utils/dataUrlToArrayBuffer";
-import type { Font, ImageSource } from "@takumi-rs/core";
+import type { ImageSource } from "@takumi-rs/core";
 import ImageResponse from "@takumi-rs/image-response";
 import type { APIRoute, GetStaticPaths } from "astro";
-import { fontData } from "astro:assets";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 export const GET: APIRoute = async (context) => {
@@ -35,7 +33,7 @@ export const GET: APIRoute = async (context) => {
   ];
 
   return new ImageResponse(
-    openGraphComponent(projectData, context.url.origin, siteConfig.url),
+    openGraphComponent(projectData, context.url.origin),
     {
       width: 1200,
       height: 630,
@@ -47,13 +45,12 @@ export const GET: APIRoute = async (context) => {
 
 const openGraphComponent = (
   projectData: CollectionEntry<"projects">,
-  contextSiteUrl: string,
   siteUrl: string,
 ) => {
   // Meta Data
   const { title, status, stack, images, summary, featured } = projectData.data;
   const projectImage = images[0]?.src
-    ? new URL(images[0].src, contextSiteUrl).href
+    ? new URL(images[0].src, siteUrl).href
     : null;
 
   // Status color mapping

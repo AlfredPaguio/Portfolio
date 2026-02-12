@@ -1,13 +1,11 @@
 import myImage from "@/assets/images/profile.png?url&inline";
-import { siteConfig } from "@/data/site";
-import ImageResponse from "@takumi-rs/image-response";
-import type { ImageSource } from "@takumi-rs/core";
-import type { APIRoute } from "astro";
 import dataUrlToArrayBuffer from "@/lib/utils/dataUrlToArrayBuffer";
+import type { ImageSource } from "@takumi-rs/core";
+import ImageResponse from "@takumi-rs/image-response";
+import type { APIRoute } from "astro";
 
 export const GET: APIRoute = async (context) => {
   // Meta Data
-  // const siteUrl = siteConfig.url;
   const siteUrl = context.url.origin;
 
   const persistentImages: ImageSource[] = [
