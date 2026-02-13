@@ -36,19 +36,21 @@ const currentPath = Astro.url.pathname;
     data-state="closed"
     role="menu"
     aria-labelledby="menu-button"
-    class="fixed inset-x-6 top-20 z-50
-         flex flex-col gap-2 p-2 rounded-2xl
-         border border-border bg-background/95
-         backdrop-blur-md shadow-2xl
-         opacity-0 translate-y-4 scale-95
+    class="fixed inset-x-4 top-22 z-50
+         flex flex-col gap-1 p-1.5 rounded-2xl
+         border border-border/60 bg-card
+         backdrop-blur-xl shadow-lg
+         ring-1 ring-black/5 dark:ring-white/5
+         opacity-0 translate-y-2 scale-[0.98]
          pointer-events-none invisible
          data-[state=open]:opacity-100
          data-[state=open]:translate-y-0
          data-[state=open]:scale-100
          data-[state=open]:pointer-events-auto
          data-[state=open]:visible
-         transition-all duration-300 ease-in-out
-         motion-reduce:transition-none"
+         transition-all duration-200 ease-out
+         motion-reduce:transition-none
+         overflow-hidden"
   >
     {
       navItems.map((item) => (
@@ -56,13 +58,19 @@ const currentPath = Astro.url.pathname;
           href={item.href}
           role="menuitem"
           class:list={[
-            "px-4 py-3 rounded-xl text-sm font-bold transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2",
+            "relative px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 focus:outline-hidden focus:ring-2 focus:ring-ring/50 focus:ring-offset-1",
             currentPath === item.href
-              ? "bg-primary text-primary-foreground"
-              : "hover:bg-muted",
+              ? "bg-primary text-primary-foreground shadow-sm"
+              : "hover:bg-muted/70 active:scale-[0.98]",
           ]}
         >
           {item.label}
+          {currentPath !== item.href && (
+            <span
+              class="absolute inset-0 rounded-xl in-focus:bg-accent/5 transition-colors duration-150"
+              aria-hidden="true"
+            />
+          )}
         </a>
       ))
     }
@@ -93,13 +101,20 @@ const currentPath = Astro.url.pathname;
       toggleMenu();
     }
   });
+
   document.addEventListener("keydown", (e) => {
     if (
       e.key === "Escape" &&
       button?.getAttribute("aria-expanded") === "true"
     ) {
       toggleMenu();
-      button.focus();
+      button?.focus();
     }
+  });
+
+  menu?.querySelectorAll('a[role="menuitem"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      toggleMenu();
+    });
   });
 </script>
