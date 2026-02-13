@@ -18,20 +18,23 @@ const { title, description, openGraphImage, openGraphType, ...props } =
 <!doctype html>
 <html lang="en">
   <Head {title} {description} {openGraphImage} {openGraphType} {...props} />
-  <body class="relative min-h-screen">
+  <body class="relative min-h-screen flex flex-col">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only absolute top-4 left-4 bg-primary text-primary-foreground p-2 rounded-md z-50"
+      class="sr-only focus:not-sr-only absolute top-4 left-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg z-50 font-medium shadow-lg focus:ring-2 focus:ring-ring focus:ring-offset-2"
     >
       Skip to content
     </a>
+
     <Header />
+
     <main
       id="main"
-      class="max-w-5xl mx-auto px-6 pt-32 pb-8 min-h-[calc(100vh-80px)]"
+      class="flex-1 w-full max-w-5xl mx-auto px-6 pt-28 md:pt-32 pb-16"
     >
       <slot />
     </main>
+
     <Footer />
   </body>
 </html>
