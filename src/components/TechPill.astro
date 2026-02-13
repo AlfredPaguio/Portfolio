@@ -1,12 +1,14 @@
 ---
 import { cn } from "@/lib/utils/cn";
 import { normalizeId } from "@/lib/utils/normalizeId";
+import toTitleCase from "@/lib/utils/toTitleCase";
 import { getCollection, render } from "astro:content";
 interface Props {
   class?: string;
   id: string;
+  version?: string | number;
 }
-const { id, class: className } = Astro.props;
+const { id, class: className, version: versionOverride } = Astro.props;
 const techs = await getCollection("techs");
 
 const tech = techs.find(
@@ -21,6 +23,9 @@ if (hasEntry) {
   const rendered = await render(tech);
   Content = rendered.Content;
 }
+
+// Determine which version to display (Prop takes priority)
+const displayVersion = versionOverride ?? tech?.data.version;
 ---
 
 <div
@@ -49,9 +54,9 @@ if (hasEntry) {
         )}
         <span>
           {tech.data.name}
-          {tech.data.version && (
+          {displayVersion && (
             <span class="ml-1 font-normal opacity-60 text-[10px]">
-              {tech.data.version}
+              {displayVersion}
             </span>
           )}
         </span>
@@ -60,7 +65,13 @@ if (hasEntry) {
       // Fallback
       <div class="inline-flex items-center gap-2 no-underline px-3 py-1">
         <span class="text-xs font-bold leading-none">
-          {id.replace(/-/g, " ")}
+          {/* {id.replace(/-/g, " ")} */}
+          {toTitleCase(id)}
+          {versionOverride && (
+            <span class="ml-1 font-normal opacity-60 text-[10px]">
+              {versionOverride}
+            </span>
+          )}
         </span>
       </div>
     )

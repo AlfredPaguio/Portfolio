@@ -35,7 +35,11 @@ const dateStr = project.data.date
 const ogImageUrl = `${Astro.url.origin}/og/projects/${project.id}.png` || null;
 ---
 
-<MarkdownLayout frontmatter={project.data} openGraphImage={ogImageUrl} openGraphType="project">
+<MarkdownLayout
+  frontmatter={project.data}
+  openGraphImage={ogImageUrl}
+  openGraphType="project"
+>
   <div slot="metadata" class="w-full space-y-6">
     <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
       {
@@ -80,10 +84,14 @@ const ogImageUrl = `${Astro.url.origin}/og/projects/${project.id}.png` || null;
           </span>
           <div class="flex flex-wrap gap-2">
             {
-              project.data.stack.map((techId: string) => (
-                // TechPill handles the lookup/icon. techId should match filenames in content/techs
-                <TechPill id={techId.toLowerCase()} />
-              ))
+              project.data.stack.map((techId: string) => {
+                const [name, version] = techId.split(":");
+
+                return (
+                  // TechPill handles the lookup/icon. techId should match filenames in content/techs
+                  <TechPill id={name.toLowerCase()} version={version}/>
+                );
+              })
             }
           </div>
         </div>

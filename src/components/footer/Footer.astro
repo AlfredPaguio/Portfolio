@@ -5,7 +5,6 @@ import Quote from "../Quote.astro";
 import TechPill from "../TechPill.astro";
 import FooterNav from "./FooterNav.astro";
 
-
 const year = new Date().getFullYear();
 ---
 
@@ -43,11 +42,13 @@ const year = new Date().getFullYear();
           >
             <TechPill
               id="astro"
+              version="v6"
               class="scale-90 border-none bg-transparent px-1"
             />
             <span class="font-mono opacity-20">&</span>
             <TechPill
               id="tailwindcss"
+              version="v4"
               class="scale-90 border-none bg-transparent px-1"
             />
           </div>
