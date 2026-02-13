@@ -31,6 +31,15 @@ const formattedDate = project.data.date
   )}
 >
   <div
+    class="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+    aria-hidden="true"
+    style="background: radial-gradient(600px circle at var(--x) var(--y), 
+     color-mix(in srgb, var(--color-primary) 15%, transparent),
+     transparent 40%);"
+  >
+  </div>
+
+  <div
     class="flex items-center justify-between border-b border-border bg-muted px-3 py-1.5"
   >
     <div class="flex items-center gap-2">
@@ -107,3 +116,15 @@ const formattedDate = project.data.date
     </div>
   </div>
 </div>
+
+<script>
+  if (typeof window !== "undefined") {
+    document.querySelectorAll<HTMLElement>(".group").forEach((card) => {
+      card.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--y", `${e.clientY - rect.top}px`);
+      });
+    });
+  }
+</script>

@@ -136,7 +136,93 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
   }
 }
+
+/* BG */
+:root {
+  --bg-gradient: radial-gradient(
+    70% 50% at 50% 0%,
+    oklch(0.99 0 0) 0%,
+    oklch(0.96 0 0) 100%
+  );
+}
+
+.dark {
+  --bg-gradient: radial-gradient(
+    70% 50% at 50% 0%,
+    oklch(0.18 0 0) 0%,
+    oklch(0.12 0 0) 100%
+  );
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@utility animate-reveal {
+  animation: reveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/* ========================
+tailwindcss-animation-delay
+https://github.com/burnworks/tailwindcss-animation-delay
+======================== */
+@utility animation-delay-none {
+  animation-delay: 0s;
+}
+@utility animation-delay-inherit {
+  animation-delay: inherit;
+}
+@utility animation-delay-initial {
+  animation-delay: initial;
+}
+@utility animation-delay-revert {
+  animation-delay: revert;
+}
+@utility animation-delay-revert-layer {
+  animation-delay: revert-layer;
+}
+@utility animation-delay-unset {
+  animation-delay: unset;
+}
+@utility animation-delay-* {
+  animation-delay: --value([*]);
+  animation-delay: calc(--value(integer) * 1ms);
+}
+
+/* Usage ========================
+1) Integer
+e.g.
+animation-delay-75 -> animation-delay: 75ms;
+animation-delay-300 -> animation-delay: 300ms;
+
+2) Keyword (the following are predefined)
+animation-delay-none -> animation-delay: 0s;
+animation-delay-inherit -> animation-delay: inherit;
+animation-delay-initial -> animation-delay: initial;
+animation-delay-revert -> animation-delay: revert;
+animation-delay-revert-layer -> animation-delay: revert-layer;
+animation-delay-unset -> animation-delay: unset;
+
+3) Any <time> value
+e.g.
+animation-delay-[1.5s] -> animation-delay: 1.5s;
+animation-delay-[-1500ms] -> animation-delay: -1500ms;
+======================== */
+
+/* end of tailwindcss-animation-delay setting */
