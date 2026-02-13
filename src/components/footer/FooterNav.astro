@@ -2,7 +2,7 @@
 const links = [
   { label: "Privacy", href: "/privacy" },
   { label: "Now", href: "/now" },
-  { label: "Top ↑", href: "#main" },
+  { label: "Top ↑", href: "#footer-top-link" },
 ];
 ---
 
@@ -18,3 +18,15 @@ const links = [
     ))
   }
 </nav>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const topLink = document.querySelector('a[href="#footer-top-link"]');
+    if (topLink) {
+      topLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+  });
+</script>
