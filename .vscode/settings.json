@@ -17,5 +17,7 @@
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontLigatures": true,
   "workbench.editor.enablePreview": false,
-  "svg.preview.background": "editor"
+  "svg.preview.background": "editor",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
 }

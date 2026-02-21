@@ -5,7 +5,9 @@ import X from "@lucide/astro/icons/x";
 import ChevronLeft from "@lucide/astro/icons/chevron-left";
 import ChevronRight from "@lucide/astro/icons/chevron-right";
 import Download from "@lucide/astro/icons/download";
-import ProjectVideo from "./ProjectVideo.astro";
+import ProjectVideo from "@/components/projects/ProjectVideo.astro";
+import Separator from "@/components/ui/Separator.astro";
+
 
 interface Props {
   images?: { src: string; alt?: string }[];
@@ -86,48 +88,68 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
 <dialog
   id="gallery-dialog"
   data-gallery={mediaSerialized}
-  class="m-auto w-full h-full max-h-dvh sm:h-auto overflow-hidden sm:rounded-2xl border-none sm:border border-border bg-background p-0 shadow-2xl backdrop:bg-background/95 backdrop:backdrop-blur-xl outline-none"
+  class="fixed inset-0 z-100 m-0 size-full max-w-none max-h-none border-none bg-background p-0 outline-none backdrop:bg-black/95 backdrop:backdrop-blur-xl"
 >
   <div class="flex flex-col h-full outline-none">
     {/* Responsive Header */}
     <div
       class="flex items-center justify-between border-b border-border bg-muted/10 px-4 py-3 z-50 select-none safe-top"
     >
-      <span
-        id="modal-counter"
-        class="text-[10px] font-mono font-bold text-muted-foreground uppercase tracking-widest"
-        >00 / 00</span
-      >
-
-      <span
-        id="modal-title"
-        class="text-[10px] font-mono font-bold text-muted-foreground uppercase tracking-widest"
-        >Title</span
-      >
-      <div class="flex items-center gap-1 sm:gap-2">
+      <div class="flex flex-col gap-0.5">
+        <span
+          id="modal-counter"
+          class="text-sm font-mono font-bold text-primary uppercase tracking-tighter"
+          >00 / 00</span
+        >
+        <span
+          id="modal-title"
+          class="text-sm font-mono font-medium text-muted-foreground uppercase truncate max-w-30 sm:max-w-xs"
+          >Title</span
+        >
+      </div>
+      <div class="flex items-center gap-2">
         <a
           id="download-btn"
           href="#"
           download
-          class="flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground hover:bg-muted"
-          title="Download"
+          class="flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground hover:bg-muted p-1"
+          title="Download Asset"
         >
           <Download class="size-4" />
         </a>
-        <div class="mx-0.5 h-4 w-px bg-border"></div>
-        <button
-          id="prev-btn"
-          class="flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground hover:bg-muted cursor-pointer"
-          ><ChevronLeft class="size-5" /></button
+
+        <Separator
+          orientation="vertical"
+          class="aria-[orientation=vertical]:self-center h-4"
+        />
+
+        <div
+          class="flex items-center bg-background rounded-lg p-1 border border-border"
         >
-        <button
-          id="next-btn"
-          class="flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground hover:bg-muted cursor-pointer"
-          ><ChevronRight class="size-5" /></button
-        >
+          <button
+            id="prev-btn"
+            aria-label="Previous Asset"
+            class="flex size-9 items-center justify-center rounded-lg text-foreground hover:bg-muted cursor-pointer"
+          >
+            <ChevronLeft class="size-5" />
+          </button>
+          <button
+            id="next-btn"
+            aria-label="Next Asset"
+            class="flex size-9 items-center justify-center rounded-lg text-foreground hover:bg-muted cursor-pointer"
+          >
+            <ChevronRight class="size-5" />
+          </button>
+        </div>
+
+        <Separator
+          orientation="vertical"
+          class="aria-[orientation=vertical]:self-center h-4"
+        />
+
         <form method="dialog">
           <button
-            class="flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground hover:bg-destructive/70 active:bg-destructive active:text-white cursor-pointer"
+            class="flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground hover:bg-destructive/70 active:bg-destructive active:text-white cursor-pointer p-1"
           >
             <X class="size-5" />
           </button>
@@ -138,7 +160,7 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
     {/* Viewport: Force 16/9 on Desktop, Flex-grow on Mobile */}
     <div
       id="modal-viewport"
-      class="relative grow sm:aspect-video w-full bg-black flex items-center justify-center overflow-hidden outline-none"
+      class="relative grow sm:aspect-video w-full bg-black/20 flex items-center justify-center overflow-hidden outline-none"
       draggable="false"
     >
     </div>
@@ -271,6 +293,7 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
 
   #gallery-dialog {
     touch-action: none; /* Prevents browser pull-to-refresh while zoomed */
+    --scrollbar-gutter: 0px;
   }
 
   #modal-viewport iframe {
@@ -287,24 +310,6 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
   dialog[open]::backdrop {
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(15px);
-  }
-
-  /* Prevent double scrollbars on the HTML/Body level */
-  html:has(dialog[open]),
-  body:has(dialog[open]) {
-    overflow: hidden !important;
-    /* Prevents the "jumping" effect when scrollbar disappears */
-    padding-right: var(--scrollbar-gutter, 0px);
-  }
-
-  /* Strip default dialog scrollbars */
-  #gallery-dialog {
-    overflow: hidden !important;
-    scrollbar-width: none; /* Firefox */
-  }
-
-  #gallery-dialog::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
   }
 
   /* Ensure the viewport handles the content sizing */
@@ -325,5 +330,23 @@ const padIndex = (i: number) => String(i + 1).padStart(2, "0");
     -moz-user-select: none !important;
     -ms-user-select: none !important;
     user-select: none !important;
+  }
+
+  /* Prevent double scrollbars on the HTML/Body level */
+  html:has(dialog[open]),
+  body:has(dialog[open]) {
+    overflow: hidden !important;
+    /* Prevents the "jumping" effect when scrollbar disappears */
+    padding-right: var(--scrollbar-gutter, 0px);
+  }
+
+  /* Strip default dialog scrollbars */
+  #gallery-dialog {
+    overflow: hidden !important;
+    scrollbar-width: none; /* Firefox */
+  }
+
+  #gallery-dialog::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
   }
 </style>
