@@ -11,7 +11,7 @@ export async function GET(context) {
   });
 
   return rss({
-    stylesheet: "public/rss/pretty-feed-v3.xsl",
+    stylesheet: "/rss/pretty-feed-v3.xsl",
     title: `${siteConfig.name}`,
     description: `${siteConfig.description}`,
     site: context.site,
