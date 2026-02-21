@@ -40,7 +40,7 @@ const ogImageUrl = `${Astro.url.origin}/og/projects/${project.id}.png` || null;
   openGraphImage={ogImageUrl}
   openGraphType="project"
 >
-  <div slot="metadata" class="w-full space-y-6 animate-reveal animation-delay-200">
+  <div slot="metadata" class="w-full space-y-6 animate-reveal animation-delay-200 will-change-auto">
     <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
       {
         project.data.status && (

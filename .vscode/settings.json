@@ -16,5 +16,6 @@
   "editor.lineHeight": 1.7,
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontLigatures": true,
-  "workbench.editor.enablePreview": false
+  "workbench.editor.enablePreview": false,
+  "svg.preview.background": "editor"
 }

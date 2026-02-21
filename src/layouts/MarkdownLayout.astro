@@ -14,7 +14,7 @@ const { frontmatter, openGraphImage, ...props } = Astro.props;
   {...props}
 >
   <div class="space-y-8">
-    <header class="animate-reveal animation-delay-100">
+    <header class="animate-reveal animation-delay-100 will-change-auto">
       <nav class="mb-4">
         <Button
           href="/projects"
@@ -44,12 +44,12 @@ const { frontmatter, openGraphImage, ...props } = Astro.props;
     <slot name="metadata" />
 
     <Section
-      class="prose dark:prose-invert border-t border-border pt-4! py-0 max-w-none animate-reveal animation-delay-300"
+      class="prose dark:prose-invert border-t border-border pt-4! py-0 max-w-none animate-reveal animation-delay-300 will-change-transform"
     >
       <slot />
     </Section>
 
-    <nav class="mt-4 flex justify-end-safe items-center-safe w-full animate-reveal animation-delay-400">
+    <nav class="mt-4 flex justify-end-safe items-center-safe w-full animate-reveal animation-delay-400 will-change-auto">
       <Button
         href="/projects"
         variant="ghost"

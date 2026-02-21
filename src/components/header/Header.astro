@@ -1,7 +1,9 @@
 ---
+import Brand from "../Brand.astro";
+import Button from "@/components/ui/Button.astro";
 import MobileMenu from "./MobileMenu.astro";
 import Navigation from "./Navigation.astro";
-import ThemeIcon from "./ThemeIcon.astro";
+import ThemeIcon from "@/components/ThemeIcon.astro";
 ---
 
 <header
@@ -10,16 +12,9 @@ import ThemeIcon from "./ThemeIcon.astro";
   <div
     class="flex items-center justify-between w-full max-w-5xl h-14 px-5 rounded-full border border-border/60 bg-background/10 backdrop-blur-xl shadow-lg shadow-black/5 ring-1 ring-black/5 dark:ring-white/5 pointer-events-auto transition-all duration-300"
   >
-    <a
-      href="/"
-      class="text-sm font-semibold tracking-tight
-             hover:text-muted-foreground
-             transition-colors duration-200
-             focus:outline-hidden focus:ring-2 focus:ring-ring/50 focus:ring-offset-2
-             rounded-md px-1.5 py-1 -ml-1.5"
-    >
-      Portfolio
-    </a>
+    <Button size="icon-lg" variant="ghost" href="/" class="-ml-1.5">
+      <Brand class="size-8"/>
+    </Button>
 
     <div class="flex items-center gap-1.5">
       <div class="hidden md:block">

@@ -27,7 +27,7 @@ const otherProjects = projects
   title="Projects"
   description="Full list of software projects and technical experiments."
 >
-  <Section class="mb-12 animate-reveal animation-delay-100">
+  <Section class="mb-12 animate-reveal animation-delay-100 will-change-auto">
     <header class="flex items-end justify-between">
       <div>
         <h1 class="text-4xl font-bold tracking-tight mb-2">Projects</h1>
@@ -48,7 +48,7 @@ const otherProjects = projects
     featuredProjects.length > 0 && (
       <Section
         title="Featured Work(s)"
-        class="mb-16 animate-reveal animation-delay-300"
+        class="mb-16 animate-reveal animation-delay-300 will-change-auto"
       >
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           {featuredProjects.map((project) => (
@@ -59,7 +59,7 @@ const otherProjects = projects
     )
   }
 
-  <Section title="All Projects" class="animate-reveal animation-delay-200">
+  <Section title="All Projects" class="animate-reveal animation-delay-200 will-change-auto">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {otherProjects.map((project) => <ProjectCard project={project} />)}
     </div>
@@ -67,7 +67,7 @@ const otherProjects = projects
 
   <Section
     title="Ready to build?"
-    class="mt-20 border-t border-border pt-12 text-center animate-reveal animation-delay-300"
+    class="mt-20 border-t border-border pt-12 text-center animate-reveal animation-delay-300 will-change-auto"
   >
     <p class="text-lg mb-6 text-neutral-500">
       Have a system that needs refactoring or a new feature logic?
