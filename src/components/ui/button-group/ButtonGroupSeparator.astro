@@ -1,0 +1,19 @@
+---
+import Separator from "@/components/ui/Separator.astro";
+import { cn } from "@/lib/utils/cn";
+import type { ComponentProps } from "astro/types";
+
+export type Props = ComponentProps<typeof Separator>;
+
+const { orientation = "vertical", class: className, ...props } = Astro.props;
+---
+
+<Separator
+  data-slot="button-group-separator"
+  aria-orientation={orientation}
+  class={cn(
+    "bg-input relative self-stretch aria-[orientation=horizontal]:mx-px aria-[orientation=horizontal]:w-auto aria-[orientation=vertical]:my-px aria-[orientation=vertical]:h-auto",
+    className,
+  )}
+  {...props}
+/>
