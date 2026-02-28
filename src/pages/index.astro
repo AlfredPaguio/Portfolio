@@ -16,10 +16,18 @@ import { Content as GithubIcon } from "@/content/techs/github.mdx";
 
 import { siteConfig } from "@/data/site";
 import Hand from "@lucide/astro/icons/hand";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Badge from "@/components/ui/Badge.astro";
 
 const allProjects = await getCollection("projects");
-const featuredProjects = allProjects
-  .filter((p) => p.data.featured)
+const recentProjects = allProjects
+  // .filter((p) => p.data.featured)
   .sort((a, b) => (b.data.date?.getTime() || 0) - (a.data.date?.getTime() || 0))
   .slice(0, 4);
 
@@ -132,37 +140,47 @@ const coreStack = [
     </p>
   </Section>
 
-  <Section
-    title="Expertise"
+  <Card
+    size="sm"
     id="skills"
-    class="animate-reveal animation-delay-500"
+    class="animate-reveal animation-delay-500 relative py-8 lg:py-12"
   >
-    <div class="flex grid-cols-2 gap-2">
-      {
-        coreStack.map((skill) => (
-          <div class="flex items-center justify-between p-4 rounded-xl border border-border bg-card">
-            <TechPill
-              id={skill.id}
-              class="rounded-none border-0 border-transparent bg-transparent"
-            />
-            <span class="text-xs font-mono text-muted-foreground">
-              {skill.years}
-            </span>
-          </div>
-        ))
-      }
-    </div>
-  </Section>
+    <CardHeader class="pb-3">
+      <CardTitle
+        class="text-sm font-semibold uppercase tracking-wider text-muted-foreground"
+      >
+        Core Technologies
+      </CardTitle>
+      <CardDescription class="text-xs">
+        Technologies I work with regularly
+      </CardDescription>
+    </CardHeader>
 
-  <!-- Featured Projects -->
+    <CardContent>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {
+          coreStack.map((skill) => (
+            <div class="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/30 hover:bg-muted/50 transition-colors">
+              <TechPill id={skill.id} class="border-0 bg-transparent px-0" />
+              <Badge variant="secondary" class="font-mono text-[10px]">
+                {skill.years}
+              </Badge>
+            </div>
+          ))
+        }
+      </div>
+    </CardContent>
+  </Card>
+
+  <!-- Recent Projects -->
   <Section
-    title="Featured projects"
-    id="featured"
+    title="Recent projects"
+    id="recent"
     class="animate-reveal animation-delay-600"
   >
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-6">
       {
-        featuredProjects.map((project, index) => {
+        recentProjects.map((project, index) => {
           const isLarge = index === 0 || index === 3;
 
           return (
