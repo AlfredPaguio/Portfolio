@@ -6,7 +6,12 @@ import { getCollection } from "astro:content";
 import Rss from "@lucide/astro/icons/rss";
 import { siteConfig } from "@/data/site";
 import Button from "@/components/ui/Button.astro";
-import MoveLeft from "@lucide/astro/icons/move-left";
+import MoveRight from "@lucide/astro/icons/move-right";
+import MailIcon from "@lucide/astro/icons/mail";
+import Badge from "@/components/ui/Badge.astro";
+import FileDown from "@lucide/astro/icons/file-down";
+
+import { frontmatter as resumeData } from "@/content/resumes.md";
 
 const projects = await getCollection("projects");
 
@@ -21,33 +26,65 @@ const otherProjects = projects
   .sort(
     (a, b) => (b.data.date?.getTime() || 0) - (a.data.date?.getTime() || 0),
   );
+
+// Get unique tech stack for filtering
+const allTech = [
+  ...new Set(
+    projects.flatMap((p) =>
+      (p.data.stack || []).map((tech) => tech.split(":")[0].trim()),
+    ),
+  ),
+];
 ---
 
 <BaseLayout
   title="Projects"
   description="Full list of software projects and technical experiments."
 >
-  <Section class="mb-12 animate-reveal animation-delay-100 will-change-auto">
-    <header class="flex items-end justify-between">
-      <div>
-        <h1 class="text-4xl font-bold tracking-tight mb-2">Projects</h1>
-        <p class="text-muted-foreground text-lg">
+  <Section class="mb-12 animate-reveal animation-delay-100">
+    <div
+      class="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+    >
+      <div class="space-y-4">
+        <h1 class="text-4xl font-extrabold tracking-tighter sm:text-5xl">
+          Projects
+        </h1>
+        <p class="text-xl text-muted-foreground leading-relaxed max-w-2xl">
           A collection of systems, tools, and experiments.
         </p>
+
+        <div class="flex flex-wrap gap-3 pt-2">
+          <Badge variant="secondary" class="text-sm">
+            {projects.length} Total Projects
+          </Badge>
+          <Badge variant="outline" class="text-sm">
+            {featuredProjects.length} Featured
+          </Badge>
+          <Badge variant="outline" class="text-sm">
+            {allTech.length} Technologies
+          </Badge>
+        </div>
       </div>
-      <a
-        href="/rss.xml"
-        class="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors pb-1"
-      >
-        <Rss class="size-4" /> RSS Feed
-      </a>
-    </header>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <Button
+          href={`mailto:${siteConfig.email}?subject=Project%20Discussion`}
+          size="lg"
+        >
+          <MailIcon class="size-4" />
+          Discuss a Project
+        </Button>
+        <Button href="/rss.xml" variant="outline" size="lg">
+          <Rss data-icon="inline-start" class="size-4" />RSS Feed
+        </Button>
+      </div>
+    </div>
   </Section>
 
   {
     featuredProjects.length > 0 && (
       <Section
-        title="Featured Work(s)"
+        title="Featured Work"
         class="mb-16 animate-reveal animation-delay-300 will-change-auto"
       >
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -59,34 +96,40 @@ const otherProjects = projects
     )
   }
 
-  <Section title="All Projects" class="animate-reveal animation-delay-200 will-change-auto">
+  <Section
+    title="All Projects"
+    class="animate-reveal animation-delay-200 will-change-auto"
+  >
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {otherProjects.map((project) => <ProjectCard project={project} />)}
     </div>
   </Section>
 
   <Section
-    title="Ready to build?"
-    class="mt-20 border-t border-border pt-12 text-center animate-reveal animation-delay-300 will-change-auto"
+    class="mt-20 border-t border-border pt-12 text-center animate-reveal animation-delay-400"
   >
-    <p class="text-lg mb-6 text-neutral-500">
-      Have a system that needs refactoring or a new feature logic?
-    </p>
-    <a
-      href={`mailto:${siteConfig.email}`}
-      class="text-3xl font-bold underline underline-offset-8 hover:text-primary transition-colors"
-    >
-      Let's collaborate &rarr;
-    </a>
+    <div class="max-w-2xl mx-auto space-y-6">
+      <h2 class="text-2xl font-bold">Ready to build?</h2>
+      <p class="text-muted-foreground text-lg">
+        I specialize in improving existing codebases, reducing technical debt,
+        and building maintainable applications with Laravel and React.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href={`mailto:${siteConfig.email}`} size="lg">
+          Let's Collaborate <MoveRight data-icon="inline-end" />
+        </Button>
+        <Button
+          href={resumeData.software_engineer || "#"}
+          variant="outline"
+          size="lg"
+        >
+          Download Resume
+          <FileDown data-icon="inline-end" />
+        </Button>
+      </div>
+      <p class="text-xs text-muted-foreground pt-4">
+        I typically respond within 24 hours • Open to remote & full-time work
+      </p>
+    </div>
   </Section>
-  <nav class="mt-4 flex justify-end-safe items-center-safe w-full">
-    <Button
-      href="/"
-      variant="ghost"
-      size="sm"
-      class="-ml-3 text-muted-foreground hover:text-foreground"
-    >
-      <MoveLeft class="mr-2" /> Back to Home
-    </Button>
-  </nav>
 </BaseLayout>
