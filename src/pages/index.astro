@@ -24,6 +24,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Badge from "@/components/ui/Badge.astro";
+import Hero from "@/pages/_partials/Hero.astro";
 
 const allProjects = await getCollection("projects");
 const recentProjects = allProjects
@@ -42,81 +43,8 @@ const coreStack = [
   <!-- <a href={webDevResume}>Web Dev</a>
   <a href={softwareEngResume}>Web Dev</a> -->
   <!-- will use static to avoid github rate limit -->
-  <header
-    class="flex flex-col-reverse md:flex-row gap-8 items-start justify-between mb-18"
-  >
-    <div class="flex-1 space-y-6">
-      <h1
-        class="animate-reveal text-4xl font-extrabold tracking-tighter sm:text-5xl will-change-auto"
-      >
-        Alfred U. Paguio
-      </h1>
-      <p
-        class="animate-reveal animation-delay-100 text-xl text-muted-foreground leading-relaxed will-change-auto"
-      >
-        Junior Software Developer focusing on <span
-          class="text-foreground font-medium">application logic</span
-        > and the <span class="text-foreground font-medium">refactoring</span> of
-        systems. I build with Laravel and React.
-      </p>
 
-      <div
-        class="flex flex-wrap gap-4 pt-4 animate-reveal animation-delay-200 will-change-auto"
-      >
-        <Button
-          href={resumeData.software_engineer || "#"}
-          size="lg"
-          class="font-semibold"
-          aria-label="Download my resume"
-        >
-          Download My Resume
-          <FileDown data-icon="inline-end" />
-        </Button>
-
-        <div
-          class="flex items-center gap-4 animate-reveal animation-delay-300 will-change-auto"
-        >
-          <Button
-            variant="outline"
-            size="sm"
-            href={siteConfig.links.socials.linkedin}
-          >
-            <LinkedInIcon data-icon="inline-start" /> LinkedIn
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            href={siteConfig.links.socials.github}
-          >
-            <GithubIcon data-icon="inline-start" /> Github
-          </Button>
-        </div>
-      </div>
-    </div>
-    <div class="relative group animate-reveal animation-delay-100">
-      <div
-        class="absolute -inset-4 bg-linear-to-r from-primary/20 to-muted/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-700"
-      >
-      </div>
-      <div
-        class="relative size-48 md:size-56 rounded-2xl overflow-hidden border-2 border-border shadow-2xl"
-      >
-        <Image
-          src={myImage}
-          alt="Portrait of Alfred U. Paguio"
-          class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          width={224}
-          height={224}
-          loading="eager"
-          fetchpriority="high"
-        />
-      </div>
-      <!-- TODO: on frontmatter data -->
-      <!-- <div class="absolute -bottom-3 -right-3 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full border border-border shadow-lg">
-        Open to Work
-      </div> -->
-    </div>
-  </header>
+  <Hero />
   <Section
     title="About me"
     id="about"
