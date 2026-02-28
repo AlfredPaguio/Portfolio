@@ -9,6 +9,7 @@ import ProjectStatus from "@/components/projects/ProjectStatus.astro";
 import ProjectMedia from "@/components/projects/ProjectMedia.astro";
 import { linkIcons } from "./_components/linkIcons";
 import ExternalLink from "@lucide/astro/icons/external-link";
+import XIcon from "@lucide/astro/icons/x";
 
 export const getStaticPaths = (async () => {
   const projects = await getCollection("projects");
@@ -40,7 +41,10 @@ const ogImageUrl = `${Astro.url.origin}/og/projects/${project.id}.png` || null;
   openGraphImage={ogImageUrl}
   openGraphType="project"
 >
-  <div slot="metadata" class="w-full space-y-6 animate-reveal animation-delay-200 will-change-auto">
+  <div
+    slot="metadata"
+    class="w-full space-y-6 animate-reveal animation-delay-200 will-change-auto"
+  >
     <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
       {
         project.data.status && (
@@ -89,7 +93,7 @@ const ogImageUrl = `${Astro.url.origin}/og/projects/${project.id}.png` || null;
 
                 return (
                   // TechPill handles the lookup/icon. techId should match filenames in content/techs
-                  <TechPill id={name.toLowerCase()} version={version}/>
+                  <TechPill id={name.toLowerCase()} version={version} />
                 );
               })
             }
@@ -104,6 +108,18 @@ const ogImageUrl = `${Astro.url.origin}/og/projects/${project.id}.png` || null;
               </span>
               <div class="flex flex-wrap gap-3">
                 {project.data.links.map((link) => {
+                  if (link.disabled) {
+                    return (
+                      <span
+                        class="flex items-center gap-2 rounded-lg bg-muted/20 px-3 py-1.5 text-xs font-medium opacity-60 cursor-not-allowed"
+                        data-url={link.url}
+                      >
+                        <XIcon class="size-3.5 opacity-60" />
+                        {link.label} Unavailable
+                      </span>
+                    );
+                  }
+
                   const Icon = linkIcons[link.type] ?? ExternalLink;
                   return (
                     <AnchorExternalLink

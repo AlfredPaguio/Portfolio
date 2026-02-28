@@ -15,7 +15,7 @@ import { Content as LinkedInIcon } from "@/content/icons/linkedin.mdx";
 import { Content as GithubIcon } from "@/content/techs/github.mdx";
 
 import { siteConfig } from "@/data/site";
-import Hand from "@lucide/astro/icons/hand";
+import MailPlusIcon from "@lucide/astro/icons/mail-plus";
 import {
   Card,
   CardContent,
@@ -67,39 +67,30 @@ const coreStack = [
           href={resumeData.software_engineer || "#"}
           size="lg"
           class="font-semibold"
-          aria-label="Download Software Engineer Resume"
+          aria-label="Download my resume"
         >
-          Software Engineer Resume
+          Download My Resume
           <FileDown data-icon="inline-end" />
         </Button>
-        <Button
-          href={resumeData.webdev || "#"}
-          size="lg"
-          variant={"outline"}
-          aria-label="Download Web Developer Resume"
-        >
-          Web Developer Resume
-          <FileDown data-icon="inline-end" />
-        </Button>
-      </div>
 
-      <div
-        class="flex items-center gap-4 animate-reveal animation-delay-300 will-change-auto"
-      >
-        <Button
-          variant="ghost"
-          size="sm"
-          href={siteConfig.links.socials.linkedin}
+        <div
+          class="flex items-center gap-4 animate-reveal animation-delay-300 will-change-auto"
         >
-          <LinkedInIcon data-icon="inline-start" /> LinkedIn
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          href={siteConfig.links.socials.github}
-        >
-          <GithubIcon data-icon="inline-start" /> Github
-        </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            href={siteConfig.links.socials.linkedin}
+          >
+            <LinkedInIcon data-icon="inline-start" /> LinkedIn
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            href={siteConfig.links.socials.github}
+          >
+            <GithubIcon data-icon="inline-start" /> Github
+          </Button>
+        </div>
       </div>
     </div>
     <div class="relative group animate-reveal animation-delay-100">
@@ -126,51 +117,70 @@ const coreStack = [
       </div> -->
     </div>
   </header>
-
   <Section
     title="About me"
     id="about"
     class="animate-reveal animation-delay-400"
   >
-    <p class="text-lg leading-relaxed">
-      I specialize in building and maintaining well-structured applications,
-      with a strong focus on clean architecture and long-term maintainability. I
-      work mainly with Laravel and React, and I enjoy improving existing systems
-      through refactoring and thoughtful application design.
-    </p>
+    <Card size="sm">
+      <CardContent class="space-y-3">
+        <p class="text-lg leading-relaxed text-foreground/90">
+          I'm a full-stack developer who enjoys building, refactoring, and
+          maintaining well-structured applications. I work mainly with Laravel
+          and React, focusing on improving existing systems through thoughtful
+          design and clean architecture.
+        </p>
+
+        <div class="flex items-center gap-2 pt-2 border-t border-border/60">
+          <span class="text-base font-mono text-muted-foreground italic">
+            "Make it work. Make it right. Make it fast."
+          </span>
+          <cite>
+            <a
+              href="https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Make It Work, Make It Right, Make It Fast"
+              class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              source ↗
+            </a>
+          </cite>
+        </div>
+      </CardContent>
+    </Card>
   </Section>
-
-  <Card
-    size="sm"
+  <Section
+    title="Current tech stack"
     id="skills"
-    class="animate-reveal animation-delay-500 relative py-8 lg:py-12"
+    class="animate-reveal animation-delay-400"
   >
-    <CardHeader class="pb-3">
-      <CardTitle
-        class="text-sm font-semibold uppercase tracking-wider text-muted-foreground"
-      >
-        Core Technologies
-      </CardTitle>
-      <CardDescription class="text-xs">
-        Technologies I work with regularly
-      </CardDescription>
-    </CardHeader>
+    <Card
+      size="sm"
+      class="animate-reveal animation-delay-500 relative py-8 lg:py-12"
+    >
+      <CardHeader>
+        <CardDescription class="text-base">
+          Technologies I work with regularly
+        </CardDescription>
+      </CardHeader>
 
-    <CardContent>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {
-          coreStack.map((skill) => (
-            <div class="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/30 hover:bg-muted/50 transition-colors">
-              <TechPill id={skill.id} class="border-0 bg-transparent px-0" />
-              <Badge variant="secondary" class="font-mono text-[10px]">
-                {skill.years}
-              </Badge>
-            </div>
-          ))
-        }
-      </div>
-    </CardContent>
-  </Card>
+      <CardContent>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {
+            coreStack.map((skill) => (
+              <div class="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/30 hover:bg-muted/50 transition-colors">
+                <TechPill id={skill.id} class="border-0 bg-transparent px-0" />
+                <Badge variant="secondary" class="font-mono text-[10px]">
+                  {skill.years}
+                </Badge>
+              </div>
+            ))
+          }
+        </div>
+      </CardContent>
+    </Card>
+  </Section>
 
   <!-- Recent Projects -->
   <Section
@@ -178,7 +188,9 @@ const coreStack = [
     id="recent"
     class="animate-reveal animation-delay-600"
   >
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-6">
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-6 auto-rows-fr"
+    >
       {
         recentProjects.map((project, index) => {
           const isLarge = index === 0 || index === 3;
@@ -215,42 +227,58 @@ const coreStack = [
     </div>
   </Section>
 
-  <!-- Contact Section -->
   <Section
-    title="Get in Touch"
+    title="Let's work together"
     id="contact"
     class="animate-reveal animation-delay-700"
   >
-    <div class="rounded-lg border border-border bg-card/30 p-6 sm:p-8">
-      <p class="text-muted-foreground leading-relaxed">
-        I'm currently open to new opportunities. Whether you have a question or
-        just want to say hi, feel free to reach out and I'll get back to you as
-        soon as possible.
-      </p>
+    <Card class="border-primary/20 bg-linear-to-br from-card to-muted/10">
+      <CardHeader class="pb-2">
+        <CardTitle class="text-lg">Open to new opportunities</CardTitle>
+        <CardDescription>
+          Available for full-time roles, contract work, or freelance projects
+        </CardDescription>
+      </CardHeader>
 
-      <div class="flex items-center gap-4">
-        <Button href={`mailto:${siteConfig.email}`} class="mt-6">
-          Say Hello
-          <Hand data-icon="inline-end" />
-        </Button>
+      <CardContent class="space-y-6">
+        <!-- Primary CTA -->
+        <div class="flex flex-wrap items-center gap-3">
+          <Button
+            href={`mailto:${siteConfig.email}`}
+            size="lg"
+            class="font-semibold"
+          >
+            <MailPlusIcon data-icon="inline-start" />
+            Email Me Directly
+          </Button>
 
-        <Button
-          variant="ghost"
-          size="sm"
-          class="mt-6"
-          href={siteConfig.links.socials.linkedin}
-        >
-          <LinkedInIcon data-icon="inline-start" /> LinkedIn
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          class="mt-6"
-          href={siteConfig.links.socials.github}
-        >
-          <GithubIcon data-icon="inline-start" /> Github
-        </Button>
-      </div>
-    </div>
+          <span class="text-sm text-muted-foreground"> or connect via: </span>
+
+          <div class="flex items-center gap-1">
+            <Button
+              variant="outline"
+              size="sm"
+              href={siteConfig.links.socials.linkedin}
+              class="gap-1"
+            >
+              <LinkedInIcon class="size-4" data-icon="inline-start" /> LinkedIn
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              href={siteConfig.links.socials.github}
+              class="gap-1"
+            >
+              <GithubIcon class="size-4" data-icon="inline-start" /> GitHub
+            </Button>
+          </div>
+        </div>
+
+        <p class="text-xs text-muted-foreground pt-2 border-t border-border">
+          I typically respond within 24 hours. Feel free to reach out with your
+          project details, role description, or just to say hi.
+        </p>
+      </CardContent>
+    </Card>
   </Section>
 </BaseLayout>

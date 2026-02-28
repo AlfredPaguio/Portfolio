@@ -22,7 +22,8 @@ const projects = defineCollection({
             .enum(["source", "demo", "docs", "social", "other"])
             .default("other"),
           url: z.url(),
-        })
+          disabled: z.boolean().default(false).optional(),
+        }),
       )
       .default([]),
     images: z
@@ -30,7 +31,7 @@ const projects = defineCollection({
         z.object({
           src: z.string(),
           alt: z.string().optional(),
-        })
+        }),
       )
       .default([]),
     videos: z.array(z.url()).default([]),

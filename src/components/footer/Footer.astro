@@ -11,16 +11,10 @@ const year = new Date().getFullYear();
 <footer class="w-full border-t border-border bg-card/30 animate-reveal animation-delay-300 will-change-auto">
   <div class="max-w-5xl mx-auto px-6 py-12">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
-      <div class="space-y-4">
+      <div class="space-y-4 justify-center flex flex-col">
         <p class="text-sm tracking-tight font-medium">
           © {year} Alfred U. Paguio
         </p>
-
-        <Quote
-          quote="No-one knows what the future holds. That's why its potential is infinite."
-          author="Okabe Rintarō"
-          source="Steins;Gate"
-        />
 
         <AnchorExternalLink
           href={siteConfig.links.repository}

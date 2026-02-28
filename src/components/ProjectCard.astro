@@ -4,127 +4,135 @@ import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
 import { cn } from "@/lib/utils/cn";
 import ProjectStatus from "./projects/ProjectStatus.astro";
 import type { CollectionEntry } from "astro:content";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Badge from "@/components/ui/Badge.astro";
+import Button from "@/components/ui/Button.astro";
+
 interface Props {
   project: CollectionEntry<"projects">;
 }
 
 const { project } = Astro.props;
-const { title, summary, stack, status, images, featured } = project.data;
+const { title, summary, stack, status, images, featured, date } = project.data;
 
 const cover = images?.[0];
 
 const dateOptions: object = {
   year: "numeric",
-  month: "long",
+  month: "short",
 };
 
 const formattedDate = project.data.date
   ? new Date(project.data.date).toLocaleDateString("en-PH", dateOptions)
   : null;
+
+// Limit visible tech to 3 for scannability
+const MAX_VISIBLE_TECHS = 3;
+const visibleTechs = stack.slice(0, MAX_VISIBLE_TECHS);
+const remainingCount = stack.length - MAX_VISIBLE_TECHS;
 ---
 
-<div
+<Card
   class={cn(
-    "overflow-hidden group relative flex flex-col h-full rounded-lg border border-border bg-card transition-all",
-    "hover:border-primary/50 hover:bg-muted/10",
-    featured && "border-primary/30",
+    "group relative flex flex-col h-full overflow-hidden transition-all hover:shadow-lg hover:border-primary/30",
+    featured && "ring-1 ring-primary/20",
   )}
 >
-  <div
-    class="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-    aria-hidden="true"
-    style="background: radial-gradient(600px circle at var(--x) var(--y), 
-     color-mix(in srgb, var(--color-primary) 7%, transparent),
-     transparent 40%);"
-  >
-  </div>
-
-  <div
-    class="flex items-center justify-between border-b border-border bg-muted px-3 py-1.5"
-  >
-    <div class="flex items-center gap-2">
-      <span
-        class="font-mono text-[10px] font-bold uppercase tracking-tight text-muted-foreground"
-      >
-        {formattedDate}
-      </span>
-    </div>
-    <ProjectStatus status={status} />
-  </div>
-
-  <div
-    class="relative aspect-video w-full overflow-hidden bg-muted border-b border-border"
-  >
-    {
-      cover ? (
-        <img
-          src={cover.src}
-          alt={cover.alt || title}
-          class="size-full object-cover"
-        />
-      ) : (
-        <div class="flex size-full items-center justify-center bg-muted/20">
-          <span class="text-[10px] font-medium text-muted-foreground/40 uppercase tracking-widest">
-            Preview Unavailable
-          </span>
-        </div>
-      )
-    }
-  </div>
-
-  <div class="flex flex-col p-6 grow">
-    <div class="flex justify-between items-start mb-2">
-      <h3 class="text-lg font-semibold tracking-tight leading-tight">
-        <a href={`/projects/${project.id}/`} class="focus:outline-none">
-          <span class="absolute inset-0 z-0" aria-hidden="true"></span>
-          {title}
-        </a>
-      </h3>
-      <ArrowUpRight
-        class="size-4 shrink-0 text-muted-foreground/60 transition-colors group-hover:text-primary"
+  {
+    cover ? (
+      <img
+        src={cover.src}
+        alt={cover.alt || title}
+        class="aspect-video object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+        loading="lazy"
+        width={640}
+        height={360}
       />
-    </div>
-
-    <p class="text-muted-foreground text-sm leading-relaxed mb-8 line-clamp-3">
-      {summary}
-    </p>
-
-    <div
-      class="mt-auto pt-4 border-t border-border flex items-center justify-between relative z-10"
-    >
-      <div class="flex flex-wrap gap-2">
-        {
-          stack.slice(0, 3).map((techId: string) => {
-            const [name, version] = techId.split(":");
-            return (
-              <TechPill
-                id={name}
-                version={version}
-                class="text-[10px] bg-transparent border-muted-foreground/20"
-              />
-            );
-          })
-        }
-        {
-          stack.length > 3 && (
-            <span class="inline-flex items-center rounded-full border border-border bg-muted/30 text-xs select-none transition-colors text-[10px] text-muted-foreground font-medium self-center gap-2 px-3 py-1 no-underline hover:text-primary">
-              +{stack.length - 3}
-            </span>
-          )
-        }
+    ) : (
+      <div class="flex aspect-video items-center justify-center bg-muted/40">
+        <span class="text-[10px] font-medium text-muted-foreground/60 uppercase tracking-widest">
+          Preview
+        </span>
       </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  if (typeof window !== "undefined") {
-    document.querySelectorAll<HTMLElement>(".group").forEach((card) => {
-      card.addEventListener("mousemove", (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--x", `${e.clientX - rect.left}px`);
-        card.style.setProperty("--y", `${e.clientY - rect.top}px`);
-      });
-    });
+    )
   }
-</script>
+
+  <div
+    class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+    aria-hidden="true"
+    style="background: linear-gradient(180deg, transparent 60%, var(--color-primary) / 3%);"
+  >
+  </div>
+
+  <div class="flex flex-col flex-1">
+    <CardHeader class="pb-3">
+      <CardTitle class="line-clamp-2">
+        <a href={`/projects/${project.id}/`}>{title}</a>
+      </CardTitle>
+
+      <CardAction>
+        <ProjectStatus status={status} />
+      </CardAction>
+
+      {
+        formattedDate && (
+          <CardDescription class="text-[11px] font-mono mt-1.5">
+            {formattedDate}
+          </CardDescription>
+        )
+      }
+    </CardHeader>
+
+    <CardContent class="flex-1">
+      <p
+        class="text-sm text-muted-foreground leading-relaxed line-clamp-3 pb-2"
+      >
+        {summary}
+      </p>
+    </CardContent>
+
+    <CardFooter class="pt-4 mt-auto">
+      <div class="flex items-center justify-between w-full gap-3">
+        {/* Tech pills */}
+        <div class="flex flex-wrap gap-1.5 min-h-6">
+          {
+            visibleTechs.map((techId: string) => {
+              const [name, version] = techId.split(":");
+              return (
+                <TechPill
+                  id={name}
+                  version={version}
+                  class="text-[10px] px-2 py-0.5 bg-muted/40 border-border/40 hover:bg-muted/60 transition-colors"
+                />
+              );
+            })
+          }
+          {
+            remainingCount > 0 && (
+              <span class="inline-flex items-center rounded-full border border-border bg-muted/30 text-[10px] px-2 py-0.5 text-muted-foreground">
+                +{remainingCount}
+              </span>
+            )
+          }
+        </div>
+
+        {/* View indicator */}
+        <a href={`/projects/${project.id}/`}>
+          <span
+            class="text-[10px] text-muted-foreground/60 group-hover:text-primary transition-colors shrink-0 whitespace-nowrap"
+          >
+            View →
+          </span>
+        </a>
+      </div>
+    </CardFooter>
+  </div>
+</Card>
