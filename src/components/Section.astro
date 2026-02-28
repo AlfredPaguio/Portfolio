@@ -12,7 +12,7 @@ const { title, id, class: className } = Astro.props;
 <section
   id={id}
   aria-labelledby={id ? `${id}-heading` : undefined}
-  class={cn("relative py-8", className)}
+  class={cn("relative py-8 lg:py-12", className)}
 >
   {
     title && (
