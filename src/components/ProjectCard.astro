@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/card";
 import Badge from "@/components/ui/Badge.astro";
 import Button from "@/components/ui/Button.astro";
+import { normalizeTech } from "@/lib/utils/normalizeTech";
 
 interface Props {
   project: CollectionEntry<"projects">;
@@ -105,11 +106,11 @@ const remainingCount = stack.length - MAX_VISIBLE_TECHS;
         <div class="flex flex-wrap gap-1.5 min-h-6">
           {
             visibleTechs.map((techId: string) => {
-              const [name, version] = techId.split(":");
+              const tech = normalizeTech(techId);
               return (
                 <TechPill
-                  id={name}
-                  version={version}
+                  id={tech.id}
+                  version={tech.version}
                   class="text-[10px] px-2 py-0.5 bg-muted/40 border-border/40 hover:bg-muted/60 transition-colors"
                 />
               );
