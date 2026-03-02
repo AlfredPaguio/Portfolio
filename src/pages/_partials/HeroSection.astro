@@ -11,6 +11,8 @@ import Button from "@/components/ui/Button.astro";
 import { Content as LinkedInIcon } from "@/content/icons/linkedin.mdx";
 import { Content as GithubIcon } from "@/content/techs/github.mdx";
 import Separator from "@/components/ui/Separator.astro";
+
+const resumeUrl = `/resumes/${resumeData.currently_using}`;
 ---
 
 <header
@@ -61,14 +63,12 @@ import Separator from "@/components/ui/Separator.astro";
     <div
       class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4 animate-reveal animation-delay-200 will-change-auto"
     >
-      <!-- <a href={webDevResume}>Web Dev</a>
-      <a href={softwareEngResume}>Web Dev</a> -->
-      <!-- will use static to avoid github rate limit -->
       <Button
-        href={resumeData.software_engineer || "#"}
+        href={resumeUrl}
         size="lg"
         class="font-semibold"
         aria-label="Download my resume"
+        download
       >
         Download My Resume
         <FileDown data-icon="inline-end" />

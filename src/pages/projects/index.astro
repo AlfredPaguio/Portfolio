@@ -13,6 +13,8 @@ import FileDown from "@lucide/astro/icons/file-down";
 
 import { frontmatter as resumeData } from "@/content/resumes.md";
 
+const resumeUrl = `/resumes/${resumeData.currently_using}`;
+
 const projects = await getCollection("projects");
 
 // Prioritize the most important work (Featured first)
@@ -118,11 +120,7 @@ const allTech = [
         <Button href={`mailto:${siteConfig.email}`} size="lg">
           Let's Collaborate <MoveRight data-icon="inline-end" />
         </Button>
-        <Button
-          href={resumeData.software_engineer || "#"}
-          variant="outline"
-          size="lg"
-        >
+        <Button href={resumeUrl} variant="outline" size="lg" download>
           Download Resume
           <FileDown data-icon="inline-end" />
         </Button>
