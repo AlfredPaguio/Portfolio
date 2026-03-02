@@ -1,0 +1,36 @@
+---
+import Section from "@/components/Section.astro";
+import { Card, CardContent } from "@/components/ui/card";
+
+
+---
+
+<Section title="About me" id="about" class="animate-reveal animation-delay-400">
+  <Card size="sm">
+    <CardContent class="space-y-3">
+      <p class="text-lg leading-relaxed text-foreground/90">
+        I'm a full-stack developer who enjoys building, refactoring, and
+        maintaining well-structured applications. I work mainly with Laravel and
+        React, focusing on improving existing systems through thoughtful design
+        and clean architecture.
+      </p>
+
+      <div class="flex items-center gap-2 pt-2 border-t border-border/60">
+        <span class="text-base font-mono text-muted-foreground italic">
+          "Make it work. Make it right. Make it fast."
+        </span>
+        <cite>
+          <a
+            href="https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Make It Work, Make It Right, Make It Fast"
+            class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+          >
+            source ↗
+          </a>
+        </cite>
+      </div>
+    </CardContent>
+  </Card>
+</Section>

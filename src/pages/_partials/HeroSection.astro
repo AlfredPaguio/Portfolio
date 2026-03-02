@@ -10,6 +10,7 @@ import Button from "@/components/ui/Button.astro";
 
 import { Content as LinkedInIcon } from "@/content/icons/linkedin.mdx";
 import { Content as GithubIcon } from "@/content/techs/github.mdx";
+import Separator from "@/components/ui/Separator.astro";
 ---
 
 <header
@@ -36,24 +37,33 @@ import { Content as GithubIcon } from "@/content/techs/github.mdx";
       class="flex items-center gap-3 p-3 rounded-lg border border-border bg-card/50 animate-reveal animation-delay-150 w-fit"
     >
       <div class="flex items-center gap-2">
-        <span class="text-lg">🇵🇭</span>
-        <span class="font-medium text-sm text-foreground">Philippines</span>
+        <span class="text-lg" aria-hidden="true">🇵🇭</span>
+        <span class="font-medium text-sm text-foreground" aria-label="Country"
+          >Philippines</span
+        >
       </div>
 
-      <div class="w-px h-4 bg-border"></div>
+      <!-- <div class="w-px h-4 bg-border"></div> -->
+
+      <Separator orientation="vertical" />
 
       <div class="flex items-center gap-2">
-        <span class="text-lg"><ClockIcon /></span>
-        <span id="local-time" class="font-mono text-sm text-foreground"
-          >00:00:00 AM</span
+        <span class="text-lg" aria-hidden="true"><ClockIcon /></span>
+        <time id="local-time" class="font-mono text-sm text-foreground"
+          >00:00:00 AM</time
         >
-        <span class="text-muted-foreground text-xs">(UTC+8)</span>
+        <span class="text-muted-foreground text-xs" aria-label="Time Zone"
+          >(UTC+8)</span
+        >
       </div>
     </div>
 
     <div
       class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4 animate-reveal animation-delay-200 will-change-auto"
     >
+      <!-- <a href={webDevResume}>Web Dev</a>
+      <a href={softwareEngResume}>Web Dev</a> -->
+      <!-- will use static to avoid github rate limit -->
       <Button
         href={resumeData.software_engineer || "#"}
         size="lg"
@@ -65,7 +75,7 @@ import { Content as GithubIcon } from "@/content/techs/github.mdx";
       </Button>
 
       <!-- Divider (desktop only) -->
-      <div class="hidden sm:block w-px h-8 bg-border"></div>
+      <Separator orientation="vertical" class="hidden sm:block" />
 
       <div class="flex items-center gap-2">
         <Button
@@ -73,6 +83,7 @@ import { Content as GithubIcon } from "@/content/techs/github.mdx";
           size="sm"
           href={siteConfig.links.socials.linkedin}
           class="text-muted-foreground hover:text-foreground"
+          aria-label="LinkedIn Profile"
         >
           <LinkedInIcon data-icon="inline-start" />
           <span class="hidden sm:inline">LinkedIn</span>
@@ -82,18 +93,19 @@ import { Content as GithubIcon } from "@/content/techs/github.mdx";
           size="sm"
           href={siteConfig.links.socials.github}
           class="text-muted-foreground hover:text-foreground"
+          aria-label="Github Profile"
         >
           <GithubIcon data-icon="inline-start" />
           <span class="hidden sm:inline">GitHub</span>
         </Button>
       </div>
     </div>
-
   </div>
 
-  <div class="relative group animate-reveal animation-delay-100">
+  <figure class="relative group animate-reveal animation-delay-100">
     <div
       class="absolute -inset-4 bg-linear-to-r from-primary/20 to-muted/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-700"
+      aria-hidden="true"
     >
     </div>
     <div
@@ -102,19 +114,20 @@ import { Content as GithubIcon } from "@/content/techs/github.mdx";
       <Image
         src={myImage}
         alt="Portrait of Alfred U. Paguio"
-        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500 motion-reduce:transform-none motion-reduce:transition-none"
         width={224}
         height={224}
         loading="eager"
         fetchpriority="high"
       />
     </div>
-  </div>
+  </figure>
 </header>
 
 <script is:inline>
   // Live timezone clock for Philippines (Asia/Manila - UTC+8)
   function updateLocalTime() {
+    /**  @type {HTMLTimeElement} */
     const timeElement = document.getElementById("local-time");
     if (!timeElement) return;
 
@@ -129,7 +142,9 @@ import { Content as GithubIcon } from "@/content/techs/github.mdx";
     };
 
     const formatter = new Intl.DateTimeFormat("en-US", options);
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/time#usage_notes
     timeElement.textContent = formatter.format(now);
+    timeElement.dateTime = formatter.format(now);
   }
 
   // Update immediately and then every second

@@ -1,0 +1,74 @@
+---
+import Section from "@/components/Section.astro";
+import Button from "@/components/ui/Button.astro";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import { siteConfig } from "@/data/site";
+
+import MailPlusIcon from "@lucide/astro/icons/mail-plus";
+import { Content as LinkedInIcon } from "@/content/icons/linkedin.mdx";
+import { Content as GithubIcon } from "@/content/techs/github.mdx";
+---
+
+<Section
+  title="Let's work together"
+  id="contact"
+  class="animate-reveal animation-delay-700"
+>
+  <Card class="border-primary/20 bg-linear-to-br from-card to-muted/10">
+    <CardHeader class="pb-2">
+      <CardTitle class="text-lg">Open to new opportunities</CardTitle>
+      <CardDescription>
+        Available for full-time roles, contract work, or freelance projects
+      </CardDescription>
+    </CardHeader>
+
+    <CardContent class="space-y-6">
+      <!-- Primary CTA -->
+      <div class="flex flex-wrap items-center gap-3">
+        <Button
+          href={`mailto:${siteConfig.email}`}
+          size="lg"
+          class="font-semibold"
+        >
+          <MailPlusIcon data-icon="inline-start" />
+          Email Me Directly
+        </Button>
+
+        <span class="text-sm text-muted-foreground"> or connect via: </span>
+
+        <div class="flex items-center gap-1">
+          <Button
+            variant="outline"
+            size="sm"
+            href={siteConfig.links.socials.linkedin}
+            class="gap-1"
+            aria-label="LinkedIn Profile"
+          >
+            <LinkedInIcon class="size-4" data-icon="inline-start" /> LinkedIn
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            href={siteConfig.links.socials.github}
+            class="gap-1"
+            aria-label="Github Profile"
+          >
+            <GithubIcon class="size-4" data-icon="inline-start" /> GitHub
+          </Button>
+        </div>
+      </div>
+
+      <p class="text-xs text-muted-foreground pt-2 border-t border-border">
+        I typically respond within 24 hours. Feel free to reach out with your
+        project details, role description, or just to say hi.
+      </p>
+    </CardContent>
+  </Card>
+</Section>

@@ -1,0 +1,52 @@
+---
+import Badge from "@/components/ui/Badge.astro";
+import TechPill from "@/components/TechPill.astro";
+import Section from "@/components/Section.astro";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
+
+const coreStack = [
+  { id: "laravel", years: "1 Year" },
+  { id: "react", years: "1 Year" },
+  { id: "typescript", years: "1 Year" },
+  { id: "python" },
+];
+---
+
+<Section
+  title="Current tech stack"
+  id="skills"
+  class="animate-reveal animation-delay-400"
+>
+  <Card
+    size="sm"
+    class="animate-reveal animation-delay-500 relative py-8 lg:py-12"
+  >
+    <CardHeader>
+      <CardDescription class="text-base">
+        Technologies I work with regularly
+      </CardDescription>
+    </CardHeader>
+
+    <CardContent>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {
+          coreStack.map((skill) => (
+            <div class="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/30 hover:bg-muted/50 transition-colors">
+              <TechPill id={skill.id} class="border-0 bg-transparent px-0" />
+              {skill.years && (
+                <Badge variant="secondary" class="font-mono text-[10px]">
+                  {skill.years}
+                </Badge>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </CardContent>
+  </Card>
+</Section>
