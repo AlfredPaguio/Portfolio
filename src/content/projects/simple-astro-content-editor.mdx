@@ -1,0 +1,59 @@
+---
+title: Simple Astro Content Editor
+featured: true
+summary: >-
+  A browser-based Markdown editor for Astro content collections with
+  schema-aware frontmatter editing and live preview.
+date: 2025-03-15T00:00:00.000Z
+status: active
+stack:
+  - React
+  - TypeScript
+  - Tailwind CSS
+  - shadcn/ui
+links:
+  - label: Source Code
+    type: source
+    url: 'https://github.com/AlfredPaguio/simple-astro-editor'
+images:
+  - src: /project-images/simple-astro-content-editor/overview.png
+    alt: Overview of Project
+  - src: /project-images/simple-astro-content-editor/overview-sidebar.png
+    alt: Overview of the Astro Content Editor showing the dual-sidebar layout
+  - src: /project-images/simple-astro-content-editor/inferred-frontmatter.png
+    alt: Frontmatter sidebar with a inferred schema form
+  - src: /project-images/simple-astro-content-editor/demo-gif-01.gif
+    alt: Demo GIF 01
+  - src: /project-images/simple-astro-content-editor/demo-gif-02.gif
+    alt: Demo GIF 02
+videos: []
+---
+## Overview
+
+Astro Content Editor is a browser-based tool I built to solve a real friction point when working with Astro content collections - editing frontmatter by hand in raw YAML is tedious and error-prone, especially on larger projects with complex schemas.
+
+The editor reads your `content.config.ts` directly in the browser, parses the Zod schemas, and generates a typed form for every field. No build step, no server, no plugin to install.
+
+## Problem It Solves
+
+When working with Astro, every content entry has a frontmatter block that must match a defined schema. The standard workflow is to open the file in a code editor and manually type YAML - with no validation, no autocomplete, and no visual feedback until the dev server flags an error.
+
+This tool replaces that with an interactive form that understands your schema: date pickers for date fields, dropdowns for enums, dynamic arrays for list fields, and nested sub-forms for object fields.
+
+## Key Features
+
+- **Schema-aware form generation** - loads `content.config.ts` and generates a form from Zod schemas using Zod v4's `toJSONSchema`
+- **File System Access API** - reads and writes files directly to disk with no upload/download roundtrip
+- **Split-pane editor** - resizable, draggable Markdown editor and live preview side by side
+- **Dual sidebar layout** - file tree on the left, frontmatter form on the right, both independently togglable
+- **Keyboard shortcuts** - `Cmd/Ctrl+B` for the file and collection sidebar, `Alt+B` for the frontmatter sidebar
+
+## What I Learned
+
+Building this project pushed me into parts of the web platform I hadn't used deeply before. The File System Access API is surprisingly capable - writable streams, directory traversal, and permission persistence all work well in Chromium browsers. The trickiest part was sandboxed schema evaluation: executing a TypeScript config file in the browser without a build step required a custom evaluator using esbuild's WASM build.
+
+The shadcn sidebar layout also took significant iteration. Getting two independently-controllable sidebars that both overlay content without layout shift required understanding how `SidebarProvider` context scoping works and building a custom `SidebarManager` registry on top of it.
+
+## Technical Highlights
+
+The frontmatter form is fully recursive - it handles nested objects and arrays of objects by rendering sub-forms, with each field component responsible only for its own type. The schema evaluator categorizes every key in a file as **known** (defined in the schema), **inferred** (present in the file but not the schema), or **unknown** (neither), so no data is ever silently dropped when saving.
