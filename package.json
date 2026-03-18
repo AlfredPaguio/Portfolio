@@ -13,7 +13,7 @@
     "@astrojs/rss": "^4.0.17",
     "@lucide/astro": "^0.563.0",
     "@tailwindcss/vite": "^4.1.18",
-    "@takumi-rs/image-response": "^0.67.2",
+    "@takumi-rs/image-response": "^0.67.3",
     "astro": "^6.0.5",
     "class-variance-authority": "^0.7.1",
     "mdast-util-to-string": "^4.0.0",
