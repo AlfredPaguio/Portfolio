@@ -2,16 +2,19 @@
 title: Simple Astro Content Editor
 featured: true
 summary: >-
-  A browser-based Markdown editor for Astro content collections with
-  schema-aware frontmatter editing and live preview.
+  A browser-based tool I built to turn Astro content collection frontmatter into
+  interactive, schema-aware forms and live preview.
 date: 2025-03-15T00:00:00.000Z
 status: active
 stack:
-  - React
+  - 'React:19'
   - TypeScript
-  - Tailwind CSS
+  - 'Tailwind CSS:v4'
   - shadcn/ui
 links:
+  - label: Live Demo
+    type: demo
+    url: 'https://simple-astro-editor.pages.dev/'
   - label: Source Code
     type: source
     url: 'https://github.com/AlfredPaguio/simple-astro-editor'
@@ -28,32 +31,45 @@ images:
     alt: Demo GIF 02
 videos: []
 ---
+
 ## Overview
 
-Astro Content Editor is a browser-based tool I built to solve a real friction point when working with Astro content collections - editing frontmatter by hand in raw YAML is tedious and error-prone, especially on larger projects with complex schemas.
-
-The editor reads your `content.config.ts` directly in the browser, parses the Zod schemas, and generates a typed form for every field. No build step, no server, no plugin to install.
+Astro Content Editor is a browser-based tool I built to make editing Astro content collections easier. Instead of manually typing YAML frontmatter, the editor reads your `content.config.ts` directly in the browser, parses the Zod schemas, and generates a typed form for every field.
 
 ## Problem It Solves
 
-When working with Astro, every content entry has a frontmatter block that must match a defined schema. The standard workflow is to open the file in a code editor and manually type YAML - with no validation, no autocomplete, and no visual feedback until the dev server flags an error.
+In my own Astro projects, I often forgot fields or made mistakes in frontmatter. Editing YAML manually in a code editor-without validation, autocomplete, or immediate feedback-was tedious and error-prone, especially for larger or nested schemas.
 
-This tool replaces that with an interactive form that understands your schema: date pickers for date fields, dropdowns for enums, dynamic arrays for list fields, and nested sub-forms for object fields.
+This project started as a personal tool to address this workflow. It reads your `content.config.ts` directly in the browser, parses the Zod schemas, and generates a typed form for every field. Dates become date pickers, enums become dropdowns, arrays become dynamic lists, and nested objects render as sub-forms.
+
+While it was built primarily for my own use, I deployed it so others working with [Astro content collections](https://docs.astro.build/en/guides/content-collections/) could benefit from a simpler, schema-aware editing experience-without needing a build step, server, or extra plugins.
 
 ## Key Features
 
 - **Schema-aware form generation** - loads `content.config.ts` and generates a form from Zod schemas using Zod v4's `toJSONSchema`
 - **File System Access API** - reads and writes files directly to disk with no upload/download roundtrip
 - **Split-pane editor** - resizable, draggable Markdown editor and live preview side by side
-- **Dual sidebar layout** - file tree on the left, frontmatter form on the right, both independently togglable
+- **Dual sidebar layout** - file tree and collections on the left, frontmatter form on the right, both independently togglable
 - **Keyboard shortcuts** - `Cmd/Ctrl+B` for the file and collection sidebar, `Alt+B` for the frontmatter sidebar
 
 ## What I Learned
 
-Building this project pushed me into parts of the web platform I hadn't used deeply before. The File System Access API is surprisingly capable - writable streams, directory traversal, and permission persistence all work well in Chromium browsers. The trickiest part was sandboxed schema evaluation: executing a TypeScript config file in the browser without a build step required a custom evaluator using esbuild's WASM build.
+Building this project pushed me into parts of the web platform I hadn't used deeply before. The File System Access API is surprisingly capable - writable streams, directory traversal, and permission persistence all work well in Chromium browsers.
 
-The shadcn sidebar layout also took significant iteration. Getting two independently-controllable sidebars that both overlay content without layout shift required understanding how `SidebarProvider` context scoping works and building a custom `SidebarManager` registry on top of it.
+The most challenging part was sandboxed evaluation of Astro content collection configs directly in the browser. Since these configs are usually written in TypeScript and depend on Astro-specific modules, I used esbuild's WebAssembly build to transpile them into CommonJS at runtime, allowing me to intercept imports via a custom `require` implementation.
+
+I mocked key Astro modules like astro:content and injected Zod to emulate Astro's runtime behavior, then executed the result inside a controlled sandbox using new Function. This allowed me to safely extract schema definitions, resolve dynamic schema functions, and [convert Zod schemas into JSON Schema](https://zod.dev/json-schema?id=ztojsonschema) for use in a dynamic form renderer.
+
+The shadcn sidebar layout also took significant trial-and-error. I adapted a community solution from [inj-src](https://github.com/shadcn-ui/ui/issues/5651#issuecomment-3715137601) to achieve this behavior. I learned how to work with `SidebarProvider` context scoping to support two independently controllable sidebars that overlay content without layout shift.
 
 ## Technical Highlights
 
 The frontmatter form is fully recursive - it handles nested objects and arrays of objects by rendering sub-forms, with each field component responsible only for its own type. The schema evaluator categorizes every key in a file as **known** (defined in the schema), **inferred** (present in the file but not the schema), or **unknown** (neither), so no data is ever silently dropped when saving.
+
+## Shout-out / Inspiration
+
+This project was inspired by [Astro Editor](https://astroeditor.danny.is) by Danny Smith, a minimalist markdown editor for Astro content collections. Danny's editor focuses on an advanced writing experience with features like MDX component insertion, focus mode, and live image handling.
+
+While this project doesn't include all of those features, it shares the same core philosophy: making content editing simpler and schema-aware. My version is browser-based, and primarily intended for editing frontmatter safely and interactively without a build step, server, or extra plugins.
+
+Big thanks to Danny for the inspiration, his work helped shape the idea and motivated me to create a tool for my own workflow.
