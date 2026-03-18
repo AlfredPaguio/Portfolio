@@ -4,6 +4,8 @@ import type { ImageSource } from "@takumi-rs/core";
 import ImageResponse from "@takumi-rs/image-response";
 import type { APIRoute, GetStaticPaths } from "astro";
 import { getCollection, type CollectionEntry } from "astro:content";
+import path from "path";
+import fs from "fs";
 
 export const GET: APIRoute = async (context) => {
   // @ts-ignore
@@ -49,9 +51,20 @@ const openGraphComponent = (
 ) => {
   // Meta Data
   const { title, status, stack, images, summary, featured } = projectData.data;
-  const projectImage = images[0]?.src
-    ? new URL(images[0].src, siteUrl).href
-    : null;
+  // const projectImage = images[0]?.src
+  //   ? new URL(images[0].src, siteUrl).href
+  //   : null;
+
+  // const projectImage = images[0]?.src
+  //   ? fs.readFileSync(path.join(process.cwd(), "public", images[0].src))
+  //   : null;
+
+  const imagePath = path.join(process.cwd(), "public", images[0].src);
+  const buffer = fs.readFileSync(imagePath);
+  const projectImage = buffer.toString("base64");
+  // const mimeType = "image/png"; // adjust if not PNG
+  // const dataUrl = `data:${mimeType};base64,${base64Data}`;
+  // const projectImage = dataUrlToArrayBuffer(dataUrl);
 
   // Status color mapping
   const statusColors = {
