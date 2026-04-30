@@ -95,8 +95,6 @@ const openGraphComponent = (
   // Meta Data
   const { title, stack, images, summary, featured } = projectData.data;
 
-  const hasProjectImage = Boolean(images?.[0]?.src);
-
   const titleSize =
     title.length > 34
       ? "text-[50px]"
@@ -107,20 +105,75 @@ const openGraphComponent = (
   return {
     type: "div",
     props: {
-      tw: "flex w-full h-full bg-[#050505] text-white px-16 py-6 relative overflow-hidden justify-between",
+      tw: "flex w-full h-full bg-[#080808] text-white relative overflow-hidden",
       style: { fontFamily: "Geist" },
       children: [
-        // ambient background glow
+        // Top gradient accent line
         {
           type: "div",
           props: {
-            tw: "absolute -top-24 -left-24 w-[420px] h-[420px] bg-blue-500/10 rounded-full blur-[100px]",
+            tw: "absolute top-0 left-0 right-0 h-[2px] z-30",
+            style: {
+              background:
+                "linear-gradient(to right, #3b82f6, #22d3ee, #6366f1)",
+            },
+          },
+        },
+
+        // Ambient background glows
+        {
+          type: "div",
+          props: {
+            tw: "absolute top-0 left-0 w-[500px] h-[500px] rounded-full",
+            style: {
+              background:
+                "radial-gradient(circle, rgba(59,130,246,0.09) 0%, transparent 70%)",
+            },
           },
         },
         {
           type: "div",
           props: {
-            tw: "absolute bottom-0 right-0 w-[320px] h-[320px] bg-cyan-400/5 rounded-full blur-[80px]",
+            tw: "absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full",
+            style: {
+              background:
+                "radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%)",
+            },
+          },
+        },
+
+        featured && {
+          type: "div",
+          props: {
+            tw: "absolute top-7 right-8 flex flex-row items-center gap-2 z-30 px-4 py-[7px]",
+            children: [
+              {
+                type: "div",
+                props: {
+                  tw: "flex flex-row items-center gap-2 text-amber-500 text-sm font-bold uppercase tracking-widest",
+                  children: [
+                    {
+                      type: "svg",
+                      props: {
+                        width: 16,
+                        height: 16,
+                        viewBox: "0 0 24 24",
+                        fill: "#f59e0b",
+                        children: [
+                          {
+                            type: "path",
+                            props: {
+                              d: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    { type: "span", props: { children: "Featured" } },
+                  ],
+                },
+              },
+            ],
           },
         },
 
@@ -128,45 +181,32 @@ const openGraphComponent = (
         {
           type: "div",
           props: {
-            tw: "flex flex-col w-[43%] h-full justify-between py-8 z-10",
+            tw: "flex flex-col w-[50%] h-full justify-between px-14 py-11 z-10",
             children: [
-              // top meta
+              // Site URL - top left branding
               {
                 type: "div",
                 props: {
-                  tw: "flex items-center gap-4",
+                  tw: "flex items-center gap-2",
                   children: [
-                    featured && {
+                    {
                       type: "div",
                       props: {
-                        tw: "flex flex-row items-center gap-2 text-amber-500 text-sm font-bold uppercase tracking-widest",
-                        children: [
-                          {
-                            type: "svg",
-                            props: {
-                              width: 16,
-                              height: 16,
-                              viewBox: "0 0 24 24",
-                              fill: "#f59e0b",
-                              children: [
-                                {
-                                  type: "path",
-                                  props: {
-                                    d: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                          { type: "span", props: { children: "Featured" } },
-                        ],
+                        tw: "w-[6px] h-[6px] rounded-full bg-cyan-400",
                       },
                     },
-                  ].filter(Boolean),
+                    {
+                      type: "span",
+                      props: {
+                        tw: "text-zinc-500 text-[13px] tracking-wide",
+                        children: siteUrl,
+                      },
+                    },
+                  ],
                 },
               },
 
-              // middle title/content block
+              // Title + summary + stack
               {
                 type: "div",
                 props: {
@@ -175,11 +215,10 @@ const openGraphComponent = (
                     {
                       type: "h1",
                       props: {
-                        tw: `${titleSize} font-black leading-[1.0] tracking-tighter max-w-[500px]`,
+                        tw: `${titleSize} font-black leading-[1.05] tracking-tight`,
                         style: {
-                          textOverflow: "ellipsis",
-                          lineClamp: 2,
                           textWrap: "balance",
+                          lineClamp: 2,
                         },
                         children: title,
                       },
@@ -189,9 +228,8 @@ const openGraphComponent = (
                       ? {
                           type: "p",
                           props: {
-                            tw: "text-[22px] text-zinc-400 mt-4 leading-snug max-w-[480px]",
+                            tw: "text-[20px] text-zinc-400 mt-4 leading-snug",
                             style: {
-                              textOverflow: "ellipsis",
                               lineClamp: 2,
                               textWrap: "pretty",
                             },
@@ -200,36 +238,27 @@ const openGraphComponent = (
                         }
                       : null,
 
+                    // Tech stack pills
                     {
                       type: "div",
                       props: {
-                        tw: "flex flex-wrap gap-2 mt-6 max-w-[500px]",
-                        children: stack.slice(0, 4).flatMap((tech, index) => {
+                        tw: "flex flex-wrap gap-2 mt-7",
+                        children: stack.slice(0, 5).map((tech) => {
                           const parsed = normalizeTech(tech);
-
-                          const arr = [
-                            {
-                              type: "span",
-                              props: {
-                                tw: "text-[17px] text-zinc-300",
-                                children: parsed.version
-                                  ? `${parsed.name} ${parsed.version}`
-                                  : parsed.name,
+                          const label = parsed.version
+                            ? `${parsed.name} ${parsed.version}`
+                            : parsed.name;
+                          return {
+                            type: "span",
+                            props: {
+                              tw: "text-[13px] text-zinc-300 px-3 py-1 rounded-full",
+                              style: {
+                                background: "rgba(255,255,255,0.05)",
+                                border: "1px solid rgba(255,255,255,0.08)",
                               },
+                              children: label,
                             },
-                          ];
-
-                          if (index < Math.min(stack.length, 4) - 1) {
-                            arr.push({
-                              type: "span",
-                              props: {
-                                tw: "text-zinc-600 text-[17px]",
-                                children: "•",
-                              },
-                            });
-                          }
-
-                          return arr;
+                          };
                         }),
                       },
                     },
@@ -237,7 +266,7 @@ const openGraphComponent = (
                 },
               },
 
-              // bottom author
+              // Author row
               {
                 type: "div",
                 props: {
@@ -247,7 +276,10 @@ const openGraphComponent = (
                       type: "img",
                       props: {
                         src: "avatar-image",
-                        tw: "w-11 h-11 rounded-full border border-white/20",
+                        tw: "w-10 h-10 rounded-full",
+                        style: {
+                          border: "1.5px solid rgba(255,255,255,0.15)",
+                        },
                       },
                     },
                     {
@@ -258,15 +290,15 @@ const openGraphComponent = (
                           {
                             type: "span",
                             props: {
-                              tw: "text-base font-semibold",
+                              tw: "text-[15px] font-semibold text-white",
                               children: "Alfred Paguio",
                             },
                           },
                           {
                             type: "span",
                             props: {
-                              tw: "text-xs text-zinc-500",
-                              children: siteUrl,
+                              tw: "text-[12px] text-zinc-500 mt-[2px]",
+                              children: "Software Engineer",
                             },
                           },
                         ],
@@ -283,40 +315,62 @@ const openGraphComponent = (
         {
           type: "div",
           props: {
-            tw: "flex items-center justify-center w-[51%] h-full z-10 relative",
-            children: projectImageDataUrl
-              ? [
-                  // soft glow behind image
-                  {
-                    type: "div",
-                    props: {
-                      tw: "absolute w-[520px] h-[420px] bg-blue-500/10 blur-[100px] rounded-full",
-                    },
-                  },
-
-                  // image itself (no container box)
-                  {
-                    type: "img",
-                    props: {
-                      src: projectImageDataUrl,
-                      tw: "w-full max-h-[460px] object-contain drop-shadow-2xl",
-                      style: {
-                        maskImage:
-                          "linear-gradient(to bottom, black 80%, transparent 100%)",
-                      },
-                    },
-                  },
-                ]
-              : {
-                  type: "div",
-                  props: {
-                    tw: "w-full h-[460px] flex items-center justify-center text-zinc-700 text-6xl font-mono",
-                    children: "</>",
+            tw: "flex items-center justify-center w-[50%] h-full z-10 relative",
+            children: [
+              // Glow behind image
+              {
+                type: "div",
+                props: {
+                  tw: "absolute w-[460px] h-[380px] rounded-full",
+                  style: {
+                    background:
+                      "radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%)",
+                    filter: "blur(40px)",
                   },
                 },
+              },
+
+              projectImageDataUrl
+                ? {
+                    type: "div",
+                    props: {
+                      tw: "relative flex items-center justify-center w-[520px] h-[360px] rounded-2xl overflow-hidden",
+                      style: {
+                        border: "1px solid rgba(255,255,255,0.07)",
+                        background: "rgba(255,255,255,0.02)",
+                        boxShadow:
+                          "0 0 0 1px rgba(255,255,255,0.04), 0 32px 64px rgba(0,0,0,0.5)",
+                      },
+                      children: [
+                        {
+                          type: "img",
+                          props: {
+                            src: projectImageDataUrl,
+                            tw: "w-full h-full object-cover",
+                            style: {
+                              maskImage:
+                                "linear-gradient(to bottom, black 70%, transparent 100%)",
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  }
+                : {
+                    type: "div",
+                    props: {
+                      tw: "w-[520px] h-[360px] flex items-center justify-center rounded-2xl text-zinc-700 text-6xl font-mono",
+                      style: {
+                        border: "1px solid rgba(255,255,255,0.06)",
+                        background: "rgba(255,255,255,0.02)",
+                      },
+                      children: "</>",
+                    },
+                  },
+            ],
           },
         },
-      ],
+      ].filter(Boolean),
     },
   };
 };

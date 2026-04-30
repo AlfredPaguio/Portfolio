@@ -1,9 +1,11 @@
 import myImage from "@/assets/images/profile.png?url&inline";
+import stylesheet from "@/assets/styles/global.css?inline";
 import dataUrlToArrayBuffer from "@/lib/utils/dataUrlToArrayBuffer";
 import type { APIRoute } from "astro";
 import type { ImageSource } from "takumi-js";
 import { ImageResponse } from "takumi-js/response";
-import stylesheet from "@/assets/styles/global.css?inline";
+
+const AVAILABLE_FOR_WORK = true;
 
 export const GET: APIRoute = async (context) => {
   // Meta Data
@@ -19,6 +21,7 @@ export const GET: APIRoute = async (context) => {
   return new ImageResponse(openGraphComponent(siteUrl), {
     width: 1200,
     height: 630,
+    emoji: "twemoji",
     persistentImages,
     stylesheets: [stylesheet],
   });
@@ -28,24 +31,143 @@ const openGraphComponent = (siteUrl: string) => {
   return {
     type: "div",
     props: {
-      tw: "flex flex-row w-full h-full bg-[#050505] text-white p-20 items-stretch justify-between relative overflow-hidden",
+      tw: "flex flex-row w-full h-full bg-[#080808] text-white relative overflow-hidden",
       style: { fontFamily: "Geist" },
       children: [
-        // Background Decor: Subtle radial glow
         {
           type: "div",
           props: {
-            tw: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-500/10 rounded-full blur-[120px]",
+            tw: "absolute top-0 left-0 right-0 h-[2px] z-30",
+            style: {
+              background:
+                "linear-gradient(to right, #3b82f6, #22d3ee, #6366f1)",
+            },
           },
         },
 
-        // LEFT: Identity
         {
           type: "div",
           props: {
-            // h-full is critical here to give justify-between a height to work with
-            tw: "flex flex-col justify-between w-[55%] h-full z-10",
+            tw: "absolute top-0 left-0 w-[600px] h-[600px] rounded-full",
+            style: {
+              background:
+                "radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)",
+            },
+          },
+        },
+        {
+          type: "div",
+          props: {
+            tw: "absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full",
+            style: {
+              background:
+                "radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 70%)",
+            },
+          },
+        },
+
+        // LEFT
+        {
+          type: "div",
+          props: {
+            tw: "flex flex-col justify-between w-[58%] h-full px-16 py-12 z-10",
             children: [
+              {
+                type: "div",
+                props: {
+                  tw: "flex items-center gap-3",
+                  children: [
+                    AVAILABLE_FOR_WORK
+                      ? {
+                          type: "div",
+                          props: {
+                            tw: "flex items-center gap-2 px-3 py-[6px] rounded-full",
+                            style: {
+                              background: "rgba(34,197,94,0.1)",
+                              border: "1px solid rgba(34,197,94,0.25)",
+                            },
+                            children: [
+                              {
+                                type: "div",
+                                props: {
+                                  tw: "w-[7px] h-[7px] rounded-full bg-emerald-400",
+                                },
+                              },
+                              {
+                                type: "span",
+                                props: {
+                                  tw: "text-emerald-400 text-[13px] font-semibold tracking-wide",
+                                  children: "Available for work",
+                                },
+                              },
+                            ],
+                          },
+                        }
+                      : null,
+
+                    {
+                      type: "div",
+                      props: {
+                        tw: "flex items-center gap-2 px-3 py-[6px] rounded-full",
+                        style: {
+                          background: "rgba(255,255,255,0.05)",
+                          border: "1px solid rgba(255,255,255,0.08)",
+                        },
+                        children: [
+                          {
+                            type: "span",
+                            props: {
+                              tw: "text-[15px]",
+                              children: "🇵🇭",
+                            },
+                          },
+                          {
+                            type: "span",
+                            props: {
+                              tw: "text-zinc-400 text-[13px] font-medium",
+                              children: "Philippines",
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ].filter(Boolean),
+                },
+              },
+
+              {
+                type: "div",
+                props: {
+                  tw: "flex flex-col gap-4",
+                  children: [
+                    {
+                      type: "h1",
+                      props: {
+                        tw: "text-[66px] font-black leading-none m-0 tracking-tighter",
+                        style: { textWrap: "balance" },
+                        children: "Alfred U. Paguio",
+                      },
+                    },
+                    {
+                      type: "p",
+                      props: {
+                        tw: "text-[24px] text-zinc-400 font-medium m-0",
+                        children: "Software Engineer",
+                      },
+                    },
+                    {
+                      type: "p",
+                      props: {
+                        tw: "text-[16px] text-zinc-500 m-0 leading-relaxed",
+                        style: { lineClamp: 3, textWrap: "pretty" },
+                        children:
+                          "I'm a full-stack developer who enjoys building, refactoring, and maintaining well-structured applications. I work mainly with Laravel and React, focusing on improving existing systems through thoughtful design and clean architecture.",
+                      },
+                    },
+                  ],
+                },
+              },
+
               {
                 type: "div",
                 props: {
@@ -53,59 +175,12 @@ const openGraphComponent = (siteUrl: string) => {
                   children: [
                     {
                       type: "div",
-                      props: { tw: "w-3 h-3 bg-blue-500 rounded-full" },
+                      props: { tw: "w-[6px] h-[6px] rounded-full bg-cyan-400" },
                     },
                     {
                       type: "span",
                       props: {
-                        tw: "text-xl font-mono text-zinc-500",
-                        children: "Available for work",
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                type: "div",
-                props: {
-                  // Reduced font size slightly to 80px to prevent the h1 from "crushing" the bottom block
-                  tw: "flex flex-col gap-2 justify-center flex-1",
-                  children: [
-                    {
-                      type: "h1",
-                      props: {
-                        tw: "text-[80px] font-black leading-none m-0 tracking-tighter",
-                        children: "Alfred U. Paguio",
-                      },
-                    },
-                    {
-                      type: "p",
-                      props: {
-                        tw: "text-3xl text-zinc-400 font-medium",
-                        children: "Software Engineer",
-                      },
-                    },
-                  ],
-                },
-              },
-              // The profile card:
-              {
-                type: "div",
-                props: {
-                  // mt-auto forces this to the very bottom of the flex container
-                  tw: "flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-2xl w-fit mt-auto",
-                  children: [
-                    {
-                      type: "img",
-                      props: {
-                        src: "my-image", // Left exactly as requested
-                        tw: "w-12 h-12 rounded-full border border-white/20",
-                      },
-                    },
-                    {
-                      type: "span",
-                      props: {
-                        tw: "text-2xl font-bold font-mono tracking-tight",
+                        tw: "text-zinc-500 text-[14px] tracking-wide",
                         children: siteUrl,
                       },
                     },
@@ -115,97 +190,55 @@ const openGraphComponent = (siteUrl: string) => {
             ],
           },
         },
-        // RIGHT: "The Code/Tech" Visual
+
+        // RIGHT
         {
           type: "div",
           props: {
-            tw: "flex flex-col justify-center w-[40%] z-10",
+            tw: "flex items-center justify-center w-[42%] h-full z-10 relative",
             children: [
               {
                 type: "div",
                 props: {
-                  tw: "flex flex-col bg-zinc-900/50 border border-white/10 rounded-2xl p-6 rotate-[-2deg] shadow-2xl",
-                  children: [
-                    // Simulated Code Window Controls
-                    {
-                      type: "div",
-                      props: {
-                        tw: "flex gap-1.5 mb-4",
-                        children: [
-                          {
-                            type: "div",
-                            props: { tw: "w-3 h-3 rounded-full bg-red-500/50" },
-                          },
-                          {
-                            type: "div",
-                            props: {
-                              tw: "w-3 h-3 rounded-full bg-amber-500/50",
-                            },
-                          },
-                          {
-                            type: "div",
-                            props: {
-                              tw: "w-3 h-3 rounded-full bg-emerald-500/50",
-                            },
-                          },
-                        ],
-                      },
-                    },
-                    // Code Content
-                    {
-                      type: "div",
-                      props: {
-                        tw: "flex flex-col gap-3 font-mono text-sm",
-                        children: [
-                          {
-                            type: "span",
-                            props: {
-                              tw: "text-blue-400",
-                              children: "const engineer = {",
-                            },
-                          },
-                          {
-                            type: "span",
-                            props: {
-                              tw: "text-zinc-400 ml-4",
-                              children: "name: 'Alfred U. Paguio',",
-                            },
-                          },
-                          {
-                            type: "span",
-                            props: {
-                              tw: "text-zinc-400 ml-4",
-                              children: "role: 'Software Engineer',",
-                            },
-                          },
-                          {
-                            type: "span",
-                            props: {
-                              tw: "text-zinc-400 ml-4",
-                              children: "location: 'Global',",
-                            },
-                          },
-                          {
-                            type: "span",
-                            props: {
-                              tw: "text-emerald-400 ml-4",
-                              children: "status: 'Building...',",
-                            },
-                          },
-                          {
-                            type: "span",
-                            props: { tw: "text-blue-400", children: "};" },
-                          },
-                        ],
-                      },
-                    },
-                  ],
+                  tw: "absolute w-[320px] h-[320px] rounded-full",
+                  style: { border: "1px solid rgba(99,102,241,0.18)" },
+                },
+              },
+              {
+                type: "div",
+                props: {
+                  tw: "absolute w-[270px] h-[270px] rounded-full",
+                  style: { border: "1px solid rgba(59,130,246,0.14)" },
+                },
+              },
+              {
+                type: "div",
+                props: {
+                  tw: "absolute w-[260px] h-[260px] rounded-full",
+                  style: {
+                    background:
+                      "radial-gradient(circle, rgba(59,130,246,0.18) 0%, transparent 70%)",
+                    filter: "blur(24px)",
+                  },
+                },
+              },
+              {
+                type: "img",
+                props: {
+                  src: "my-image",
+                  tw: "w-[220px] h-[220px] rounded-full",
+                  style: {
+                    border: "3px solid rgba(255,255,255,0.1)",
+                    boxShadow:
+                      "0 0 0 1px rgba(255,255,255,0.05), 0 24px 48px rgba(0,0,0,0.6)",
+                    objectFit: "cover",
+                  },
                 },
               },
             ],
           },
         },
-      ],
+      ].filter(Boolean),
     },
   };
 };
