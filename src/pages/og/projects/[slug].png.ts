@@ -1,11 +1,39 @@
 import myImage from "@/assets/images/profile.png?url&inline";
+import stylesheet from "@/assets/styles/global.css?inline";
 import dataUrlToArrayBuffer from "@/lib/utils/dataUrlToArrayBuffer";
-import type { ImageSource } from "@takumi-rs/core";
-import ImageResponse from "@takumi-rs/image-response";
+import { normalizeTech } from "@/lib/utils/normalizeTech";
 import type { APIRoute, GetStaticPaths } from "astro";
 import { getCollection, type CollectionEntry } from "astro:content";
-import path from "path";
 import fs from "node:fs";
+import path from "path";
+import type { ImageSource } from "takumi-js";
+import { ImageResponse } from "takumi-js/response";
+
+function fileToArrayBuffer(filePath: string): ArrayBuffer | null {
+  if (!fs.existsSync(filePath)) return null;
+
+  const buffer = fs.readFileSync(filePath);
+
+  return buffer.buffer.slice(
+    buffer.byteOffset,
+    buffer.byteOffset + buffer.byteLength,
+  ) as ArrayBuffer;
+}
+
+function bufferToDataUrl(buffer: ArrayBuffer, filePath: string): string {
+  const ext = path.extname(filePath).toLowerCase();
+
+  const mimeMap: Record<string, string> = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".webp": "image/webp",
+  };
+
+  const mimeType = mimeMap[ext] || "image/png";
+
+  return `data:${mimeType};base64,${Buffer.from(buffer).toString("base64")}`;
+}
 
 export const GET: APIRoute = async (context) => {
   // @ts-ignore
@@ -27,6 +55,18 @@ export const GET: APIRoute = async (context) => {
   //   },
   // ];
 
+  const projectImagePath = path.join(
+    process.cwd(),
+    "public",
+    projectData.data.images?.[0]?.src || "",
+  );
+
+  const projectImageBuffer = fileToArrayBuffer(projectImagePath);
+
+  const projectImageDataUrl = projectImageBuffer
+    ? bufferToDataUrl(projectImageBuffer, projectImagePath)
+    : null;
+
   const persistentImages: ImageSource[] = [
     {
       src: "avatar-image",
@@ -35,12 +75,14 @@ export const GET: APIRoute = async (context) => {
   ];
 
   return new ImageResponse(
-    openGraphComponent(projectData, context.url.origin),
+    openGraphComponent(projectData, context.url.origin, projectImageDataUrl),
     {
       width: 1200,
       height: 630,
+      emoji: "from-font",
       // fonts: fonts,
       persistentImages,
+      stylesheets: [stylesheet],
     },
   );
 };
@@ -48,88 +90,52 @@ export const GET: APIRoute = async (context) => {
 const openGraphComponent = (
   projectData: CollectionEntry<"projects">,
   siteUrl: string,
+  projectImageDataUrl: string | null,
 ) => {
   // Meta Data
-  const { title, status, stack, images, summary, featured } = projectData.data;
-  // const projectImage = images[0]?.src
-  //   ? new URL(images[0].src, siteUrl).href
-  //   : null;
+  const { title, stack, images, summary, featured } = projectData.data;
 
-  // const projectImage = images[0]?.src
-  //   ? fs.readFileSync(path.join(process.cwd(), "public", images[0].src))
-  //   : null;
+  const hasProjectImage = Boolean(images?.[0]?.src);
 
-  const imagePath = path.join(
-    process.cwd(),
-    "public",
-    // "project-images",
-    images[0].src,
-  );
-  // const projectImage = fs.readFileSync(imagePath);
-  // const base64Data = buffer.toString("base64");
-  // const mimeType = "image/png"; // adjust if not PNG
-  // const projectImage = `data:${mimeType};base64,${base64Data}`;
-  // const projectImage = dataUrlToArrayBuffer(dataUrl);
-  const buffer = fs.readFileSync(imagePath);
-  const base64Data = buffer.toString("base64");
-  const mimeType = "image/png"; // adjust if not PNG
-  const projectImage = `data:${mimeType};base64,${base64Data}`;
-
-  // Status color mapping
-  const statusColors = {
-    active: "bg-emerald-500",
-    maintenance: "bg-amber-500",
-    archived: "bg-zinc-500",
-    unknown: "bg-zinc-700",
-  };
+  const titleSize =
+    title.length > 34
+      ? "text-[50px]"
+      : title.length > 24
+        ? "text-[58px]"
+        : "text-[68px]";
 
   return {
     type: "div",
     props: {
-      tw: "flex flex-row w-full h-full bg-[#050505] text-white p-16 items-stretch justify-between relative overflow-hidden",
+      tw: "flex w-full h-full bg-[#050505] text-white px-16 py-6 relative overflow-hidden justify-between",
       style: { fontFamily: "Geist" },
       children: [
-        // Background Decor
+        // ambient background glow
         {
           type: "div",
           props: {
-            tw: "absolute -top-20 -left-20 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px]",
+            tw: "absolute -top-24 -left-24 w-[420px] h-[420px] bg-blue-500/10 rounded-full blur-[100px]",
+          },
+        },
+        {
+          type: "div",
+          props: {
+            tw: "absolute bottom-0 right-0 w-[320px] h-[320px] bg-cyan-400/5 rounded-full blur-[80px]",
           },
         },
 
-        // LEFT COLUMN: Content (60% width)
+        // LEFT CONTENT
         {
           type: "div",
           props: {
-            tw: "flex flex-col justify-between w-[58%] h-full z-10",
+            tw: "flex flex-col w-[43%] h-full justify-between py-8 z-10",
             children: [
-              // Top: Status & Branding
+              // top meta
               {
                 type: "div",
                 props: {
                   tw: "flex items-center gap-4",
                   children: [
-                    {
-                      type: "div",
-                      props: {
-                        tw: "flex items-center gap-2 bg-white/5 px-3 py-1 rounded-full border border-white/10",
-                        children: [
-                          {
-                            type: "div",
-                            props: {
-                              tw: `w-2 h-2 rounded-full ${statusColors[status] || statusColors.unknown}`,
-                            },
-                          },
-                          {
-                            type: "span",
-                            props: {
-                              tw: "text-sm font-bold uppercase tracking-widest text-zinc-400",
-                              children: status,
-                            },
-                          },
-                        ],
-                      },
-                    },
                     featured && {
                       type: "div",
                       props: {
@@ -160,41 +166,88 @@ const openGraphComponent = (
                 },
               },
 
-              // Middle: Title & Summary
+              // middle title/content block
               {
                 type: "div",
                 props: {
-                  tw: "flex flex-col gap-4 flex-1 justify-center",
+                  tw: "flex flex-col",
                   children: [
                     {
                       type: "h1",
                       props: {
-                        tw: "text-[75px] font-black leading-[1.1] m-0 tracking-tighter",
+                        tw: `${titleSize} font-black leading-[1.0] tracking-tighter max-w-[500px]`,
+                        style: {
+                          textOverflow: "ellipsis",
+                          lineClamp: 2,
+                          textWrap: "balance",
+                        },
                         children: title,
                       },
                     },
-                    summary && {
-                      type: "p",
+
+                    summary
+                      ? {
+                          type: "p",
+                          props: {
+                            tw: "text-[22px] text-zinc-400 mt-4 leading-snug max-w-[480px]",
+                            style: {
+                              textOverflow: "ellipsis",
+                              lineClamp: 2,
+                              textWrap: "pretty",
+                            },
+                            children: summary,
+                          },
+                        }
+                      : null,
+
+                    {
+                      type: "div",
                       props: {
-                        tw: "text-2xl text-zinc-400 leading-snug line-clamp-2",
-                        children: summary,
+                        tw: "flex flex-wrap gap-2 mt-6 max-w-[500px]",
+                        children: stack.slice(0, 4).flatMap((tech, index) => {
+                          const parsed = normalizeTech(tech);
+
+                          const arr = [
+                            {
+                              type: "span",
+                              props: {
+                                tw: "text-[17px] text-zinc-300",
+                                children: parsed.version
+                                  ? `${parsed.name} ${parsed.version}`
+                                  : parsed.name,
+                              },
+                            },
+                          ];
+
+                          if (index < Math.min(stack.length, 4) - 1) {
+                            arr.push({
+                              type: "span",
+                              props: {
+                                tw: "text-zinc-600 text-[17px]",
+                                children: "•",
+                              },
+                            });
+                          }
+
+                          return arr;
+                        }),
                       },
                     },
-                  ],
+                  ].filter(Boolean),
                 },
               },
 
-              // Bottom: Profile
+              // bottom author
               {
                 type: "div",
                 props: {
-                  tw: "flex items-center gap-4 flex-shrink-0 mt-auto",
+                  tw: "flex items-center gap-3",
                   children: [
                     {
                       type: "img",
                       props: {
                         src: "avatar-image",
-                        tw: "w-14 h-14 rounded-full border border-white/20",
+                        tw: "w-11 h-11 rounded-full border border-white/20",
                       },
                     },
                     {
@@ -205,14 +258,14 @@ const openGraphComponent = (
                           {
                             type: "span",
                             props: {
-                              tw: "text-xl font-bold leading-none",
-                              children: "Alfred",
+                              tw: "text-base font-semibold",
+                              children: "Alfred Paguio",
                             },
                           },
                           {
                             type: "span",
                             props: {
-                              tw: "text-sm text-zinc-500 mt-1 leading-none",
+                              tw: "text-xs text-zinc-500",
                               children: siteUrl,
                             },
                           },
@@ -226,63 +279,44 @@ const openGraphComponent = (
           },
         },
 
-        // RIGHT COLUMN: Preview & Stack (35% width)
+        // RIGHT IMAGE PANEL
         {
           type: "div",
           props: {
-            tw: "flex flex-col justify-between w-[38%] h-full z-10",
-            children: [
-              // Project Image Preview Box
-              {
-                type: "div",
-                props: {
-                  tw: "flex bg-white/5 border border-white/10 rounded-3xl p-2 rotate-2 shadow-2xl flex-shrink-0",
-                  children: [
-                    projectImage
-                      ? {
-                          type: "img",
-                          props: {
-                            src: projectImage,
-                            tw: "w-full h-64 object-cover rounded-2xl",
-                          },
-                        }
-                      : {
-                          type: "div",
-                          props: {
-                            tw: "w-full h-64 bg-zinc-900 rounded-2xl flex items-center justify-center",
-                            children: [
-                              {
-                                type: "span",
-                                props: {
-                                  tw: "text-zinc-700 text-4xl font-mono",
-                                  children: "</>",
-                                },
-                              },
-                            ],
-                          },
-                        },
-                  ],
-                },
-              },
-
-              // Stack Pills
-              {
-                type: "div",
-                props: {
-                  tw: "flex flex-wrap gap-2 justify-end items-end mt-auto",
-                  children: stack.slice(0, 5).map((tech: string) => ({
-                    type: "span",
+            tw: "flex items-center justify-center w-[51%] h-full z-10 relative",
+            children: projectImageDataUrl
+              ? [
+                  // soft glow behind image
+                  {
+                    type: "div",
                     props: {
-                      tw: "bg-white/5 text-zinc-300 border border-white/10 px-3 py-1 rounded-md text-xs font-mono",
-                      children: tech,
+                      tw: "absolute w-[520px] h-[420px] bg-blue-500/10 blur-[100px] rounded-full",
                     },
-                  })),
+                  },
+
+                  // image itself (no container box)
+                  {
+                    type: "img",
+                    props: {
+                      src: projectImageDataUrl,
+                      tw: "w-full max-h-[460px] object-contain drop-shadow-2xl",
+                      style: {
+                        maskImage:
+                          "linear-gradient(to bottom, black 80%, transparent 100%)",
+                      },
+                    },
+                  },
+                ]
+              : {
+                  type: "div",
+                  props: {
+                    tw: "w-full h-[460px] flex items-center justify-center text-zinc-700 text-6xl font-mono",
+                    children: "</>",
+                  },
                 },
-              },
-            ],
           },
         },
-      ].filter(Boolean),
+      ],
     },
   };
 };

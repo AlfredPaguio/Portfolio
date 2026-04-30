@@ -1,8 +1,9 @@
 import myImage from "@/assets/images/profile.png?url&inline";
 import dataUrlToArrayBuffer from "@/lib/utils/dataUrlToArrayBuffer";
-import type { ImageSource } from "@takumi-rs/core";
-import ImageResponse from "@takumi-rs/image-response";
 import type { APIRoute } from "astro";
+import type { ImageSource } from "takumi-js";
+import { ImageResponse } from "takumi-js/response";
+import stylesheet from "@/assets/styles/global.css?inline";
 
 export const GET: APIRoute = async (context) => {
   // Meta Data
@@ -19,6 +20,7 @@ export const GET: APIRoute = async (context) => {
     width: 1200,
     height: 630,
     persistentImages,
+    stylesheets: [stylesheet],
   });
 };
 
