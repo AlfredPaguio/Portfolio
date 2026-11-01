@@ -1,9 +1,10 @@
 // @ts-check
-import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
+import { defineConfig, fontProviders } from "astro/config";
 
+import { satteri } from "@astrojs/markdown-satteri";
 import mdx from "@astrojs/mdx";
-import { remarkReadingTime } from "./src/lib/remark-reading-time.mjs";
+import { mdastReadingTimePlugin } from "@/lib/mdast-reading-time";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,12 +16,16 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   markdown: {
-    remarkPlugins: [remarkReadingTime],
+    processor: satteri({
+      // @ts-ignore
+      mdastPlugins: [mdastReadingTimePlugin],
+    }),
   },
 
   integrations: [
     mdx({
-      remarkPlugins: [remarkReadingTime],
+      // @ts-ignore
+      remarkPlugins: [mdastReadingTimePlugin],
     }),
   ],
 
