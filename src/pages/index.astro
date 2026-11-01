@@ -1,16 +1,21 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import HeroSection from "@/pages/_partials/HeroSection.astro";
 import AboutSection from "@/pages/_partials/AboutSection.astro";
-import TechSection from "@/pages/_partials/TechSection.astro";
-import RecentProjectsSection from "@/pages/_partials/RecentProjectsSection.astro";
 import ContactCTASection from "@/pages/_partials/ContactCTASection.astro";
+import HeroSection from "@/pages/_partials/HeroSection.astro";
+import RecentProjectsSection from "@/pages/_partials/RecentProjectsSection.astro";
+import TechSection from "@/pages/_partials/TechSection.astro";
 ---
 
-<BaseLayout openGraphType="portfolio">
+<BaseLayout
+  openGraphType="portfolio"
+  description="Alfred U. Paguio, a junior software developer in the Philippines working with Laravel and React. Explore projects, download a resume, or get in touch."
+>
   <HeroSection />
-  <AboutSection />
-  <TechSection />
+  <div class="grid gap-5 md:grid-cols-2">
+    <AboutSection />
+    <TechSection />
+  </div>
   <RecentProjectsSection />
   <ContactCTASection />
 </BaseLayout>

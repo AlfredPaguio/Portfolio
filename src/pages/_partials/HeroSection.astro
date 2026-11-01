@@ -1,155 +1,124 @@
 ---
-import { frontmatter as resumeData } from "@/content/resumes.md";
-import { Image } from "astro:assets";
 import myImage from "@/assets/images/profile.png";
-
-import FileDown from "@lucide/astro/icons/file-down";
-import ClockIcon from "@lucide/astro/icons/clock";
-import { siteConfig } from "@/data/site";
-import Button from "@/components/ui/Button.astro";
-
-import { Content as LinkedInIcon } from "@/content/icons/linkedin.mdx";
-import { Content as GithubIcon } from "@/content/techs/github.mdx";
-import Separator from "@/components/ui/Separator.astro";
 import RecruiterCopy from "@/components/RecruiterCopy.astro";
-
-const resumeUrl = `/resumes/${resumeData.currently_using}`;
+import Button from "@/components/ui/Button.astro";
+import { Content as LinkedInIcon } from "@/content/icons/linkedin.mdx";
+import { frontmatter as resumeData } from "@/content/resumes.md";
+import { Content as GithubIcon } from "@/content/techs/github.mdx";
+import { siteConfig } from "@/data/site";
+import ArrowRight from "@lucide/astro/icons/arrow-right";
+import ClockIcon from "@lucide/astro/icons/clock";
+import FileDown from "@lucide/astro/icons/file-down";
+import { Image } from "astro:assets";
 ---
 
 <header
-  class="flex flex-col-reverse md:flex-row gap-8 items-start justify-between mb-18"
+  class="grid items-start gap-8 pt-3 pb-10 md:grid-cols-[minmax(0,1fr)_288px] md:gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12"
 >
-  <div class="flex-1 space-y-6">
+  <div class="min-w-0">
+    <p class="mb-3 text-sm font-medium text-muted-foreground">
+      Junior Software Developer
+    </p>
     <h1
-      class="animate-reveal text-4xl font-extrabold tracking-tighter sm:text-5xl will-change-auto"
+      class="text-4xl leading-[1.12] font-extrabold tracking-tight text-balance sm:text-5xl"
     >
       Alfred U. Paguio
     </h1>
-
-    <p
-      class="animate-reveal animation-delay-100 text-xl text-muted-foreground leading-relaxed will-change-auto"
-    >
-      Junior Software Developer focusing on {""}
-      <span class="text-foreground font-medium">application logic</span> and the <span
-        class="text-foreground font-medium">refactoring</span
-      > of systems. I build with Laravel and React.
+    <p class="mt-5 max-w-[38ch] text-xl leading-relaxed text-pretty">
+      I build with Laravel and React, with a focus on application logic and
+      refactoring.
     </p>
-
-    <!-- Location & Timezone Card -->
-    <div
-      class="flex items-center gap-3 p-3 rounded-lg border border-border bg-card/50 animate-reveal animation-delay-150 w-fit"
-    >
-      <div class="flex items-center gap-2">
-        <span class="text-lg" aria-hidden="true">🇵🇭</span>
-        <span class="font-medium text-sm text-foreground" aria-label="Country"
-          >Philippines</span
-        >
+    <p class="mt-3 max-w-[54ch] text-sm leading-relaxed text-muted-foreground">
+      I enjoy turning practical problems into well-structured applications and
+      improving the systems behind them.
+    </p>
+    <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-2 text-sm font-medium"
+          ><span aria-hidden="true">🇵🇭</span>Philippines</span
+        ><span class="text-xs text-muted-foreground">UTC+8</span>
       </div>
-
-      <!-- <div class="w-px h-4 bg-border"></div> -->
-
-      <Separator orientation="vertical" />
-
-      <div class="flex items-center gap-2">
-        <span class="text-lg" aria-hidden="true"><ClockIcon /></span>
-        <time id="local-time" class="font-mono text-sm text-foreground"
-          >00:00:00 AM</time
-        >
-        <span class="text-muted-foreground text-xs" aria-label="Time Zone"
-          >(UTC+8)</span
+      <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <ClockIcon
+          class="size-4 text-muted-foreground"
+          aria-hidden="true"
+        /><time
+          id="local-time"
+          class="font-mono tabular-nums"
+          aria-label="Current time in Manila">Manila time</time
+        ><span id="local-day-period" class="text-xs text-muted-foreground"
+          >My local time</span
         >
       </div>
     </div>
-
-    <div
-      class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4 animate-reveal animation-delay-200 will-change-auto"
-    >
+    <div class="mt-6 flex flex-wrap items-center gap-2.5">
       <Button
-        href={resumeUrl}
+        href={`/resumes/${resumeData.currently_using}`}
         size="lg"
-        class="font-semibold"
-        aria-label="Download my resume"
-        download
+        class="w-full sm:w-auto"
+        download><FileDown aria-hidden="true" />Download resume</Button
       >
-        <FileDown data-icon="inline-start" />
-        Download My Resume
-      </Button>
-
-      <!-- Divider (desktop only) -->
-      <Separator orientation="vertical" class="hidden sm:block" />
-
-      <div class="flex items-center gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          href={siteConfig.links.socials.linkedin}
-          class="text-muted-foreground hover:text-foreground"
-          aria-label="LinkedIn Profile"
-        >
-          <LinkedInIcon data-icon="inline-start" />
-          <span class="hidden sm:inline">LinkedIn</span>
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          href={siteConfig.links.socials.github}
-          class="text-muted-foreground hover:text-foreground"
-          aria-label="Github Profile"
-        >
-          <GithubIcon data-icon="inline-start" />
-          <span class="hidden sm:inline">GitHub</span>
-        </Button>
-      </div>
+      <Button
+        href={siteConfig.links.socials.linkedin}
+        variant="outline"
+        size="lg"><LinkedInIcon aria-hidden="true" />LinkedIn</Button
+      >
+      <Button
+        href={siteConfig.links.socials.github}
+        aria-label="GitHub profile"
+        variant="outline"
+        size="lg"><GithubIcon aria-hidden="true" />GitHub</Button
+      >
     </div>
-    <RecruiterCopy />
+    <div class="mt-5 border-t border-border pt-4">
+      <RecruiterCopy compact />
+    </div>
+    <a
+      href="#recent"
+      class="mt-5 inline-flex min-h-10 items-center gap-2 rounded text-sm font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-4"
+      >Explore my projects <ArrowRight class="size-4" aria-hidden="true" /></a
+    >
   </div>
-
-  <figure class="relative group animate-reveal animation-delay-100">
-    <div
-      class="absolute -inset-4 bg-linear-to-r from-primary/20 to-muted/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-700"
-      aria-hidden="true"
-    >
-    </div>
-    <div
-      class="relative size-48 md:size-56 rounded-2xl overflow-hidden border-2 border-border shadow-2xl"
-    >
-      <Image
-        src={myImage}
-        alt="Portrait of Alfred U. Paguio"
-        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500 motion-reduce:transform-none motion-reduce:transition-none"
-        width={224}
-        height={224}
-        loading="eager"
-        fetchpriority="high"
-      />
-    </div>
+  <figure class="mx-auto w-full max-w-80 md:mx-0 md:max-w-none">
+    <Image
+      src={myImage}
+      alt="Portrait of Alfred U. Paguio"
+      class="aspect-square w-full rounded-2xl border border-border bg-card object-cover"
+      width={320}
+      height={320}
+      loading="eager"
+      fetchpriority="high"
+    />
   </figure>
 </header>
-
-<script is:inline>
-  // Live timezone clock for Philippines (Asia/Manila - UTC+8)
-  function updateLocalTime() {
-    /**  @type {HTMLTimeElement} */
-    const timeElement = document.getElementById("local-time");
-    if (!timeElement) return;
-
+<script>
+  const time = document.querySelector<HTMLTimeElement>("#local-time");
+  const label = document.querySelector("#local-day-period");
+  function updateTime() {
+    if (!time) return;
     const now = new Date();
-    /**  @type {Intl.DateTimeFormatOptions} */
-    const options = {
+    time.textContent = new Intl.DateTimeFormat("en-US", {
       timeZone: "Asia/Manila",
-      hour: "2-digit",
+      hour: "numeric",
       minute: "2-digit",
-      // second: "2-digit",
       hour12: true,
-    };
-
-    const formatter = new Intl.DateTimeFormat("en-US", options);
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/time#usage_notes
-    timeElement.textContent = formatter.format(now);
-    timeElement.dateTime = formatter.format(now);
+    }).format(now);
+    time.dateTime = now.toISOString();
+    time.title = new Intl.DateTimeFormat("en-US", {
+      timeZone: "Asia/Manila",
+      dateStyle: "full",
+    }).format(now);
+    const hour = Number(
+      new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Manila",
+        hour: "numeric",
+        hourCycle: "h23",
+      }).format(now),
+    );
+    if (label)
+      label.textContent =
+        hour >= 22 || hour < 7 ? "Nighttime here" : "My local time";
   }
-
-  // Update immediately and then every second
-  updateLocalTime();
-  setInterval(updateLocalTime, 60000);
+  updateTime();
+  setInterval(updateTime, 60_000);
 </script>

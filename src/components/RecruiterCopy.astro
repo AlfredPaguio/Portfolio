@@ -4,8 +4,13 @@ import Copy from "@lucide/astro/icons/copy";
 interface Props {
   src?: string;
   project?: boolean;
+  compact?: boolean;
 }
-const { src = "/llms-full.txt", project = false } = Astro.props;
+const {
+  src = "/llms-full.txt",
+  project = false,
+  compact = false,
+} = Astro.props;
 ---
 
 <recruiter-copy
@@ -13,11 +18,15 @@ const { src = "/llms-full.txt", project = false } = Astro.props;
   data-src={src}
   data-project={project ? "true" : "false"}
 >
-  <p class="text-sm text-muted-foreground">
+  <p class="text-xs text-muted-foreground">
     {
-      project
-        ? "Want the short version? Copy this project into your AI tool for a plain-language explanation."
-        : "Reviewing with AI? Take the portfolio with you."
+      compact
+        ? project
+          ? "Understand this project with AI"
+          : "Review this portfolio with AI"
+        : project
+          ? "Want the short version? Copy this project into your AI tool for a plain-language explanation."
+          : "Reviewing with AI? Take the portfolio with you."
     }
   </p>
   <div class="flex flex-wrap items-center gap-2">
@@ -25,12 +34,20 @@ const { src = "/llms-full.txt", project = false } = Astro.props;
       type="button"
       variant="outline"
       size="sm"
+      class="min-h-9"
       data-copy="markdown"
       hidden
     >
       <Copy aria-hidden="true" /> Copy as Markdown
     </Button>
-    <Button type="button" variant="outline" size="sm" data-copy="prompt" hidden>
+    <Button
+      type="button"
+      variant="outline"
+      size="sm"
+      class="min-h-9"
+      data-copy="prompt"
+      hidden
+    >
       <Copy aria-hidden="true" /> Copy as AI Prompt
     </Button>
     <a

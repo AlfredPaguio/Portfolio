@@ -1,52 +1,55 @@
 ---
-import Badge from "@/components/ui/Badge.astro";
 import TechPill from "@/components/TechPill.astro";
-import Section from "@/components/Section.astro";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-} from "@/components/ui/card";
-
-const coreStack = [
-  { id: "laravel", years: "1 Year" },
-  { id: "react", years: "1 Year" },
-  { id: "typescript", years: "1 Year" },
-  { id: "python" },
+const skills = [
+  {
+    id: "laravel",
+    focus: "Application logic",
+    href: "/projects/project-management-app/",
+  },
+  {
+    id: "react",
+    focus: "Interactive interfaces",
+    href: "/projects/simple-astro-content-editor/",
+  },
+  {
+    id: "typescript",
+    focus: "Typed web applications",
+    href: "/projects/simple-astro-content-editor/",
+  },
+  {
+    id: "python",
+    focus: "Scraping & data tools",
+    href: "/projects/ecommerce-web-scraper/",
+  },
 ];
 ---
 
-<Section
-  title="Current tech stack"
+<section
   id="skills"
-  class="animate-reveal animation-delay-400"
+  aria-labelledby="skills-heading"
+  class="min-w-0 scroll-mt-28 rounded-xl border border-border bg-card p-6"
 >
-  <Card
-    size="sm"
-    class="animate-reveal animation-delay-500 relative py-8 lg:py-12"
-  >
-    <CardHeader>
-      <CardDescription class="text-base">
-        Technologies I work with regularly
-      </CardDescription>
-    </CardHeader>
-
-    <CardContent>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {
-          coreStack.map((skill) => (
-            <div class="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/30 hover:bg-muted/50 transition-colors">
-              <TechPill id={skill.id} class="border-0 bg-transparent px-0" />
-              {skill.years && (
-                <Badge variant="secondary" class="font-mono text-[10px]">
-                  {skill.years}
-                </Badge>
-              )}
-            </div>
-          ))
-        }
-      </div>
-    </CardContent>
-  </Card>
-</Section>
+  <h2 id="skills-heading" class="text-lg font-semibold tracking-tight">
+    My core toolkit
+  </h2>
+  <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+    Explore how I’ve used each technology.
+  </p>
+  <div class="mt-4 grid grid-cols-1 gap-x-5 gap-y-4 min-[400px]:grid-cols-2">
+    {
+      skills.map((skill) => (
+        <div>
+          <>
+            <TechPill id={skill.id} showVersion={false} class="font-medium" />
+            <a
+              href={skill.href}
+              class="mt-1 flex min-h-9 items-center rounded text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-4"
+            >
+              {skill.focus}
+            </a>
+          </>
+        </div>
+      ))
+    }
+  </div>
+</section>

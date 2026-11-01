@@ -1,74 +1,58 @@
 ---
-import Section from "@/components/Section.astro";
 import Button from "@/components/ui/Button.astro";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-import { siteConfig } from "@/data/site";
-
-import MailPlusIcon from "@lucide/astro/icons/mail-plus";
 import { Content as LinkedInIcon } from "@/content/icons/linkedin.mdx";
 import { Content as GithubIcon } from "@/content/techs/github.mdx";
+import { siteConfig } from "@/data/site";
+import Mail from "@lucide/astro/icons/mail";
 ---
 
-<Section
-  title="Let's work together"
+<section
   id="contact"
-  class="animate-reveal animation-delay-700"
+  aria-labelledby="contact-heading"
+  class="scroll-mt-28 rounded-xl border border-border bg-card p-6 sm:p-8"
 >
-  <Card class="border-primary/20 bg-linear-to-br from-card to-muted/10">
-    <CardHeader class="pb-2">
-      <CardTitle class="text-lg">Open to new opportunities</CardTitle>
-      <CardDescription>
-        Available for full-time roles, contract work, or freelance projects
-      </CardDescription>
-    </CardHeader>
-
-    <CardContent class="space-y-6">
-      <!-- Primary CTA -->
-      <div class="flex flex-wrap items-center gap-3">
-        <Button
-          href={`mailto:${siteConfig.email}`}
-          size="lg"
-          class="font-semibold"
-        >
-          <MailPlusIcon data-icon="inline-start" />
-          Email Me Directly
-        </Button>
-
-        <span class="text-sm text-muted-foreground"> or connect via: </span>
-
-        <div class="flex items-center gap-1">
-          <Button
-            variant="outline"
-            size="sm"
-            href={siteConfig.links.socials.linkedin}
-            class="gap-1"
-            aria-label="LinkedIn Profile"
-          >
-            <LinkedInIcon class="size-4" data-icon="inline-start" /> LinkedIn
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            href={siteConfig.links.socials.github}
-            class="gap-1"
-            aria-label="Github Profile"
-          >
-            <GithubIcon class="size-4" data-icon="inline-start" /> GitHub
-          </Button>
-        </div>
-      </div>
-
-      <p class="text-xs text-muted-foreground pt-2 border-t border-border">
-        I typically respond within 24 hours. Feel free to reach out with your
-        project details, role description, or just to say hi.
+  <div class="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+    <div>
+      <p
+        class="mb-2 inline-flex items-center gap-2 text-sm text-muted-foreground"
+      >
+        <span
+          class="size-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400"
+          aria-hidden="true"></span>Open to new opportunities
+      </p><h2
+        id="contact-heading"
+        class="text-2xl font-semibold tracking-tight"
+      >
+        Let’s work together.
+      </h2><p
+        class="mt-3 max-w-[55ch] text-sm leading-relaxed text-muted-foreground"
+      >
+        Have a role or a project in mind? Send me the details. I’d be happy to
+        discuss how I could contribute.
       </p>
-    </CardContent>
-  </Card>
-</Section>
+    </div>
+    <Button href={`mailto:${siteConfig.email}`} size="lg" class="w-fit"
+      ><Mail aria-hidden="true" />Email me</Button
+    >
+  </div>
+  <div
+    class="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-4"
+  >
+    <a
+      href={`mailto:${siteConfig.email}`}
+      class="rounded text-sm text-muted-foreground underline underline-offset-4 wrap-anywhere focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-4"
+      >{siteConfig.email}</a
+    >
+    <div class="flex gap-2">
+      <Button
+        href={siteConfig.links.socials.linkedin}
+        variant="outline"
+        size="lg"><LinkedInIcon aria-hidden="true" />LinkedIn</Button
+      ><Button
+        href={siteConfig.links.socials.github}
+        aria-label="GitHub profile"
+        variant="outline"
+        size="lg"><GithubIcon aria-hidden="true" />GitHub</Button>
+    </div>
+  </div>
+</section>

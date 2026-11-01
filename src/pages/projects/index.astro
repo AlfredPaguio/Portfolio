@@ -1,133 +1,135 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import Section from "@/components/Section.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
-import { getCollection } from "astro:content";
-import Rss from "@lucide/astro/icons/rss";
-import { siteConfig } from "@/data/site";
+import RecruiterCopy from "@/components/RecruiterCopy.astro";
 import Button from "@/components/ui/Button.astro";
-import MoveRight from "@lucide/astro/icons/move-right";
-import MailIcon from "@lucide/astro/icons/mail";
-import Badge from "@/components/ui/Badge.astro";
-import FileDown from "@lucide/astro/icons/file-down";
-
 import { frontmatter as resumeData } from "@/content/resumes.md";
+import { siteConfig } from "@/data/site";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
+import FileDown from "@lucide/astro/icons/file-down";
+import { getCollection } from "astro:content";
 
-const resumeUrl = `/resumes/${resumeData.currently_using}`;
-
-const projects = await getCollection("projects");
-
-// Prioritize the most important work (Featured first)
-const featuredProjects = projects
-  .filter((p) => p.data.featured)
-  .sort(
-    (a, b) => (b.data.date?.getTime() || 0) - (a.data.date?.getTime() || 0),
-  );
-const otherProjects = projects
-  .filter((p) => !p.data.featured)
-  .sort(
-    (a, b) => (b.data.date?.getTime() || 0) - (a.data.date?.getTime() || 0),
-  );
-
-// Get unique tech stack for filtering
-const allTech = [
-  ...new Set(
-    projects.flatMap((p) =>
-      (p.data.stack || []).map((tech) => tech.split(":")[0].trim()),
-    ),
-  ),
-];
+const projects = (await getCollection("projects")).sort(
+  (a, b) => (b.data.date?.getTime() || 0) - (a.data.date?.getTime() || 0),
+);
+const featured = projects.filter((project) => project.data.featured);
+const others = projects.filter((project) => !project.data.featured);
+const [lead, ...selected] = featured;
 ---
 
 <BaseLayout
   title="Projects"
-  description="Full list of software projects and technical experiments."
+  description="Software projects by Alfred Paguio. Explore practical applications, developer tools, and the work behind them."
 >
-  <Section class="mb-12 animate-reveal animation-delay-100">
-    <div
-      class="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
-    >
-      <div class="space-y-4">
-        <h1 class="text-4xl font-extrabold tracking-tighter sm:text-5xl">
-          Projects
-        </h1>
-        <p class="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-          A collection of systems, tools, and experiments.
-        </p>
-
-        <div class="flex flex-wrap gap-3 pt-2">
-          <Badge variant="secondary" class="text-sm">
-            {projects.length} Total Projects
-          </Badge>
-          <Badge variant="outline" class="text-sm">
-            {featuredProjects.length} Featured
-          </Badge>
-          <Badge variant="outline" class="text-sm">
-            {allTech.length} Technologies
-          </Badge>
-        </div>
-      </div>
-
-      <div class="flex flex-col sm:flex-row gap-3">
-        <Button
-          href={`mailto:${siteConfig.email}?subject=Project%20Discussion`}
-          size="lg"
-        >
-          <MailIcon class="size-4" />
-          Discuss a Project
-        </Button>
-        <Button href="/rss.xml" variant="outline" size="lg">
-          <Rss data-icon="inline-start" class="size-4" />RSS Feed
-        </Button>
-      </div>
+  <header
+    class="mt-3 mb-9 flex flex-col items-start justify-between gap-5 sm:mb-12 sm:flex-row sm:gap-6"
+  >
+    <div>
+      <h1
+        class="mb-4 text-[clamp(36px,5vw,48px)] leading-[1.1] font-[750] tracking-[-0.045em]"
+      >
+        Projects
+      </h1>
+      <p
+        class="max-w-[52ch] text-base leading-[1.65] text-pretty text-muted-foreground sm:text-[17px]"
+      >
+        Applications, tools, and experiments built with Laravel, React, and
+        Python.
+      </p>
     </div>
-  </Section>
+    <Button
+      href={`/resumes/${resumeData.currently_using}`}
+      variant="outline"
+      size="lg"
+      class="mt-1.25"
+      download><FileDown aria-hidden="true" /> Download resume</Button
+    >
+  </header>
+
+  <div class="mb-8 -mt-4">
+    <RecruiterCopy compact />
+  </div>
 
   {
-    featuredProjects.length > 0 && (
-      <Section
-        title="Featured Work"
-        class="mb-16 animate-reveal animation-delay-300 will-change-auto"
-      >
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {featuredProjects.map((project) => (
+    featured.length > 0 && (
+      <section aria-labelledby="selected-heading" class="mt-12">
+        <div class="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+          <>
+            <h2
+              id="selected-heading"
+              class="text-[21px] leading-[1.4] font-[650] tracking-[-0.025em]"
+            >
+              Selected projects{" "}
+              <span class="ml-2 text-sm font-normal text-muted-foreground">
+                {featured.length}
+              </span>
+            </h2>
+            <p class="w-full text-[13px] text-muted-foreground sm:w-auto">
+              A closer look at my work
+            </p>
+          </>
+        </div>
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
+          {lead && (
+            <div class="col-span-full">
+              <ProjectCard project={lead} layout="spotlight" />
+            </div>
+          )}
+          {selected.map((project) => (
             <ProjectCard project={project} />
           ))}
         </div>
-      </Section>
+      </section>
     )
   }
 
-  <Section
-    title="All Projects"
-    class="animate-reveal animation-delay-200 will-change-auto"
-  >
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {otherProjects.map((project) => <ProjectCard project={project} />)}
-    </div>
-  </Section>
+  {
+    others.length > 0 && (
+      <section aria-labelledby="more-heading" class="mt-12">
+        <div class="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+          <>
+            <h2
+              id="more-heading"
+              class="text-[21px] leading-[1.4] font-[650] tracking-[-0.025em]"
+            >
+              More projects{" "}
+              <span class="ml-2 text-sm font-normal text-muted-foreground">
+                {others.length}
+              </span>
+            </h2>
+            <p class="w-full text-[13px] text-muted-foreground sm:w-auto">
+              Company websites and business systems
+            </p>
+          </>
+        </div>
+        <div class="grid gap-4">
+          {others.map((project) => (
+            <ProjectCard project={project} layout="compact" />
+          ))}
+        </div>
+      </section>
+    )
+  }
 
-  <Section
-    class="mt-20 border-t border-border pt-12 text-center animate-reveal animation-delay-400"
+  <footer
+    class="mt-12 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center sm:gap-8"
   >
-    <div class="max-w-2xl mx-auto space-y-6">
-      <h2 class="text-2xl font-bold">Ready to build?</h2>
-      <p class="text-muted-foreground text-lg">
-        I specialize in improving existing codebases, reducing technical debt,
-        and building maintainable applications with Laravel and React.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button href={`mailto:${siteConfig.email}`} size="lg">
-          Let's Collaborate <MoveRight data-icon="inline-end" />
-        </Button>
-        <Button href={resumeUrl} variant="outline" size="lg" download>
-          <FileDown data-icon="inline-start" />
-          Download Resume
-        </Button>
-      </div>
-      <p class="text-xs text-muted-foreground pt-4">
-        I typically respond within 24 hours • Open to remote & full-time work
+    <div>
+      <h2 class="text-[22px] font-[650] tracking-[-0.025em] text-balance">
+        Let’s talk about your next project.
+      </h2><p
+        class="mt-2 max-w-[54ch] text-sm leading-[1.7] text-muted-foreground"
+      >
+        I work mainly with Laravel and React, with a focus on application logic
+        and improving existing systems.
       </p>
     </div>
-  </Section>
+    <Button href={`mailto:${siteConfig.email}`} size="lg"
+      >Get in touch <ArrowUpRight aria-hidden="true" /></Button
+    >
+  </footer>
+  <a
+    class="mt-7 inline-block py-2 text-xs text-muted-foreground underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-4"
+    href="/rss.xml">Subscribe to project updates via RSS</a
+  >
 </BaseLayout>
