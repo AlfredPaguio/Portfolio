@@ -1,352 +1,240 @@
 ---
-import Play from "@lucide/astro/icons/play";
-import Maximize from "@lucide/astro/icons/maximize";
-import X from "@lucide/astro/icons/x";
+import type { MediaItem } from "@/lib/gallery-manager";
+import { safeMediaUrl } from "@/lib/media-source";
 import ChevronLeft from "@lucide/astro/icons/chevron-left";
 import ChevronRight from "@lucide/astro/icons/chevron-right";
-import Download from "@lucide/astro/icons/download";
-import ProjectVideo from "@/components/projects/ProjectVideo.astro";
-import Separator from "@/components/ui/Separator.astro";
-
-
+import ExternalLink from "@lucide/astro/icons/external-link";
+import Maximize from "@lucide/astro/icons/maximize";
+import Minus from "@lucide/astro/icons/minus";
+import Play from "@lucide/astro/icons/play";
+import Plus from "@lucide/astro/icons/plus";
+import X from "@lucide/astro/icons/x";
 interface Props {
   images?: { src: string; alt?: string }[];
   videos?: string[];
 }
-
 const { images = [], videos = [] } = Astro.props;
-
-const allMedia = [
-  ...videos.map((v) => ({ type: "video", src: v, alt: "Video Demo" })),
-  ...images.map((i) => ({
-    type: "image",
-    src: i.src,
-    alt: i.alt || "Project Image",
-  })),
+const media: MediaItem[] = [
+  ...videos
+    .filter((src) => src.trim() && safeMediaUrl(src))
+    .map((src, i) => ({
+      type: "video" as const,
+      src,
+      alt: videos.length > 1 ? `Video demo ${i + 1}` : "Video demo",
+    })),
+  ...images
+    .filter((image) => image.src.trim() && safeMediaUrl(image.src))
+    .map((image, i) => ({
+      type: "image" as const,
+      src: image.src,
+      alt: image.alt?.trim() || `Project screenshot ${i + 1}`,
+    })),
 ];
-
-const mediaSerialized = JSON.stringify(allMedia);
-
-const padIndex = (i: number) => String(i + 1).padStart(2, "0");
+const focus =
+  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring";
+const control =
+  "inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-neutral-200 hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:cursor-default disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer touch-manipulation";
 ---
 
-<div class="my-12 w-full space-y-6 select-none">
-  <div
-    class="flex items-center justify-between border-b border-border pb-2 px-1"
-  >
-    <span
-      class="text-sm font-bold uppercase tracking-widest text-muted-foreground/80"
-      >Project Media</span
+{
+  media.length > 0 && (
+    <project-gallery
+      data-gallery={JSON.stringify(media)}
+      class="mt-5 block w-full"
     >
-    <span class="text-[10px] font-mono text-muted-foreground/40"
-      >{allMedia.length} ASSETS</span
-    >
-  </div>
-
-  <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4">
-    {
-      allMedia.map((item, index) => (
-        <button
-          class="media-trigger group relative aspect-video overflow-hidden rounded-xl border border-border bg-card transition-all active:scale-95 sm:hover:border-primary/50 cursor-zoom-in"
-          data-index={index}
-        >
-          {item.type === "video" ? (
-            <Fragment>
-              <ProjectVideo src={item.src} title={item.alt} />
-              <div class="absolute inset-0 flex flex-col items-center justify-center bg-muted/20">
-                <div class="flex size-9 items-center justify-center rounded-full bg-background shadow-sm ring-1 ring-border">
-                  <Play class="ml-0.5 size-4 text-primary" />
+      <div class="mb-5 flex flex-wrap items-baseline justify-between gap-2 text-sm text-muted-foreground">
+        <p>Select a preview to explore the details.</p>
+        <span class="tabular-nums">
+          {media.length} {media.length === 1 ? "preview" : "previews"}
+        </span>
+      </div>
+      <div class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+        {media.map((item, index) => (
+          <a
+            href={item.src}
+            data-open={index}
+            aria-haspopup="dialog"
+            aria-label={`${item.type === "video" ? "Watch" : "Enlarge"} ${item.alt}`}
+            class:list={[
+              "group block min-w-0 rounded-xl",
+              focus,
+              index === 0 && "sm:col-span-2",
+            ]}
+          >
+            <div
+              class:list={[
+                "relative flex items-center justify-center overflow-hidden rounded-xl border border-border bg-muted/50 transition-colors group-hover:border-foreground/40 motion-reduce:transition-none",
+                index === 0 ? "aspect-video p-3 sm:p-5" : "aspect-16/10 p-2.5",
+              ]}
+            >
+              {item.type === "image" ? (
+                <img
+                  src={item.src}
+                  alt=""
+                  width={960}
+                  height={600}
+                  loading="lazy"
+                  decoding="async"
+                  class="size-full rounded-sm object-cover object-top"
+                />
+              ) : (
+                <div class="flex flex-col items-center gap-3 py-6">
+                  <span class="flex size-16 items-center justify-center rounded-full border border-border bg-card text-foreground transition-transform group-hover:scale-105 motion-reduce:transform-none">
+                    <Play class="ml-1 size-6" aria-hidden="true" />
+                  </span>
+                  <span class="text-sm font-medium">
+                    Watch the project in action
+                  </span>
+                  <span class="text-xs text-muted-foreground">Video demo</span>
                 </div>
-              </div>
-            </Fragment>
-          ) : (
-            <img
-              src={item.src}
-              alt={item.alt}
-              class="size-full object-cover absolute -top-8"
-              loading="lazy"
-            />
+              )}
+              <span class="absolute right-3 bottom-3 flex size-9 items-center justify-center rounded-lg border border-border bg-card/95 text-foreground shadow-sm">
+                <Maximize class="size-4" aria-hidden="true" />
+              </span>
+            </div>
+            <div class="mt-2.5 flex items-start justify-between gap-3 px-0.5">
+              <span class="min-w-0 text-sm leading-6 font-medium wrap-break-word">
+                {item.alt}
+              </span>
+              <span class="shrink-0 text-xs leading-6 text-muted-foreground tabular-nums">
+                {index + 1} / {media.length}
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+      <dialog
+        aria-label="Project media viewer"
+        class="fixed inset-0 m-auto h-dvh max-h-dvh w-screen max-w-none overflow-hidden border-0 bg-neutral-950 p-0 text-neutral-100 backdrop:bg-black/80 backdrop:backdrop-blur-sm lg:h-[calc(100dvh-3rem)] lg:max-h-240 lg:w-[calc(100vw-3rem)] lg:max-w-400 lg:rounded-2xl lg:border lg:border-white/15"
+      >
+        <div class="flex h-full min-h-0 flex-col pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)]">
+          <header class="flex shrink-0 items-center justify-between gap-4 border-b border-white/10 px-4 py-2 sm:px-6 sm:py-3">
+            <div
+              class="flex min-w-0 flex-col gap-0.5"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <span
+                data-counter
+                class="text-xs text-neutral-400 tabular-nums"
+              />
+              <strong
+                data-title
+                class="truncate text-sm font-medium sm:text-base"
+              />
+            </div>
+            <button
+              type="button"
+              data-close
+              class={control}
+              aria-label="Close media viewer"
+              autofocus
+            >
+              <X class="size-5" aria-hidden="true" />
+            </button>
+          </header>
+          <div
+            data-viewport
+            class="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden overscroll-contain bg-black/30 p-3 sm:p-6"
+          />
+          <div class="flex shrink-0 flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-white/10 px-3 py-1.5 sm:px-6">
+            <div class="flex items-center gap-1">
+              <button
+                type="button"
+                data-prev
+                class={control}
+                aria-label="Previous media"
+              >
+                <ChevronLeft class="size-5" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                data-next
+                class={control}
+                aria-label="Next media"
+              >
+                <ChevronRight class="size-5" aria-hidden="true" />
+              </button>
+            </div>
+            <div
+              data-zoom
+              class="flex items-center rounded-lg border border-white/15"
+            >
+              <button
+                type="button"
+                data-zoom-out
+                class={control}
+                aria-label="Zoom out"
+              >
+                <Minus class="size-4" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                data-reset
+                class="inline-flex h-11 min-w-14 cursor-pointer items-center justify-center px-1 text-xs text-neutral-300 tabular-nums hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+                aria-label="Reset image zoom"
+              >
+                100%
+              </button>
+              <button
+                type="button"
+                data-zoom-in
+                class={control}
+                aria-label="Zoom in"
+              >
+                <Plus class="size-4" aria-hidden="true" />
+              </button>
+            </div>
+            <a
+              data-original
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex min-h-11 items-center gap-2 rounded px-1 text-xs text-neutral-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              <>
+                <span>Open original</span>
+                <ExternalLink class="size-3.5" aria-hidden="true" />
+                <span class="sr-only"> (opens in a new tab)</span>
+              </>
+            </a>
+          </div>
+          {media.length > 1 && (
+            <nav
+              aria-label="Choose project media"
+              class="flex shrink-0 gap-2 overflow-x-auto overscroll-x-contain border-t border-white/10 px-4 py-3 sm:justify-start sm:px-6"
+            >
+              {media.map((item, index) => (
+                <button
+                  type="button"
+                  data-select={index}
+                  aria-label={`View ${item.alt}`}
+                  aria-current="false"
+                  class="relative flex h-14 w-20 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-white/15 bg-white/5 p-1 opacity-50 hover:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white aria-current:border-white aria-current:opacity-100"
+                >
+                  {item.type === "image" ? (
+                    <img
+                      src={item.src}
+                      alt=""
+                      loading="lazy"
+                      width={80}
+                      height={56}
+                      class="size-full object-contain"
+                    />
+                  ) : (
+                    <Play class="size-5" aria-hidden="true" />
+                  )}
+                </button>
+              ))}
+            </nav>
           )}
-
-          <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Maximize class="text-white size-5" stroke-width={2} />
-          </div>
-
-          <div class="absolute bottom-1.5 left-1.5 rounded bg-background/80 px-1 py-0.5 backdrop-blur-sm border border-border/50 flex items-center justify-center">
-            <span class="text-[9px] font-mono font-bold uppercase opacity-70">
-              {/* {item.type === "video" ? "vid" : "img"}-{padIndex(index)} */}
-              {item.alt}
-            </span>
-          </div>
-        </button>
-      ))
-    }
-  </div>
-</div>
-
-<!-- borrowing laravel's snapshot idea for the data-gallery -->
-<dialog
-  id="gallery-dialog"
-  data-gallery={mediaSerialized}
-  class="fixed inset-0 z-100 m-0 size-full max-w-none max-h-none border-none bg-background p-0 outline-none backdrop:bg-black/95 backdrop:backdrop-blur-xl"
->
-  <div class="flex flex-col h-full outline-none">
-    {/* Responsive Header */}
-    <div
-      class="flex items-center justify-between border-b border-border bg-muted/10 px-4 py-3 z-50 select-none safe-top"
-    >
-      <div class="flex flex-col gap-0.5">
-        <span
-          id="modal-counter"
-          class="text-sm font-mono font-bold text-primary uppercase tracking-tighter"
-          >00 / 00</span
-        >
-        <span
-          id="modal-title"
-          class="text-sm font-mono font-medium text-muted-foreground uppercase truncate max-w-30 sm:max-w-xs"
-          >Title</span
-        >
-      </div>
-      <div class="flex items-center gap-2">
-        <a
-          id="download-btn"
-          href="#"
-          download
-          class="flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground hover:bg-muted p-1"
-          title="Download Asset"
-        >
-          <Download class="size-4" />
-        </a>
-
-        <Separator
-          orientation="vertical"
-          class="aria-[orientation=vertical]:self-center h-4"
-        />
-
-        <div
-          class="flex items-center bg-background rounded-lg p-1 border border-border"
-        >
-          <button
-            id="prev-btn"
-            aria-label="Previous Asset"
-            class="flex size-9 items-center justify-center rounded-lg text-foreground hover:bg-muted cursor-pointer"
-          >
-            <ChevronLeft class="size-5" />
-          </button>
-          <button
-            id="next-btn"
-            aria-label="Next Asset"
-            class="flex size-9 items-center justify-center rounded-lg text-foreground hover:bg-muted cursor-pointer"
-          >
-            <ChevronRight class="size-5" />
-          </button>
+          <p class="hidden shrink-0 px-4 pb-3 text-center text-xs text-neutral-400 sm:block">
+            Arrow keys to browse · Pinch or use + / − to zoom · Esc to close
+          </p>
         </div>
-
-        <Separator
-          orientation="vertical"
-          class="aria-[orientation=vertical]:self-center h-4"
-        />
-
-        <form method="dialog">
-          <button
-            class="flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground hover:bg-destructive/70 active:bg-destructive active:text-white cursor-pointer p-1"
-          >
-            <X class="size-5" />
-          </button>
-        </form>
-      </div>
-    </div>
-
-    {/* Viewport: Force 16/9 on Desktop, Flex-grow on Mobile */}
-    <div
-      id="modal-viewport"
-      class="relative grow sm:aspect-video w-full bg-black/20 flex items-center justify-center overflow-hidden outline-none"
-      draggable="false"
-    >
-    </div>
-
-    {/* Footer Legend: Hidden on tiny screens */}
-    <div
-      class="hidden sm:flex items-center justify-center gap-6 border-t border-border bg-muted/5 py-3 px-4 text-muted-foreground select-none"
-    >
-      <div
-        class="flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-tight"
-      >
-        <span class="rounded border border-border bg-background px-1 py-0.5"
-          >Arrows
-          <span class="inline-flex items-center gap-1">
-            <kbd class="border-none shadow-none rounded-none">
-              <kbd
-                class="rounded border border-border bg-muted shadow-none inline-flex items-center justify-center h-5 min-w-5 px-1.5 font-mono text-[10px] font-medium text-muted-foreground select-none"
-                >←</kbd
-              >
-              <kbd
-                class="rounded border border-border bg-muted shadow-none inline-flex items-center justify-center h-5 min-w-5 px-1.5 font-mono text-[10px] font-medium text-muted-foreground select-none"
-                >→</kbd
-              >
-            </kbd>
-          </span>
-        </span> Navigate
-      </div>
-      <div
-        class="flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-tight"
-      >
-        <span class="rounded border border-border bg-background px-1 py-0.5"
-          >Pinch / Scroll</span
-        > Zoom
-      </div>
-      <div
-        class="flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-tight"
-      >
-        <span class="rounded border border-border bg-background px-1 py-0.5"
-          >2x Click/Tap</span
-        > Reset
-      </div>
-    </div>
-  </div>
-</dialog>
-
+      </dialog>
+    </project-gallery>
+  )
+}
 <script>
-  import { GalleryManager, type MediaItem } from "@/lib/gallery-manager";
-
-  const dialog = document.getElementById(
-    "gallery-dialog",
-  ) as HTMLDialogElement | null;
-  const viewport = document.getElementById("modal-viewport");
-  const counter = document.getElementById("modal-counter");
-  const title = document.getElementById("modal-title");
-  const downloadBtn = document.getElementById(
-    "download-btn",
-  ) as HTMLAnchorElement | null;
-
-  const prevBtn = document.getElementById("prev-btn");
-  const nextBtn = document.getElementById("next-btn");
-  // Top-level return cannot be used inside an ECMAScript module so we do this
-
-  if (
-    dialog &&
-    viewport &&
-    counter &&
-    title &&
-    downloadBtn &&
-    prevBtn &&
-    nextBtn
-  ) {
-    const galleryData: MediaItem[] = dialog.dataset.gallery
-      ? JSON.parse(dialog.dataset.gallery)
-      : [];
-
-    // Initialize the manager
-    const manager = new GalleryManager({
-      allMedia: galleryData,
-      elements: {
-        viewport,
-        counter,
-        title,
-        downloadBtn,
-      },
-    });
-
-    // UI Setup
-    document.querySelectorAll<HTMLElement>(".media-trigger").forEach((t) =>
-      t.addEventListener("click", () => {
-        const index = parseInt(t.dataset.index || "0", 10);
-        manager.update(index);
-        dialog.showModal();
-      }),
-    );
-
-    prevBtn.addEventListener("click", () =>
-      manager.update(
-        (manager.currentIndex - 1 + manager.allMedia.length) %
-          manager.allMedia.length,
-        "prev",
-      ),
-    );
-
-    nextBtn.addEventListener("click", () =>
-      manager.update(
-        (manager.currentIndex + 1) % manager.allMedia.length,
-        "next",
-      ),
-    );
-
-    window.addEventListener("keydown", (e: KeyboardEvent) => {
-      if (!dialog.open) return;
-      if (e.key === "ArrowLeft") prevBtn.click();
-      if (e.key === "ArrowRight") nextBtn.click();
-    });
-
-    dialog.addEventListener("close", () => manager.cleanup());
-    dialog.addEventListener("click", (e: MouseEvent) => {
-      // Only close if the backdrop (the dialog itself) is clicked
-      if (e.target === dialog) dialog.close();
-    });
-  }
+  import "@/lib/gallery-element";
 </script>
-
-<style is:global>
-  /* SAFE AREA FOR MODERN PHONES */
-  .safe-top {
-    padding-top: max(0.75rem, env(safe-area-inset-top));
-  }
-
-  #gallery-dialog {
-    touch-action: none; /* Prevents browser pull-to-refresh while zoomed */
-    --scrollbar-gutter: 0px;
-  }
-
-  #modal-viewport iframe {
-    /* Mobile fix for iframes not obeying rounding */
-    border-radius: 0;
-  }
-
-  @media (max-width: 640px) {
-    #gallery-dialog {
-      border-radius: 0;
-    }
-  }
-
-  dialog[open]::backdrop {
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(15px);
-  }
-
-  /* Ensure the viewport handles the content sizing */
-  #modal-viewport {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #modal-viewport img {
-    will-change: transform, opacity;
-    /* @see https://www.reddit.com/r/webdev/comments/pesm19/comment/hb08cuo/ */
-    -webkit-touch-callout: none !important;
-    -webkit-user-select: none !important;
-    -webkit-user-drag: none !important;
-    -khtml-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-    user-select: none !important;
-  }
-
-  /* Prevent double scrollbars on the HTML/Body level */
-  html:has(dialog[open]),
-  body:has(dialog[open]) {
-    overflow: hidden !important;
-    /* Prevents the "jumping" effect when scrollbar disappears */
-    padding-right: var(--scrollbar-gutter, 0px);
-  }
-
-  /* Strip default dialog scrollbars */
-  #gallery-dialog {
-    overflow: hidden !important;
-    scrollbar-width: none; /* Firefox */
-  }
-
-  #gallery-dialog::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
-  }
-</style>

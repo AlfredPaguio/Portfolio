@@ -1,28 +1,40 @@
 ---
+import { videoSource } from "@/lib/media-source";
 interface Props {
   src: string;
   title?: string;
 }
-const { src, title = "Project Demo" } = Astro.props;
-
-// Convert standard YouTube links to embed links if necessary
-const getEmbedUrl = (url: string) => {
-  if (url.includes("youtube.com/watch?v=")) {
-    return url.replace("watch?v=", "embed/");
-  }
-  return url;
-};
+const { src, title = "Project demo" } = Astro.props;
+const source = videoSource(src);
 ---
 
 <div
-  class="relative aspect-video w-full pb-[56.25%] mb-[50px] rounded-xl overflow-hidden border border-border bg-black h-0"
+  class="my-6 aspect-video w-full overflow-hidden rounded-xl border border-border bg-muted"
 >
-  <iframe
-    src={getEmbedUrl(src)}
-    width="100%"
-    height="100%"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-    title={title}
-    class="h-full w-full absolute top-0 left-0"></iframe>
+  {
+    source?.native ? (
+      <video
+        src={source.src}
+        controls
+        playsinline
+        preload="metadata"
+        aria-label={title}
+        class="size-full object-contain"
+      />
+    ) : source ? (
+      <iframe
+        src={source.src}
+        title={title}
+        loading="lazy"
+        allow="encrypted-media; picture-in-picture; fullscreen"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+        class="size-full border-0"
+      />
+    ) : (
+      <p class="p-4 text-sm text-muted-foreground">
+        Video preview unavailable.
+      </p>
+    )
+  }
 </div>

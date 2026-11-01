@@ -1,403 +1,379 @@
+import { safeMediaUrl, videoSource } from "./media-source";
 export interface MediaItem {
   type: "image" | "video";
   src: string;
   alt?: string;
 }
-
 export interface GalleryElements {
   viewport: HTMLElement;
   counter: HTMLElement;
   title: HTMLElement;
-  downloadBtn: HTMLAnchorElement;
+  original: HTMLAnchorElement;
+  zoom: HTMLElement;
+  reset: HTMLButtonElement;
+  zoomIn: HTMLButtonElement;
+  zoomOut: HTMLButtonElement;
 }
-
 export interface GalleryConfig {
   elements: GalleryElements;
   allMedia: MediaItem[];
+  onChange?: (index: number) => void;
 }
 
 export class GalleryManager {
+  public currentIndex = 0;
+  public readonly allMedia: MediaItem[];
   private elements: GalleryElements;
-  public allMedia: MediaItem[];
+  private onChange?: GalleryConfig["onChange"];
+  private controller?: AbortController;
+  private image?: HTMLImageElement;
+  private scale = 1;
+  private x = 0;
+  private y = 0;
+  private animations = new Set<Animation>();
 
-  public currentIndex: number = 0;
+  private animate(element: HTMLElement, frames: Keyframe[], duration = 280) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const animation = element.animate(frames, {
+      duration,
+      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+    });
+    this.animations.add(animation);
+    animation.finished.then(
+      () => this.animations.delete(animation),
+      () => this.animations.delete(animation),
+    );
+    return animation;
+  }
 
-  //  Transform State
-  private scale: number = 1;
-  private currentX: number = 0;
-  private currentY: number = 0;
-
-  //  Interaction State
-  private isDragging: boolean = false;
-  private startX: number = 0;
-  private startY: number = 0;
-  private lastX: number = 0;
-  private lastY: number = 0;
-  private isZoomed: boolean = false;
-
-  //  Pinch & Tap State
-  private evCache: PointerEvent[] = [];
-  private prevDiff: number = -1;
-  private initialScale: number = 1;
-
-  // Double Tap
-  private lastTapTime: number = 0;
-  // private lastTapPos: { x: number; y: number } | null = null;
-
-  private abortController: AbortController | null = null;
-
-  //  Constants
-  private readonly MAX_SCALE = 4;
-  private readonly SWIPE_THRESHOLD = 50;
-  private readonly DOUBLE_TAP_DELAY = 300; // ms
-  private readonly TAP_TOLERANCE = 10; // px (movement allowed during a tap)
+  private cancelAnimations() {
+    this.animations.forEach((animation) => animation.cancel());
+    this.animations.clear();
+    this.elements.viewport
+      .querySelectorAll("[data-outgoing]")
+      .forEach((element) => element.remove());
+  }
 
   constructor(config: GalleryConfig) {
     this.elements = config.elements;
     this.allMedia = config.allMedia;
+    this.onChange = config.onChange;
   }
 
-  private getEmbedUrl(url: string): string {
-    return url.includes("youtube.com/watch?v=")
-      ? url.replace("watch?v=", "embed/")
-      : url;
-  }
-
-  private applyTransform(el: HTMLElement, duration: number = 0) {
-    if (!el) return;
-    el.style.transition =
-      duration > 0
-        ? `transform ${duration}s cubic-bezier(0.25, 1, 0.5, 1)`
-        : "none";
-    el.style.transform = `translate3d(${this.currentX}px, ${this.currentY}px, 0) scale(${this.scale})`;
-  }
-
-  public update(index: number, direction: "next" | "prev" | "init" = "init") {
-    const { viewport, counter, title, downloadBtn } = this.elements;
-
-    // Reset Everything
-    this.currentIndex = index;
-    this.scale = 1;
-    this.currentX = 0;
-    this.currentY = 0;
-    this.isZoomed = false;
-    this.evCache = [];
-
+  public update(index: number) {
+    if (!this.allMedia.length || !Number.isInteger(index)) return;
+    const direction = this.controller
+      ? Math.sign(index - this.currentIndex)
+      : 0;
+    const incomingIndex =
+      ((index % this.allMedia.length) + this.allMedia.length) %
+      this.allMedia.length;
+    if (this.controller && incomingIndex === this.currentIndex) return;
+    const { viewport } = this.elements;
+    let outgoing: HTMLImageElement | undefined;
+    if (
+      this.image?.naturalWidth &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      const bounds = this.image.getBoundingClientRect();
+      const stage = viewport.getBoundingClientRect();
+      outgoing = this.image.cloneNode() as HTMLImageElement;
+      outgoing.alt = "";
+      outgoing.dataset.outgoing = "";
+      outgoing.className = "pointer-events-none absolute object-contain";
+      outgoing.style.cssText = `left:${bounds.left - stage.left}px;top:${bounds.top - stage.top}px;width:${bounds.width}px;height:${bounds.height}px;`;
+    }
+    this.cleanup();
+    if (outgoing) {
+      viewport.append(outgoing);
+      const animation = this.animate(outgoing, [
+        { transform: "translateX(0)", opacity: 1 },
+        {
+          transform: `translateX(${-direction * viewport.clientWidth}px)`,
+          opacity: 0,
+        },
+      ]);
+      const ghost = outgoing;
+      animation?.finished.then(
+        () => ghost.remove(),
+        () => ghost.remove(),
+      );
+    }
+    this.controller = new AbortController();
+    const { signal } = this.controller;
+    this.currentIndex =
+      ((index % this.allMedia.length) + this.allMedia.length) %
+      this.allMedia.length;
     const item = this.allMedia[this.currentIndex];
+    const { counter, title, original, zoom } = this.elements;
+    counter.textContent = `${this.currentIndex + 1} / ${this.allMedia.length}`;
+    title.textContent =
+      item.alt || (item.type === "video" ? "Video demo" : "Project screenshot");
+    original.hidden = !safeMediaUrl(item.src);
+    original.href = safeMediaUrl(item.src) || "#";
+    zoom.hidden = item.type !== "image";
+    this.scale = 1;
+    this.x = 0;
+    this.y = 0;
+    this.onChange?.(this.currentIndex);
 
-    // Update UI
-    counter.innerText = `${index + 1} / ${this.allMedia.length}`;
-    title.innerText = item.alt || "";
-    downloadBtn.href = item.src;
-    downloadBtn.style.display = item.type === "video" ? "none" : "flex";
-
-    viewport.innerHTML = "";
-
+    const status = document.createElement("p");
+    status.className =
+      "pointer-events-none absolute inset-0 flex items-center justify-center p-6 text-center text-sm text-neutral-300";
+    status.setAttribute("role", "status");
+    status.textContent = "Loading preview…";
+    viewport.append(status);
+    const fail = () => {
+      status.hidden = false;
+      status.textContent =
+        "Preview unavailable. Choose Open original to view this media.";
+      zoom.hidden = true;
+    };
     if (item.type === "video") {
-      viewport.innerHTML = `<iframe src="${this.getEmbedUrl(item.src)}" class="h-full w-full border-0 select-none" allowfullscreen></iframe>`;
+      const source = videoSource(item.src);
+      if (!source) {
+        fail();
+        return;
+      }
+      if (source.native) {
+        const player = document.createElement("video");
+        player.src = source.src;
+        player.controls = true;
+        player.playsInline = true;
+        player.preload = "metadata";
+        player.setAttribute("aria-label", item.alt || "Project video demo");
+        player.className = "size-full object-contain";
+        player.addEventListener(
+          "loadedmetadata",
+          () => {
+            status.hidden = true;
+          },
+          { signal },
+        );
+        player.addEventListener("error", fail, { signal });
+        viewport.append(player);
+      } else {
+        const frame = document.createElement("iframe");
+        frame.src = source.src;
+        frame.title = item.alt || "Project video demo";
+        frame.allowFullscreen = true;
+        frame.allow =
+          "autoplay; encrypted-media; picture-in-picture; fullscreen";
+        frame.referrerPolicy = "strict-origin-when-cross-origin";
+        frame.className = "aspect-video max-h-full w-full border-0";
+        frame.addEventListener(
+          "load",
+          () => {
+            status.hidden = true;
+          },
+          { signal },
+        );
+        frame.addEventListener("error", fail, { signal });
+        viewport.append(frame);
+      }
       return;
     }
-
+    if (!safeMediaUrl(item.src)) {
+      fail();
+      return;
+    }
     const img = document.createElement("img");
-    img.src = item.src;
+    this.image = img;
+    img.alt = item.alt || "Project screenshot";
     img.draggable = false;
     img.className =
-      "max-h-full max-w-full object-contain select-none touch-none will-change-transform";
-
-    if (direction !== "init") {
-      const offset = direction === "next" ? 50 : -50;
-      img.style.transform = `translate3d(${offset}px, 0, 0) scale(0.95)`;
-      img.style.opacity = "0";
-      img.style.transition =
-        "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s";
-    }
-
-    viewport.appendChild(img);
-
-    requestAnimationFrame(() => {
-      img.style.transform = "translate3d(0, 0, 0) scale(1)";
-      img.style.opacity = "1";
-      this.initControls(img);
-    });
+      "block max-h-full max-w-full touch-none object-contain select-none";
+    img.addEventListener(
+      "load",
+      () => {
+        status.hidden = true;
+        this.transform();
+        if (direction)
+          this.animate(img, [
+            {
+              transform: `translateX(${direction * viewport.clientWidth}px)`,
+              opacity: 0.3,
+            },
+            { transform: "translateX(0)", opacity: 1 },
+          ]);
+      },
+      { signal },
+    );
+    img.addEventListener(
+      "error",
+      () => {
+        img.hidden = true;
+        fail();
+      },
+      { signal },
+    );
+    img.src = item.src;
+    viewport.append(img);
+    this.transform();
+    this.controls(img, signal);
+    window.addEventListener("resize", () => this.transform(), { signal });
   }
 
-  private initControls(img: HTMLImageElement) {
-    this.abortController?.abort();
-    this.abortController = new AbortController();
-    const { signal } = this.abortController;
+  public zoomBy(delta: number, reset = false) {
+    if (!this.image || !this.image.complete || !this.image.naturalWidth) return;
+    this.cancelAnimations();
+    this.scale = reset ? 1 : Math.max(1, Math.min(4, this.scale + delta));
+    if (this.scale === 1) {
+      this.x = 0;
+      this.y = 0;
+    }
+    this.transform();
+  }
 
-    //  Pointer Down
-    const handlePointerDown = (e: PointerEvent) => {
-      img.setPointerCapture(e.pointerId);
-      this.evCache.push(e);
+  private transform() {
+    const img = this.image;
+    if (!img) return;
+    const { viewport, reset, zoomIn, zoomOut } = this.elements;
+    const spaceX =
+      viewport.clientWidth - (viewport.clientWidth >= 640 ? 48 : 24);
+    const spaceY =
+      viewport.clientHeight - (viewport.clientWidth >= 640 ? 48 : 24);
+    const limitX = Math.max(0, (img.offsetWidth * this.scale - spaceX) / 2);
+    const limitY = Math.max(0, (img.offsetHeight * this.scale - spaceY) / 2);
+    this.x = Math.max(-limitX, Math.min(limitX, this.x));
+    this.y = Math.max(-limitY, Math.min(limitY, this.y));
+    img.style.transform = `translate(${this.x}px, ${this.y}px) scale(${this.scale})`;
+    img.style.cursor = this.scale > 1 ? "grab" : "zoom-in";
+    reset.textContent = `${Math.round(this.scale * 100)}%`;
+    zoomOut.disabled = this.scale <= 1;
+    zoomIn.disabled = this.scale >= 4;
+  }
 
-      this.isDragging = true;
-      this.startX = e.clientX;
-      this.startY = e.clientY;
-      this.lastX = this.currentX;
-      this.lastY = this.currentY;
-
-      // Stop momentum/transitions so controls feel instant
-      img.style.transition = "none";
-
-      // Initialize Pinch if 2 fingers
-      if (this.evCache.length === 2) {
-        this.initialScale = this.scale;
-        this.prevDiff = Math.hypot(
-          this.evCache[0].clientX - this.evCache[1].clientX,
-          this.evCache[0].clientY - this.evCache[1].clientY,
-        );
-      }
+  private controls(img: HTMLImageElement, signal: AbortSignal) {
+    const pointers = new Map<number, { x: number; y: number }>();
+    let start = { x: 0, y: 0 },
+      last = { x: 0, y: 0 };
+    let distance = 0,
+      pinchScale = 1,
+      pinched = false;
+    let lastTap = { time: 0, x: 0, y: 0 };
+    let lastTouchTime = 0;
+    const gap = () => {
+      const [a, b] = [...pointers.values()];
+      return Math.hypot(a.x - b.x, a.y - b.y);
     };
-
-    //  Pointer Move
-    const handlePointerMove = (e: PointerEvent) => {
-      const index = this.evCache.findIndex(
-        (cached) => cached.pointerId === e.pointerId,
-      );
-      if (index > -1) this.evCache[index] = e;
-
-      if (!this.isDragging) return;
-
-      // PINCH ZOOM
-      if (this.evCache.length === 2) {
-        const curDiff = Math.hypot(
-          this.evCache[0].clientX - this.evCache[1].clientX,
-          this.evCache[0].clientY - this.evCache[1].clientY,
-        );
-
-        if (this.prevDiff > 0) {
-          const zoomFactor = curDiff / this.prevDiff;
-          this.scale = Math.min(
-            Math.max(1, this.initialScale * zoomFactor),
-            this.MAX_SCALE,
-          );
-          this.isZoomed = this.scale > 1;
-          this.applyTransform(img);
+    img.addEventListener(
+      "pointerdown",
+      (e) => {
+        if (e.button !== 0) return;
+        this.cancelAnimations();
+        img.setPointerCapture(e.pointerId);
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        start = last = { x: e.clientX, y: e.clientY };
+        if (pointers.size === 1) pinched = false;
+        if (pointers.size === 2) {
+          pinched = true;
+          distance = gap();
+          pinchScale = this.scale;
         }
+      },
+      { signal },
+    );
+    img.addEventListener(
+      "pointermove",
+      (e) => {
+        if (!pointers.has(e.pointerId)) return;
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        if (pointers.size === 2 && distance > 0) {
+          this.scale = Math.max(
+            1,
+            Math.min(4, (pinchScale * gap()) / distance),
+          );
+          this.transform();
+        } else if (pointers.size === 1 && this.scale > 1) {
+          this.x += e.clientX - last.x;
+          this.y += e.clientY - last.y;
+          this.transform();
+        } else if (
+          pointers.size === 1 &&
+          !pinched &&
+          this.allMedia.length > 1
+        ) {
+          // Follow the finger before committing to the next slide.
+          img.style.transform = `translateX(${(e.clientX - start.x) * 0.65}px)`;
+        }
+        last = { x: e.clientX, y: e.clientY };
+      },
+      { signal },
+    );
+    const end = (e: PointerEvent) => {
+      if (e.pointerType === "touch") lastTouchTime = Date.now();
+      if (!pointers.has(e.pointerId)) return;
+      pointers.delete(e.pointerId);
+      if (img.hasPointerCapture(e.pointerId))
+        img.releasePointerCapture(e.pointerId);
+      if (pointers.size) {
+        last = [...pointers.values()][0];
         return;
       }
-
-      // PAN / SWIPE
-      if (this.evCache.length === 1) {
-        const deltaX = e.clientX - this.startX;
-        const deltaY = e.clientY - this.startY;
-
-        if (this.scale === 1) {
-          // Swipe Logic (Horizontal only, with resistance)
-          this.currentX = deltaX * 0.6; // 0.6 = resistance
-          this.currentY = 0;
-        } else {
-          // Pan Logic (Free movement)
-          this.currentX = this.lastX + deltaX;
-          this.currentY = this.lastY + deltaY;
-          this.applyResistance(img); // Rubber-banding
-        }
-        this.applyTransform(img);
+      const dx = e.clientX - start.x,
+        dy = e.clientY - start.y;
+      if (e.type !== "pointerup" || pinched) {
+        this.transform();
+        return;
       }
-    };
-
-    //  Pointer Up
-    const handlePointerUp = (e: PointerEvent) => {
-      const index = this.evCache.findIndex(
-        (cached) => cached.pointerId === e.pointerId,
-      );
-      if (index > -1) this.evCache.splice(index, 1);
-      img.releasePointerCapture(e.pointerId);
-
-      if (this.evCache.length < 2) this.prevDiff = -1;
-      if (this.evCache.length > 0) return; // Still fingers on screen
-
-      this.isDragging = false;
-
-      // CHECK FOR TAP / DOUBLE TAP
-      // If we moved less than TOLERANCE, it's a tap
-      const distMoved = Math.hypot(
-        e.clientX - this.startX,
-        e.clientY - this.startY,
-      );
-
-      if (distMoved < this.TAP_TOLERANCE) {
+      if (
+        this.scale === 1 &&
+        Math.abs(dx) > 60 &&
+        Math.abs(dx) > Math.abs(dy) * 1.5
+      ) {
+        lastTap.time = 0;
+        if (this.allMedia.length > 1)
+          this.update(this.currentIndex + (dx < 0 ? 1 : -1));
+      } else {
+        if (this.scale === 1) {
+          const from = img.style.transform;
+          this.transform();
+          this.animate(
+            img,
+            [{ transform: from }, { transform: img.style.transform }],
+            200,
+          );
+        }
+        if (Math.hypot(dx, dy) >= 10 || e.pointerType !== "touch") return;
         const now = Date.now();
         if (
-          this.lastTapTime &&
-          now - this.lastTapTime < this.DOUBLE_TAP_DELAY
+          now - lastTap.time < 300 &&
+          Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < 30
         ) {
-          //  DOUBLE TAP DETECTED
-          this.handleDoubleTap(img, e.clientX, e.clientY);
-          this.lastTapTime = 0; // Reset
-        } else {
-          //  SINGLE TAP DETECTED
-          this.lastTapTime = now;
-          // this.lastTapPos = { x: e.clientX, y: e.clientY };
-        }
-
-        // Reset position if we slightly nudged it while tapping
-        if (this.scale === 1) {
-          this.currentX = 0;
-          this.applyTransform(img, 0.3);
-        }
-        return;
-      }
-
-      // HANDLE SWIPE END
-      if (this.scale === 1) {
-        if (Math.abs(this.currentX) > this.SWIPE_THRESHOLD) {
-          const dir = this.currentX > 0 ? "prev" : "next";
-          this.currentX =
-            this.currentX > 0 ? window.innerWidth : -window.innerWidth;
-          this.applyTransform(img, 0.3);
-          setTimeout(() => {
-            const len = this.allMedia.length;
-            const nextIndex =
-              dir === "next"
-                ? (this.currentIndex + 1) % len
-                : (this.currentIndex - 1 + len) % len;
-            this.update(nextIndex, dir);
-          }, 250);
-        } else {
-          // Snap back
-          this.currentX = 0;
-          this.applyTransform(img, 0.3);
-        }
-      } else {
-        // HANDLE PAN END (Snap back if out of bounds)
-        this.snapBackToBounds(img);
+          this.zoomBy(this.scale === 1 ? 1 : 0, this.scale > 1);
+          lastTap.time = 0;
+        } else lastTap = { time: now, x: e.clientX, y: e.clientY };
       }
     };
-
-    img.addEventListener("pointerdown", handlePointerDown, { signal });
-    img.addEventListener("pointermove", handlePointerMove, { signal });
-    img.addEventListener("pointerup", handlePointerUp, { signal });
-    img.addEventListener("pointercancel", handlePointerUp, { signal });
-
-    // Wheel Zoom (Desktop fallback)
+    img.addEventListener("pointerup", end, { signal });
+    img.addEventListener("pointercancel", end, { signal });
+    img.addEventListener(
+      "dblclick",
+      (e) => {
+        if (Date.now() - lastTouchTime < 500) return;
+        this.zoomBy(this.scale === 1 ? 1 : 0, this.scale > 1);
+      },
+      { signal },
+    );
     this.elements.viewport.addEventListener(
       "wheel",
       (e) => {
+        // Preserve browser page zoom for Ctrl/Command+wheel.
+        if (e.ctrlKey || e.metaKey || !e.deltaY) return;
         e.preventDefault();
-        const delta = e.deltaY > 0 ? -0.5 : 0.5;
-        const newScale = Math.min(
-          Math.max(1, this.scale + delta),
-          this.MAX_SCALE,
-        );
-        this.scale = newScale;
-        if (newScale === 1) {
-          this.currentX = 0;
-          this.currentY = 0;
-        }
-        this.snapBackToBounds(img); // Ensures we don't zoom out into void
+        this.zoomBy(e.deltaY > 0 ? -0.25 : 0.25);
       },
       { signal, passive: false },
     );
   }
 
-  //  Logic Helpers
-
-  private handleDoubleTap(
-    img: HTMLImageElement,
-    clientX: number,
-    clientY: number,
-  ) {
-    if (this.scale > 1) {
-      // Zoom Out
-      this.scale = 1;
-      this.currentX = 0;
-      this.currentY = 0;
-    } else {
-      // Zoom In
-      this.scale = 2.5;
-
-      // Calculate zoom toward tap position
-      // This centers the tap point approximately.
-      const rect = img.getBoundingClientRect();
-      const offsetX = clientX - rect.left - rect.width / 2;
-      const offsetY = clientY - rect.top - rect.height / 2;
-
-      this.currentX = -offsetX * 1.5;
-      this.currentY = -offsetY * 1.5;
-    }
-    this.applyTransform(img, 0.4);
-    this.snapBackToBounds(img); // Ensure we didn't zoom into empty space
-  }
-
-  // Soft limit during dragging (Rubberbanding)
-  private applyResistance(img: HTMLImageElement) {
-    const { minX, maxX, minY, maxY } = this.getBoundaries(img);
-
-    // X Axis Resistance
-    if (this.currentX > maxX) {
-      this.currentX = maxX + (this.currentX - maxX) * 0.3;
-    } else if (this.currentX < minX) {
-      this.currentX = minX + (this.currentX - minX) * 0.3;
-    }
-
-    // Y Axis Resistance
-    if (this.currentY > maxY) {
-      this.currentY = maxY + (this.currentY - maxY) * 0.3;
-    } else if (this.currentY < minY) {
-      this.currentY = minY + (this.currentY - minY) * 0.3;
-    }
-  }
-
-  // Hard limit after dragging stops
-  private snapBackToBounds(img: HTMLImageElement) {
-    const { minX, maxX, minY, maxY } = this.getBoundaries(img);
-
-    let targetX = this.currentX;
-    let targetY = this.currentY;
-
-    // Clamp X
-    if (targetX > maxX) targetX = maxX;
-    else if (targetX < minX) targetX = minX;
-
-    // Clamp Y
-    if (targetY > maxY) targetY = maxY;
-    else if (targetY < minY) targetY = minY;
-
-    if (targetX !== this.currentX || targetY !== this.currentY) {
-      this.currentX = targetX;
-      this.currentY = targetY;
-      this.applyTransform(img, 0.3);
-    } else {
-      this.applyTransform(img); // Just apply the current state
-    }
-  }
-
-  // Calculates the valid range for X and Y translation
-  private getBoundaries(img: HTMLImageElement) {
-    const viewW = this.elements.viewport.clientWidth;
-    const viewH = this.elements.viewport.clientHeight;
-
-    // Current actual dimensions
-    const renderW = img.width * this.scale;
-    const renderH = img.height * this.scale;
-
-    // The logic:
-    // If image < viewport, it must be centered (min=0, max=0)
-    // If image > viewport, we can move it by (ImageSize - ViewSize) / 2 in either direction
-
-    let limitX = 0;
-    let limitY = 0;
-
-    if (renderW > viewW) {
-      limitX = (renderW - viewW) / 2;
-    }
-    if (renderH > viewH) {
-      limitY = (renderH - viewH) / 2;
-    }
-
-    // transform limits are symmetrical around 0
-    return {
-      minX: -limitX,
-      maxX: limitX,
-      minY: -limitY,
-      maxY: limitY,
-    };
-  }
-
   public cleanup() {
-    this.abortController?.abort();
-    this.elements.viewport.innerHTML = "";
+    this.cancelAnimations();
+    this.controller?.abort();
+    this.controller = undefined;
+    this.elements.viewport.querySelector("video")?.pause();
+    this.elements.viewport.replaceChildren();
+    this.image = undefined;
   }
 }
