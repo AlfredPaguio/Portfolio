@@ -11,6 +11,7 @@ import Button from "@/components/ui/Button.astro";
 import { Content as LinkedInIcon } from "@/content/icons/linkedin.mdx";
 import { Content as GithubIcon } from "@/content/techs/github.mdx";
 import Separator from "@/components/ui/Separator.astro";
+import RecruiterCopy from "@/components/RecruiterCopy.astro";
 
 const resumeUrl = `/resumes/${resumeData.currently_using}`;
 ---
@@ -28,10 +29,10 @@ const resumeUrl = `/resumes/${resumeData.currently_using}`;
     <p
       class="animate-reveal animation-delay-100 text-xl text-muted-foreground leading-relaxed will-change-auto"
     >
-      Junior Software Developer focusing on
-      <span class="text-foreground font-medium">application logic</span>
-      and the <span class="text-foreground font-medium">refactoring</span> of systems.
-      I build with Laravel and React.
+      Junior Software Developer focusing on {""}
+      <span class="text-foreground font-medium">application logic</span> and the <span
+        class="text-foreground font-medium">refactoring</span
+      > of systems. I build with Laravel and React.
     </p>
 
     <!-- Location & Timezone Card -->
@@ -100,6 +101,7 @@ const resumeUrl = `/resumes/${resumeData.currently_using}`;
         </Button>
       </div>
     </div>
+    <RecruiterCopy />
   </div>
 
   <figure class="relative group animate-reveal animation-delay-100">
