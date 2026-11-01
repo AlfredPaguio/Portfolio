@@ -1,139 +1,163 @@
 ---
-import TechPill from "./TechPill.astro";
-import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
-import { cn } from "@/lib/utils/cn";
-import ProjectStatus from "./projects/ProjectStatus.astro";
-import type { CollectionEntry } from "astro:content";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Badge from "@/components/ui/Badge.astro";
-import Button from "@/components/ui/Button.astro";
+import { projectBriefs } from "@/data/project-briefs";
 import { normalizeTech } from "@/lib/utils/normalizeTech";
+import ArrowRight from "@lucide/astro/icons/arrow-right";
+import ExternalLink from "@lucide/astro/icons/external-link";
+import type { CollectionEntry } from "astro:content";
+import TechPill from "./TechPill.astro";
 
 interface Props {
   project: CollectionEntry<"projects">;
+  layout?: "standard" | "spotlight" | "compact";
 }
-
-const { project } = Astro.props;
-const { title, summary, stack, status, images, featured, date } = project.data;
-
-const cover = images?.[0];
-
-const dateOptions: object = {
-  year: "numeric",
-  month: "short",
-};
-
-const formattedDate = project.data.date
-  ? new Date(project.data.date).toLocaleDateString("en-PH", dateOptions)
+const { project, layout = "standard" } = Astro.props;
+const { title, summary, stack, images, status, date, links } = project.data;
+const brief = projectBriefs[project.id];
+// Show the working application rather than its sign-in screen.
+const cover =
+  project.id === "project-management-app"
+    ? images.find((image) => image.src.includes("03-dashboard")) || images[0]
+    : images[0];
+const href = `/projects/${project.id}/`;
+const demo = links.find((link) => link.type === "demo" && !link.disabled);
+const visibleStack = stack
+  .filter((tech) => !["php", "javascript"].includes(tech.toLowerCase()))
+  .slice(0, 3);
+const year = date
+  ? new Intl.DateTimeFormat("en", { year: "numeric", timeZone: "UTC" }).format(
+      date,
+    )
   : null;
-
-// Limit visible tech to 3 for scannability
-const MAX_VISIBLE_TECHS = 3;
-const visibleTechs = stack.slice(0, MAX_VISIBLE_TECHS);
-const remainingCount = stack.length - MAX_VISIBLE_TECHS;
 ---
 
-<Card
-  class={cn(
-    "group relative flex flex-col h-full overflow-hidden transition-all hover:shadow-lg hover:border-primary/30",
-    featured && "ring-1 ring-primary/20",
-  )}
+<article
+  class:list={[
+    "flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card [&_a:focus-visible]:rounded [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_a:focus-visible]:outline-offset-4",
+    layout === "spotlight" && "md:grid md:grid-cols-[1.15fr_1fr]",
+    layout === "compact" && "md:grid md:grid-cols-[180px_1fr]",
+  ]}
 >
-  {
-    cover ? (
-      <img
-        src={cover.src}
-        alt={cover.alt || title}
-        class="aspect-video object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-        loading="lazy"
-        width={640}
-        height={360}
-      />
-    ) : (
-      <div class="flex aspect-video items-center justify-center bg-muted/40">
-        <span class="text-[10px] font-medium text-muted-foreground/60 uppercase tracking-widest">
-          Preview
-        </span>
-      </div>
-    )
-  }
-
-  <div
-    class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+  <a
+    href={href}
+    class:list={[
+      "mx-3 mt-3 flex aspect-video items-center justify-center overflow-hidden rounded-lg bg-muted p-4 max-[400px]:p-2.5",
+      layout === "spotlight" &&
+        "md:my-4 md:mr-0 md:ml-4 md:aspect-auto md:min-h-75 md:p-5",
+      layout === "compact" && "md:my-3 md:mr-0 md:ml-3 md:aspect-auto md:p-2.5",
+    ]}
+    tabindex="-1"
     aria-hidden="true"
-    style="background: linear-gradient(180deg, transparent 60%, var(--color-primary) / 3%);"
   >
-  </div>
-
-  <div class="flex flex-col flex-1">
-    <CardHeader class="pb-3">
-      <CardTitle class="line-clamp-2">
-        <a href={`/projects/${project.id}/`}>{title}</a>
-      </CardTitle>
-
-      <CardAction>
-        <ProjectStatus status={status} />
-      </CardAction>
-
+    {
+      cover ? (
+        <img
+          src={cover.src}
+          alt=""
+          class:list={[
+            "block h-full w-full rounded shadow-[0_2px_8px_#00000012]",
+            project.id === "project-management-app"
+              ? "object-cover object-top"
+              : "object-contain",
+          ]}
+          width={800}
+          height={450}
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="p-6 text-center text-muted-foreground">{title}</div>
+      )
+    }
+  </a>
+  <div
+    class:list={[
+      "flex min-w-0 flex-1 flex-col items-start p-6 max-[400px]:p-5",
+      layout === "spotlight" && "md:p-8",
+      layout === "compact" && "md:px-6 md:py-5",
+    ]}
+  >
+    <div
+      class="mb-2.5 flex w-full flex-wrap items-center gap-x-4 gap-y-2 text-xs leading-normal text-muted-foreground"
+    >
+      <span>{brief?.category || "Software project"}{year && ` / ${year}`}</span>
       {
-        formattedDate && (
-          <CardDescription class="text-[11px] font-mono mt-1.5">
-            {formattedDate}
-          </CardDescription>
+        status === "active" && (
+          <span class="ml-auto inline-flex items-center gap-1.5 text-foreground">
+            <span
+              aria-hidden="true"
+              class="size-1.5 rounded-full bg-[#22863a]"
+            />
+            Active
+          </span>
         )
       }
-    </CardHeader>
-
-    <CardContent class="flex-1">
-      <p
-        class="text-sm text-muted-foreground leading-relaxed line-clamp-3 pb-2"
+    </div>
+    <h3
+      class:list={[
+        "m-0 text-[21px] leading-tight font-[650] tracking-[-0.025em] text-balance wrap-anywhere",
+        layout === "spotlight" && "md:text-[28px]",
+      ]}
+    >
+      <a href={href} class="no-underline hover:underline underline-offset-4"
+        >{title}</a
       >
-        {summary}
-      </p>
-    </CardContent>
-
-    <CardFooter class="pt-4 mt-auto">
-      <div class="flex items-center justify-between w-full gap-3">
-        {/* Tech pills */}
-        <div class="flex flex-wrap gap-1.5 min-h-6">
-          {
-            visibleTechs.map((techId: string) => {
-              const tech = normalizeTech(techId);
-              return (
-                <TechPill
-                  id={tech.id}
-                  version={tech.version}
-                  class="text-[10px] px-2 py-0.5 bg-muted/40 border-border/40 hover:bg-muted/60 transition-colors"
-                />
-              );
-            })
-          }
-          {
-            remainingCount > 0 && (
-              <span class="inline-flex items-center rounded-full border border-border bg-muted/30 text-[10px] px-2 py-0.5 text-muted-foreground">
-                +{remainingCount}
-              </span>
-            )
-          }
-        </div>
-
-        {/* View indicator */}
-        <a href={`/projects/${project.id}/`}>
-          <span
-            class="text-[10px] text-muted-foreground/60 group-hover:text-primary transition-colors shrink-0 whitespace-nowrap"
+    </h3>
+    <p
+      class:list={[
+        "mt-3 mb-4.5 max-w-[60ch] text-sm leading-[1.7] text-muted-foreground",
+        layout === "spotlight" && "md:text-[15px]",
+        layout === "compact" && "md:mb-3",
+      ]}
+    >
+      {brief?.purpose || summary}
+    </p>
+    <div
+      class:list={[
+        "mb-6 flex flex-wrap gap-1.5 [&_a]:min-h-7.5 [&_a]:gap-1.5 [&_a]:px-2.25 [&_a]:py-1.25 [&_a:focus-visible]:outline-offset-3",
+        layout === "compact" && "md:mb-2.5",
+      ]}
+      aria-label="Key technologies"
+    >
+      {
+        visibleStack.map((id) => {
+          const tech = normalizeTech(id);
+          return (
+            <TechPill
+              id={tech.id}
+              showVersion={false}
+              class="border-0 bg-muted/60 font-medium"
+            />
+          );
+        })
+      }
+    </div>
+    <div class="mt-auto flex w-full flex-wrap items-center gap-x-5 gap-y-3">
+      <a
+        href={href}
+        class:list={[
+          "inline-flex min-h-10 items-center gap-2 text-[13px] font-semibold no-underline underline-offset-4 hover:underline",
+          layout === "spotlight" &&
+            "rounded-lg border border-border px-3.5 hover:bg-muted hover:no-underline",
+        ]}
+        aria-label={`Read project: ${title}`}
+        >Read project <ArrowRight class="size-4" aria-hidden="true" /></a
+      >
+      {
+        demo && (
+          <a
+            href={demo.url}
+            class="inline-flex min-h-10 items-center gap-2 text-[13px] text-muted-foreground no-underline underline-offset-4 hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            View →
-          </span>
-        </a>
-      </div>
-    </CardFooter>
+            Live demo{" "}
+            <>
+              <ExternalLink class="size-3.5" aria-hidden="true" />
+              <span class="sr-only"> (opens in a new tab)</span>
+            </>
+          </a>
+        )
+      }
+    </div>
   </div>
-</Card>
+</article>

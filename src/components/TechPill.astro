@@ -7,13 +7,19 @@ interface Props {
   class?: string;
   id: string;
   version?: string | number;
+  showVersion?: boolean;
 }
-const { id, class: className, version: versionOverride } = Astro.props;
+const {
+  id,
+  class: className,
+  version: versionOverride,
+  showVersion = true,
+} = Astro.props;
 const techs = await getCollection("techs");
 
-const tech = techs.find(
-  (t) => t.id === id || normalizeId(id).includes(normalizeId(t.id)),
-);
+const tech =
+  techs.find((t) => t.id === id || normalizeId(id) === normalizeId(t.id)) ??
+  techs.find((t) => normalizeId(id).includes(normalizeId(t.id)));
 
 //or normalizeId(t.id) === normalizeId(id) needs more investigation
 
@@ -25,7 +31,9 @@ if (hasEntry) {
 }
 
 // Determine which version to display (Prop takes priority)
-const displayVersion = versionOverride ?? tech?.data.version;
+const displayVersion = showVersion
+  ? (versionOverride ?? tech?.data.version)
+  : undefined;
 ---
 
 <div
