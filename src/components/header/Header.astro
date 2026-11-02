@@ -1,27 +1,32 @@
 ---
 import Brand from "../Brand.astro";
-import Button from "@/components/ui/Button.astro";
 import MobileMenu from "./MobileMenu.astro";
 import Navigation from "./Navigation.astro";
 import ThemeIcon from "@/components/ThemeIcon.astro";
 ---
 
-<header
-  class="fixed top-0 inset-x-0 z-50 flex justify-center px-4 pt-4 pointer-events-none"
->
+<header class="fixed top-0 inset-x-0 z-50 border-b border-border bg-background">
   <div
-    class="flex items-center justify-between w-full max-w-5xl h-14 px-5 rounded-full border border-border/60 bg-background/10 backdrop-blur-xl shadow-lg shadow-black/5 ring-1 ring-black/5 dark:ring-white/5 pointer-events-auto transition-all duration-300"
+    class="relative mx-auto flex h-18 w-full max-w-5xl items-center justify-between gap-3 px-6"
   >
-    <Button size="icon-lg" variant="ghost" href="/" class="-ml-1.5">
-      <Brand class="size-8"/>
-    </Button>
+    <a
+      href="/"
+      aria-label="Alfred Paguio — Home"
+      class="flex min-h-11 min-w-0 items-center gap-2 rounded-lg text-foreground transition-colors hover:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring touch-manipulation"
+    >
+      <span aria-hidden="true"><Brand class="size-8" /></span>
+      <span class="truncate text-sm font-semibold tracking-tight"
+        >Alfred Paguio<span class="text-muted-foreground">.</span></span
+      >
+    </a>
 
     <div class="flex items-center gap-1.5">
       <div class="hidden md:block">
         <Navigation />
       </div>
 
-      <div class="hidden md:block w-px h-5 bg-border mx-2"></div>
+      <div aria-hidden="true" class="hidden md:block w-px h-5 bg-border mx-2">
+      </div>
 
       <ThemeIcon />
 

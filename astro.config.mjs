@@ -25,7 +25,8 @@ export default defineConfig({
   integrations: [
     mdx({
       // @ts-ignore
-      remarkPlugins: [mdastReadingTimePlugin],
+      extendMarkdownConfig: true,
+      // remarkPlugins: [mdastReadingTimePlugin],
     }),
   ],
 

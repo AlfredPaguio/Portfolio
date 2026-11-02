@@ -3,9 +3,11 @@ import { navItems } from "@/data/nav";
 import Menu from "@lucide/astro/icons/menu";
 import X from "@lucide/astro/icons/x";
 import Button from "@/components/ui/Button.astro";
+import { navigationIcons } from "./navigationIcons";
 
-
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) =>
+  currentPath === href || (href !== "/" && currentPath.startsWith(`${href}/`));
 ---
 
 <div class="md:hidden flex items-center">
@@ -13,18 +15,20 @@ const currentPath = Astro.url.pathname;
     variant="ghost"
     size="icon-lg"
     id="menu-button"
-    class="p-2 -mr-2 transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md cursor-pointer relative"
+    class="size-11 p-2 touch-manipulation transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md cursor-pointer relative"
     aria-expanded="false"
     aria-controls="mobile-menu"
     aria-label="Toggle navigation menu"
   >
     <Menu
+      aria-hidden="true"
       class="size-5 transition-all duration-300 ease-in-out
             motion-reduce:transition-none
              rotate-0 scale-100
              in-aria-expanded:-rotate-90 in-aria-expanded:scale-0"
     />
     <X
+      aria-hidden="true"
       class="absolute size-5 transition-all duration-300 ease-in-out
              motion-reduce:transition-none
              rotate-90 scale-0
@@ -35,13 +39,12 @@ const currentPath = Astro.url.pathname;
   <div
     id="mobile-menu"
     data-state="closed"
-    role="menu"
+    inert
+    role="navigation"
     aria-labelledby="menu-button"
-    class="fixed inset-x-4 top-22 z-50
-         flex flex-col gap-1 p-1.5 rounded-2xl
-         border border-border/60 bg-card
-         backdrop-blur-xl shadow-lg
-         ring-1 ring-black/5 dark:ring-white/5
+    class="absolute inset-x-4 top-[calc(100%+0.5rem)] z-50 origin-top
+         flex flex-col gap-1 p-2 rounded-xl
+         border border-border bg-background shadow-md
          opacity-0 translate-y-2 scale-[0.98]
          pointer-events-none invisible
          data-[state=open]:opacity-100
@@ -49,31 +52,35 @@ const currentPath = Astro.url.pathname;
          data-[state=open]:scale-100
          data-[state=open]:pointer-events-auto
          data-[state=open]:visible
-         transition-all duration-200 ease-out
+         transition-[opacity,transform,visibility] duration-200 ease-out
          motion-reduce:transition-none
          overflow-hidden"
   >
     {
-      navItems.map((item) => (
-        <a
-          href={item.href}
-          role="menuitem"
-          class:list={[
-            "relative px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 focus:outline-hidden focus:ring-2 focus:ring-ring/50 focus:ring-offset-1",
-            currentPath === item.href
-              ? "bg-primary text-primary-foreground shadow-sm"
-              : "hover:bg-muted/70 active:scale-[0.98]",
-          ]}
-        >
-          {item.label}
-          {currentPath !== item.href && (
-            <span
-              class="absolute inset-0 rounded-xl in-focus:bg-accent/5 transition-colors duration-150"
-              aria-hidden="true"
-            />
-          )}
-        </a>
-      ))
+      navItems.map((item) => {
+        const Icon = navigationIcons[item.href as keyof typeof navigationIcons];
+        return (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? "page" : undefined}
+            class:list={[
+              "relative flex items-center gap-3 min-h-12 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring",
+              isActive(item.href)
+                ? "bg-muted text-foreground"
+                : "hover:bg-muted/70 active:scale-[0.98]",
+            ]}
+          >
+            <Icon class="size-4 text-muted-foreground" aria-hidden="true" />
+            {item.label}
+            {!isActive(item.href) && (
+              <span
+                class="absolute inset-0 rounded-xl in-focus:bg-accent/5 transition-colors duration-150"
+                aria-hidden="true"
+              />
+            )}
+          </a>
+        );
+      })
     }
   </div>
 </div>
@@ -86,6 +93,7 @@ const currentPath = Astro.url.pathname;
     const isExpanded = button?.getAttribute("aria-expanded") === "true";
     button?.setAttribute("aria-expanded", !isExpanded ? "true" : "false");
     menu?.setAttribute("data-state", !isExpanded ? "open" : "closed");
+    menu?.toggleAttribute("inert", isExpanded);
   };
 
   button?.addEventListener("click", (e) => {
@@ -113,7 +121,25 @@ const currentPath = Astro.url.pathname;
     }
   });
 
-  menu?.querySelectorAll('a[role="menuitem"]').forEach((link) => {
+  window
+    .matchMedia("(min-width: 48rem)")
+    .addEventListener("change", (event) => {
+      if (event.matches && button?.getAttribute("aria-expanded") === "true")
+        toggleMenu();
+    });
+
+  menu?.addEventListener("focusout", () => {
+    requestAnimationFrame(() => {
+      if (
+        button?.getAttribute("aria-expanded") === "true" &&
+        !menu.contains(document.activeElement) &&
+        document.activeElement !== button
+      )
+        toggleMenu();
+    });
+  });
+
+  menu?.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
       toggleMenu();
     });

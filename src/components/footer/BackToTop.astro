@@ -1,0 +1,77 @@
+---
+import ArrowUp from "@lucide/astro/icons/arrow-up";
+---
+
+<button
+  type="button"
+  id="back-to-top"
+  data-back-to-top
+  aria-label="Back to top"
+  title="Back to top"
+  hidden
+  class="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-40 flex size-11 items-center justify-center rounded-full border border-border bg-foreground text-background shadow-md hover:bg-foreground/85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring touch-manipulation cursor-pointer transition-colors motion-reduce:transition-none"
+>
+  <ArrowUp class="size-5" aria-hidden="true" />
+</button>
+<script>
+  const button = document.querySelector<HTMLButtonElement>("#back-to-top");
+  const header = document.querySelector("header");
+  if (button && header) {
+    let pastIntro = false;
+    const updateVisibility = () => {
+      if (document.activeElement === button) return;
+      button.hidden = !pastIntro;
+    };
+    const sentinel = document.createElement("div");
+    sentinel.setAttribute("aria-hidden", "true");
+    sentinel.style.cssText =
+      "position:absolute;top:100vh;width:1px;height:1px;pointer-events:none";
+    document.body.prepend(sentinel);
+    new IntersectionObserver(([entry]) => {
+      pastIntro = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+      updateVisibility();
+    }).observe(sentinel);
+    button.addEventListener("blur", updateVisibility);
+    document
+      .querySelectorAll<HTMLElement>("[data-back-to-top]")
+      .forEach((control) => {
+        control.addEventListener("click", (event) => {
+          event.preventDefault();
+          header
+            .querySelector<HTMLAnchorElement>('a[href="/"]')
+            ?.focus({ preventScroll: true });
+          window.scrollTo({
+            top: 0,
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+              .matches
+              ? "instant"
+              : "smooth",
+          });
+          button.hidden = true;
+        });
+      });
+  }
+</script>
+<style>
+  button:not([hidden]) {
+    animation: appear 160ms ease-out;
+  }
+  button[hidden] {
+    display: none;
+  }
+  @keyframes appear {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    button:not([hidden]) {
+      animation: none;
+    }
+  }
+</style>

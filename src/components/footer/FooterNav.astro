@@ -2,31 +2,20 @@
 const links = [
   { label: "Privacy", href: "/privacy" },
   { label: "Now", href: "/now" },
-  { label: "Top ↑", href: "#footer-top-link" },
 ];
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
 ---
 
-<nav class="flex gap-6" aria-label="Footer navigation">
+<nav class="flex items-center gap-4" aria-label="Footer navigation">
   {
     links.map((link) => (
       <a
         href={link.href}
-        class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 hover:text-primary transition-colors underline-offset-4 hover:underline"
+        aria-current={currentPath === link.href ? "page" : undefined}
+        class="inline-flex min-h-11 items-center rounded-md text-sm text-muted-foreground hover:text-foreground aria-[current=page]:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring touch-manipulation"
       >
         {link.label}
       </a>
     ))
   }
 </nav>
-
-<script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
-    const topLink = document.querySelector('a[href="#footer-top-link"]');
-    if (topLink) {
-      topLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    }
-  });
-</script>
