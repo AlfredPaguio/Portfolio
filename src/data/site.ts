@@ -1,17 +1,13 @@
-/* #__PURE__ */
 const domain = process.env.APP_URL
   ? new URL(process.env.APP_URL).hostname
   : process.env.$CF_PAGES_URL ||
     `${process.env.HOST || "localhost"}:${process.env.PORT || 4321}`;
 
-/* #__PURE__ */
 const protocol =
   domain.includes("localhost") || domain.startsWith("127.") ? "http" : "https";
 
-/* #__PURE__ */
 const url = `${protocol}://${domain}`;
 
-/* #__PURE__ */
 const siteConfig = {
   name: "Alfred's Portfolio",
   description:

@@ -2,9 +2,11 @@
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, fontProviders } from "astro/config";
 
+import { mdastReadingTimePlugin } from "@/lib/mdast-reading-time";
 import { satteri } from "@astrojs/markdown-satteri";
 import mdx from "@astrojs/mdx";
-import { mdastReadingTimePlugin } from "@/lib/mdast-reading-time";
+
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,6 +30,7 @@ export default defineConfig({
       extendMarkdownConfig: true,
       // remarkPlugins: [mdastReadingTimePlugin],
     }),
+    sitemap(),
   ],
 
   experimental: {
