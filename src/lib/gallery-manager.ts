@@ -1,4 +1,5 @@
 import { safeMediaUrl, videoSource } from "./media-source";
+import { animateFeedback } from "./motion";
 export interface MediaItem {
   type: "image" | "video";
   src: string;
@@ -30,14 +31,13 @@ export class GalleryManager {
   private scale = 1;
   private x = 0;
   private y = 0;
-  private animations = new Set<Animation>();
+  private animations = new Set<
+    NonNullable<ReturnType<typeof animateFeedback>>
+  >();
 
   private animate(element: HTMLElement, frames: Keyframe[], duration = 280) {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const animation = element.animate(frames, {
-      duration,
-      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-    });
+    const animation = animateFeedback(element, frames, duration);
+    if (!animation) return;
     this.animations.add(animation);
     animation.finished.then(
       () => this.animations.delete(animation),
@@ -46,7 +46,7 @@ export class GalleryManager {
     return animation;
   }
 
-  private cancelAnimations() {
+  public cancelAnimations() {
     this.animations.forEach((animation) => animation.cancel());
     this.animations.clear();
     this.elements.viewport
@@ -240,6 +240,10 @@ export class GalleryManager {
     img.style.transform = `translate(${this.x}px, ${this.y}px) scale(${this.scale})`;
     img.style.cursor = this.scale > 1 ? "grab" : "zoom-in";
     reset.textContent = `${Math.round(this.scale * 100)}%`;
+    reset.setAttribute(
+      "aria-label",
+      `Reset image zoom (${Math.round(this.scale * 100)}%)`,
+    );
     zoomOut.disabled = this.scale <= 1;
     zoomIn.disabled = this.scale >= 4;
   }

@@ -16,8 +16,7 @@ const {
 <recruiter-copy
   class="block space-y-2 **:[[hidden]]:hidden"
   data-src={src}
-  data-project={project ? "true" : "false"}
->
+  data-project={project ? "true" : "false"}>
   <p class="text-xs text-muted-foreground">
     {
       compact
@@ -36,8 +35,7 @@ const {
       size="sm"
       class="min-h-9"
       data-copy="markdown"
-      hidden
-    >
+      hidden>
       <Copy aria-hidden="true" /> Copy as Markdown
     </Button>
     <Button
@@ -46,13 +44,12 @@ const {
       size="sm"
       class="min-h-9"
       data-copy="prompt"
-      hidden
-    >
+      hidden>
       <Copy aria-hidden="true" /> Copy as AI Prompt
     </Button>
     <a
       href={src}
-      class="text-xs text-muted-foreground underline underline-offset-4"
+      class="inline-flex min-h-9 items-center rounded text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-4"
       >View plain text</a
     >
   </div>
@@ -60,8 +57,7 @@ const {
     role="status"
     aria-live="polite"
     class="text-xs text-muted-foreground"
-    data-copy-status
-  >
+    data-copy-status>
   </p>
 </recruiter-copy>
 

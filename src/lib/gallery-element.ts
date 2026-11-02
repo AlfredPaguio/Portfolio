@@ -49,6 +49,13 @@ class ProjectGallery extends HTMLElement {
       },
     });
     const manager = this.manager;
+    window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener(
+      "change",
+      (event) => {
+        if (event.matches) manager.cancelAnimations();
+      },
+      { signal },
+    );
     this.querySelectorAll<HTMLAnchorElement>("[data-open]").forEach(
       (trigger) => {
         trigger.addEventListener(

@@ -6,7 +6,7 @@ import { frontmatter as resumeData } from "@/content/resumes.md";
 import { siteConfig } from "@/data/site";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
-import FileDown from "@lucide/astro/icons/file-down";
+import FileText from "@lucide/astro/icons/file-text";
 import { getCollection } from "astro:content";
 
 const projects = (await getCollection("projects")).sort(
@@ -19,20 +19,16 @@ const [lead, ...selected] = featured;
 
 <BaseLayout
   title="Projects"
-  description="Software projects by Alfred Paguio. Explore practical applications, developer tools, and the work behind them."
->
+  description="Software projects by Alfred Paguio. Explore practical applications, developer tools, and the work behind them.">
   <header
-    class="mt-3 mb-9 flex flex-col items-start justify-between gap-5 sm:mb-12 sm:flex-row sm:gap-6"
-  >
+    class="mt-3 mb-9 flex flex-col items-start justify-between gap-5 sm:mb-12 sm:flex-row sm:gap-6">
     <div>
       <h1
-        class="mb-4 text-[clamp(36px,5vw,48px)] leading-[1.1] font-[750] tracking-[-0.045em]"
-      >
+        class="mb-4 text-[clamp(36px,5vw,48px)] leading-[1.1] font-[750] tracking-[-0.045em]">
         Projects
       </h1>
       <p
-        class="max-w-[52ch] text-base leading-[1.65] text-pretty text-muted-foreground sm:text-[17px]"
-      >
+        class="max-w-[52ch] text-base leading-[1.65] text-pretty text-muted-foreground sm:text-[17px]">
         Applications, tools, and experiments built with Laravel, React, and
         Python.
       </p>
@@ -41,8 +37,7 @@ const [lead, ...selected] = featured;
       href={`/resumes/${resumeData.currently_using}`}
       variant="outline"
       size="lg"
-      class="mt-1.25"
-      download><FileDown aria-hidden="true" /> Download resume</Button
+      class="mt-1.25"><FileText aria-hidden="true" /> View resume</Button
     >
   </header>
 
@@ -57,8 +52,7 @@ const [lead, ...selected] = featured;
           <>
             <h2
               id="selected-heading"
-              class="text-[21px] leading-[1.4] font-[650] tracking-[-0.025em]"
-            >
+              class="text-[21px] leading-[1.4] font-[650] tracking-[-0.025em]">
               Featured projects{" "}
               <span class="ml-2 text-sm font-normal text-muted-foreground">
                 {featured.length}
@@ -90,8 +84,7 @@ const [lead, ...selected] = featured;
           <>
             <h2
               id="more-heading"
-              class="text-[21px] leading-[1.4] font-[650] tracking-[-0.025em]"
-            >
+              class="text-[21px] leading-[1.4] font-[650] tracking-[-0.025em]">
               More projects{" "}
               <span class="ml-2 text-sm font-normal text-muted-foreground">
                 {others.length}
@@ -112,14 +105,12 @@ const [lead, ...selected] = featured;
   }
 
   <footer
-    class="mt-12 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center sm:gap-8"
-  >
+    class="mt-12 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center sm:gap-8">
     <div>
       <h2 class="text-[22px] font-[650] tracking-[-0.025em] text-balance">
         Let’s talk about your next project.
       </h2><p
-        class="mt-2 max-w-[54ch] text-sm leading-[1.7] text-muted-foreground"
-      >
+        class="mt-2 max-w-[54ch] text-sm leading-[1.7] text-muted-foreground">
         I work mainly with Laravel and React, with a focus on application logic
         and improving existing systems.
       </p>

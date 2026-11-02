@@ -8,20 +8,18 @@ import { Content as GithubIcon } from "@/content/techs/github.mdx";
 import { siteConfig } from "@/data/site";
 import ArrowRight from "@lucide/astro/icons/arrow-right";
 import ClockIcon from "@lucide/astro/icons/clock";
-import FileDown from "@lucide/astro/icons/file-down";
+import FileText from "@lucide/astro/icons/file-text";
 import { Image } from "astro:assets";
 ---
 
 <header
-  class="grid items-start gap-8 pt-3 pb-10 md:grid-cols-[minmax(0,1fr)_288px] md:gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12"
->
+  class="grid items-start gap-8 pt-3 pb-10 md:grid-cols-[minmax(0,1fr)_288px] md:gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12">
   <div class="min-w-0">
     <p class="mb-3 text-sm font-medium text-muted-foreground">
       Junior Software Developer
     </p>
     <h1
-      class="text-4xl leading-[1.12] font-extrabold tracking-tight text-balance sm:text-5xl"
-    >
+      class="text-4xl leading-[1.12] font-extrabold tracking-tight text-balance sm:text-5xl">
       Alfred U. Paguio
     </h1>
     <p class="mt-5 max-w-[38ch] text-xl leading-relaxed text-pretty">
@@ -39,14 +37,10 @@ import { Image } from "astro:assets";
         ><span class="text-xs text-muted-foreground">UTC+8</span>
       </div>
       <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
-        <ClockIcon
-          class="size-4 text-muted-foreground"
-          aria-hidden="true"
-        /><time
-          id="local-time"
-          class="font-mono tabular-nums"
-          aria-label="Current time in Manila">Manila time</time
-        ><span id="local-day-period" class="text-xs text-muted-foreground"
+        <ClockIcon class="size-4 text-muted-foreground" aria-hidden="true" />
+        <span class="sr-only">Current time in Manila: </span>
+        <time id="local-time" class="font-mono tabular-nums">Manila time</time>
+        <span id="local-day-period" class="text-xs text-muted-foreground"
           >My local time</span
         >
       </div>
@@ -56,7 +50,7 @@ import { Image } from "astro:assets";
         href={`/resumes/${resumeData.currently_using}`}
         size="lg"
         class="w-full sm:w-auto"
-        download><FileDown aria-hidden="true" />Download resume</Button
+        ><FileText aria-hidden="true" />View resume</Button
       >
       <Button
         href={siteConfig.links.socials.linkedin}

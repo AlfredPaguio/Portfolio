@@ -9,8 +9,7 @@ import Button from "./ui/Button.astro";
   size="icon-lg"
   id="themeToggle"
   aria-label="Toggle theme"
-  class="cursor-pointer relative size-11 touch-manipulation transition-colors"
->
+  class="cursor-pointer relative size-11 touch-manipulation transition-colors">
   <Sun
     aria-hidden="true"
     class="size-5 duration-300 rotate-0 scale-100 transition-transform motion-reduce:transition-none dark:-rotate-90 dark:scale-0 ease-in-out"
@@ -34,6 +33,14 @@ import Button from "./ui/Button.astro";
   })();
 
   const root = document.documentElement;
+  const updateThemeColor = () => {
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute(
+        "content",
+        root.classList.contains("dark") ? "#060606" : "#f2f2f2",
+      );
+  };
 
   if (theme === "light") {
     root.classList.remove("dark");
@@ -42,9 +49,11 @@ import Button from "./ui/Button.astro";
   }
 
   window.localStorage.setItem("theme", theme);
+  updateThemeColor();
 
   const handleToggleClick = () => {
     root.classList.toggle("dark");
+    updateThemeColor();
 
     const isDark = root.classList.contains("dark");
     localStorage.setItem("theme", isDark ? "dark" : "light");

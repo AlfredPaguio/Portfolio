@@ -40,8 +40,7 @@ const control =
   media.length > 0 && (
     <project-gallery
       data-gallery={JSON.stringify(media)}
-      class="mt-5 block w-full"
-    >
+      class="mt-5 block w-full">
       <div class="mb-5 flex flex-wrap items-baseline justify-between gap-2 text-sm text-muted-foreground">
         <p>Select a preview to explore the details.</p>
         <span class="tabular-nums">
@@ -54,19 +53,17 @@ const control =
             href={item.src}
             data-open={index}
             aria-haspopup="dialog"
-            aria-label={`${item.type === "video" ? "Watch" : "Enlarge"} ${item.alt}`}
             class:list={[
               "group block min-w-0 rounded-xl",
               focus,
               index === 0 && "sm:col-span-2",
-            ]}
-          >
+            ]}>
+            {item.type === "image" && <span class="sr-only">Enlarge </span>}
             <div
               class:list={[
                 "relative flex items-center justify-center overflow-hidden rounded-xl border border-border bg-muted/50 transition-colors group-hover:border-foreground/40 motion-reduce:transition-none",
                 index === 0 ? "aspect-video p-3 sm:p-5" : "aspect-16/10 p-2.5",
-              ]}
-            >
+              ]}>
               {item.type === "image" ? (
                 <img
                   src={item.src}
@@ -105,15 +102,13 @@ const control =
       </div>
       <dialog
         aria-label="Project media viewer"
-        class="fixed inset-0 m-auto h-dvh max-h-dvh w-screen max-w-none overflow-hidden border-0 bg-neutral-950 p-0 text-neutral-100 backdrop:bg-black/80 backdrop:backdrop-blur-sm lg:h-[calc(100dvh-3rem)] lg:max-h-240 lg:w-[calc(100vw-3rem)] lg:max-w-400 lg:rounded-2xl lg:border lg:border-white/15"
-      >
+        class="fixed inset-0 m-auto h-dvh max-h-dvh w-screen max-w-none overflow-hidden overscroll-contain border-0 bg-neutral-950 p-0 text-neutral-100 backdrop:bg-black/80 backdrop:backdrop-blur-sm lg:h-[calc(100dvh-3rem)] lg:max-h-240 lg:w-[calc(100vw-3rem)] lg:max-w-400 lg:rounded-2xl lg:border lg:border-white/15">
         <div class="flex h-full min-h-0 flex-col pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)]">
           <header class="flex shrink-0 items-center justify-between gap-4 border-b border-white/10 px-4 py-2 sm:px-6 sm:py-3">
             <div
               class="flex min-w-0 flex-col gap-0.5"
               aria-live="polite"
-              aria-atomic="true"
-            >
+              aria-atomic="true">
               <span
                 data-counter
                 class="text-xs text-neutral-400 tabular-nums"
@@ -128,8 +123,7 @@ const control =
               data-close
               class={control}
               aria-label="Close media viewer"
-              autofocus
-            >
+              autofocus>
               <X class="size-5" aria-hidden="true" />
             </button>
           </header>
@@ -143,45 +137,39 @@ const control =
                 type="button"
                 data-prev
                 class={control}
-                aria-label="Previous media"
-              >
+                aria-label="Previous media">
                 <ChevronLeft class="size-5" aria-hidden="true" />
               </button>
               <button
                 type="button"
                 data-next
                 class={control}
-                aria-label="Next media"
-              >
+                aria-label="Next media">
                 <ChevronRight class="size-5" aria-hidden="true" />
               </button>
             </div>
             <div
               data-zoom
-              class="flex items-center rounded-lg border border-white/15"
-            >
+              class="flex items-center rounded-lg border border-white/15">
               <button
                 type="button"
                 data-zoom-out
                 class={control}
-                aria-label="Zoom out"
-              >
+                aria-label="Zoom out">
                 <Minus class="size-4" aria-hidden="true" />
               </button>
               <button
                 type="button"
                 data-reset
                 class="inline-flex h-11 min-w-14 cursor-pointer items-center justify-center px-1 text-xs text-neutral-300 tabular-nums hover:text-white focus-visible:outline-2 focus-visible:outline-white"
-                aria-label="Reset image zoom"
-              >
+                aria-label="Reset image zoom (100%)">
                 100%
               </button>
               <button
                 type="button"
                 data-zoom-in
                 class={control}
-                aria-label="Zoom in"
-              >
+                aria-label="Zoom in">
                 <Plus class="size-4" aria-hidden="true" />
               </button>
             </div>
@@ -189,8 +177,7 @@ const control =
               data-original
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex min-h-11 items-center gap-2 rounded px-1 text-xs text-neutral-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            >
+              class="inline-flex min-h-11 items-center gap-2 rounded px-1 text-xs text-neutral-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               <>
                 <span>Open original</span>
                 <ExternalLink class="size-3.5" aria-hidden="true" />
@@ -201,16 +188,14 @@ const control =
           {media.length > 1 && (
             <nav
               aria-label="Choose project media"
-              class="flex shrink-0 gap-2 overflow-x-auto overscroll-x-contain border-t border-white/10 px-4 py-3 sm:justify-start sm:px-6"
-            >
+              class="flex shrink-0 gap-2 overflow-x-auto overscroll-x-contain border-t border-white/10 px-4 py-3 sm:justify-start sm:px-6">
               {media.map((item, index) => (
                 <button
                   type="button"
                   data-select={index}
                   aria-label={`View ${item.alt}`}
                   aria-current="false"
-                  class="relative flex h-14 w-20 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-white/15 bg-white/5 p-1 opacity-50 hover:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white aria-current:border-white aria-current:opacity-100"
-                >
+                  class="relative flex h-14 w-20 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-white/15 bg-white/5 p-1 opacity-50 hover:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white aria-current:border-white aria-current:opacity-100">
                   {item.type === "image" ? (
                     <img
                       src={item.src}
@@ -228,7 +213,7 @@ const control =
             </nav>
           )}
           <p class="hidden shrink-0 px-4 pb-3 text-center text-xs text-neutral-400 sm:block">
-            Arrow keys to browse · Pinch or use + / − to zoom · Esc to close
+            Arrow keys to browse · Pinch or use + / - to zoom · Esc to close
           </p>
         </div>
       </dialog>

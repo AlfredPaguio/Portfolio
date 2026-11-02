@@ -11,18 +11,16 @@ const { frontmatter, openGraphImage, ...props } = Astro.props;
   title={frontmatter.title}
   description={frontmatter.summary}
   openGraphImage={openGraphImage || null}
-  {...props}
->
+  {...props}>
   <div class="space-y-8">
-    <header class="animate-reveal animation-delay-100 will-change-auto">
+    <header>
       <nav class="mb-4">
         <Button
-          href="/projects"
+          href="/"
           variant="ghost"
           size="sm"
-          class="-ml-3 text-muted-foreground hover:text-foreground"
-        >
-          <MoveLeft class="mr-2" /> Back to Project list
+          class="-ml-3 text-muted-foreground hover:text-foreground">
+          <MoveLeft class="mr-2" aria-hidden="true" /> Back to home
         </Button>
       </nav>
 
@@ -44,20 +42,8 @@ const { frontmatter, openGraphImage, ...props } = Astro.props;
     <slot name="metadata" />
 
     <Section
-      class="prose dark:prose-invert border-t border-border pt-4! py-0 max-w-none animate-reveal animation-delay-300 will-change-transform"
-    >
+      class="prose dark:prose-invert border-t border-border pt-4! py-0 max-w-none prose-headings:scroll-mt-28 wrap-anywhere">
       <slot />
     </Section>
-
-    <nav class="mt-4 flex justify-end-safe items-center-safe w-full animate-reveal animation-delay-400 will-change-auto">
-      <Button
-        href="/projects"
-        variant="ghost"
-        size="sm"
-        class="-ml-3 text-muted-foreground hover:text-foreground"
-      >
-        <MoveLeft class="mr-2" /> Back to Project list
-      </Button>
-    </nav>
   </div>
 </BaseLayout>

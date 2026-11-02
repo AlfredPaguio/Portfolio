@@ -35,8 +35,7 @@ const year = date
     "flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card [&_a:focus-visible]:rounded [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_a:focus-visible]:outline-offset-4",
     layout === "spotlight" && "md:grid md:grid-cols-[1.15fr_1fr]",
     layout === "compact" && "md:grid md:grid-cols-[180px_1fr]",
-  ]}
->
+  ]}>
   <a
     href={href}
     class:list={[
@@ -46,8 +45,7 @@ const year = date
       layout === "compact" && "md:my-3 md:mr-0 md:ml-3 md:aspect-auto md:p-2.5",
     ]}
     tabindex="-1"
-    aria-hidden="true"
-  >
+    aria-hidden="true">
     {
       cover ? (
         <img
@@ -74,11 +72,9 @@ const year = date
       "flex min-w-0 flex-1 flex-col items-start p-6 max-[400px]:p-5",
       layout === "spotlight" && "md:p-8",
       layout === "compact" && "md:px-6 md:py-5",
-    ]}
-  >
+    ]}>
     <div
-      class="mb-2.5 flex w-full flex-wrap items-center gap-x-4 gap-y-2 text-xs leading-normal text-muted-foreground"
-    >
+      class="mb-2.5 flex w-full flex-wrap items-center gap-x-4 gap-y-2 text-xs leading-normal text-muted-foreground">
       <span>{brief?.category || "Software project"}{year && ` / ${year}`}</span>
       {
         status === "active" && (
@@ -96,8 +92,7 @@ const year = date
       class:list={[
         "m-0 text-[21px] leading-tight font-[650] tracking-[-0.025em] text-balance wrap-anywhere",
         layout === "spotlight" && "md:text-[28px]",
-      ]}
-    >
+      ]}>
       <a href={href} class="no-underline hover:underline underline-offset-4"
         >{title}</a
       >
@@ -107,8 +102,7 @@ const year = date
         "mt-3 mb-4.5 max-w-[60ch] text-sm leading-[1.7] text-muted-foreground",
         layout === "spotlight" && "md:text-[15px]",
         layout === "compact" && "md:mb-3",
-      ]}
-    >
+      ]}>
       {brief?.purpose || summary}
     </p>
     <div
@@ -117,7 +111,7 @@ const year = date
         layout === "compact" && "md:mb-2.5",
       ]}
       aria-label="Key technologies"
-    >
+      role="group">
       {
         visibleStack.map((id) => {
           const tech = normalizeTech(id);
@@ -148,8 +142,7 @@ const year = date
             href={demo.url}
             class="inline-flex min-h-10 items-center gap-2 text-[13px] text-muted-foreground no-underline underline-offset-4 hover:underline"
             target="_blank"
-            rel="noopener noreferrer"
-          >
+            rel="noopener noreferrer">
             Live demo{" "}
             <>
               <ExternalLink class="size-3.5" aria-hidden="true" />
