@@ -34,7 +34,14 @@ const projects = defineCollection({
         }),
       )
       .default([]),
-    videos: z.array(z.url()).default([]),
+    videos: z
+      .array(
+        z.union([
+          z.url({ protocol: /^https?$/ }),
+          z.string().regex(/^\/(?!\/)/),
+        ]),
+      )
+      .default([]),
   }),
 });
 
