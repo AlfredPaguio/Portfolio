@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from "@/data/site";
+import { SEO } from "astro-seo";
 import { Font } from "astro:assets";
 
 const {
@@ -11,9 +12,10 @@ const {
 } = Astro.props;
 
 const title = _title ? `${_title} | Alfred's Portfolio` : "Alfred's Portfolio";
-const openGraphImage = _openGraphImage
-  ? _openGraphImage
-  : new URL("/og/main.png", Astro.url.origin).href;
+const openGraphImage = new URL(
+  _openGraphImage || "/og/main.png",
+  Astro.site ?? Astro.url,
+).href;
 const description = _openGraphDescription
   ? _openGraphDescription
   : siteConfig.description;
@@ -27,7 +29,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="theme-color" content="#f2f2f2" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="generator" content={Astro.generator} />
-  <link rel="canonical" href={canonicalURL} />
   <link
     rel="alternate"
     type="text/plain"
@@ -35,28 +36,40 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     href="/llms-full.txt"
   />
 
-  <title>{title}</title>
-
-  <meta name="title" content={title} />
-  <meta name="description" content={description} />
-
-  <meta property="og:type" content={openGraphType} />
-  <meta property="og:url" content={Astro.url.href} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:image" content={openGraphImage} />
-  <meta property="og:image:secure_url" content={openGraphImage} />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content={title} />
-  <meta property="og:site_name" content={siteConfig.name} />
-
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content={Astro.url.href} />
-  <meta property="twitter:title" content={title} />
-  <meta property="twitter:description" content={description} />
-  <meta property="twitter:image" content={openGraphImage} />
+  <SEO
+    title={title}
+    description={description}
+    canonical={canonicalURL}
+    openGraph={{
+      basic: {
+        title,
+        type: openGraphType || "website",
+        image: openGraphImage,
+        url: canonicalURL,
+      },
+      optional: { description, siteName: siteConfig.name },
+      image: {
+        secureUrl: openGraphImage,
+        type: "image/png",
+        width: 1200,
+        height: 630,
+        alt: title,
+      },
+    }}
+    twitter={{
+      card: "summary_large_image",
+      title,
+      description,
+      image: openGraphImage,
+      imageAlt: title,
+    }}
+    extend={{
+      meta: [
+        { name: "title", content: title },
+        { name: "twitter:url", content: canonicalURL.href },
+      ],
+    }}
+  />
 
   <link
     rel="alternate"

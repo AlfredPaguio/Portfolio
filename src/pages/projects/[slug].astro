@@ -57,8 +57,8 @@ const focus =
 <BaseLayout
   title={data.title}
   description={brief?.purpose || data.summary}
-  openGraphImage={`${Astro.url.origin}/og/projects/${id}.png`}
-  openGraphType="project">
+  openGraphImage={`/og/projects/${id}.png`}
+  openGraphType="article">
   <nav aria-label="Project navigation" class="mb-8">
     <a
       href="/projects/"
