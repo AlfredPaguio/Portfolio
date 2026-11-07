@@ -11,10 +11,14 @@ import TechSection from "@/pages/_partials/TechSection.astro";
   openGraphType="website"
   description="Alfred U. Paguio, a junior software developer in the Philippines working with Laravel and React. Explore projects, download a resume, or get in touch.">
   <HeroSection />
-  <div class="grid gap-5 md:grid-cols-2">
-    <AboutSection />
-    <TechSection />
-  </div>
+  <section
+    aria-label="Background and toolkit"
+    class="overflow-hidden rounded-xl border border-border bg-card">
+    <div class="grid md:grid-cols-[1.1fr_1fr]">
+      <AboutSection />
+      <TechSection />
+    </div>
+  </section>
   <RecentProjectsSection />
   <ContactCTASection />
 </BaseLayout>

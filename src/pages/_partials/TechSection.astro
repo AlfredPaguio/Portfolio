@@ -27,29 +27,27 @@ const skills = [
 <section
   id="skills"
   aria-labelledby="skills-heading"
-  class="min-w-0 scroll-mt-28 rounded-xl border border-border bg-card p-6"
->
-  <h2 id="skills-heading" class="text-lg font-semibold tracking-tight">
-    My core toolkit
-  </h2>
+  class="min-w-0 scroll-mt-28 border-t border-border p-6 sm:p-8 md:border-t-0 md:border-l">
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+    <h2 id="skills-heading" class="text-lg font-semibold tracking-tight">
+      My core toolkit
+    </h2>
+  </div>
   <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-    Explore how I’ve used each technology.
+    Explore how I've used each technology.
   </p>
-  <div class="mt-4 grid grid-cols-1 gap-x-5 gap-y-4 min-[400px]:grid-cols-2">
+  <ul class="mt-4 divide-y divide-border border-t border-border">
     {
       skills.map((skill) => (
-        <div>
-          <>
-            <TechPill id={skill.id} showVersion={false} class="font-medium" />
-            <a
-              href={skill.href}
-              class="mt-1 flex min-h-9 items-center rounded text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-4"
-            >
-              {skill.focus}
-            </a>
-          </>
-        </div>
+        <li class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-2.5">
+          <TechPill id={skill.id} showVersion={false} class="font-medium rounded-none border-0 border-none bg-transparent" />
+          <a
+            href={skill.href}
+            class="inline-flex min-h-9 items-center rounded text-xs text-muted-foreground underline decoration-border underline-offset-4 hover:text-accent hover:decoration-accent-line focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-4">
+            {skill.focus}
+          </a>
+        </li>
       ))
     }
-  </div>
+  </ul>
 </section>
