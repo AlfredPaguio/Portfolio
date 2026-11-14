@@ -1,24 +1,29 @@
 ---
 import TechPill from "@/components/TechPill.astro";
+import Button from "@/components/ui/Button.astro";
 const skills = [
   {
     id: "laravel",
     focus: "Application logic",
+    project: "Project Management App",
     href: "/projects/project-management-app/",
   },
   {
     id: "react",
     focus: "Interactive interfaces",
+    project: "Simple Astro Content Editor",
     href: "/projects/simple-astro-content-editor/",
   },
   {
     id: "typescript",
     focus: "Typed web applications",
+    project: "Simple Astro Content Editor",
     href: "/projects/simple-astro-content-editor/",
   },
   {
     id: "python",
     focus: "Scraping & data tools",
+    project: "Ecommerce Web Scraper",
     href: "/projects/ecommerce-web-scraper/",
   },
 ];
@@ -34,18 +39,24 @@ const skills = [
     </h2>
   </div>
   <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-    Explore how I've used each technology.
+    Technology names link to documentation; project links show the work.
   </p>
   <ul class="mt-4 divide-y divide-border border-t border-border">
     {
       skills.map((skill) => (
-        <li class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-2.5">
+        <li class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-2 md:py-1.5">
           <TechPill id={skill.id} showVersion={false} class="font-medium rounded-none border-0 border-none bg-transparent" />
-          <a
-            href={skill.href}
-            class="inline-flex min-h-9 items-center rounded text-xs text-muted-foreground underline decoration-border underline-offset-4 hover:text-accent hover:decoration-accent-line focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-4">
-            {skill.focus}
-          </a>
+          <div class="ml-auto min-w-0 text-right">
+            <p class="text-xs text-muted-foreground">{skill.focus}</p>
+            <Button
+              href={skill.href}
+              aria-label={`View project: ${skill.project}`}
+              variant="link"
+              size="sm"
+              class="h-auto min-h-9 px-0 text-xs text-foreground underline decoration-border hover:text-foreground hover:decoration-foreground">
+              {skill.project}
+            </Button>
+          </div>
         </li>
       ))
     }

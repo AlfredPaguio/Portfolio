@@ -1,11 +1,7 @@
 ---
 import myImage from "@/assets/images/profile.png";
-import RecruiterCopy from "@/components/RecruiterCopy.astro";
 import Button from "@/components/ui/Button.astro";
-import { Content as LinkedInIcon } from "@/content/icons/linkedin.mdx";
 import { frontmatter as resumeData } from "@/content/resumes.md";
-import { Content as GithubIcon } from "@/content/techs/github.mdx";
-import { siteConfig } from "@/data/site";
 import ArrowRight from "@lucide/astro/icons/arrow-right";
 import ClockIcon from "@lucide/astro/icons/clock";
 import FileText from "@lucide/astro/icons/file-text";
@@ -23,12 +19,8 @@ import { Image } from "astro:assets";
       Alfred U. Paguio
     </h1>
     <p class="mt-5 max-w-[38ch] text-xl leading-relaxed text-pretty">
-      I build with Laravel and React, with a focus on application logic and
-      refactoring.
-    </p>
-    <p class="mt-3 max-w-[54ch] text-sm leading-relaxed text-muted-foreground">
-      I enjoy turning practical problems into well-structured applications and
-      improving the systems behind them.
+      I build practical web applications with Laravel and React, focusing on
+      application logic and refactoring.
     </p>
     <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
       <div class="flex items-center gap-3">
@@ -39,7 +31,9 @@ import { Image } from "astro:assets";
       <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
         <ClockIcon class="size-4 text-muted-foreground" aria-hidden="true" />
         <span class="sr-only">Current time in Manila: </span>
-        <time id="local-time" class="font-mono tabular-nums">Manila time</time>
+        <time id="local-time" class="font-mono tabular-nums"
+          >JavaScript required</time
+        >
         <span id="local-day-period" class="text-xs text-muted-foreground"
           >My local time</span
         >
@@ -53,25 +47,12 @@ import { Image } from "astro:assets";
         ><FileText aria-hidden="true" />View resume</Button
       >
       <Button
-        href={siteConfig.links.socials.linkedin}
+        href="#recent"
         variant="outline"
-        size="lg"><LinkedInIcon aria-hidden="true" />LinkedIn</Button
-      >
-      <Button
-        href={siteConfig.links.socials.github}
-        aria-label="GitHub profile"
-        variant="outline"
-        size="lg"><GithubIcon aria-hidden="true" />GitHub</Button
+        size="lg"
+        >Explore projects <ArrowRight aria-hidden="true" /></Button
       >
     </div>
-    <div class="mt-5 border-t border-border pt-4">
-      <RecruiterCopy compact />
-    </div>
-    <a
-      href="#recent"
-      class="mt-5 inline-flex min-h-10 items-center gap-2 rounded text-sm font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-4"
-      >Explore my projects <ArrowRight class="size-4" aria-hidden="true" /></a
-    >
   </div>
   <figure class="mx-auto w-full max-w-80 md:mx-0 md:max-w-none">
     <Image

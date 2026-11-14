@@ -1,5 +1,6 @@
 ---
 import Button from "@/components/ui/Button.astro";
+import RecruiterCopy from "@/components/RecruiterCopy.astro";
 import { Content as LinkedInIcon } from "@/content/icons/linkedin.mdx";
 import { Content as GithubIcon } from "@/content/techs/github.mdx";
 import { siteConfig } from "@/data/site";
@@ -54,5 +55,8 @@ import Mail from "@lucide/astro/icons/mail";
         variant="outline"
         size="lg"><GithubIcon aria-hidden="true" />GitHub</Button>
     </div>
+  </div>
+  <div class="mt-5 border-t border-border pt-4">
+    <RecruiterCopy compact />
   </div>
 </section>
