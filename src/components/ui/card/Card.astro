@@ -3,13 +3,19 @@ import { cn } from "@/lib/utils/cn";
 import type { HTMLAttributes } from "astro/types";
 
 export interface Props extends HTMLAttributes<"div"> {
+  as?: "div" | "article";
   size?: "default" | "sm";
 }
 
-const { size = "default", class: className, ...props } = Astro.props;
+const {
+  as: Tag = "div",
+  size = "default",
+  class: className,
+  ...props
+} = Astro.props;
 ---
 
-<div
+<Tag
   data-slot="card"
   data-size={size}
   class={cn(
@@ -19,4 +25,4 @@ const { size = "default", class: className, ...props } = Astro.props;
   {...props}
 >
   <slot />
-</div>
+</Tag>

@@ -4,6 +4,8 @@ import { normalizeTech } from "@/lib/utils/normalizeTech";
 import ArrowRight from "@lucide/astro/icons/arrow-right";
 import ExternalLink from "@lucide/astro/icons/external-link";
 import type { CollectionEntry } from "astro:content";
+import Button from "@/components/ui/Button.astro";
+import Card from "@/components/ui/card/Card.astro";
 import TechPill from "./TechPill.astro";
 
 interface Props {
@@ -55,19 +57,17 @@ const year = date
   : null;
 ---
 
-<article
+<div class="project-card-container">
+<Card
+  as="article"
+  data-layout={layout}
   class:list={[
-    "flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card [&_a:focus-visible]:rounded [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_a:focus-visible]:outline-offset-4",
-    layout === "spotlight" && "lg:grid lg:grid-cols-[1.15fr_1fr]",
-    layout === "compact" && "md:grid md:grid-cols-[176px_minmax(0,1fr)] lg:grid-cols-[220px_minmax(0,1fr)]",
+    "project-card h-full gap-0 p-0 [&_a:focus-visible]:rounded [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_a:focus-visible]:outline-offset-4",
   ]}>
   <a
     href={href}
     class:list={[
       "mx-3 mt-3 flex aspect-video items-center justify-center overflow-hidden rounded-lg bg-background p-3 max-[400px]:p-2",
-      layout === "spotlight" &&
-        "lg:my-4 lg:mr-0 lg:ml-4 lg:aspect-auto lg:min-h-75 lg:p-4",
-      layout === "compact" && "md:my-3 md:mr-0 md:ml-3 md:aspect-video md:self-center md:p-2",
     ]}
     tabindex="-1"
     aria-hidden="true">
@@ -95,8 +95,6 @@ const year = date
   <div
     class:list={[
       "flex min-w-0 flex-1 flex-col items-start p-6 max-[400px]:p-5",
-      layout === "spotlight" && "lg:p-8",
-      layout === "compact" && "md:px-6 md:py-5",
     ]}>
     <div
       class="mb-2.5 flex w-full flex-wrap items-center gap-x-4 gap-y-2 text-xs leading-normal text-muted-foreground">
@@ -122,7 +120,6 @@ const year = date
     <h3
       class:list={[
         "m-0 text-[21px] leading-tight font-[650] tracking-[-0.025em] text-balance wrap-anywhere",
-        layout === "spotlight" && "lg:text-[28px]",
       ]}>
       <a href={href} class="no-underline hover:underline underline-offset-4"
         >{title}</a
@@ -131,15 +128,12 @@ const year = date
     <p
       class:list={[
         "mt-3 mb-4.5 max-w-[60ch] text-sm leading-[1.7] text-muted-foreground",
-        layout === "spotlight" && "lg:text-[15px]",
-        layout === "compact" && "md:mb-3",
       ]}>
       {cardSummary}
     </p>
     <div
       class:list={[
-        "mb-6 flex flex-wrap gap-1.5 [&_a]:min-h-8 [@media(hover:none)]:[&_a]:min-h-11 [&_a]:gap-1.5 [&_a]:px-2.25 [&_a]:py-1.25 [&_a:focus-visible]:outline-offset-3",
-        layout === "compact" && "md:mb-2.5",
+        "project-card__techs mb-6 flex flex-wrap gap-1.5 [&_a]:min-h-8 [&_a]:gap-1.5 [&_a]:px-2.25 [&_a]:py-1.25 [&_a:focus-visible]:outline-offset-3",
       ]}
       aria-label="Key technologies"
       role="group">
@@ -158,21 +152,23 @@ const year = date
       }
     </div>
     <div class="mt-auto flex w-full flex-wrap items-center gap-x-5 gap-y-3">
-      <a
+      <Button
+        as="a"
         href={href}
-        class:list={[
-          "inline-flex min-h-11 items-center gap-2 text-[13px] font-semibold no-underline underline-offset-4 hover:underline",
-          layout === "spotlight" &&
-            "rounded-lg border border-border px-3.5 hover:bg-muted hover:no-underline",
-        ]}
+        variant={layout === "spotlight" ? "outline" : "ghost"}
+        size="lg"
+        class="h-auto min-h-11 justify-start px-3 text-[13px] font-semibold no-underline"
         aria-label={`Read project: ${title}`}
-        >Read project <ArrowRight class="size-4" aria-hidden="true" /></a
+        >Read project <ArrowRight class="size-4" aria-hidden="true" /></Button
       >
       {
         demo && (
-          <a
+          <Button
+            as="a"
             href={demo.url}
-            class="inline-flex min-h-11 items-center gap-2 text-[13px] text-muted-foreground no-underline underline-offset-4 hover:underline"
+            variant="link"
+            size="lg"
+            class="h-auto min-h-11 justify-start px-2 text-[13px] text-muted-foreground no-underline"
             target="_blank"
             rel="noopener noreferrer">
             Open live demo{" "}
@@ -180,9 +176,66 @@ const year = date
               <ExternalLink class="size-3.5" aria-hidden="true" />
               <span class="sr-only"> (opens in a new tab)</span>
             </>
-          </a>
+          </Button>
         )
       }
     </div>
   </div>
-</article>
+</Card>
+</div>
+
+<style>
+  .project-card-container {
+    container-type: inline-size;
+  }
+
+  @container (min-width: 42rem) {
+    :global(.project-card[data-layout="compact"]) {
+      display: grid;
+      grid-template-columns: 13.75rem minmax(0, 1fr);
+    }
+
+    :global(.project-card[data-layout="compact"] > a:first-child) {
+      align-self: center;
+      aspect-ratio: 16 / 9;
+      margin: 0.75rem 0 0.75rem 0.75rem;
+      padding: 0.5rem;
+    }
+
+    :global(.project-card[data-layout="compact"] > div) {
+      padding: 1.25rem 1.5rem;
+    }
+  }
+
+  @container (min-width: 52rem) {
+    :global(.project-card[data-layout="spotlight"]) {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    }
+
+    :global(.project-card[data-layout="spotlight"] > a:first-child) {
+      aspect-ratio: auto;
+      min-height: 18.75rem;
+      margin: 1rem 0 1rem 1rem;
+      padding: 1rem;
+    }
+
+    :global(.project-card[data-layout="spotlight"] > div) {
+      padding: 2rem;
+    }
+
+    :global(.project-card[data-layout="spotlight"] h3) {
+      font-size: 1.75rem;
+    }
+
+    :global(.project-card[data-layout="spotlight"] p) {
+      font-size: 0.9375rem;
+    }
+  }
+
+  @media (hover: none) {
+    :global(.project-card__techs a) {
+      min-height: 2.75rem;
+    }
+  }
+</style>
