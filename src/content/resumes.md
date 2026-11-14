@@ -5,5 +5,5 @@ webdev: "WebDev_Resume.pdf"
 software_engineer: "SoftwareEngineer_Resume.pdf"
 currently_using: "AlfredPaguio_Resume.pdf"
 availability: "Open to new opportunities"
-last_updated: "2026-03-02"
+last_updated: "2026-11-14"
 ---
