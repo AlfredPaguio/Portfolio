@@ -5,11 +5,13 @@ interface Props {
   src?: string;
   project?: boolean;
   compact?: boolean;
+  description?: string;
 }
 const {
   src = "/llms-full.txt",
   project = false,
   compact = false,
+  description,
 } = Astro.props;
 ---
 
@@ -19,13 +21,14 @@ const {
   data-project={project ? "true" : "false"}>
   <p class="text-xs text-muted-foreground">
     {
-      compact
-        ? project
-          ? "Understand this project with AI"
-          : "Review this portfolio with AI"
-        : project
-          ? "Want the short version? Copy this project into your AI tool for a plain-language explanation."
-          : "Reviewing with AI? Take the portfolio with you."
+      description ??
+        (compact
+          ? project
+            ? "Understand this project with AI"
+            : "Review this portfolio with AI"
+          : project
+            ? "Want the short version? Copy this project into your AI tool for a plain-language explanation."
+            : "Reviewing with AI? Take the portfolio with you.")
     }
   </p>
   <div class="flex flex-wrap items-center gap-2">

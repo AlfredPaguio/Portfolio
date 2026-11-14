@@ -36,7 +36,7 @@ const statusLabels = {
   active: "Active",
   maintenance: "Maintenance",
   archived: "Archived",
-  unknown: "Status unknown",
+  unknown: "Current status unknown",
 } as const;
 
 const statusLabel = statusLabels[status];
@@ -58,16 +58,16 @@ const year = date
 <article
   class:list={[
     "flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card [&_a:focus-visible]:rounded [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_a:focus-visible]:outline-offset-4",
-    layout === "spotlight" && "md:grid md:grid-cols-[1.15fr_1fr]",
-    layout === "compact" && "sm:grid sm:grid-cols-[160px_minmax(0,1fr)] lg:grid-cols-[220px_minmax(0,1fr)]",
+    layout === "spotlight" && "lg:grid lg:grid-cols-[1.15fr_1fr]",
+    layout === "compact" && "md:grid md:grid-cols-[176px_minmax(0,1fr)] lg:grid-cols-[220px_minmax(0,1fr)]",
   ]}>
   <a
     href={href}
     class:list={[
       "mx-3 mt-3 flex aspect-video items-center justify-center overflow-hidden rounded-lg bg-background p-3 max-[400px]:p-2",
       layout === "spotlight" &&
-        "md:my-4 md:mr-0 md:ml-4 md:aspect-auto md:min-h-75 md:p-4",
-      layout === "compact" && "sm:my-3 sm:mr-0 sm:ml-3 sm:aspect-video sm:self-center sm:p-2",
+        "lg:my-4 lg:mr-0 lg:ml-4 lg:aspect-auto lg:min-h-75 lg:p-4",
+      layout === "compact" && "md:my-3 md:mr-0 md:ml-3 md:aspect-video md:self-center md:p-2",
     ]}
     tabindex="-1"
     aria-hidden="true">
@@ -95,7 +95,7 @@ const year = date
   <div
     class:list={[
       "flex min-w-0 flex-1 flex-col items-start p-6 max-[400px]:p-5",
-      layout === "spotlight" && "md:p-8",
+      layout === "spotlight" && "lg:p-8",
       layout === "compact" && "md:px-6 md:py-5",
     ]}>
     <div
@@ -122,7 +122,7 @@ const year = date
     <h3
       class:list={[
         "m-0 text-[21px] leading-tight font-[650] tracking-[-0.025em] text-balance wrap-anywhere",
-        layout === "spotlight" && "md:text-[28px]",
+        layout === "spotlight" && "lg:text-[28px]",
       ]}>
       <a href={href} class="no-underline hover:underline underline-offset-4"
         >{title}</a
@@ -131,14 +131,14 @@ const year = date
     <p
       class:list={[
         "mt-3 mb-4.5 max-w-[60ch] text-sm leading-[1.7] text-muted-foreground",
-        layout === "spotlight" && "md:text-[15px]",
+        layout === "spotlight" && "lg:text-[15px]",
         layout === "compact" && "md:mb-3",
       ]}>
       {cardSummary}
     </p>
     <div
       class:list={[
-        "mb-6 flex flex-wrap gap-1.5 [&_a]:min-h-7.5 [&_a]:gap-1.5 [&_a]:px-2.25 [&_a]:py-1.25 [&_a:focus-visible]:outline-offset-3",
+        "mb-6 flex flex-wrap gap-1.5 [&_a]:min-h-8 [@media(hover:none)]:[&_a]:min-h-11 [&_a]:gap-1.5 [&_a]:px-2.25 [&_a]:py-1.25 [&_a:focus-visible]:outline-offset-3",
         layout === "compact" && "md:mb-2.5",
       ]}
       aria-label="Key technologies"
@@ -161,7 +161,7 @@ const year = date
       <a
         href={href}
         class:list={[
-          "inline-flex min-h-10 items-center gap-2 text-[13px] font-semibold no-underline underline-offset-4 hover:underline",
+          "inline-flex min-h-11 items-center gap-2 text-[13px] font-semibold no-underline underline-offset-4 hover:underline",
           layout === "spotlight" &&
             "rounded-lg border border-border px-3.5 hover:bg-muted hover:no-underline",
         ]}
@@ -172,10 +172,10 @@ const year = date
         demo && (
           <a
             href={demo.url}
-            class="inline-flex min-h-10 items-center gap-2 text-[13px] text-muted-foreground no-underline underline-offset-4 hover:underline"
+            class="inline-flex min-h-11 items-center gap-2 text-[13px] text-muted-foreground no-underline underline-offset-4 hover:underline"
             target="_blank"
             rel="noopener noreferrer">
-            Live demo{" "}
+            Open live demo{" "}
             <>
               <ExternalLink class="size-3.5" aria-hidden="true" />
               <span class="sr-only"> (opens in a new tab)</span>

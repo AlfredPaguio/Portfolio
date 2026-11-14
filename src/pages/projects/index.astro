@@ -29,48 +29,45 @@ const [lead, ...selected] = featured;
       </h1>
       <p
         class="max-w-[52ch] text-base leading-[1.65] text-pretty text-muted-foreground sm:text-[17px]">
-        Applications, tools, and experiments built with Laravel, React, and
-        Python.
+        Browse {projects.length} projects. Each card summarizes the work, shows
+        its status and key technologies, and links to a demo when available.
       </p>
     </div>
     <Button
       href={`/resumes/${resumeData.currently_using}`}
       variant="outline"
       size="lg"
-      class="mt-1.25"><FileText aria-hidden="true" /> View resume</Button
+      class="mt-1.25"><FileText aria-hidden="true" /> View current resume</Button
     >
   </header>
-
-  <div class="mb-8 -mt-4">
-    <RecruiterCopy compact />
-  </div>
 
   {
     featured.length > 0 && (
       <section aria-labelledby="selected-heading" class="mt-12">
-        <div class="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-          <>
-            <h2
-              id="selected-heading"
-              class="text-2xl leading-tight font-semibold tracking-tight">
-              Featured projects{" "}
-              <span class="ml-2 text-sm font-normal text-muted-foreground">
-                {featured.length}
-              </span>
-            </h2>
-            <p class="w-full text-[13px] text-muted-foreground sm:w-auto">
-              A closer look at my work
-            </p>
-          </>
+        <div class="mb-5 flex items-baseline justify-between gap-6">
+          <h2
+            id="selected-heading"
+            class="text-2xl leading-tight font-semibold tracking-tight">
+            Featured projects{" "}
+            <span class="ml-2 text-sm font-normal text-muted-foreground">
+              {featured.length}
+            </span>
+          </h2>
         </div>
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
-          {lead && (
-            <div class="col-span-full">
-              <ProjectCard project={lead} layout="spotlight" />
-            </div>
-          )}
+        {lead && (
+          <ProjectCard
+            project={lead}
+            layout="spotlight"
+            summaryMode="highlight"
+          />
+        )}
+        <div class="mt-5 grid gap-4 xl:grid-cols-2">
           {selected.map((project) => (
-            <ProjectCard project={project} />
+            <ProjectCard
+              project={project}
+              layout="compact"
+              summaryMode="highlight"
+            />
           ))}
         </div>
       </section>
@@ -85,7 +82,7 @@ const [lead, ...selected] = featured;
             <h2
               id="more-heading"
               class="text-2xl leading-tight font-semibold tracking-tight">
-              More projects{" "}
+              Other projects{" "}
               <span class="ml-2 text-sm font-normal text-muted-foreground">
                 {others.length}
               </span>
@@ -97,12 +94,23 @@ const [lead, ...selected] = featured;
         </div>
         <div class="grid gap-4">
           {others.map((project) => (
-            <ProjectCard project={project} layout="compact" />
+            <ProjectCard
+              project={project}
+              layout="compact"
+              summaryMode="highlight"
+            />
           ))}
         </div>
       </section>
     )
   }
+
+  <aside aria-label="AI review tools" class="mt-12 border-t border-border pt-6">
+    <RecruiterCopy
+      compact
+      description="Copy the portfolio text or a ready-made review prompt, then paste it into your AI tool."
+    />
+  </aside>
 
   <footer
     class="mt-12 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center sm:gap-8">

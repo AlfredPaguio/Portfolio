@@ -18,14 +18,14 @@ export const projectBriefs: Record<
       "Implemented project, task, and user management with role-based access control and a progress dashboard.",
   },
   "url-shortener": {
-    category: "API practice",
+    category: "Link-shortening tool",
     purpose:
       "Turns long web addresses into short, shareable links and tracks their clicks.",
     highlight:
       "Built a REST API for unique short links and click-count tracking.",
   },
   "react-calculator": {
-    category: "Frontend practice",
+    category: "Calculator",
     purpose: "A responsive calculator for everyday arithmetic.",
     highlight:
       "Implemented custom expression evaluation without JavaScript’s eval() function.",
