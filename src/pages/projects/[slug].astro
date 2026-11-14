@@ -127,7 +127,7 @@ const focus =
       }
     </div>
     <div class="mt-5">
-      <RecruiterCopy src={`/projects/${id}.md`} project compact />
+      <RecruiterCopy src={`/projects/${id}.md`} project />
     </div>
     {
       unavailableLinks.length > 0 && (
@@ -229,8 +229,34 @@ const focus =
     </div>
 
     <aside
-      aria-label="Project tools and technologies"
+      aria-label="Project overview and tools"
       class="row-start-1 space-y-8 lg:sticky lg:top-28 lg:col-start-2 lg:row-start-auto">
+      <section
+        aria-labelledby="project-context-heading"
+        class="hidden space-y-3 border-b border-border pb-6 lg:block">
+        <h2
+          id="project-context-heading"
+          class="text-base leading-snug font-semibold tracking-tight wrap-break-word">
+          {data.title}
+        </h2>
+        <p class="text-xs leading-relaxed text-muted-foreground">
+          {brief?.purpose || data.summary}
+        </p>
+        <dl
+          class="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-3 gap-y-2 pt-1 text-xs leading-relaxed">
+          {brief && <dt class="text-muted-foreground">Category</dt>}
+          {brief && <dd class="wrap-break-word text-right">{brief.category}</dd>}
+          {dateStr && <dt class="text-muted-foreground">Date</dt>}
+          {dateStr && (
+            <dd class="text-right">
+              <time datetime={data.date!.toISOString()}>{dateStr}</time>
+            </dd>
+          )}
+          <dt class="text-muted-foreground">Status</dt>
+          <dd class="wrap-break-word text-right">{statusLabels[data.status]}</dd>
+        </dl>
+      </section>
+
       <section aria-labelledby="stack-heading">
         <h2 id="stack-heading" class="mb-4 text-sm font-semibold">
           Built with

@@ -24,11 +24,11 @@ const {
       description ??
         (compact
           ? project
-            ? "Understand this project with AI"
-            : "Review this portfolio with AI"
+            ? "Understand this project with AI."
+            : "Review this portfolio with AI."
           : project
             ? "Want the short version? Copy this project into your AI tool for a plain-language explanation."
-            : "Reviewing with AI? Take the portfolio with you.")
+            : "Copy the portfolio as Markdown, or copy an AI review prompt that includes it and a job-description placeholder.")
     }
   </p>
   <div class="flex flex-wrap items-center gap-2">
@@ -39,7 +39,8 @@ const {
       class="min-h-9"
       data-copy="markdown"
       hidden>
-      <Copy aria-hidden="true" /> Copy as Markdown
+      <Copy aria-hidden="true" />
+      Copy {project ? "project" : "portfolio"} (Markdown)
     </Button>
     <Button
       type="button"
@@ -48,7 +49,8 @@ const {
       class="min-h-9"
       data-copy="prompt"
       hidden>
-      <Copy aria-hidden="true" /> Copy as AI Prompt
+      <Copy aria-hidden="true" />
+      Copy AI {project ? "explanation" : "review"} prompt
     </Button>
     <a
       href={src}
