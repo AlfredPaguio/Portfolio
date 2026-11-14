@@ -15,14 +15,14 @@ export const projectBriefs: Record<
     purpose:
       "Helps teams organize projects, assign tasks, and see progress in one place.",
     highlight:
-      "Task and user management, role-based permissions, and a progress dashboard.",
+      "Implemented project, task, and user management with role-based access control and a progress dashboard.",
   },
   "url-shortener": {
     category: "API practice",
     purpose:
       "Turns long web addresses into short, shareable links and tracks their clicks.",
     highlight:
-      "Practiced REST APIs with unique link generation and click tracking.",
+      "Built a REST API for unique short links and click-count tracking.",
   },
   "react-calculator": {
     category: "Frontend practice",
