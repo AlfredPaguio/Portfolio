@@ -8,16 +8,14 @@ const recentProjects = allProjects
   .slice(0, 4);
 ---
 
-<section
-  aria-labelledby="featured"
-  class="py-10 sm:py-12"
->
+<section aria-labelledby="featured" class="py-10 sm:py-12">
   <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
     <div>
       <h2 id="featured" class="text-2xl font-semibold tracking-tight">
         Featured Projects
       </h2><p class="mt-2 text-sm text-muted-foreground">
-        Explore four featured projects, with plain-language summaries of the work.
+        Explore four featured projects, with plain-language summaries of the
+        work.
       </p>
     </div>
     <a
@@ -30,13 +28,17 @@ const recentProjects = allProjects
     >
   </div>
   <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-    {recentProjects.map((project) => (
-      <ProjectCard
-        project={project}
-        summaryMode="highlight"
-        statusStyle="metadata"
-        interactiveTechs={false}
-      />
-    ))}
+    {
+      recentProjects.map((project, index) => (
+        <div class:list={[index === 0 && "sm:col-span-2"]}>
+          <ProjectCard
+            project={project}
+            layout={index === 0 ? "spotlight" : "standard"}
+            summaryMode="highlight"
+            interactiveTechs={false}
+          />
+        </div>
+      ))
+    }
   </div>
 </section>

@@ -1,6 +1,7 @@
 ---
 import { components } from "@/components/mdx";
 import ProjectMedia from "@/components/projects/ProjectMedia.astro";
+import ProjectStatus from "@/components/projects/ProjectStatus.astro";
 import RecruiterCopy from "@/components/RecruiterCopy.astro";
 import TechPill from "@/components/TechPill.astro";
 import Button from "@/components/ui/Button.astro";
@@ -71,19 +72,14 @@ const focus =
 
   <header class="mb-10">
     <div
-      class="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+      class="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-border pb-3 font-mono text-xs leading-normal tracking-wider text-muted-foreground uppercase">
       {brief && <span>{brief.category}</span>}
       {dateStr && <time datetime={data.date!.toISOString()}>{dateStr}</time>}
-      <span class="inline-flex items-center gap-2"
-        >{
-          data.status === "active" && (
-            <span
-              class="size-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400"
-              aria-hidden="true"
-            />
-          )
-        }{statusLabels[data.status]}</span
-      >
+      <ProjectStatus
+        status={data.status}
+        label={statusLabels[data.status]}
+        accessibleLabel={statusLabels[data.status]}
+      />
     </div>
     <h1
       class="max-w-[22ch] text-4xl leading-[1.1] font-bold tracking-tight text-balance sm:text-5xl">
@@ -245,15 +241,23 @@ const focus =
         <dl
           class="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-3 gap-y-2 pt-1 text-xs leading-relaxed">
           {brief && <dt class="text-muted-foreground">Category</dt>}
-          {brief && <dd class="wrap-break-word text-right">{brief.category}</dd>}
+          {
+            brief && (
+              <dd class="wrap-break-word text-right">{brief.category}</dd>
+            )
+          }
           {dateStr && <dt class="text-muted-foreground">Date</dt>}
-          {dateStr && (
-            <dd class="text-right">
-              <time datetime={data.date!.toISOString()}>{dateStr}</time>
-            </dd>
-          )}
+          {
+            dateStr && (
+              <dd class="text-right">
+                <time datetime={data.date!.toISOString()}>{dateStr}</time>
+              </dd>
+            )
+          }
           <dt class="text-muted-foreground">Status</dt>
-          <dd class="wrap-break-word text-right">{statusLabels[data.status]}</dd>
+          <dd class="wrap-break-word text-right">
+            {statusLabels[data.status]}
+          </dd>
         </dl>
       </section>
 

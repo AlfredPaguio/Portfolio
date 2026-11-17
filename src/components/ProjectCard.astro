@@ -6,13 +6,13 @@ import ExternalLink from "@lucide/astro/icons/external-link";
 import type { CollectionEntry } from "astro:content";
 import Button from "@/components/ui/Button.astro";
 import Card from "@/components/ui/card/Card.astro";
+import ProjectStatus from "@/components/projects/ProjectStatus.astro";
 import TechPill from "./TechPill.astro";
 
 interface Props {
   project: CollectionEntry<"projects">;
   layout?: "standard" | "spotlight" | "compact";
   summaryMode?: "purpose" | "highlight";
-  statusStyle?: "badge" | "metadata";
   interactiveTechs?: boolean;
 }
 
@@ -20,7 +20,6 @@ const {
   project,
   layout = "standard",
   summaryMode = "purpose",
-  statusStyle = "badge",
   interactiveTechs = true,
 } = Astro.props;
 
@@ -34,14 +33,12 @@ const cover =
 const href = `/projects/${project.id}/`;
 const demo = links.find((link) => link.type === "demo" && !link.disabled);
 
-const statusLabels = {
+const accessibleStatusLabels = {
   active: "Active",
   maintenance: "Maintenance",
   archived: "Archived",
   unknown: "Current status unknown",
 } as const;
-
-const statusLabel = statusLabels[status];
 const cardSummary =
   summaryMode === "highlight"
     ? brief?.highlight || brief?.purpose || summary
@@ -101,39 +98,12 @@ const year = date
         <span
           >{brief?.category || "Software project"}{year && ` / ${year}`}</span
         >
-        {
-          statusLabel && (
-            <span
-              class:list={[
-                statusStyle === "metadata"
-                  ? "ml-auto text-xs text-muted-foreground"
-                  : "ml-auto inline-flex items-center gap-1.5 rounded-sm border border-border bg-muted/50 px-2.5 py-1 font-mono text-xs text-muted-foreground uppercase tracking-wider",
-                status === "active" &&
-                  statusStyle === "badge" &&
-                  "text-foreground",
-              ]}>
-              {status === "active" && statusStyle === "badge" && (
-                <span
-                  aria-hidden="true"
-                  class="size-1.5 rounded-full bg-[#22863a]"
-                />
-              )}
-              {status === "unknown" && statusStyle === "badge" ? (
-                <>
-                  <span class="sr-only">{statusLabel}</span>
-                  <span class="project-card__status-full" aria-hidden="true">
-                    {statusLabel}
-                  </span>
-                  <span class="project-card__status-compact" aria-hidden="true">
-                    Unknown
-                  </span>
-                </>
-              ) : (
-                statusLabel
-              )}
-            </span>
-          )
-        }
+        <ProjectStatus
+          status={status}
+          compact
+          accessibleLabel={accessibleStatusLabels[status]}
+          class="ml-auto"
+        />
       </div>
       <h3
         class:list={[
@@ -207,27 +177,9 @@ const year = date
     container-type: inline-size;
   }
 
-  .project-card__status-compact {
-    display: none;
-  }
-
   @container (max-width: 35rem) {
     :global(.project-card__metadata) {
       column-gap: 0.375rem;
-      font-size: 0.6875rem;
-      letter-spacing: 0;
-    }
-
-    .project-card__status-full {
-      display: none;
-    }
-
-    .project-card__status-compact {
-      display: inline;
-    }
-
-    :global(.project-card__metadata > span:last-child) {
-      padding-inline: 0.375rem;
       font-size: 0.6875rem;
       letter-spacing: 0;
     }
