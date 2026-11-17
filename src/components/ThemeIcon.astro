@@ -22,7 +22,10 @@ import Button from "./ui/Button.astro";
 
 <script is:inline>
   const theme = (() => {
-    const localStorageTheme = localStorage?.getItem("theme") ?? "";
+    let localStorageTheme = "";
+    try {
+      localStorageTheme = localStorage.getItem("theme") ?? "";
+    } catch {}
     if (["dark", "light"].includes(localStorageTheme)) {
       return localStorageTheme;
     }
@@ -34,12 +37,15 @@ import Button from "./ui/Button.astro";
 
   const root = document.documentElement;
   const updateThemeColor = () => {
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute(
-        "content",
-        root.classList.contains("dark") ? "#060606" : "#f2f2f2",
-      );
+    // const resolvedColor = getComputedStyle(root)
+    // .getPropertyValue("--color-background")
+    // .trim();
+    // console.log(resolvedColor)
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      "content",
+      root.classList.contains("dark") ? "#060606" : "#f2f2f2",
+      // resolvedColor,
+    );
   };
 
   if (theme === "light") {
@@ -48,15 +54,18 @@ import Button from "./ui/Button.astro";
     root.classList.add("dark");
   }
 
-  window.localStorage.setItem("theme", theme);
+  try {
+    localStorage.setItem("theme", theme);
+  } catch {}
   updateThemeColor();
 
   const handleToggleClick = () => {
-    root.classList.toggle("dark");
+    const isDark = root.classList.toggle("dark");
     updateThemeColor();
 
-    const isDark = root.classList.contains("dark");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+    try {
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    } catch {}
   };
 
   document

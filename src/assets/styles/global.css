@@ -136,6 +136,9 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     font-family: var(--font-geist-sans), system-ui, sans-serif;
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
+    @apply bg-background text-foreground;
   }
 
   code,
@@ -146,12 +149,6 @@
 
   * {
     @apply border-border outline-ring/50;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-    background-image: var(--bg-gradient);
-    background-attachment: fixed;
   }
 }
 
