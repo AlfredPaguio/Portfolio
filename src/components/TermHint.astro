@@ -14,7 +14,7 @@ const definitionId = id ?? `term-hint-${crypto.randomUUID()}`;
 
 <span class="group relative inline" data-term-hint>
   <button
-    class="relative inline cursor-help rounded-[0.1rem] border-0 bg-transparent p-0 font-[inherit] text-inherit underline decoration-dotted underline-offset-[0.2em] after:absolute after:-inset-x-1 after:-inset-y-2.5 after:content-[''] hover:decoration-solid focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-[3px]"
+    class="relative inline cursor-help rounded-[0.1rem] border-0 bg-transparent p-0 font-[inherit] text-inherit underline decoration-dotted underline-offset-[0.2em] after:absolute after:-inset-x-1 after:-inset-y-2.5 after:content-[''] hover:decoration-solid focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-[3px] max-[42rem]:rounded-sm max-[42rem]:px-1.5 max-[42rem]:py-1 max-[42rem]:active:bg-accent/60 pointer-coarse:rounded-sm pointer-coarse:px-1.5 pointer-coarse:py-1 pointer-coarse:active:bg-accent/60"
     type="button"
     aria-label={`Explain ${label}`}
     aria-expanded="false"
