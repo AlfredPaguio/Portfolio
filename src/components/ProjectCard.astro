@@ -46,7 +46,7 @@ const cardSummary =
   summaryMode === "highlight"
     ? brief?.highlight || brief?.purpose || summary
     : brief?.purpose || summary;
-    
+
 const visibleStack = stack
   .filter((tech) => !["php", "javascript"].includes(tech.toLowerCase()))
   .slice(0, 3);
@@ -58,135 +58,179 @@ const year = date
 ---
 
 <div class="project-card-container">
-<Card
-  as="article"
-  data-layout={layout}
-  class:list={[
-    "project-card h-full gap-0 p-0 [&_a:focus-visible]:rounded [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_a:focus-visible]:outline-offset-4",
-  ]}>
-  <a
-    href={href}
+  <Card
+    as="article"
+    data-layout={layout}
     class:list={[
-      "mx-3 mt-3 flex aspect-video items-center justify-center overflow-hidden rounded-lg bg-background p-3 max-[400px]:p-2",
-    ]}
-    tabindex="-1"
-    aria-hidden="true">
-    {
-      cover ? (
-        <img
-          src={cover.src}
-          alt=""
-          class:list={[
-            "block h-full w-full rounded shadow-[0_2px_8px_#00000012]",
-            project.id === "project-management-app"
-              ? "object-cover object-top"
-              : "object-contain",
-          ]}
-          width={800}
-          height={450}
-          loading="lazy"
-          decoding="async"
-        />
-      ) : (
-        <div class="p-6 text-center text-muted-foreground">{title}</div>
-      )
-    }
-  </a>
-  <div
-    class:list={[
-      "flex min-w-0 flex-1 flex-col items-start p-6 max-[400px]:p-5",
+      "project-card h-full gap-0 p-0 [&_a:focus-visible]:rounded [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_a:focus-visible]:outline-offset-4",
     ]}>
-    <div
-      class="mb-2.5 flex w-full flex-wrap items-center gap-x-4 gap-y-2 text-xs leading-normal text-muted-foreground">
-      <span>{brief?.category || "Software project"}{year && ` / ${year}`}</span>
-      {statusLabel && (
-        <span
-          class:list={[
-            statusStyle === "metadata"
-              ? "ml-auto text-xs text-muted-foreground"
-              : "ml-auto inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-1 text-xs text-muted-foreground",
-            status === "active" && statusStyle === "badge" && "text-foreground",
-          ]}>
-          {status === "active" && statusStyle === "badge" && (
-            <span
-              aria-hidden="true"
-              class="size-1.5 rounded-full bg-[#22863a]"
-            />
-          )}
-          {statusLabel}
-        </span>
-      )}
-    </div>
-    <h3
+    <a
+      href={href}
       class:list={[
-        "m-0 text-[21px] leading-tight font-[650] tracking-[-0.025em] text-balance wrap-anywhere",
-      ]}>
-      <a href={href} class="no-underline hover:underline underline-offset-4"
-        >{title}</a
-      >
-    </h3>
-    <p
-      class:list={[
-        "mt-3 mb-4.5 max-w-[60ch] text-sm leading-[1.7] text-muted-foreground",
-      ]}>
-      {cardSummary}
-    </p>
-    <div
-      class:list={[
-        "project-card__techs mb-6 flex flex-wrap gap-1.5 [&_a]:min-h-8 [&_a]:gap-1.5 [&_a]:px-2.25 [&_a]:py-1.25 [&_a:focus-visible]:outline-offset-3",
+        "mx-3 mt-3 flex aspect-video items-center justify-center overflow-hidden rounded-lg bg-background p-3 max-[400px]:p-2",
       ]}
-      aria-label="Key technologies"
-      role="group">
+      tabindex="-1"
+      aria-hidden="true">
       {
-        visibleStack.map((id) => {
-          const tech = normalizeTech(id);
-          return (
-            <TechPill
-              id={tech.id}
-              showVersion={false}
-              interactive={interactiveTechs}
-              class="border-0 bg-muted/60 font-medium"
-            />
-          );
-        })
-      }
-    </div>
-    <div class="mt-auto flex w-full flex-wrap items-center gap-x-5 gap-y-3">
-      <Button
-        as="a"
-        href={href}
-        variant={layout === "spotlight" ? "outline" : "ghost"}
-        size="lg"
-        class="h-auto min-h-11 justify-start px-3 text-[13px] font-semibold no-underline"
-        aria-label={`Read project: ${title}`}
-        >Read project <ArrowRight class="size-4" aria-hidden="true" /></Button
-      >
-      {
-        demo && (
-          <Button
-            as="a"
-            href={demo.url}
-            variant="link"
-            size="lg"
-            class="h-auto min-h-11 justify-start px-2 text-[13px] text-muted-foreground no-underline"
-            target="_blank"
-            rel="noopener noreferrer">
-            Open live demo{" "}
-            <>
-              <ExternalLink class="size-3.5" aria-hidden="true" />
-              <span class="sr-only"> (opens in a new tab)</span>
-            </>
-          </Button>
+        cover ? (
+          <img
+            src={cover.src}
+            alt=""
+            class:list={[
+              "block h-full w-full rounded shadow-[0_2px_8px_#00000012]",
+              project.id === "project-management-app"
+                ? "object-cover object-top"
+                : "object-contain",
+            ]}
+            width={800}
+            height={450}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <div class="p-6 text-center text-muted-foreground">{title}</div>
         )
       }
+    </a>
+    <div
+      class:list={[
+        "flex min-w-0 flex-1 flex-col items-start p-6 max-[400px]:p-5",
+      ]}>
+      <div
+        class="project-card__metadata mb-3 flex w-full flex-wrap items-center gap-x-4 gap-y-2 border-b border-border pb-3 font-mono text-xs leading-normal tracking-wider text-muted-foreground uppercase">
+        <span
+          >{brief?.category || "Software project"}{year && ` / ${year}`}</span
+        >
+        {
+          statusLabel && (
+            <span
+              class:list={[
+                statusStyle === "metadata"
+                  ? "ml-auto text-xs text-muted-foreground"
+                  : "ml-auto inline-flex items-center gap-1.5 rounded-sm border border-border bg-muted/50 px-2.5 py-1 font-mono text-xs text-muted-foreground uppercase tracking-wider",
+                status === "active" &&
+                  statusStyle === "badge" &&
+                  "text-foreground",
+              ]}>
+              {status === "active" && statusStyle === "badge" && (
+                <span
+                  aria-hidden="true"
+                  class="size-1.5 rounded-full bg-[#22863a]"
+                />
+              )}
+              {status === "unknown" && statusStyle === "badge" ? (
+                <>
+                  <span class="sr-only">{statusLabel}</span>
+                  <span class="project-card__status-full" aria-hidden="true">
+                    {statusLabel}
+                  </span>
+                  <span class="project-card__status-compact" aria-hidden="true">
+                    Unknown
+                  </span>
+                </>
+              ) : (
+                statusLabel
+              )}
+            </span>
+          )
+        }
+      </div>
+      <h3
+        class:list={[
+          "m-0 text-[21px] leading-tight font-[650] tracking-[-0.025em] text-balance wrap-anywhere",
+        ]}>
+        <a href={href} class="no-underline hover:underline underline-offset-4"
+          >{title}</a
+        >
+      </h3>
+      <p
+        class:list={[
+          "mt-3 mb-4.5 max-w-[60ch] text-sm leading-[1.7] text-muted-foreground",
+        ]}>
+        {cardSummary}
+      </p>
+      <div
+        class:list={[
+          "project-card__techs mb-6 flex flex-wrap gap-1.5 [&_a]:min-h-8 [&_a]:gap-1.5 [&_a]:px-2.25 [&_a]:py-1.25 [&_a:focus-visible]:outline-offset-3",
+        ]}
+        aria-label="Key technologies"
+        role="group">
+        {
+          visibleStack.map((id) => {
+            const tech = normalizeTech(id);
+            return (
+              <TechPill
+                id={tech.id}
+                showVersion={false}
+                interactive={interactiveTechs}
+                class="border-0 bg-muted/60 font-medium"
+              />
+            );
+          })
+        }
+      </div>
+      <div class="mt-auto flex w-full flex-wrap items-center gap-x-5 gap-y-3">
+        <Button
+          as="a"
+          href={href}
+          variant={layout === "spotlight" ? "outline" : "ghost"}
+          size="lg"
+          class="h-auto min-h-11 justify-start px-3 text-[13px] font-semibold no-underline"
+          aria-label={`Read project: ${title}`}
+          >Read project <ArrowRight class="size-4" aria-hidden="true" /></Button
+        >
+        {
+          demo && (
+            <Button
+              as="a"
+              href={demo.url}
+              variant="link"
+              size="lg"
+              class="h-auto min-h-11 justify-start px-2 text-[13px] text-muted-foreground no-underline"
+              target="_blank"
+              rel="noopener noreferrer">
+              Open live demo{" "}
+              <>
+                <ExternalLink class="size-3.5" aria-hidden="true" />
+                <span class="sr-only"> (opens in a new tab)</span>
+              </>
+            </Button>
+          )
+        }
+      </div>
     </div>
-  </div>
-</Card>
+  </Card>
 </div>
 
 <style>
   .project-card-container {
     container-type: inline-size;
+  }
+
+  .project-card__status-compact {
+    display: none;
+  }
+
+  @container (max-width: 35rem) {
+    :global(.project-card__metadata) {
+      column-gap: 0.375rem;
+      font-size: 0.6875rem;
+      letter-spacing: 0;
+    }
+
+    .project-card__status-full {
+      display: none;
+    }
+
+    .project-card__status-compact {
+      display: inline;
+    }
+
+    :global(.project-card__metadata > span:last-child) {
+      padding-inline: 0.375rem;
+      font-size: 0.6875rem;
+      letter-spacing: 0;
+    }
   }
 
   @container (min-width: 42rem) {
