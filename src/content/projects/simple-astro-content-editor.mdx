@@ -32,7 +32,7 @@ videos:
 
 ## Overview
 
-Astro Content Editor is a browser-based tool I built to make editing Astro content collections easier. Instead of manually typing YAML frontmatter, the editor reads your `content.config.ts` directly in the browser, parses the Zod schemas, and generates a typed form for every field.
+Astro Content Editor is a browser-based tool I built to make editing Astro content collections easier. Instead of manually typing YAML <TermHint term="frontmatter">frontmatter</TermHint>, the editor reads your `content.config.ts` directly in the browser, parses <TermHint term="zod-schema">Zod schemas</TermHint>, and generates a typed form for every field.
 
 ### Demo descriptions
 
@@ -52,7 +52,7 @@ While it was built primarily for my own use, I deployed it so others working wit
 ## Key Features
 
 - **Schema-aware form generation** - loads `content.config.ts` and generates a form from Zod schemas using Zod v4's `toJSONSchema`
-- **File System Access API** - reads and writes files directly to disk with no upload/download roundtrip
+- **<TermHint term="file-system-access">File System Access API</TermHint>** - reads and writes files directly to disk with no upload/download roundtrip
 - **Split-pane editor** - resizable, draggable Markdown editor and live preview side by side
 - **Dual sidebar layout** - file tree and collections on the left, frontmatter form on the right, both independently togglable
 - **Keyboard shortcuts** - `Cmd/Ctrl+B` for the file and collection sidebar, `Alt+B` for the frontmatter sidebar
@@ -61,9 +61,9 @@ While it was built primarily for my own use, I deployed it so others working wit
 
 Building this project pushed me into parts of the web platform I hadn't used deeply before. The File System Access API is surprisingly capable - writable streams, directory traversal, and permission persistence all work well in Chromium browsers.
 
-The most challenging part was sandboxed evaluation of Astro content collection configs directly in the browser. Since these configs are usually written in TypeScript and depend on Astro-specific modules, I used esbuild's WebAssembly build to transpile them into CommonJS at runtime, allowing me to intercept imports via a custom `require` implementation.
+The most challenging part was <TermHint term="sandboxed-evaluation">sandboxed evaluation</TermHint> of Astro content collection configs directly in the browser. Since these configs are usually written in TypeScript and depend on Astro-specific modules, I used esbuild's <TermHint term="WebAssembly">WebAssembly</TermHint> build to transpile them into <TermHint term="CommonJS">CommonJS</TermHint> at runtime, allowing me to intercept imports via a custom `require` implementation.
 
-I mocked key Astro modules like astro:content and injected Zod to emulate Astro's runtime behavior, then executed the result inside a controlled sandbox using new Function. This allowed me to safely extract schema definitions, resolve dynamic schema functions, and [convert Zod schemas into JSON Schema](https://zod.dev/json-schema?id=ztojsonschema) for use in a dynamic form renderer.
+I mocked key Astro modules like astro:content and injected Zod to emulate Astro's runtime behavior, then executed the result inside a controlled sandbox using <TermHint term="function-constructor">new Function</TermHint>. This allowed me to extract schema definitions, resolve dynamic schema functions, and <TermHint term="JSON-Schema">convert Zod schemas into JSON Schema</TermHint> for use in a dynamic form renderer.
 
 The shadcn sidebar layout also took significant trial-and-error. I adapted a community solution from [inj-src](https://github.com/shadcn-ui/ui/issues/5651#issuecomment-3715137601) to achieve this behavior. I learned how to work with `SidebarProvider` context scoping to support two independently controllable sidebars that overlay content without layout shift.
 

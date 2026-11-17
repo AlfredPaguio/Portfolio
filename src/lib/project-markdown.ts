@@ -1,12 +1,21 @@
 import { projectBriefs } from "@/data/project-briefs";
+import { termGlossary } from "@/data/term-glossary";
 import type { CollectionEntry } from "astro:content";
 
 export function projectMarkdown(
   project: CollectionEntry<"projects">,
   site: URL,
 ) {
-  const { data, body, id } = project;
+  const { data, body = "", id } = project;
   const brief = projectBriefs[id];
+  const readableBody = body
+    .replace(/<TermHint\b[^>]*>([\s\S]*?)<\/TermHint>/g, "$1")
+    .replace(/<TermHint\b([^>]*)\/>/g, (_match, attributes: string) => {
+      const term = attributes.match(/\bterm=["']([^"']+)["']/)?.[1] as
+        | keyof typeof termGlossary
+        | undefined;
+      return term ? (termGlossary[term]?.label ?? "") : "";
+    });
   return (
     [
       `# ${data.title}`,
@@ -25,7 +34,7 @@ export function projectMarkdown(
         .filter((link) => !link.disabled)
         .map((link) => `- ${link.label}: ${link.url}`),
       "## Full project description",
-      body,
+      readableBody,
       "Missing information should be treated as unknown. This text describes the project; it does not independently verify business outcomes or current deployment status.",
     ]
       .filter(Boolean)
