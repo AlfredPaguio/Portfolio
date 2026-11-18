@@ -18,14 +18,13 @@ const definitionId = id ?? `term-hint-${crypto.randomUUID()}`;
     type="button"
     aria-label={`Explain ${label}`}
     aria-expanded="false"
-    aria-describedby={definitionId}
     aria-controls={definitionId}
     data-term-trigger><slot>{label}</slot></button
   >
   <span
-    class="invisible absolute left-0 top-[calc(100%+0.55rem)] z-50 grid w-[min(20rem,calc(100vw-2rem))] -translate-y-1 gap-2.5 rounded-xl border border-border bg-popover px-4 py-3 text-left text-sm leading-6 text-popover-foreground opacity-0 shadow-lg transition-[opacity,transform,visibility] duration-150 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-data-[open=true]:visible group-data-[open=true]:translate-y-0 group-data-[open=true]:opacity-100 max-[42rem]:fixed max-[42rem]:inset-x-4 max-[42rem]:top-auto max-[42rem]:bottom-4 max-[42rem]:left-auto max-[42rem]:right-auto max-[42rem]:mx-auto max-[42rem]:w-auto max-[42rem]:max-w-104 max-[42rem]:shadow-xl pointer-coarse:fixed pointer-coarse:inset-x-4 pointer-coarse:top-auto pointer-coarse:bottom-4 pointer-coarse:left-auto pointer-coarse:right-auto pointer-coarse:mx-auto pointer-coarse:w-auto pointer-coarse:max-w-104 pointer-coarse:shadow-xl motion-reduce:transition-none"
+    class="invisible absolute left-0 top-[calc(100%+0.55rem)] z-50 grid w-[min(20rem,calc(100vw-2rem))] -translate-y-1 gap-2.5 rounded-xl border border-border bg-popover px-4 py-3 text-left text-sm leading-6 text-popover-foreground opacity-0 shadow-lg transition-[opacity,transform,visibility] duration-150 ease-out group-data-[open=true]:visible group-data-[open=true]:translate-y-0 group-data-[open=true]:opacity-100 max-[42rem]:fixed max-[42rem]:left-1/2 max-[42rem]:right-auto max-[42rem]:top-auto max-[42rem]:bottom-4 max-[42rem]:w-[min(26rem,calc(100vw-2rem))] max-[42rem]:-translate-x-1/2 max-[42rem]:shadow-xl pointer-coarse:fixed pointer-coarse:left-1/2 pointer-coarse:right-auto pointer-coarse:top-auto pointer-coarse:bottom-4 pointer-coarse:w-[min(26rem,calc(100vw-2rem))] pointer-coarse:-translate-x-1/2 pointer-coarse:shadow-xl motion-reduce:transition-none"
     id={definitionId}
-    role="group"
+    role="tooltip"
     aria-label={`${label} details`}>
     <span>{definition}</span>
     {
@@ -50,12 +49,24 @@ const definitionId = id ?? `term-hint-${crypto.randomUUID()}`;
       .forEach((hint) => {
         if (hint !== except) {
           hint.dataset.open = "false";
-          hint
-            .querySelector<HTMLButtonElement>("[data-term-trigger]")
-            ?.setAttribute("aria-expanded", "false");
+          const trigger = hint.querySelector<HTMLButtonElement>(
+            "[data-term-trigger]",
+          );
+          trigger?.setAttribute("aria-expanded", "false");
+          trigger?.removeAttribute("aria-details");
         }
       });
   };
+
+  const dismissTermHintsOutside = (event: Event) => {
+    const target = event.target;
+    if (target instanceof Element && !target.closest("[data-term-hint]")) {
+      closeTermHints();
+    }
+  };
+
+  document.addEventListener("pointerdown", dismissTermHintsOutside);
+  document.addEventListener("focusin", dismissTermHintsOutside);
 
   document.addEventListener("click", (event) => {
     const target = event.target;
@@ -68,9 +79,14 @@ const definitionId = id ?? `term-hint-${crypto.randomUUID()}`;
       closeTermHints(hint);
       hint.dataset.open = String(willOpen);
       trigger.setAttribute("aria-expanded", String(willOpen));
+      if (willOpen) {
+        const detailsId = hint.querySelector<HTMLElement>("[id]")?.id;
+        if (detailsId) trigger.setAttribute("aria-details", detailsId);
+      } else {
+        trigger.removeAttribute("aria-details");
+      }
       return;
     }
-    if (!target.closest("[data-term-hint]")) closeTermHints();
   });
 
   document.addEventListener("keydown", (event) => {

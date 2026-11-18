@@ -54,17 +54,25 @@ const year = date
   : null;
 ---
 
-<div class="project-card-container">
+<div class="@container">
   <Card
     as="article"
     data-layout={layout}
     class:list={[
       "project-card h-full gap-0 p-0 [&_a:focus-visible]:rounded [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_a:focus-visible]:outline-offset-4",
+      layout === "spotlight" &&
+        "@min-[52rem]:grid @min-[52rem]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]",
+      layout === "compact" &&
+        "@min-[42rem]:grid @min-[42rem]:grid-cols-[13.75rem_minmax(0,1fr)]",
     ]}>
     <a
       href={href}
       class:list={[
         "mx-3 mt-3 flex aspect-video items-center justify-center overflow-hidden rounded-lg bg-background p-3 max-[400px]:p-2",
+        layout === "spotlight" &&
+          "@min-[52rem]:my-4 @min-[52rem]:mr-0 @min-[52rem]:ml-4 @min-[52rem]:aspect-auto @min-[52rem]:min-h-[18.75rem] @min-[52rem]:p-4",
+        layout === "compact" &&
+          "@min-[42rem]:my-3 @min-[42rem]:mr-0 @min-[42rem]:ml-3 @min-[42rem]:self-center @min-[42rem]:p-2",
       ]}
       tabindex="-1"
       aria-hidden="true">
@@ -92,9 +100,11 @@ const year = date
     <div
       class:list={[
         "flex min-w-0 flex-1 flex-col items-start p-6 max-[400px]:p-5",
+        layout === "spotlight" && "@min-[52rem]:p-8",
+        layout === "compact" && "@min-[42rem]:px-6 @min-[42rem]:py-5",
       ]}>
       <div
-        class="project-card__metadata mb-3 flex w-full flex-wrap items-center gap-x-4 gap-y-2 border-b border-border pb-3 font-mono text-xs leading-normal tracking-wider text-muted-foreground uppercase">
+        class="project-card__metadata @max-[35rem]:gap-x-1.5 @max-[35rem]:text-[0.6875rem] @max-[35rem]:tracking-normal mb-3 flex w-full flex-wrap items-center gap-x-4 gap-y-2 border-b border-border pb-3 font-mono text-xs leading-normal tracking-wider text-muted-foreground uppercase">
         <span
           >{brief?.category || "Software project"}{year && ` / ${year}`}</span
         >
@@ -108,6 +118,7 @@ const year = date
       <h3
         class:list={[
           "m-0 text-[21px] leading-tight font-[650] tracking-[-0.025em] text-balance wrap-anywhere",
+          layout === "spotlight" && "@min-[52rem]:text-3xl",
         ]}>
         <a href={href} class="no-underline hover:underline underline-offset-4"
           >{title}</a
@@ -116,12 +127,13 @@ const year = date
       <p
         class:list={[
           "mt-3 mb-4.5 max-w-[60ch] text-sm leading-[1.7] text-muted-foreground",
+          layout === "spotlight" && "@min-[52rem]:text-[0.9375rem]",
         ]}>
         {cardSummary}
       </p>
       <div
         class:list={[
-          "project-card__techs mb-6 flex flex-wrap gap-1.5 [&_a]:min-h-8 [&_a]:gap-1.5 [&_a]:px-2.25 [&_a]:py-1.25 [&_a:focus-visible]:outline-offset-3",
+          "project-card__techs mb-6 flex flex-wrap gap-1.5 [&_a]:min-h-8 [&_a]:gap-1.5 [&_a]:px-2.25 [&_a]:py-1.25 [&_a:focus-visible]:outline-offset-3 pointer-coarse:[&_a]:min-h-11",
         ]}
         aria-label="Key technologies"
         role="group">
@@ -171,67 +183,3 @@ const year = date
     </div>
   </Card>
 </div>
-
-<style>
-  .project-card-container {
-    container-type: inline-size;
-  }
-
-  @container (max-width: 35rem) {
-    :global(.project-card__metadata) {
-      column-gap: 0.375rem;
-      font-size: 0.6875rem;
-      letter-spacing: 0;
-    }
-  }
-
-  @container (min-width: 42rem) {
-    :global(.project-card[data-layout="compact"]) {
-      display: grid;
-      grid-template-columns: 13.75rem minmax(0, 1fr);
-    }
-
-    :global(.project-card[data-layout="compact"] > a:first-child) {
-      align-self: center;
-      aspect-ratio: 16 / 9;
-      margin: 0.75rem 0 0.75rem 0.75rem;
-      padding: 0.5rem;
-    }
-
-    :global(.project-card[data-layout="compact"] > div) {
-      padding: 1.25rem 1.5rem;
-    }
-  }
-
-  @container (min-width: 52rem) {
-    :global(.project-card[data-layout="spotlight"]) {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    }
-
-    :global(.project-card[data-layout="spotlight"] > a:first-child) {
-      aspect-ratio: auto;
-      min-height: 18.75rem;
-      margin: 1rem 0 1rem 1rem;
-      padding: 1rem;
-    }
-
-    :global(.project-card[data-layout="spotlight"] > div) {
-      padding: 2rem;
-    }
-
-    :global(.project-card[data-layout="spotlight"] h3) {
-      font-size: 1.75rem;
-    }
-
-    :global(.project-card[data-layout="spotlight"] p) {
-      font-size: 0.9375rem;
-    }
-  }
-
-  @media (hover: none) {
-    :global(.project-card__techs a) {
-      min-height: 2.75rem;
-    }
-  }
-</style>

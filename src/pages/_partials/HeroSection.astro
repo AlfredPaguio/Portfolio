@@ -9,7 +9,7 @@ import { Image } from "astro:assets";
 ---
 
 <header
-  class="grid items-start gap-8 pt-3 pb-10 md:grid-cols-[minmax(0,1fr)_288px] md:gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12">
+  class="grid items-start gap-8 pt-3 pb-8 md:grid-cols-[minmax(0,1fr)_288px] md:gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12">
   <div class="min-w-0">
     <p class="mb-3 text-sm font-medium text-muted-foreground">
       Junior Software Developer
@@ -19,25 +19,28 @@ import { Image } from "astro:assets";
       Alfred U. Paguio
     </h1>
     <p class="mt-5 max-w-[38ch] text-xl leading-relaxed text-pretty">
-      I build practical web applications with Laravel and React,
-      focusing on backend systems, API integration, and clean architecture.
+      I build practical web applications with Laravel and React, with a focus
+      on backend systems and API integration.
     </p>
     <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-      <div class="flex items-center gap-3">
-        <span class="inline-flex items-center gap-2 text-sm font-medium"
-          ><span aria-hidden="true">🇵🇭</span>Philippines</span
-        ><span class="text-xs text-muted-foreground">UTC+8</span>
-      </div>
-      <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+      <span class="inline-flex items-center gap-2 font-medium">
+        <span aria-hidden="true">🇵🇭</span>
+        Philippines <span class="font-normal text-muted-foreground">UTC+8</span>
+      </span>
+      <span class="inline-flex items-center gap-2">
         <ClockIcon class="size-4 text-muted-foreground" aria-hidden="true" />
-        <span class="sr-only">Current time in Manila: </span>
-        <time id="local-time" class="font-mono tabular-nums"
-          >JavaScript required</time
-        >
-        <span id="local-day-period" class="text-xs text-muted-foreground"
-          >My local time</span
-        >
-      </div>
+        <span class="sr-only">Current time in the Philippines: </span>
+        <time id="local-time" class="font-mono tabular-nums">UTC+8</time>
+        <span class="text-xs text-muted-foreground">local time</span>
+      </span>
+      {
+        resumeData.availability && (
+          <span class="inline-flex items-center gap-2 text-muted-foreground">
+            <span class="size-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" aria-hidden="true" />
+            {resumeData.availability}
+          </span>
+        )
+      }
     </div>
     <div class="mt-6 flex flex-wrap items-center gap-2.5">
       <Button
@@ -68,7 +71,6 @@ import { Image } from "astro:assets";
 </header>
 <script>
   const time = document.querySelector<HTMLTimeElement>("#local-time");
-  const label = document.querySelector("#local-day-period");
   function updateTime() {
     if (!time) return;
     const now = new Date();
@@ -83,16 +85,6 @@ import { Image } from "astro:assets";
       timeZone: "Asia/Manila",
       dateStyle: "full",
     }).format(now);
-    const hour = Number(
-      new Intl.DateTimeFormat("en-US", {
-        timeZone: "Asia/Manila",
-        hour: "numeric",
-        hourCycle: "h23",
-      }).format(now),
-    );
-    if (label)
-      label.textContent =
-        hour >= 22 || hour < 7 ? "Nighttime here" : "My local time";
   }
   updateTime();
   setInterval(updateTime, 60_000);

@@ -3,19 +3,21 @@ import ProjectCard from "@/components/ProjectCard.astro";
 import ArrowRight from "@lucide/astro/icons/arrow-right";
 import { getCollection } from "astro:content";
 const allProjects = await getCollection("projects");
-const recentProjects = allProjects
+const featuredProjects = allProjects
   .sort((a, b) => (b.data.date?.getTime() || 0) - (a.data.date?.getTime() || 0))
   .slice(0, 4);
 ---
 
-<section aria-labelledby="featured" class="py-10 sm:py-12">
+<section aria-labelledby="featured" class="pt-6 pb-10 sm:pt-8 sm:pb-12">
   <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
     <div>
-      <h2 id="featured" class="text-2xl font-semibold tracking-tight">
+      <h2
+        id="featured"
+        class="text-2xl font-semibold tracking-tight text-balance">
         Featured Projects
-      </h2><p class="mt-2 text-sm text-muted-foreground">
-        Explore four featured projects, with plain-language summaries of the
-        work.
+      </h2>
+      <p class="mt-2 text-sm text-muted-foreground">
+        Each card summarizes the work, key technologies, and current status.
       </p>
     </div>
     <a
@@ -27,10 +29,10 @@ const recentProjects = allProjects
       /></a
     >
   </div>
-  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
     {
-      recentProjects.map((project, index) => (
-        <div class:list={[index === 0 && "sm:col-span-2"]}>
+      featuredProjects.map((project, index) => (
+        <div class:list={[index === 0 && "md:col-span-2"]}>
           <ProjectCard
             project={project}
             layout={index === 0 ? "spotlight" : "standard"}
