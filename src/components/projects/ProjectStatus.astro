@@ -1,78 +1,86 @@
 ---
 import { cn } from "@/lib/utils/cn";
+import { Archive, CircleDot, QuestionMark, Wrench } from "@lucide/astro";
+import type { HTMLAttributes } from "astro/types";
+import { cva, type VariantProps } from "class-variance-authority";
 
-interface Props {
-  status: "active" | "maintenance" | "archived" | "unknown";
-  class?: string;
-  compact?: boolean;
-  label?: string;
-  accessibleLabel?: string;
-}
+const statusBadgeVariants = cva(
+  "inline-flex h-5 items-center gap-1 whitespace-nowrap rounded-full px-2 text-[10px] font-medium uppercase tracking-wider ring-1 ring-inset transition-colors [&_svg]:shrink-0 [&_svg]:size-3",
+  {
+    variants: {
+      status: {
+        active:
+          "bg-emerald-500/10 text-emerald-700 ring-emerald-600/20 dark:bg-emerald-400/10 dark:text-emerald-300 dark:ring-emerald-400/25",
+        maintenance:
+          "bg-amber-500/10 text-amber-800 ring-amber-600/20 dark:bg-amber-400/10 dark:text-amber-300 dark:ring-amber-300/25",
+        archived: "bg-muted/60 text-muted-foreground ring-border",
+        unknown: "bg-muted/60 text-muted-foreground ring-border",
+      },
+      compact: {
+        true: "h-4 gap-0.5 px-1.5 text-[9px] font-mono tracking-normal [&_svg]:size-2.5",
+        false: "",
+      },
+    },
+    defaultVariants: { status: "unknown", compact: false },
+  },
+);
 
-const {
-  status,
-  class: className,
-  compact = false,
-  label,
-  accessibleLabel,
-} = Astro.props;
+const statusIcons = {
+  active: CircleDot,
+  maintenance: Wrench,
+  archived: Archive,
+  unknown: QuestionMark,
+} as const;
 
-// I'm tired to make this into class variance authority
-const statusStyles = {
-  active: {
-    label: "Active",
-    color: "text-emerald-700 dark:text-emerald-300",
-    dot: "bg-emerald-600 dark:bg-emerald-400",
-    bg: "bg-emerald-500/10 dark:bg-green-900/20",
-    border: "border-emerald-500/30 dark:border-emerald-400/30",
-  },
-  maintenance: {
-    label: "In maintenance",
-    color: "text-amber-800 dark:text-amber-300",
-    dot: "bg-amber-700 dark:bg-amber-300",
-    bg: "bg-amber-500/10 dark:bg-amber-900/20",
-    border: "border-amber-600/30 dark:border-amber-300/30",
-  },
-  archived: {
-    label: "Archived",
-    color: "text-muted-foreground",
-    dot: "bg-neutral-400",
-    bg: "bg-muted",
-    border: "border-border",
-  },
-  unknown: {
-    label: "Unknown",
-    color: "text-muted-foreground",
-    dot: "bg-border",
-    bg: "bg-muted",
-    border: "border-border",
-  },
-};
+const statusLabels = {
+  active: "Active",
+  maintenance: "In maintenance",
+  archived: "Archived",
+  unknown: "Unknown",
+} as const;
 
-const config = statusStyles[status] || statusStyles.unknown;
 const compactLabels = {
   active: "Active",
   maintenance: "Maintenance",
   archived: "Archived",
   unknown: "Unknown",
 } as const;
-const visibleLabel = label ?? (compact ? compactLabels[status] : config.label);
+
+export type StatusBadgeVariantProps = VariantProps<typeof statusBadgeVariants>;
+
+type BaseProps = {
+  label?: string;
+  accessibleLabel?: string;
+} & HTMLAttributes<"div">;
+
+export type Props = BaseProps & StatusBadgeVariantProps;
+
+const {
+  status: statusProp = "unknown",
+  compact = false,
+  class: className,
+  label,
+  accessibleLabel,
+  ...props
+} = Astro.props;
+
+const status = statusProp ?? "unknown";
+const isCompact = compact ?? false;
+const Icon = statusIcons[status];
+
+const visibleLabel =
+  label ?? (isCompact ? compactLabels[status] : statusLabels[status]);
 const spokenLabel =
   accessibleLabel ??
   (status === "unknown" ? "Current status unknown" : visibleLabel);
 ---
 
 <div
-  class={cn(
-    "inline-flex items-center gap-1.5 whitespace-nowrap rounded-sm border px-2 py-1 text-[10px] font-bold uppercase tracking-wider",
-    compact && "gap-1 px-1.5 py-0.5 font-mono tracking-normal",
-    config.bg,
-    config.border,
-    config.color,
-    className,
-  )}>
-  <span aria-hidden="true" class={cn("size-1.5 rounded-full", config.dot)}
-  ></span>
+  data-slot="status-badge"
+  data-status={status}
+  class={cn(statusBadgeVariants({ status, compact: isCompact }), className)}
+  {...props}>
+  <Icon aria-hidden="true" stroke-width={2.75} />
   {status === "unknown" && <span class="sr-only">{spokenLabel}</span>}
   <span aria-hidden={status === "unknown" ? "true" : undefined}>
     {visibleLabel}

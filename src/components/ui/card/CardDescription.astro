@@ -10,7 +10,6 @@ const { class: className, ...props } = Astro.props;
 <div
   data-slot="card-description"
   class={cn("text-muted-foreground text-sm", className)}
-  {...props}
->
+  {...props}>
   <slot />
 </div>
