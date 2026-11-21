@@ -21,8 +21,7 @@ const { title, description, openGraphImage, openGraphType, ...props } =
   <body id="page-top" class="relative min-h-screen flex flex-col">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only fixed top-4 left-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg z-60 font-medium shadow-lg focus:ring-2 focus:ring-ring focus:ring-offset-2"
-    >
+      class="sr-only focus:not-sr-only fixed top-4 left-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg z-60 font-medium shadow-lg focus:ring-2 focus:ring-ring focus:ring-offset-2">
       Skip to content
     </a>
 
@@ -31,11 +30,40 @@ const { title, description, openGraphImage, openGraphType, ...props } =
     <main
       id="main"
       tabindex="-1"
-      class="flex-1 w-full max-w-5xl mx-auto px-6 pt-24 md:pt-28 pb-16"
-    >
+      class="flex-1 w-full max-w-5xl mx-auto px-6 pt-24 md:pt-28 pb-16">
       <slot />
     </main>
 
     <Footer />
+
+    <script is:inline>
+      (() => {
+        const heroName = document.querySelector("[data-hero-name]");
+        const headerBrand = document.querySelector("[data-header-brand]");
+        if (
+          heroName &&
+          headerBrand instanceof HTMLElement &&
+          heroName.getBoundingClientRect().bottom >= 72
+        ) {
+          headerBrand.style.opacity = "0";
+          headerBrand.style.pointerEvents = "none";
+          headerBrand.setAttribute("aria-hidden", "true");
+        }
+
+        const heroResume = document.querySelector("[data-hero-resume]");
+        const headerResume = document.querySelector("[data-header-resume]");
+        if (
+          heroResume &&
+          headerResume instanceof HTMLElement &&
+          heroResume.getBoundingClientRect().bottom >= 72
+        ) {
+          headerResume.style.width = "0px";
+          headerResume.style.opacity = "0";
+          headerResume.style.overflow = "hidden";
+          headerResume.style.pointerEvents = "none";
+          headerResume.setAttribute("inert", "");
+        }
+      })();
+    </script>
   </body>
 </html>

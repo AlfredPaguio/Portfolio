@@ -1,136 +1,236 @@
 ---
 import { navItems } from "@/data/nav";
-import Menu from "@lucide/astro/icons/menu";
-import X from "@lucide/astro/icons/x";
+import { frontmatter as resumeData } from "@/content/resumes.md";
 import Button from "@/components/ui/Button.astro";
+import Separator from "@/components/ui/Separator.astro";
+import FileText from "@lucide/astro/icons/file-text";
 import { navigationIcons } from "./navigationIcons";
+import { Menu, X } from "@lucide/astro";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const isActive = (href: string) =>
   currentPath === href || (href !== "/" && currentPath.startsWith(`${href}/`));
 ---
 
-<div class="md:hidden flex items-center">
+<div class="flex items-center md:hidden">
   <Button
     variant="ghost"
     size="icon-lg"
     id="menu-button"
-    class="size-11 p-2 touch-manipulation transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md cursor-pointer relative"
+    class="relative size-11 cursor-pointer rounded-md p-2 transition-colors touch-manipulation aria-expanded:bg-muted aria-expanded:text-foreground focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2"
     aria-expanded="false"
     aria-controls="mobile-menu"
     aria-label="Toggle navigation menu">
     <Menu
       aria-hidden="true"
-      class="size-5 transition-transform duration-300 ease-in-out
-            motion-reduce:transition-none
-             rotate-0 scale-100
-             in-aria-expanded:-rotate-90 in-aria-expanded:scale-0"
+      class="size-5 rotate-0 scale-100 transition-transform duration-300 ease-in-out motion-reduce:transition-none in-aria-expanded:-rotate-90 in-aria-expanded:scale-0"
     />
     <X
       aria-hidden="true"
-      class="absolute size-5 transition-transform duration-300 ease-in-out
-             motion-reduce:transition-none
-             rotate-90 scale-0
-             in-aria-expanded:rotate-0 in-aria-expanded:scale-100"
+      class="absolute size-5 rotate-90 scale-0 transition-transform duration-300 ease-in-out motion-reduce:transition-none in-aria-expanded:rotate-0 in-aria-expanded:scale-100"
     />
   </Button>
 
   <div
+    id="mobile-menu-backdrop"
+    data-state="closed"
+    aria-hidden="true"
+    class="pointer-events-none invisible fixed inset-x-0 top-18 bottom-0 z-40 touch-none overscroll-contain bg-foreground/20 opacity-0 backdrop-blur-[2px] data-[state=open]:pointer-events-auto data-[state=open]:visible data-[state=open]:opacity-100 dark:bg-black/60"
+  />
+
+  <nav
     id="mobile-menu"
     data-state="closed"
     inert
-    role="navigation"
-    aria-labelledby="menu-button"
-    class="absolute inset-x-4 top-[calc(100%+0.5rem)] z-50 origin-top
-         flex flex-col gap-1 p-2 rounded-xl
-         border border-border bg-background shadow-md
-         opacity-0 translate-y-2 scale-[0.98]
-         pointer-events-none invisible
-         data-[state=open]:opacity-100
-         data-[state=open]:translate-y-0
-         data-[state=open]:scale-100
-         data-[state=open]:pointer-events-auto
-         data-[state=open]:visible
-         overflow-hidden">
-    {
-      navItems.map((item) => {
-        const Icon = navigationIcons[item.href as keyof typeof navigationIcons];
-        return (
-          <a
-            href={item.href}
-            aria-current={isActive(item.href) ? "page" : undefined}
-            class:list={[
-              "relative flex items-center gap-3 min-h-12 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring",
-              isActive(item.href)
-                ? "bg-muted text-foreground"
-                : "hover:bg-muted/70 active:scale-[0.98] motion-reduce:transform-none",
-            ]}>
-            <Icon class="size-4 text-muted-foreground" aria-hidden="true" />
-            {item.label}
-            {!isActive(item.href) && (
-              <span
-                class="absolute inset-0 rounded-xl in-focus:bg-accent/5 transition-colors duration-150"
-                aria-hidden="true"
-              />
-            )}
-          </a>
-        );
-      })
-    }
-  </div>
+    aria-label="Mobile navigation"
+    class="pointer-events-none invisible absolute inset-x-4 top-[calc(100%+0.5rem)] z-50 flex max-h-[calc(100dvh-5.5rem)] origin-top flex-col gap-1 overflow-y-auto overscroll-contain rounded-xl border border-foreground/15 bg-popover p-2 opacity-0 shadow-xl ring-1 ring-foreground/5 data-[state=open]:pointer-events-auto data-[state=open]:visible data-[state=open]:opacity-100">
+    {navItems.map((item) => {
+      const Icon = navigationIcons[item.href as keyof typeof navigationIcons];
+      const active = isActive(item.href);
+      return (
+        <a
+          href={item.href}
+          data-mobile-item
+          aria-current={active ? "page" : undefined}
+          class:list={[
+            "relative flex min-h-12 items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring",
+            active
+              ? "bg-muted text-foreground font-semibold"
+              : "text-muted-foreground hover:bg-muted/70 hover:text-foreground active:scale-[0.98] motion-reduce:transform-none",
+          ]}>
+          <Icon class="size-4 shrink-0" aria-hidden="true" />
+          {item.label}
+        </a>
+      );
+    })}
+
+    <Separator class="my-1" />
+
+    <a
+      href={`/resumes/${resumeData.currently_using}`}
+      data-mobile-item
+      class="flex min-h-12 items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-semibold text-foreground transition-colors duration-150 hover:bg-muted/70 active:scale-[0.98] motion-reduce:transform-none focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring">
+      <FileText
+        class="size-4 shrink-0 text-muted-foreground"
+        aria-hidden="true"
+      />
+      View resume
+    </a>
+  </nav>
 </div>
-
 <script>
-  import { animateFeedback } from "@/lib/motion";
-  let animation: ReturnType<typeof animateFeedback>;
+  import { animate, stagger } from "motion";
+
+  const header = document.getElementById("site-header");
   const button = document.getElementById("menu-button");
+  const backdrop = document.getElementById("mobile-menu-backdrop");
   const menu = document.getElementById("mobile-menu");
+  const items = menu?.querySelectorAll<HTMLAnchorElement>("[data-mobile-item]");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  window
-    .matchMedia("(prefers-reduced-motion: reduce)")
-    .addEventListener("change", (event) => {
-      if (event.matches) animation?.cancel();
-    });
+  let panelAnimation: ReturnType<typeof animate> | undefined;
+  let itemsAnimation: ReturnType<typeof animate> | undefined;
+  let backdropAnimation: ReturnType<typeof animate> | undefined;
+  let unlockScroll: (() => void) | undefined;
+  let isOpen = false;
 
-  const toggleMenu = () => {
-    const isExpanded = button?.getAttribute("aria-expanded") === "true";
-    button?.setAttribute("aria-expanded", !isExpanded ? "true" : "false");
-    menu?.setAttribute("data-state", !isExpanded ? "open" : "closed");
-    menu?.toggleAttribute("inert", isExpanded);
-    animation?.cancel();
-    if (!isExpanded && menu) {
-      animation = animateFeedback(
+  const lockScroll = () => {
+    if (unlockScroll) return;
+    const root = document.documentElement;
+    const previousOverflow = root.style.overflow;
+    const previousPadding = root.style.paddingRight;
+    const gutter = window.innerWidth - root.clientWidth;
+    if (gutter > 0) {
+      root.style.paddingRight = `${parseFloat(getComputedStyle(root).paddingRight) + gutter}px`;
+    }
+    root.style.overflow = "hidden";
+    unlockScroll = () => {
+      root.style.overflow = previousOverflow;
+      root.style.paddingRight = previousPadding;
+      unlockScroll = undefined;
+    };
+  };
+
+  const cancelAnimations = () => {
+    panelAnimation?.cancel();
+    itemsAnimation?.cancel();
+    backdropAnimation?.cancel();
+  };
+
+  const snapClosed = () => {
+    if (!button || !menu) return;
+    isOpen = false;
+    cancelAnimations();
+    unlockScroll?.();
+    button.setAttribute("aria-expanded", "false");
+    header?.setAttribute("data-menu-open", "false");
+    menu.dataset.state = "closed";
+    menu.setAttribute("inert", "");
+    menu.style.opacity = "";
+    menu.style.transform = "";
+    if (backdrop) {
+      backdrop.dataset.state = "closed";
+      backdrop.style.opacity = "";
+    }
+  };
+
+  reducedMotion.addEventListener("change", (event) => {
+    if (event.matches) cancelAnimations();
+  });
+
+  const setOpen = (open: boolean) => {
+    if (!button || !menu || isOpen === open) return;
+    isOpen = open;
+    cancelAnimations();
+    button.setAttribute("aria-expanded", String(open));
+    header?.setAttribute("data-menu-open", String(open));
+
+    if (open) {
+      lockScroll();
+      menu.dataset.state = "open";
+      menu.removeAttribute("inert");
+      if (backdrop) backdrop.dataset.state = "open";
+
+      if (reducedMotion.matches) {
+        menu.style.opacity = "1";
+        menu.style.transform = "none";
+        if (backdrop) backdrop.style.opacity = "1";
+        return;
+      }
+
+      if (backdrop) {
+        backdropAnimation = animate(
+          backdrop,
+          { opacity: [0, 1] },
+          { duration: 0.2, ease: "easeOut" },
+        );
+      }
+
+      panelAnimation = animate(
         menu,
-        [
-          { opacity: 0, transform: "translateY(-4px)" },
-          { opacity: 1, transform: "translateY(0)" },
-        ],
-        180,
+        { opacity: [0, 1], y: [-8, 0], scale: [0.98, 1] },
+        { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
+      );
+
+      if (items?.length) {
+        itemsAnimation = animate(
+          items,
+          { opacity: [0, 1], x: [-6, 0] },
+          {
+            delay: stagger(0.035),
+            duration: 0.18,
+            ease: [0.22, 1, 0.36, 1],
+          },
+        );
+      }
+      return;
+    }
+
+    unlockScroll?.();
+
+    if (reducedMotion.matches) {
+      snapClosed();
+      return;
+    }
+
+    if (backdrop) {
+      backdropAnimation = animate(
+        backdrop,
+        { opacity: [1, 0] },
+        { duration: 0.14, ease: "easeIn" },
       );
     }
+
+    panelAnimation = animate(
+      menu,
+      { opacity: [1, 0], y: [0, -6], scale: [1, 0.98] },
+      { duration: 0.14, ease: [0.4, 0, 1, 1] },
+    );
+
+    panelAnimation.finished.then(
+      () => {
+        if (!isOpen) snapClosed();
+      },
+      () => {},
+    );
   };
 
   button?.addEventListener("click", (e) => {
     e.stopPropagation();
-    toggleMenu();
+    setOpen(!isOpen);
   });
 
-  // Close when clicking outside
+  backdrop?.addEventListener("click", () => setOpen(false));
+
   document.addEventListener("click", (e) => {
-    if (
-      button?.getAttribute("aria-expanded") === "true" &&
-      !(e.target instanceof Node && menu?.contains(e.target))
-    ) {
-      toggleMenu();
+    if (isOpen && !(e.target instanceof Node && menu?.contains(e.target))) {
+      setOpen(false);
     }
   });
 
   document.addEventListener("keydown", (e) => {
-    if (
-      e.key === "Escape" &&
-      button?.getAttribute("aria-expanded") === "true"
-    ) {
-      toggleMenu();
+    if (e.key === "Escape" && isOpen) {
+      setOpen(false);
       button?.focus();
     }
   });
@@ -138,24 +238,28 @@ const isActive = (href: string) =>
   window
     .matchMedia("(min-width: 48rem)")
     .addEventListener("change", (event) => {
-      if (event.matches && button?.getAttribute("aria-expanded") === "true")
-        toggleMenu();
+      if (event.matches && isOpen) setOpen(false);
     });
 
   menu?.addEventListener("focusout", () => {
     requestAnimationFrame(() => {
       if (
-        button?.getAttribute("aria-expanded") === "true" &&
+        isOpen &&
         !menu.contains(document.activeElement) &&
         document.activeElement !== button
-      )
-        toggleMenu();
+      ) {
+        setOpen(false);
+      }
     });
   });
 
-  menu?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      toggleMenu();
-    });
+  items?.forEach((link) => {
+    link.addEventListener("click", () => setOpen(false));
   });
+
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) snapClosed();
+  });
+
+  document.addEventListener("astro:before-swap", snapClosed);
 </script>

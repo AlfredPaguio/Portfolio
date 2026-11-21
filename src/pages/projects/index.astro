@@ -20,90 +20,85 @@ const [lead, ...selected] = featured;
 <BaseLayout
   title="Projects"
   description="Software projects by Alfred Paguio. Explore practical applications, developer tools, and the work behind them.">
-  <header
-    class="mt-3 mb-9 flex flex-col items-start justify-between gap-5 sm:mb-12 sm:flex-row sm:gap-6">
+  <header class="mt-3 mb-9 flex flex-col items-start justify-between gap-5 sm:mb-12 sm:flex-row sm:gap-6">
     <div>
-      <h1
-        class="mb-4 text-[clamp(36px,5vw,48px)] leading-[1.1] font-[750] tracking-[-0.04em]">
+      <h1 class="mb-4 text-[clamp(36px,5vw,48px)] leading-[1.1] font-[750] tracking-[-0.04em]">
         Projects
       </h1>
-      <p
-        class="max-w-[52ch] text-base leading-[1.65] text-pretty text-muted-foreground sm:text-[17px]">
+      <p class="max-w-[52ch] text-base leading-[1.65] text-pretty text-muted-foreground sm:text-[17px]">
         Browse {projects.length} projects. Each card summarizes the work, shows
         its status and key technologies, and links to a demo when available.
       </p>
     </div>
     <Button
+      data-hero-resume
       href={`/resumes/${resumeData.currently_using}`}
       variant="outline"
       size="lg"
-      class="mt-1.25"><FileText aria-hidden="true" /> View current resume</Button
-    >
+      class="mt-1.25">
+      <FileText aria-hidden="true" /> View current resume
+    </Button>
   </header>
 
-  {
-    featured.length > 0 && (
-      <section aria-labelledby="selected-heading" class="mt-12">
-        <div class="mb-5 flex items-baseline justify-between gap-6">
-          <h2
-            id="selected-heading"
-            class="text-2xl leading-tight font-semibold tracking-tight">
-            Featured projects{" "}
-            <span class="ml-2 text-sm font-normal text-muted-foreground">
-              {featured.length}
-            </span>
-          </h2>
-        </div>
-        {lead && (
+  {featured.length > 0 && (
+    <section aria-labelledby="selected-heading" class="mt-12">
+      <div class="mb-5 flex items-baseline justify-between gap-6">
+        <h2
+          id="selected-heading"
+          class="text-2xl leading-tight font-semibold tracking-tight">
+          Featured projects{" "}
+          <span class="ml-2 text-sm font-normal text-muted-foreground">
+            {featured.length}
+          </span>
+        </h2>
+      </div>
+      {lead && (
+        <ProjectCard
+          project={lead}
+          layout="spotlight"
+          summaryMode="highlight"
+        />
+      )}
+      <div class="mt-5 grid gap-4 xl:grid-cols-2">
+        {selected.map((project) => (
           <ProjectCard
-            project={lead}
-            layout="spotlight"
+            project={project}
+            layout="compact"
             summaryMode="highlight"
           />
-        )}
-        <div class="mt-5 grid gap-4 xl:grid-cols-2">
-          {selected.map((project) => (
-            <ProjectCard
-              project={project}
-              layout="compact"
-              summaryMode="highlight"
-            />
-          ))}
-        </div>
-      </section>
-    )
-  }
+        ))}
+      </div>
+    </section>
+  )}
 
-  {
-    others.length > 0 && (
-      <section aria-labelledby="more-heading" class="mt-12">
-        <div class="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-          <>
-            <h2
-              id="more-heading"
-              class="text-2xl leading-tight font-semibold tracking-tight">
-              Other projects{" "}
-              <span class="ml-2 text-sm font-normal text-muted-foreground">
-                {others.length}
-              </span>
-            </h2>
-            <p class="w-full text-[13px] text-muted-foreground sm:w-auto">
-              Company websites and business systems
-            </p>
-          </>
-        </div>
-        <div class="grid gap-4">
-          {others.map((project) => (
-            <ProjectCard
-              project={project}
-              layout="compact"
-              summaryMode="highlight"
-            />
-          ))}
-        </div>
-      </section>
-    )
-  }
+  {others.length > 0 && (
+    <section aria-labelledby="more-heading" class="mt-12">
+      <div class="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+        <>
+          <h2
+            id="more-heading"
+            class="text-2xl leading-tight font-semibold tracking-tight">
+            Other projects{" "}
+            <span class="ml-2 text-sm font-normal text-muted-foreground">
+              {others.length}
+            </span>
+          </h2>
+          <p class="w-full text-[13px] text-muted-foreground sm:w-auto">
+            Company websites and business systems
+          </p>
+        </>
+      </div>
+      <div class="grid gap-4">
+        {others.map((project) => (
+          <ProjectCard
+            project={project}
+            layout="compact"
+            summaryMode="highlight"
+          />
+        ))}
+      </div>
+    </section>
+  )}
 
   <aside aria-label="AI review tools" class="mt-12 border-t border-border pt-6">
     <RecruiterCopy
@@ -112,23 +107,23 @@ const [lead, ...selected] = featured;
     />
   </aside>
 
-  <footer
-    class="mt-12 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center sm:gap-8">
+  <footer class="mt-12 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center sm:gap-8">
     <div>
       <h2 class="text-[22px] font-[650] tracking-[-0.025em] text-balance">
         Let’s talk about your next project.
-      </h2><p
-        class="mt-2 max-w-[54ch] text-sm leading-[1.7] text-muted-foreground">
+      </h2>
+      <p class="mt-2 max-w-[54ch] text-sm leading-[1.7] text-muted-foreground">
         I work mainly with Laravel and React, with a focus on application logic
         and improving existing systems.
       </p>
     </div>
-    <Button href={`mailto:${siteConfig.email}`} size="lg"
-      >Get in touch <ArrowUpRight aria-hidden="true" /></Button
-    >
+    <Button href={`mailto:${siteConfig.email}`} size="lg">
+      Get in touch <ArrowUpRight aria-hidden="true" />
+    </Button>
   </footer>
   <a
     class="mt-7 inline-block py-2 text-xs text-muted-foreground underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-4"
-    href="/rss.xml">Subscribe to project updates via RSS</a
-  >
+    href="/rss.xml">
+    Subscribe to project updates via RSS
+  </a>
 </BaseLayout>

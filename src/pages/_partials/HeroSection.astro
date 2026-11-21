@@ -13,7 +13,9 @@ import { Image } from "astro:assets";
     <p class="mb-3 text-sm font-medium text-muted-foreground">
       Junior Software Developer
     </p>
-    <h1 class="text-4xl leading-[1.12] font-extrabold tracking-tight text-balance sm:text-5xl">
+    <h1
+      data-hero-name
+      class="text-4xl leading-[1.12] font-extrabold tracking-tight text-balance sm:text-5xl">
       Alfred U. Paguio
     </h1>
     <p class="mt-5 max-w-[38ch] text-xl leading-relaxed text-pretty">
@@ -45,6 +47,7 @@ import { Image } from "astro:assets";
     </div>
     <div class="mt-6 flex flex-wrap items-center gap-2.5">
       <Button
+        data-hero-resume
         href={`/resumes/${resumeData.currently_using}`}
         size="lg"
         class="w-full sm:w-auto">

@@ -9,69 +9,111 @@ import ArrowUp from "@lucide/astro/icons/arrow-up";
   aria-label="Back to top"
   title="Back to top"
   hidden
-  class="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-40 flex size-11 items-center justify-center rounded-full border border-border bg-foreground text-background shadow-md hover:bg-foreground/85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring touch-manipulation cursor-pointer transition-colors motion-reduce:transition-none"
->
-  <ArrowUp class="size-5" aria-hidden="true" />
+  class="group fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex h-11 min-w-11 cursor-pointer items-center justify-center gap-1.5 rounded-full border border-primary/15 bg-primary px-0 text-primary-foreground shadow-lg transition-[background-color,box-shadow] duration-150 hover:bg-primary/90 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring touch-manipulation sm:px-3.5 motion-reduce:transition-none">
+  <ArrowUp
+    class="size-4.5 transition-transform duration-150 group-hover:-translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none"
+    aria-hidden="true"
+  />
+  <span
+    aria-hidden="true"
+    class="hidden text-xs font-semibold tracking-tight sm:inline">
+    Top
+  </span>
 </button>
+
 <script>
+  import { animate } from "motion";
+
   const button = document.querySelector<HTMLButtonElement>("#back-to-top");
   const header = document.querySelector("header");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
   if (button && header) {
     let pastIntro = false;
-    const updateVisibility = () => {
-      if (document.activeElement === button) return;
-      button.hidden = !pastIntro;
+    let isVisible = false;
+
+    const showButton = () => {
+      if (isVisible) return;
+      isVisible = true;
+      const wasHidden = button.hidden;
+      button.hidden = false;
+
+      if (reducedMotion.matches) {
+        animate(button, { opacity: 1, scale: 1, y: 0 }, { duration: 0 });
+        return;
+      }
+
+      if (wasHidden) {
+        animate(button, { opacity: 0, scale: 0.9, y: 12 }, { duration: 0 });
+      }
+
+      animate(
+        button,
+        { opacity: 1, scale: 1, y: 0 },
+        { duration: 0.22, ease: [0.22, 1, 0.36, 1] },
+      );
     };
+
+    const hideButton = () => {
+      if (!isVisible || document.activeElement === button) return;
+      isVisible = false;
+
+      if (reducedMotion.matches) {
+        button.hidden = true;
+        return;
+      }
+
+      animate(
+        button,
+        { opacity: 0, scale: 0.9, y: 12 },
+        { duration: 0.15, ease: [0.4, 0, 1, 1] },
+      ).finished.then(
+        () => {
+          if (!isVisible && document.activeElement !== button) {
+            button.hidden = true;
+          }
+        },
+        () => {},
+      );
+    };
+
+    const updateVisibility = () => {
+      if (pastIntro) showButton();
+      else hideButton();
+    };
+
     const sentinel = document.createElement("div");
     sentinel.setAttribute("aria-hidden", "true");
     sentinel.style.cssText =
-      "position:absolute;top:100vh;width:1px;height:1px;pointer-events:none";
+      "position:absolute;top:60vh;width:1px;height:1px;pointer-events:none";
     document.body.prepend(sentinel);
+
     new IntersectionObserver(([entry]) => {
       pastIntro = !entry.isIntersecting && entry.boundingClientRect.top < 0;
       updateVisibility();
     }).observe(sentinel);
+
     button.addEventListener("blur", updateVisibility);
+
     document
       .querySelectorAll<HTMLElement>("[data-back-to-top]")
       .forEach((control) => {
         control.addEventListener("click", (event) => {
           event.preventDefault();
-          header
-            .querySelector<HTMLAnchorElement>('a[href="/"]')
-            ?.focus({ preventScroll: true });
+          (
+            header.querySelector<HTMLAnchorElement>(
+              'a[href="/"]:not([inert])',
+            ) ??
+            header.querySelector<HTMLAnchorElement>('nav a[href="/"]') ??
+            document.querySelector<HTMLElement>("main")
+          )?.focus({ preventScroll: true });
           window.scrollTo({
             top: 0,
-            behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-              .matches
-              ? "instant"
-              : "smooth",
+            behavior: reducedMotion.matches ? "instant" : "smooth",
           });
-          button.hidden = true;
+          pastIntro = false;
+          hideButton();
         });
       });
   }
 </script>
-<style>
-  button:not([hidden]) {
-    animation: appear 160ms ease-out;
-  }
-  button[hidden] {
-    display: none;
-  }
-  @keyframes appear {
-    from {
-      opacity: 0;
-      transform: translateY(4px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    button:not([hidden]) {
-      animation: none;
-    }
-  }
-</style>

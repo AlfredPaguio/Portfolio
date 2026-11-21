@@ -3,34 +3,214 @@ import Brand from "../Brand.astro";
 import MobileMenu from "./MobileMenu.astro";
 import Navigation from "./Navigation.astro";
 import ThemeIcon from "@/components/ThemeIcon.astro";
+import Button from "@/components/ui/Button.astro";
+import Separator from "@/components/ui/Separator.astro";
+import { frontmatter as resumeData } from "@/content/resumes.md";
+import FileText from "@lucide/astro/icons/file-text";
 ---
 
-<header class="fixed top-0 inset-x-0 z-50 border-b border-border bg-background">
+<header
+  id="site-header"
+  data-scrolled="false"
+  data-menu-open="false"
+  class="group/header fixed top-0 inset-x-0 z-50">
   <div
-    class="relative mx-auto flex h-18 w-full max-w-5xl items-center justify-between gap-3 px-6"
-  >
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 -z-10 border-b border-transparent bg-transparent transition-[background-color,border-color,box-shadow] duration-200 group-data-[scrolled=true]/header:border-border group-data-[scrolled=true]/header:bg-background/85 group-data-[scrolled=true]/header:backdrop-blur-md group-data-[scrolled=true]/header:shadow-xs group-data-[menu-open=true]/header:border-border group-data-[menu-open=true]/header:bg-background/95 group-data-[menu-open=true]/header:backdrop-blur-md motion-reduce:transition-none"
+  />
+
+  <div class="relative mx-auto flex h-18 w-full max-w-5xl items-center justify-between gap-3 px-6">
     <a
       href="/"
-      aria-label="Alfred Paguio — Home"
-      class="flex min-h-11 min-w-0 items-center gap-2 rounded-lg text-foreground transition-colors hover:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring touch-manipulation"
-    >
-      <span aria-hidden="true"><Brand class="size-8" /></span>
-      <span class="truncate text-sm font-semibold tracking-tight"
-        >Alfred Paguio<span class="text-muted-foreground">.</span></span
-      >
+      aria-label="Alfred U. Paguio - Home"
+      class="group/brand flex min-h-11 min-w-0 items-center gap-2 rounded-lg text-foreground transition-colors hover:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring touch-manipulation">
+      <span
+        aria-hidden="true"
+        class="transition-transform duration-200 ease-out group-hover/brand:-rotate-6 motion-reduce:transform-none motion-reduce:transition-none">
+        <Brand class="size-8" />
+      </span>
+      <span
+        data-header-brand
+        class="truncate text-sm font-semibold tracking-tight">
+        Alfred U. Paguio
+      </span>
     </a>
 
-    <div class="flex items-center gap-1.5">
+    <div class="flex items-center">
       <div class="hidden md:block">
         <Navigation />
       </div>
 
-      <div aria-hidden="true" class="hidden md:block w-px h-5 bg-border mx-2">
+      <Separator
+        orientation="vertical"
+        aria-hidden="true"
+        class="mx-2.5 my-auto hidden h-5 md:block"
+      />
+
+      <div data-header-resume class="hidden items-center md:flex">
+        <div data-header-resume-inner class="shrink-0 py-1 pr-2">
+          <Button
+            as="a"
+            href={`/resumes/${resumeData.currently_using}`}
+            variant="secondary"
+            size="sm"
+            class="min-h-11 px-3 text-foreground">
+            <FileText class="size-3.5" aria-hidden="true" />
+            Resume
+          </Button>
+        </div>
       </div>
 
-      <ThemeIcon />
-
-      <MobileMenu />
+      <div class="flex items-center gap-1.5">
+        <ThemeIcon />
+        <MobileMenu />
+      </div>
     </div>
   </div>
 </header>
+
+<script>
+  import { animate } from "motion";
+
+  const header = document.getElementById("site-header");
+  const headerBrand = document.querySelector<HTMLElement>(
+    "[data-header-brand]",
+  );
+  const headerResume = document.querySelector<HTMLElement>(
+    "[data-header-resume]",
+  );
+  const headerResumeInner = document.querySelector<HTMLElement>(
+    "[data-header-resume-inner]",
+  );
+  const heroName = document.querySelector<HTMLElement>("[data-hero-name]");
+  const heroResume = document.querySelector<HTMLElement>("[data-hero-resume]");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (header) {
+    const sentinel = document.createElement("div");
+    sentinel.setAttribute("aria-hidden", "true");
+    sentinel.style.cssText =
+      "position:absolute;top:8px;left:0;width:1px;height:1px;pointer-events:none";
+    document.body.prepend(sentinel);
+
+    new IntersectionObserver(([entry]) => {
+      header.dataset.scrolled = String(!entry.isIntersecting);
+    }).observe(sentinel);
+  }
+
+  // Brand keeps its left flex slot so the right nav never shifts.
+  if (heroName && headerBrand) {
+    let initialized = false;
+    let isVisible: boolean | null = null;
+
+    const setBrandVisible = (show: boolean, instant: boolean) => {
+      if (isVisible === show && !instant) return;
+      isVisible = show;
+
+      if (show) {
+        headerBrand.removeAttribute("aria-hidden");
+        headerBrand.style.pointerEvents = "";
+      } else {
+        headerBrand.setAttribute("aria-hidden", "true");
+        headerBrand.style.pointerEvents = "none";
+      }
+
+      if (instant || reducedMotion.matches) {
+        animate(
+          headerBrand,
+          { opacity: show ? 1 : 0, y: show ? 0 : 8 },
+          { duration: 0 },
+        );
+        return;
+      }
+
+      animate(
+        headerBrand,
+        { opacity: show ? 1 : 0, y: show ? 0 : 8 },
+        {
+          duration: show ? 0.22 : 0.15,
+          ease: show ? [0.22, 1, 0.36, 1] : [0.4, 0, 1, 1],
+        },
+      );
+    };
+
+    new IntersectionObserver(
+      ([entry]) => {
+        const pastHero =
+          !entry.isIntersecting && entry.boundingClientRect.top < 72;
+        setBrandVisible(pastHero, !initialized);
+        initialized = true;
+      },
+      { rootMargin: "-72px 0px 0px 0px", threshold: 0 },
+    ).observe(heroName);
+  }
+
+  // Resume smoothly collapses/expands in its natural right-side slot.
+  if (heroResume && headerResume && headerResumeInner) {
+    let initialized = false;
+    let isVisible: boolean | null = null;
+
+    const setResumeVisible = (show: boolean, instant: boolean) => {
+      if (isVisible === show && !instant) return;
+      isVisible = show;
+
+      if (show) {
+        headerResume.removeAttribute("inert");
+        headerResume.style.pointerEvents = "";
+      } else {
+        headerResume.setAttribute("inert", "");
+        headerResume.style.pointerEvents = "none";
+      }
+
+      const targetWidth = headerResumeInner.offsetWidth;
+
+      if (instant || reducedMotion.matches) {
+        headerResume.style.overflow = show ? "visible" : "hidden";
+        animate(
+          headerResume,
+          { width: show ? "auto" : "0px", opacity: show ? 1 : 0 },
+          { duration: 0 },
+        );
+        return;
+      }
+
+      headerResume.style.overflow = "hidden";
+
+      if (show) {
+        animate(
+          headerResume,
+          { width: `${targetWidth}px`, opacity: 1 },
+          { duration: 0.24, ease: [0.22, 1, 0.36, 1] },
+        ).finished.then(
+          () => {
+            if (isVisible) {
+              headerResume.style.width = "auto";
+              headerResume.style.overflow = "visible";
+            }
+          },
+          () => {},
+        );
+      } else {
+        // Lock current width before collapsing from "auto".
+        if (headerResume.style.width === "auto" || !headerResume.style.width) {
+          animate(headerResume, { width: `${targetWidth}px` }, { duration: 0 });
+        }
+        animate(
+          headerResume,
+          { width: "0px", opacity: 0 },
+          { duration: 0.16, ease: [0.4, 0, 1, 1] },
+        );
+      }
+    };
+
+    new IntersectionObserver(
+      ([entry]) => {
+        const pastHero =
+          !entry.isIntersecting && entry.boundingClientRect.top < 72;
+        setResumeVisible(pastHero, !initialized);
+        initialized = true;
+      },
+      { rootMargin: "-72px 0px 0px 0px", threshold: 0 },
+    ).observe(heroResume);
+  }
+</script>

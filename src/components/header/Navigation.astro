@@ -3,32 +3,139 @@ import { navItems } from "@/data/nav";
 import Button from "@/components/ui/Button.astro";
 import { navigationIcons } from "./navigationIcons";
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) =>
+  currentPath === href || (href !== "/" && currentPath.startsWith(`${href}/`));
 ---
 
-<nav class="flex items-center gap-1" aria-label="Main navigation">
-  {
-    navItems.map((item) => {
-      const Icon = navigationIcons[item.href as keyof typeof navigationIcons];
-      const isActive =
-        currentPath === item.href ||
-        (item.href !== "/" && currentPath.startsWith(`${item.href}/`));
-      return (
-        <Button
-          variant="ghost"
-          href={item.href}
-          class:list={[
-            "relative min-h-11 gap-2 px-3 py-2 text-sm font-medium transition-colors rounded-lg touch-manipulation",
-            isActive
-              ? "bg-muted text-foreground font-semibold hover:bg-muted"
-              : "hover:bg-muted text-muted-foreground hover:text-foreground",
-          ]}
-          aria-current={isActive ? "page" : undefined}
-        >
-          <Icon class="size-4" aria-hidden="true" />
-          {item.label}
-        </Button>
-      );
-    })
-  }
+<nav
+  data-nav
+  class="relative flex items-center gap-1"
+  aria-label="Main navigation">
+  <span
+    data-nav-pill
+    aria-hidden="true"
+    style="opacity: 0"
+    class="pointer-events-none absolute top-0 left-0 h-full rounded-lg bg-muted"
+  />
+
+  {navItems.map((item) => {
+    const Icon = navigationIcons[item.href as keyof typeof navigationIcons];
+    const active = isActive(item.href);
+    return (
+      <Button
+        as="a"
+        variant="ghost"
+        href={item.href}
+        data-nav-link
+        class:list={[
+          "relative z-10 min-h-11 gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors touch-manipulation in-data-[enhanced=true]:hover:bg-transparent dark:in-data-[enhanced=true]:hover:bg-transparent",
+          active
+            ? "bg-muted text-foreground font-semibold hover:bg-muted in-data-[enhanced=true]:bg-transparent"
+            : "text-muted-foreground hover:text-foreground",
+        ]}
+        aria-current={active ? "page" : undefined}>
+        <Icon class="size-4" aria-hidden="true" />
+        {item.label}
+      </Button>
+    );
+  })}
 </nav>
+
+<script>
+  import { animate } from "motion";
+
+  const nav = document.querySelector<HTMLElement>("[data-nav]");
+  const pill = nav?.querySelector<HTMLElement>("[data-nav-pill]");
+  const links = nav?.querySelectorAll<HTMLAnchorElement>("[data-nav-link]");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (nav && pill && links?.length) {
+    nav.dataset.enhanced = "true";
+
+    let isVisible = false;
+    let lastTarget: HTMLAnchorElement | null = null;
+
+    const getActiveLink = () =>
+      nav.querySelector<HTMLAnchorElement>('[aria-current="page"]');
+
+    const placeInstant = (target: HTMLAnchorElement | null) => {
+      if (!target) {
+        isVisible = false;
+        animate(pill, { opacity: 0 }, { duration: 0 });
+        return;
+      }
+      isVisible = true;
+      animate(
+        pill,
+        {
+          x: target.offsetLeft,
+          width: target.offsetWidth,
+          opacity: 1,
+        },
+        { duration: 0 },
+      );
+    };
+
+    const moveTo = (target: HTMLAnchorElement | null) => {
+      if (
+        target === lastTarget &&
+        ((target && isVisible) || (!target && !isVisible))
+      ) {
+        return;
+      }
+      lastTarget = target;
+
+      if (reducedMotion.matches) {
+        placeInstant(target);
+        return;
+      }
+
+      if (!target) {
+        isVisible = false;
+        animate(pill, { opacity: 0 }, { duration: 0.15, ease: "easeOut" });
+        return;
+      }
+
+      const x = target.offsetLeft;
+      const width = target.offsetWidth;
+
+      if (!isVisible) {
+        isVisible = true;
+        animate(pill, { x, width }, { duration: 0 });
+        animate(pill, { opacity: 1 }, { duration: 0.15, ease: "easeOut" });
+        return;
+      }
+
+      animate(
+        pill,
+        { x, width, opacity: 1 },
+        { type: "spring", stiffness: 440, damping: 34 },
+      );
+    };
+
+    const initialActive = getActiveLink();
+    lastTarget = initialActive;
+    placeInstant(initialActive);
+
+    links.forEach((link) => {
+      link.addEventListener("pointerenter", () => moveTo(link));
+      link.addEventListener("focus", () => moveTo(link));
+    });
+
+    nav.addEventListener("pointerleave", () => moveTo(getActiveLink()));
+    nav.addEventListener("focusout", () => {
+      requestAnimationFrame(() => {
+        if (!nav.contains(document.activeElement)) {
+          moveTo(getActiveLink());
+        }
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      const active = getActiveLink();
+      lastTarget = active;
+      placeInstant(active);
+    });
+  }
+</script>

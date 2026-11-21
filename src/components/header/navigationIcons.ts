@@ -1,6 +1,4 @@
-import House from "@lucide/astro/icons/house";
-import Folder from "@lucide/astro/icons/folder";
-import Clock from "@lucide/astro/icons/clock";
+import { Clock, Folder, House } from "@lucide/astro";
 
 export const navigationIcons = {
   "/": House,
