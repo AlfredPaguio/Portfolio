@@ -1,13 +1,23 @@
 ---
+import AnchorExternalLink from "@/components/AnchorExternalLink.astro";
+import ProjectStatus from "@/components/projects/ProjectStatus.astro";
+import TechPill from "@/components/TechPill.astro";
+import Badge from "@/components/ui/Badge.astro";
+import Button from "@/components/ui/Button.astro";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Separator from "@/components/ui/Separator.astro";
 import { projectBriefs } from "@/data/project-briefs";
 import { normalizeTech } from "@/lib/utils/normalizeTech";
 import ArrowRight from "@lucide/astro/icons/arrow-right";
-import ExternalLink from "@lucide/astro/icons/external-link";
 import type { CollectionEntry } from "astro:content";
-import Button from "@/components/ui/Button.astro";
-import Card from "@/components/ui/card/Card.astro";
-import ProjectStatus from "@/components/projects/ProjectStatus.astro";
-import TechPill from "./TechPill.astro";
 
 interface Props {
   project: CollectionEntry<"projects">;
@@ -25,11 +35,13 @@ const {
 
 const { title, summary, stack, images, status, date, links } = project.data;
 const brief = projectBriefs[project.id];
+
 // Show the working application rather than its sign-in screen.
 const cover =
   project.id === "project-management-app"
     ? images.find((image) => image.src.includes("03-dashboard")) || images[0]
     : images[0];
+
 const href = `/projects/${project.id}/`;
 const demo = links.find((link) => link.type === "demo" && !link.disabled);
 
@@ -39,14 +51,18 @@ const accessibleStatusLabels = {
   archived: "Archived",
   unknown: "Current status unknown",
 } as const;
+
 const cardSummary =
   summaryMode === "highlight"
     ? brief?.highlight || brief?.purpose || summary
     : brief?.purpose || summary;
 
+const maxTechs = layout === "spotlight" ? 4 : 3;
 const visibleStack = stack
   .filter((tech) => !["php", "javascript"].includes(tech.toLowerCase()))
-  .slice(0, 3);
+  .slice(0, maxTechs);
+const remainingTechCount = Math.max(0, stack.length - visibleStack.length);
+
 const year = date
   ? new Intl.DateTimeFormat("en", { year: "numeric", timeZone: "UTC" }).format(
       date,
@@ -54,91 +70,96 @@ const year = date
   : null;
 ---
 
-<div class="@container">
+<div class="@container h-full">
   <Card
     as="article"
     data-layout={layout}
     class:list={[
-      "project-card h-full gap-0 p-0 [&_a:focus-visible]:rounded [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_a:focus-visible]:outline-offset-4",
+      "h-full gap-0 rounded-xl border border-border p-0 shadow-none ring-0 transition-colors hover:border-foreground/20 [--card-spacing:--spacing(6)] [&_a:focus-visible]:rounded [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_a:focus-visible]:outline-offset-4",
       layout === "spotlight" &&
-        "@min-[52rem]:grid @min-[52rem]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]",
+        "@min-[52rem]:grid @min-[52rem]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] @min-[52rem]:[--card-spacing:--spacing(7)]",
       layout === "compact" &&
-        "@min-[42rem]:grid @min-[42rem]:grid-cols-[13.75rem_minmax(0,1fr)]",
+        "@min-[42rem]:grid @min-[42rem]:grid-cols-[14.5rem_minmax(0,1fr)] @min-[42rem]:[--card-spacing:--spacing(5)]",
     ]}>
     <a
       href={href}
       class:list={[
-        "mx-3 mt-3 flex aspect-video items-center justify-center overflow-hidden rounded-lg bg-background p-3 max-[400px]:p-2",
+        "mx-3 mt-3 flex aspect-video items-center justify-center overflow-hidden rounded-lg border border-border/60 bg-muted/50 p-3 max-[400px]:p-2",
         layout === "spotlight" &&
-          "@min-[52rem]:my-4 @min-[52rem]:mr-0 @min-[52rem]:ml-4 @min-[52rem]:aspect-auto @min-[52rem]:min-h-[18.75rem] @min-[52rem]:p-4",
+          "@min-[52rem]:my-4 @min-[52rem]:mr-0 @min-[52rem]:ml-4 @min-[52rem]:aspect-auto @min-[52rem]:min-h-75 @min-[52rem]:p-4",
         layout === "compact" &&
           "@min-[42rem]:my-3 @min-[42rem]:mr-0 @min-[42rem]:ml-3 @min-[42rem]:self-center @min-[42rem]:p-2",
       ]}
       tabindex="-1"
       aria-hidden="true">
-      {
-        cover ? (
-          <img
-            src={cover.src}
-            alt=""
-            class:list={[
-              "block h-full w-full rounded shadow-[0_2px_8px_#00000012]",
-              project.id === "project-management-app"
-                ? "object-cover object-top"
-                : "object-contain",
-            ]}
-            width={800}
-            height={450}
-            loading="lazy"
-            decoding="async"
-          />
-        ) : (
-          <div class="p-6 text-center text-muted-foreground">{title}</div>
-        )
-      }
-    </a>
-    <div
-      class:list={[
-        "flex min-w-0 flex-1 flex-col items-start p-6 max-[400px]:p-5",
-        layout === "spotlight" && "@min-[52rem]:p-8",
-        layout === "compact" && "@min-[42rem]:px-6 @min-[42rem]:py-5",
-      ]}>
-      <div
-        class="project-card__metadata @max-[35rem]:gap-x-1.5 @max-[35rem]:text-[0.6875rem] @max-[35rem]:tracking-normal mb-3 flex w-full flex-wrap items-center gap-x-4 gap-y-2 border-b border-border pb-3 font-mono text-xs leading-normal tracking-wider text-muted-foreground uppercase">
-        <span
-          >{brief?.category || "Software project"}{year && ` / ${year}`}</span
-        >
-        <ProjectStatus
-          status={status}
-          compact
-          accessibleLabel={accessibleStatusLabels[status]}
-          class="ml-auto"
+      {cover ? (
+        <img
+          src={cover.src}
+          alt=""
+          class:list={[
+            "block h-full w-full rounded shadow-[0_2px_8px_#00000012] transition-transform duration-300 ease-out group-hover/card:scale-[1.015] motion-reduce:transform-none motion-reduce:transition-none",
+            project.id === "project-management-app"
+              ? "object-cover object-top"
+              : "object-contain",
+          ]}
+          width={800}
+          height={450}
+          loading="lazy"
+          decoding="async"
         />
-      </div>
-      <h3
-        class:list={[
-          "m-0 text-[21px] leading-tight font-[650] tracking-[-0.025em] text-balance wrap-anywhere",
-          layout === "spotlight" && "@min-[52rem]:text-3xl",
-        ]}>
-        <a href={href} class="no-underline hover:underline underline-offset-4"
-          >{title}</a
-        >
-      </h3>
-      <p
-        class:list={[
-          "mt-3 mb-4.5 max-w-[60ch] text-sm leading-[1.7] text-muted-foreground",
-          layout === "spotlight" && "@min-[52rem]:text-[0.9375rem]",
-        ]}>
-        {cardSummary}
-      </p>
-      <div
-        class:list={[
-          "project-card__techs mb-6 flex flex-wrap gap-1.5 [&_a]:min-h-8 [&_a]:gap-1.5 [&_a]:px-2.25 [&_a]:py-1.25 [&_a:focus-visible]:outline-offset-3 pointer-coarse:[&_a]:min-h-11",
-        ]}
-        aria-label="Key technologies"
-        role="group">
-        {
-          visibleStack.map((id) => {
+      ) : (
+        <div class="p-6 text-center text-sm text-muted-foreground">{title}</div>
+      )}
+    </a>
+
+    <div class="flex min-w-0 flex-1 flex-col">
+      <CardHeader class="gap-0 pt-(--card-spacing) pb-4">
+        <span class="self-center font-mono text-xs leading-normal tracking-wider text-muted-foreground uppercase @max-[35rem]:text-[0.6875rem] @max-[35rem]:tracking-normal">
+          {brief?.category || "Software project"}
+          {year && ` / ${year}`}
+        </span>
+
+        <CardAction class="row-span-1 self-center">
+          <ProjectStatus
+            status={status}
+            compact
+            accessibleLabel={accessibleStatusLabels[status]}
+          />
+        </CardAction>
+
+        <Separator class="col-span-full my-3" />
+
+        <CardTitle
+          class:list={[
+            "col-span-full text-[21px] leading-tight font-[650] tracking-[-0.025em] text-balance wrap-anywhere",
+            layout === "spotlight" && "@min-[52rem]:text-[1.75rem]",
+          ]}>
+          <h3 class="m-0 text-inherit font-inherit leading-inherit tracking-inherit">
+            <a
+              href={href}
+              class="no-underline underline-offset-4 hover:underline">
+              {title}
+            </a>
+          </h3>
+        </CardTitle>
+
+        {cardSummary && (
+          <CardDescription
+            class:list={[
+              "col-span-full mt-2.5 max-w-[60ch] leading-[1.65]",
+              layout === "spotlight" && "@min-[52rem]:text-[0.9375rem]",
+            ]}>
+            {cardSummary}
+          </CardDescription>
+        )}
+      </CardHeader>
+
+      <CardContent class="pb-5">
+        <div
+          class="flex flex-wrap items-center gap-1.5 [&_a]:min-h-8 [&_a]:gap-1.5 [&_a]:px-2.25 [&_a]:py-1.25 [&_a:focus-visible]:outline-offset-3 pointer-coarse:[&_a]:min-h-11"
+          aria-label="Key technologies"
+          role="group">
+          {visibleStack.map((id) => {
             const tech = normalizeTech(id);
             return (
               <TechPill
@@ -148,38 +169,37 @@ const year = date
                 class="border-0 bg-muted/60 font-medium"
               />
             );
-          })
-        }
-      </div>
-      <div class="mt-auto flex w-full flex-wrap items-center gap-x-5 gap-y-3">
+          })}
+          {remainingTechCount > 0 && (
+            <Badge
+              variant="secondary"
+              class="h-7 px-2.5 font-mono text-[11px] font-medium text-muted-foreground"
+              aria-label={`${remainingTechCount} more technologies`}>
+              +{remainingTechCount}
+            </Badge>
+          )}
+        </div>
+      </CardContent>
+
+      <CardFooter class="mt-auto flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-none border-t border-border/70 bg-muted/25 px-(--card-spacing) py-3">
         <Button
           as="a"
           href={href}
-          variant={layout === "spotlight" ? "outline" : "ghost"}
-          size="lg"
-          class="h-auto min-h-11 justify-start px-3 text-[13px] font-semibold no-underline"
-          aria-label={`Read project: ${title}`}
-          >Read project <ArrowRight class="size-4" aria-hidden="true" /></Button
-        >
-        {
-          demo && (
-            <Button
-              as="a"
-              href={demo.url}
-              variant="link"
-              size="lg"
-              class="h-auto min-h-11 justify-start px-2 text-[13px] text-muted-foreground no-underline"
-              target="_blank"
-              rel="noopener noreferrer">
-              Open live demo{" "}
-              <>
-                <ExternalLink class="size-3.5" aria-hidden="true" />
-                <span class="sr-only"> (opens in a new tab)</span>
-              </>
-            </Button>
-          )
-        }
-      </div>
+          variant={layout === "spotlight" ? "default" : "outline"}
+          size="sm"
+          class="min-h-11 px-3.5 text-[13px] font-semibold no-underline"
+          aria-label={`Read project: ${title}`}>
+          Read project <ArrowRight class="size-4" aria-hidden="true" />
+        </Button>
+
+        {demo && (
+          <AnchorExternalLink
+            href={demo.url}
+            class="min-h-11 px-2 text-[13px] font-medium text-muted-foreground no-underline hover:text-foreground">
+            Live demo
+          </AnchorExternalLink>
+        )}
+      </CardFooter>
     </div>
   </Card>
 </div>
